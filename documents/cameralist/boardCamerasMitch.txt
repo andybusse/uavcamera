@@ -2,12 +2,15 @@
 
 * low light visibility BW Sony camera (£45)
 http://www.rfconcepts.co.uk/board_camera_bw_low_light.htm
+- composite output
 
 * colour pinhole Sony camera (£67-£79)
 http://www.rfconcepts.co.uk/board-pinhole-sony.htm
+- composite output
 
 * high resolution colour board camera (£55)
 http://www.rfconcepts.co.uk/32chn-vc.pdf
+- composite output
 
 * waterproof models (£64-£65)
 
@@ -17,6 +20,7 @@ http://www.rfconcepts.co.uk/32chn-vc.pdf
 
 * Colour camera board (£39)
 http://www.cameras-cctv-uk.com/Camera-Board-32C-B36A-Colour-36mm-P91C127.aspx
+- can't find datasheet
 
 -Pinholes-
 
@@ -27,6 +31,22 @@ http://www.cameras-cctv-uk.com/Camera-Board-32B-P37CA-BW-CONE-Pinhole-P144C64.as
 
 * Low light camera board (£48)
 http://www.cameras-cctv-uk.com/Camera-Board-1004XCSO-P81C59.aspx
+
+--www.quasarelectronics.com--
+
+* C3188A - 1/3" Digital Output Colour Camera Module (OV7620) (£49)
+http://www.quasarelectronics.com/c3188a-digital-output-cmos-colour-camera-module-omnivision-ov7620.htm
+- digital
+
+
+--www.framos-imaging.com--
+
+* Digital cameraphone type camera modules
+http://www.framos-imaging.com/digital_output_module.html?&L=1
+
+* Camera Module - Serial JPEG RS232 (£44)
+http://www.coolcomponents.co.uk/catalog/product_info.php?products_id=370
+- digital jpeg output
 
 --Extras--
 

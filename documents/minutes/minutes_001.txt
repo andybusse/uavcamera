@@ -19,6 +19,10 @@ List of questions:
 * When do we receive the module for testing?
 * Which image format is acceptable? .jpg?
 * Will we get to play with a UAV?
+* Will the camera need to be waterproof?
+* Any requirements for lens? (Pinhole etc?)
+* Does it need to have any specific output format (e.g. digital)?
+* Do we have to use the autopilot or can we build a standalone system?
 
 Skills audit:
 
