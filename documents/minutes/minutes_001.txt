@@ -1,0 +1,35 @@
+List of questions:
+
+* Which OS will be used?
+* What software are we expected to use/are allowed to use/are not allowed to use/is recommended?
+* Will the camera require an auto-focus feature?
+* Is there an expected/existing camera set-up?
+* Which cameras are suitable (will required prepared list)?
+* Is there any documentation/specification available for the auto-pilot?
+* Will the auto-pilot need to be modified in any significant way during the project?
+* Will a form of blur reduction be required for the camera?
+* What does the 38.4 kbs transfer rate refer to?
+* Will it be necessary to build software into any pre-existing hardware, or will the code be stand-alone?
+* What does the "ground station" refer to?
+* How will the camera be powered?
+* How robust and reliable would the communications link be?
+* Should the camera be in black and white or colour?
+* Will the camera need a prompt, or will it take images at certain intervals?
+* Are there weight limitations that must be respected?
+* When do we receive the module for testing?
+* Which image format is acceptable? .jpg?
+* Will we get to play with a UAV?
+
+Skills audit:
+
+* Andrew: Power systems, PCB construction, control, MATLAB
+* Mitch: Image Processing, MATLAB, ASM, reports.
+* John: MATLAB, Image processing, control, radio-transmissions
+* Peak: Digital control, display, MATLAB, bitrate tranfer
+* Micheal: C++, Python, C#, java, microprocessors, systems interfacing, getting images from a camera
+
+Camera list recommendations:
+* UK based retailer
+* variety of resolutions and features to choose from
+* Must have proof of proper functioning (reviews)
+* up to £100
