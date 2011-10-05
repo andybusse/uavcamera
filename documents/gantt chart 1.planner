@@ -17,11 +17,11 @@
         </overridden-day-type>
       </overridden-day-types>
       <days>
-        <day date="20111029" type="day-type" id="0"/>
-        <day date="20111022" type="day-type" id="0"/>
-        <day date="20111015" type="day-type" id="0"/>
-        <day date="20111008" type="day-type" id="0"/>
         <day date="20111001" type="day-type" id="0"/>
+        <day date="20111022" type="day-type" id="0"/>
+        <day date="20111029" type="day-type" id="0"/>
+        <day date="20111008" type="day-type" id="0"/>
+        <day date="20111015" type="day-type" id="0"/>
       </days>
     </calendar>
   </calendars>
@@ -194,7 +194,15 @@
       </predecessors>
     </task>
   </tasks>
-  <resource-groups/>
-  <resources/>
+  <resource-groups>
+    <group id="1" name="" admin-name="" admin-phone="" admin-email=""/>
+  </resource-groups>
+  <resources>
+    <resource id="1" name="Andrew" short-name="ab" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="2" name="John" short-name="jc" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="3" name="Peak" short-name="pk" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="4" name="Mitch" short-name="ps" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="5" name="Michael" short-name="mh" type="1" units="0" email="" note="" std-rate="0"/>
+  </resources>
   <allocations/>
 </project>
