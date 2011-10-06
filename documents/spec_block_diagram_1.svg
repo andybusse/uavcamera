@@ -85,10 +85,16 @@
        height="86.242599"
        x="18.86158"
        y="-112.95123"
-       transform="scale(1,-1)" />
+       transform="scale(1,-1)"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <g
        style="stroke-width:0.68992788;stroke-miterlimit:4;stroke-dasharray:0.68992788, 0.68992788;stroke-dashoffset:0"
-       id="g4514">
+       id="g4514"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          sodipodi:linespacing="125%"
          id="text3773"
@@ -107,20 +113,29 @@
        width="127.67428"
        height="86.242599"
        x="181.87715"
-       y="26.383743" />
+       y="26.383743"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:11.9532938px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="192.75262"
        y="72.481827"
        id="text3777"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan3779"
          x="192.75262"
          y="72.481827">Payload controller</tspan></text>
     <g
-       id="g4504">
+       id="g4504"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="25.243601"
          x="470.75824"
@@ -142,7 +157,10 @@
     </g>
     <g
        id="g4524"
-       transform="translate(3.0304576,28.284271)">
+       transform="translate(3.0304576,28.284271)"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.68992788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          id="rect3815"
@@ -168,7 +186,10 @@
     </g>
     <g
        id="g4529"
-       transform="translate(3.0304576,28.284271)">
+       transform="translate(3.0304576,28.284271)"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="231.6709"
          x="185.96706"
@@ -201,14 +222,20 @@
        height="125.63852"
        x="7.8837028"
        y="-141.89949"
-       transform="scale(1,-1)" />
+       transform="scale(1,-1)"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:20.97037125px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="559.22333"
        y="137.83156"
        id="text3858"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan3860"
          x="559.22333"
@@ -219,14 +246,20 @@
        height="86.242599"
        width="127.67428"
        id="rect3862"
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.68992788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5.51942301,5.51942301;stroke-dashoffset:0" />
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.68992788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5.51942301,5.51942301;stroke-dashoffset:0"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        sodipodi:linespacing="125%"
        id="text3864"
        y="295.53409"
        x="529.36987"
        style="font-size:11.72734356px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          y="295.53409"
          x="531.23663"
          id="tspan3866"
@@ -246,20 +279,29 @@
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
        d="m 146.21958,69.736293 c 35.35534,0 35.60788,0 35.60788,0"
        id="path3870"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        inkscape:connector-curvature="0"
        id="path4502"
        d="m 311.63206,68.599871 c 35.35534,0 157.03645,0 157.03645,0"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:12.11924839px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="387.01465"
        y="89.750771"
        id="text4540"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4542"
          x="387.01465"
@@ -277,20 +319,29 @@
        height="125.63852"
        width="601.43579"
        id="rect4546"
-       style="fill:none;stroke:#000000;stroke-width:0.68992788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+       style="fill:none;stroke:#000000;stroke-width:0.68992788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        sodipodi:nodetypes="cc"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
        d="m 316.68282,306.99587 c 35.35534,0 143.46502,0 143.46502,0"
        id="path4550"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        sodipodi:linespacing="125%"
        id="text4552"
        y="328.14676"
        x="392.0654"
        style="font-size:12.11924839px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-size:12.11924839px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan4556"
          y="328.14676"
@@ -301,14 +352,20 @@
        id="path4560"
        d="m 153.03811,306.99587 c 35.35534,0 35.3787,0 35.3787,0"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        sodipodi:linespacing="125%"
        id="text4942"
        y="191.00024"
        x="330.17596"
        style="font-size:14.77836418px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-size:14.77836418px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan4946"
          y="191.00024"
@@ -318,24 +375,36 @@
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
        d="M 88.571429,258.07647 210,187.36218 l 189.28571,25 142.14286,-102.14286"
        id="path4957"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 32.324885,410.91532 55.55839,0"
        id="path5327"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        inkscape:connector-curvature="0"
        id="path5329"
        d="m 32.324885,435.15898 55.55839,0"
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8, 8;stroke-dashoffset:0" />
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8, 8;stroke-dashoffset:0"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:12.8614521px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="97.617836"
        y="415.28622"
        id="text5331"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan5333"
          x="97.617836"
@@ -346,7 +415,10 @@
        y="437.28622"
        x="97.617836"
        style="font-size:12.8614521px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          y="437.28622"
          x="97.617836"
          id="tspan5337"
@@ -358,14 +430,20 @@
        height="70.080109"
        width="219.5981"
        id="rect5341"
-       style="fill:none;stroke:#000000;stroke-width:0.68992788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+       style="fill:none;stroke:#000000;stroke-width:0.68992788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:17.24219894px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="27.48737"
        y="398.36542"
        id="text5343"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/michael/gdp/uavcamera/documents/spec_block_diagram_1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan5345"
          x="27.48737"
