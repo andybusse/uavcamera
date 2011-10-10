@@ -1,0 +1,20 @@
+Unmanned Aircraft Camera Module
+
+(Full specification including deliverables for this project is contained in documents/Agreed_Spec_Gantt_GDP18.pdf)
+
+Repository Structure:
+* documents: Project Management foo, foo that requires submission (reports, presentations + whatnot), minutes of meetings, etc.
+* Matlab: Matlab code to test image compression methods.
+* sample_peripheral: Schematics and Code for a simple AVR-based peripheral for the autopilot module. Supplied by the customer.
+
+A Group Design Project (ELEC6050) - School of Electronics and Computer Science, University of Southampton.
+
+GDP Group 18 Members:
+Andrew Busse <Andrew.Busse@zepler.net>
+John Charlesworth <jgac1g08@ecs.soton.ac.uk>
+Michael Hodgson <mh23g08@ecs.soton.ac.uk>
+Paramithi Svastisinha <ps6g08@ecs.soton.ac.uk>
+Piyabhum Sornpaisarn <ps26g08@ecs.soton.ac.uk>
+
+Supervisor: Dr. Rob Maunder <rm@ecs.soton.ac.uk>
+Customer: Dr. Matt Bennett <m.bennett@skycircuits.com>
