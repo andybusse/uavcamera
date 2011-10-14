@@ -16,7 +16,7 @@ Work for the coming week (12/10 - 19/10)
 * Order remaining parts for prototyping autopilot peripheral from Farnell on 12/10 am [John, Michael]
 * Construct a prototype autopilot peripheral, based on client's schematics [Andy, Peak]
 * Play around with DSPs given to us by stores/supervisor, run an FFT on them (- Progressive JPEG?) [Andy, Peak]
-* MATLAB Compression - Image Specific, and general [Mitch, Michael]
+* MATLAB Compression - Image Specific, and general [Mitch, Michael, John]
 * Payload Controller - Ground Station Protocol (i.e. sending commands to a payload, receiving data back from it) (SCPI?) [Andy, Peak]
 
 -----

@@ -1,13 +1,31 @@
-
+#include <SoftwareSerial.h>
 byte SYNC[] = {0xAA,0x0D,0x00,0x00,0x00,0x00};
 byte RXtest[6];
 
+#define sRxPin 2
+#define sTxPin 3
+
+SoftwareSerial sSerial = SoftwareSerial(sRxPin, sTxPin);
+
 void setup()
 {
-  // start serial port at 115200 bps:
+  // start serial port at 115200 bps
   Serial.begin(115200);
+  
+  // start software serial library for debugging
+  pinMode(sRxPin, INPUT);
+  pinMode(sTxPin, OUTPUT);
+  sSerial.begin(9600);
+  /*while (true) {
+   char someChar = sSerial.read();
+   sSerial.print("(");
+   sSerial.print(someChar);
+   sSerial.print(")");
+   }*/
+  
+  sSerial.println("Attemting to establish contact.");
   establishContact();  // send a byte to establish contact until receiver responds
-  Serial.println("Contact established, captain"); 
+  sSerial.println("Contact established, captain"); 
   delay(2000); // 2 second pause
 }
 
@@ -15,29 +33,33 @@ void loop()
 {
   boolean wellness = takeSnapshot();
   if(wellness){
-   Serial.println("All's well");
+   sSerial.println("All's well");
    delay(200);
   }else{
-    Serial.println("Trouble at mill...");
+    sSerial.println("Trouble at mill...");
   }
 }
 
 void establishContact() {
+  sSerial.print("Sending syncs");
   while(1){
     while (Serial.available() <= 0) {
+      sSerial.print(".");
       sendSYNC();
       delay(50);
     }
-
+    
     receiveComd();
  
     if(!isACK(RXtest,0x0D,0x00,0x00))
       continue;
-     
+    sSerial.println("\nACK received");
     receiveComd();
      
    if(!isSYNC(RXtest))
      continue;
+   
+   sSerial.println("SYNC received");
    
    sendACK(0x0D,0x00,0x00,0x00);
    
