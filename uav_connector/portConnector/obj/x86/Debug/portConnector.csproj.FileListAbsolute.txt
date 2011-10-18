@@ -1,0 +1,5 @@
+c:\users\peak\documents\visual studio 2010\Projects\portConnector\portConnector\bin\Debug\portConnector.exe
+c:\users\peak\documents\visual studio 2010\Projects\portConnector\portConnector\bin\Debug\portConnector.pdb
+c:\users\peak\documents\visual studio 2010\Projects\portConnector\portConnector\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\peak\documents\visual studio 2010\Projects\portConnector\portConnector\obj\x86\Debug\portConnector.exe
+c:\users\peak\documents\visual studio 2010\Projects\portConnector\portConnector\obj\x86\Debug\portConnector.pdb
