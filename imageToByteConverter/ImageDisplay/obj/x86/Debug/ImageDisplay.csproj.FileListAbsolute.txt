@@ -1,0 +1,9 @@
+c:\users\peak\documents\visual studio 2010\Projects\ImageDisplay\ImageDisplay\bin\Debug\ImageDisplay.exe
+c:\users\peak\documents\visual studio 2010\Projects\ImageDisplay\ImageDisplay\bin\Debug\ImageDisplay.pdb
+c:\users\peak\documents\visual studio 2010\Projects\ImageDisplay\ImageDisplay\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\peak\documents\visual studio 2010\Projects\ImageDisplay\ImageDisplay\obj\x86\Debug\ImageDisplay.Properties.Resources.resources
+c:\users\peak\documents\visual studio 2010\Projects\ImageDisplay\ImageDisplay\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\users\peak\documents\visual studio 2010\Projects\ImageDisplay\ImageDisplay\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\users\peak\documents\visual studio 2010\Projects\ImageDisplay\ImageDisplay\obj\x86\Debug\ImageDisplay.exe
+c:\users\peak\documents\visual studio 2010\Projects\ImageDisplay\ImageDisplay\obj\x86\Debug\ImageDisplay.pdb
+C:\Users\peak\documents\visual studio 2010\Projects\ImageDisplay\ImageDisplay\obj\x86\Debug\ImageDisplay.ImageHandler.resources
