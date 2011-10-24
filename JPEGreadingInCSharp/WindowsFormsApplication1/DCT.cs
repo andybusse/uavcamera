@@ -74,19 +74,21 @@ namespace ImagingMethod
             {
                 case SOI:
                     //Start Of Image    Payload: none
+                    //Mitch Work
+
                     Console.WriteLine("start of the image");
                     break;
                 case SOF0:
                     //Start Of Frame (Baseline DiscreteCosineTransform)    Payload:variable size
-
+                    //Mitch Work
                     break;
                 case SOF2:
                     //Start Of Frame (Progressive DiscreteCosineTransform)    Payload:variable size
-
+                    //Mitch Work
                     break;
                 case DHT:
                     //Define Huffman Table(s)    Payload:variable size
-
+                    //Michael Work
                     break;
                 case DQT:
                     double[,] g = new double[8, 8];//sub Image array
@@ -109,7 +111,7 @@ namespace ImagingMethod
                     break;
                 case SOS:
                     //Start Of Scan    Payload:variable size
-
+                    //Peak Work
                     break;
 
                 case RSTn0:
@@ -125,13 +127,14 @@ namespace ImagingMethod
                     break;
                 case APPn:
                     //Application-specific    Payload:variable size
-
+                    //Mitch Work
                     break;
                 case COM:
                     //Comment    Payload:variable size
 
                     break;
                 case EOI:
+                    //Mitch Work
                     //End Of Image    Payload:none
 
                     break;
