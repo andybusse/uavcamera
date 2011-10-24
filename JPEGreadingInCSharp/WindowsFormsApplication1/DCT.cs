@@ -74,36 +74,38 @@ namespace ImagingMethod
             {
                 case SOI:
                     //Start Of Image    Payload: none
-                    //Mitch Work
-
                     Console.WriteLine("start of the image");
                     break;
                 case SOF0:
                     //Start Of Frame (Baseline DiscreteCosineTransform)    Payload:variable size
-                    //Mitch Work
+
                     break;
                 case SOF2:
                     //Start Of Frame (Progressive DiscreteCosineTransform)    Payload:variable size
-                    //Mitch Work
+
                     break;
                 case DHT:
                     //Define Huffman Table(s)    Payload:variable size
-                    //Michael Work
+
                     break;
                 case DQT:
                     double[,] g = new double[8, 8];//sub Image array
                     double[,] G = new double[8, 8];//two-dimensional DCT
                     double[,] Q = new double[8, 8];//A typical quantization matrix, as specified in the original JPEG Standard
                     int[,] B = new int[8, 8];//The quantized DCT coefficients are computed with
-                    int quantizationLength = 0x00;
-                    int numberOfQuantizationTable = 0x00;
-                    quantizationLength = getLength(dataOfJPEG, countCheckforCommand);
+                    int[][,] allDQTTable;
+                    int quantizationTableLength = 0x00;
+                    int quantizationTableNumber = 0x00;
+                    quantizationTableLength = twoBytesToUint16(dataOfJPEG[countCheckforCommand],dataOfJPEG[countCheckforCommand+1]);
                     countCheckforCommand = countCheckforCommand + 2;
-                    
+                    allDQTTable=new int[quantizationTableLength][,];
+                    quantizationTableNumber =twoBytesToUint16(dataOfJPEG[countCheckforCommand],dataOfJPEG[countCheckforCommand+1]);
+                    countCheckforCommand=countCheckforCommand+2;
                     g = subImage(JPEGCode, dataOfJPEG, countCheckforCommand); //define g
                     G = DCT(g); //define G
                     Q = this.quantizationMatrixForStandardJPEG();//define Q
                     B = this.quantizedDCTcoefficient(G, Q);
+                    allDQTTable[quantizationTableNumber]=B;
                     break;
                 case DRI:
                     //Define Restart Interval    Payload:2bytes
@@ -111,7 +113,7 @@ namespace ImagingMethod
                     break;
                 case SOS:
                     //Start Of Scan    Payload:variable size
-                    //Peak Work
+
                     break;
 
                 case RSTn0:
@@ -127,14 +129,13 @@ namespace ImagingMethod
                     break;
                 case APPn:
                     //Application-specific    Payload:variable size
-                    //Mitch Work
+
                     break;
                 case COM:
                     //Comment    Payload:variable size
 
                     break;
                 case EOI:
-                    //Mitch Work
                     //End Of Image    Payload:none
 
                     break;
@@ -167,9 +168,7 @@ namespace ImagingMethod
                 {
                     g[countX, countY] = subImageData[countData];
                 }
-            
             }
-
             return g;
         }
         private double[,] DCT(double[,] g)//input g output G
@@ -250,13 +249,7 @@ namespace ImagingMethod
             }
             return output;
         }
-        private int getLength(byte[] dataOFJPEG, int countCheckforCommand)
-        {
-            int length = 0;
 
-
-            return length;
-        }
         private double[,] subImage(int JPEGCode, byte[] dataOfJPEG, int countCheckforCommand)
         {
             double[,] quantizedData = new double[8, 8];//8x8 and a bit more 
