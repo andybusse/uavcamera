@@ -79,6 +79,43 @@ namespace ImagingMethod
                 case SOF0:
                     //Start Of Frame (Baseline DiscreteCosineTransform)    Payload:variable size
 
+                    // Variable initialization
+                    int sof0Length;         // length of sof0 data segment
+                    int precision;          // data precision
+                    int height;             // image height
+                    int width;              // image width
+                    int numberOfComponents; // describes image colour type. Usually:
+                                            // 1 = grey scaled
+                                            // 3 = colour YcbCr or YIQ
+                                            // 4 = colour CMYK
+
+                    // Data segment reading
+                    countCheckforCommand = countCheckforCommand + 2; // Now reading: Length data
+                    sof0Length = twoBytesToUint16(dataOfJPEG[countCheckforCommand], dataOfJPEG[countCheckforCommand + 1]);
+
+                    countCheckforCommand = countCheckforCommand + 2; // Now reading: Data precision
+                    precision = dataOfJPEG[countCheckforCommand];
+
+                    countCheckforCommand = countCheckforCommand + 1; // Now reading: Image height
+                    height = twoBytesToUint16(dataOfJPEG[countCheckforCommand], dataOfJPEG[countCheckforCommand + 1]);
+
+                    countCheckforCommand = countCheckforCommand + 2; // Now reading: Image width
+                    width = twoBytesToUint16(dataOfJPEG[countCheckforCommand], dataOfJPEG[countCheckforCommand + 1]);
+
+                    countCheckforCommand = countCheckforCommand + 2; // Now reading: Number of components
+                    numberOfComponents = dataOfJPEG[countCheckforCommand];
+
+                    int numberOfData = sof0Length - 8;
+                    byte[] sof0comp = new byte[numberOfData]; // Initialization of component data storage array
+
+                    countCheckforCommand = countCheckforCommand + 1; // Now reading: First component
+
+                    for (int i = 0; i < numberOfData ; i++ )
+                    {
+                        sof0comp[i] = dataOfJPEG[countCheckforCommand];
+                        countCheckforCommand = countCheckforCommand + 1;// Now reading: Next component
+                    }
+
                     break;
                 case SOF2:
                     //Start Of Frame (Progressive DiscreteCosineTransform)    Payload:variable size
@@ -166,12 +203,12 @@ namespace ImagingMethod
                     countCheckforCommand++;
                     thumbnailHeight = dataOfJPEG[countCheckforCommand];
                     bytesToBeRead = new byte[thumbnailWidth * thumbnailHeight * 3];
-                    do
+                    while (dataOfJPEG[countCheckforCommand] != 0xff)
                     {
                         bytesToBeRead[countByteToBeRead] = dataOfJPEG[countCheckforCommand];
+                        countByteToBeRead++;
 
-
-                    } while (dataOfJPEG[countCheckforCommand] != 0xff);
+                    } 
                     break;
                 case COM:
                     //Comment    Payload:variable size

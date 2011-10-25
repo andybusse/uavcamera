@@ -6,3 +6,5 @@ c:\users\peak\documents\visual studio 2010\Projects\WindowsFormsApplication1\Win
 c:\users\peak\documents\visual studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\GenerateResource.write.1.tlog
 c:\users\peak\documents\visual studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
 c:\users\peak\documents\visual studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.pdb
+H:\GDP\SVN\GDP\displayPixel\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
+H:\GDP\SVN\GDP\displayPixel\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.pdb

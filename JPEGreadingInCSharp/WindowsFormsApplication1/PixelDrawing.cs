@@ -34,7 +34,7 @@ namespace ImagingMethod
         private void MyIni()
         {
             myBrush = new SolidBrush(Color.FromArgb(255, 60, 60));
-            imageFromFile = Image.FromFile("C:\\Users\\peak\\Desktop\\yellow.jpg");
+            imageFromFile = Image.FromFile("D:\\Pics\\Avatars\\Okami.jpg");
             imageByte = new byte[imageFromFile.Width * imageFromFile.Height + 18];
             dct.ImageToByte(imageFromFile);
 
