@@ -28,7 +28,7 @@ namespace ImagingMethod
                     RSTn5 = 0xFFD5,             //Restart    Payload:none
                     RSTn6 = 0xFFD6,             //Restart    Payload:none
                     RSTn7 = 0xFFD7,             //Restart    Payload:none
-                    APPn = 0xFFE0,              //Application-specific    Payload:variable size
+                    APP0 = 0xFFE0,              //Application-specific    Payload:variable size
                     COM = 0xFFFE,               //Comment    Payload:variable size
                     EOI = 0xFFD9;               //End Of Image    Payload:none
         public void ImageToByte(Image img)//This one works well so far
@@ -96,11 +96,13 @@ namespace ImagingMethod
                     int[][,] allDQTTable;
                     int quantizationTableLength = 0x00;
                     int quantizationTableNumber = 0x00;
+                    int QTInformation = 0;
+                    countCheckforCommand = countCheckforCommand + 2;
                     quantizationTableLength = twoBytesToUint16(dataOfJPEG[countCheckforCommand],dataOfJPEG[countCheckforCommand+1]);
                     countCheckforCommand = countCheckforCommand + 2;
+                    QTInformation = dataOfJPEG[countCheckforCommand];
+                    countCheckforCommand++;
                     allDQTTable=new int[quantizationTableLength][,];
-                    quantizationTableNumber =twoBytesToUint16(dataOfJPEG[countCheckforCommand],dataOfJPEG[countCheckforCommand+1]);
-                    countCheckforCommand=countCheckforCommand+2;
                     g = subImage(JPEGCode, dataOfJPEG, countCheckforCommand); //define g
                     G = DCT(g); //define G
                     Q = this.quantizationMatrixForStandardJPEG();//define Q
@@ -127,9 +129,49 @@ namespace ImagingMethod
                     //Restart    Payload:none
 
                     break;
-                case APPn:
+                case APP0:
                     //Application-specific    Payload:variable size
+                    int length;
+                    bool fileIdentifierMark;
+                    int majorRevisionNumber;
+                    int minorRevisionNumber;
+                    int unitForXYDensities;
+                    int xDensity;
+                    int yDensity;
+                    int thumbnailWidth;
+                    int thumbnailHeight;
+                    byte[] bytesToBeRead;
+                    int countByteToBeRead=0;
 
+                    countCheckforCommand = countCheckforCommand + 2;
+                    length = twoBytesToUint16(dataOfJPEG[countCheckforCommand], dataOfJPEG[countCheckforCommand + 1]);
+                    countCheckforCommand = countCheckforCommand + 2;
+                    fileIdentifierMark = (dataOfJPEG[countCheckforCommand] == 0x4A&&
+                                          dataOfJPEG[countCheckforCommand+1] == 0x46&&
+                                          dataOfJPEG[countCheckforCommand+2] == 0x49&&
+                                          dataOfJPEG[countCheckforCommand+3] == 0x46&&
+                                          dataOfJPEG[countCheckforCommand+4] == 0x00);
+                    countCheckforCommand = countCheckforCommand + 5;
+                    majorRevisionNumber = dataOfJPEG[countCheckforCommand];
+                    countCheckforCommand++;
+                    minorRevisionNumber = dataOfJPEG[countCheckforCommand];
+                    countCheckforCommand++;
+                    unitForXYDensities = dataOfJPEG[countCheckforCommand];
+                    countCheckforCommand++;
+                    xDensity = twoBytesToUint16(dataOfJPEG[countCheckforCommand], dataOfJPEG[countCheckforCommand + 1]);
+                    countCheckforCommand = countCheckforCommand + 2;
+                    yDensity = twoBytesToUint16(dataOfJPEG[countCheckforCommand], dataOfJPEG[countCheckforCommand + 1]);
+                    countCheckforCommand = countCheckforCommand + 2;
+                    thumbnailWidth = dataOfJPEG[countCheckforCommand];
+                    countCheckforCommand++;
+                    thumbnailHeight = dataOfJPEG[countCheckforCommand];
+                    bytesToBeRead = new byte[thumbnailWidth * thumbnailHeight * 3];
+                    do
+                    {
+                        bytesToBeRead[countByteToBeRead] = dataOfJPEG[countCheckforCommand];
+
+
+                    } while (dataOfJPEG[countCheckforCommand] != 0xff);
                     break;
                 case COM:
                     //Comment    Payload:variable size
