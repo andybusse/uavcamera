@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DCT.cs" />
+    <Compile Include="JPEGFileReader.cs" />
     <Compile Include="PixelDrawing.cs">
       <SubType>Form</SubType>
     </Compile>
