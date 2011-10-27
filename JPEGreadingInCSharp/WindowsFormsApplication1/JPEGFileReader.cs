@@ -144,7 +144,7 @@ namespace ImagingMethod
                     double[,] G = new double[8, 8];//two-dimensional DCT
                     double[,] Q = new double[8, 8];//A typical quantization matrix, as specified in the original JPEG Standard
                     int[,] B = new int[8, 8];//The quantized DCT coefficients are computed with
-                    int[][,] allDQTTable;
+                    double[][,] allDQTTable;
                     int quantizationTableLength = 0x00;
                     int quantizationTableNumber = 0x00;
                     int QTInformation = 0;
@@ -153,12 +153,12 @@ namespace ImagingMethod
                     countCheckforCommand = countCheckforCommand + 2;
                     QTInformation = dataOfJPEG[countCheckforCommand];
                     countCheckforCommand++;
-                    allDQTTable = new int[quantizationTableLength][,];
+                    allDQTTable = new double[quantizationTableLength][,];
                     g = subImage(JPEGCode, dataOfJPEG, countCheckforCommand); //define g
-                    G = DCT(g); //define G
-                    Q = this.quantizationMatrixForStandardJPEG();//define Q
-                    B = this.quantizedDCTcoefficient(G, Q);
-                    allDQTTable[quantizationTableNumber] = B;
+                    //G = DCT(g); //define G
+                    //Q = this.quantizationMatrixForStandardJPEG();//define Q
+                    //B = this.quantizedDCTcoefficient(G, Q);
+                    allDQTTable[quantizationTableNumber] = g;
                     countCheckforCommand = countCheckforCommand + 64;
                     break;
                 case DRI:

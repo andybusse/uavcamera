@@ -15,7 +15,7 @@ namespace ImagingMethod
         SolidBrush myBrush, bT = new SolidBrush(Color.Black);
         Image imageFromFile; //image for testing
         byte[] imageByte; //byte of image pure JPEG dataOfJPEG
-        DiscreteCosineTransform dct = new DiscreteCosineTransform();
+        JPEGFileReader JPEGReader = new JPEGFileReader();
 
         public ImagingMethod()
         {
@@ -36,7 +36,7 @@ namespace ImagingMethod
             myBrush = new SolidBrush(Color.FromArgb(255, 60, 60));
             imageFromFile = Image.FromFile("D:\\Pics\\Avatars\\Okami.jpg");
             imageByte = new byte[imageFromFile.Width * imageFromFile.Height + 18];
-            dct.ImageToByte(imageFromFile);
+            JPEGReader.ImageToByte(imageFromFile);
 
         }
         static void Main()
