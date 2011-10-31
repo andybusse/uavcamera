@@ -9,6 +9,7 @@
 #include "io_pins.h"
 #include "adc.h"
 #include "timer.h"
+#include "peak_test.h"
 
 int main()
 {
@@ -19,11 +20,11 @@ int main()
 	
 	// enable global interrupts
 	sei();
-	uint8_t my_data[8]={0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8};
+	
 	while (1)
 	{
 		comms_update();
-		send_set_class_item(2,3,my_data,8);
+		peak_test_send_int();
 		//send_text("Hello World!");
 		if (adc_z_want_update)
 			adc_buffer_update();

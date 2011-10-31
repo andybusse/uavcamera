@@ -149,7 +149,10 @@
     <Compile Include="packet_scan.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="peakTest.c">
+    <Compile Include="peak_test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="peak_test.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="timer.c">
