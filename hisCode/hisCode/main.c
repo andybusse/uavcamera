@@ -17,14 +17,16 @@ int main()
 	module_setup();
 	adc_setup();
 	timer1_setup();
-	
+	uint8_t my_data[8]={0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8};
 	// enable global interrupts
 	sei();
 	
 	while (1)
 	{
 		comms_update();
-		peak_test_send_int();
+		//peak_test_send_int();
+
+		send_set_class_item(2,3,my_data,8);
 		//send_text("Hello World!");
 		if (adc_z_want_update)
 			adc_buffer_update();
