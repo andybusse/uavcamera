@@ -21,19 +21,23 @@ namespace portConnector
 
         public byte[] dataFromUAV()
         {
-            byte[] uavData = new byte[24];
-            byte[] testMessage = { 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0 };
+            byte[] uavData = new byte[8];
+           // byte[] testMessage = { 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0 };
+            byte[] testMessage = {0};
             try
             {
                 int sendByte = UAV.Send(testMessage, testMessage.Length, SocketFlags.None);
                 Console.WriteLine("Sent {0} bytes.", sendByte);
-                int size = 24;
+                int size = 8;
 
                 while (true)
                 {
+                    
                     int byteCount = UAV.Receive(uavData, size, SocketFlags.None);
                    //Console.WriteLine( Encoding.Unicode.GetChars(uavData));
-                   Console.WriteLine(Encoding.UTF8.GetString(uavData));
+                   //Console.WriteLine(Encoding.UTF8.GetString(uavData));
+                    for(int countIn=0; countIn<uavData.Length;countIn++)
+                    Console.WriteLine("{0}", uavData[countIn]);
                 }
             }
             catch(SocketException uavMessage)
