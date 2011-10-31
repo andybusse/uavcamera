@@ -3,3 +3,8 @@ c:\users\peak\documents\visual studio 2010\Projects\portConnector\portConnector\
 c:\users\peak\documents\visual studio 2010\Projects\portConnector\portConnector\obj\x86\Debug\ResolveAssemblyReference.cache
 c:\users\peak\documents\visual studio 2010\Projects\portConnector\portConnector\obj\x86\Debug\portConnector.exe
 c:\users\peak\documents\visual studio 2010\Projects\portConnector\portConnector\obj\x86\Debug\portConnector.pdb
+C:\Users\peak\Desktop\GDP\uav_connector\portConnector\obj\x86\Debug\portConnector.exe
+C:\Users\peak\Desktop\GDP\uav_connector\portConnector\obj\x86\Debug\portConnector.pdb
+C:\Users\peak\Desktop\GDP\uav_connector\portConnector\bin\Debug\portConnector.exe
+C:\Users\peak\Desktop\GDP\uav_connector\portConnector\bin\Debug\portConnector.pdb
+C:\Users\peak\Desktop\GDP\uav_connector\portConnector\obj\x86\Debug\ResolveAssemblyReference.cache
