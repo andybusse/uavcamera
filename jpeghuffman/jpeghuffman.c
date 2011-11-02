@@ -142,7 +142,6 @@ int main(void)
 
 	HuffmanNode* rootNode = newHuffmanNode();
 	rootNode->leafNode = FALSE;
-	rootNode->bitstring = "";
 	
 	// make two linked lists, one for storing the branch nodes from the last bitstring length level and one
 	// for storing the branch nodes from the current bitstring length level
@@ -178,7 +177,6 @@ int main(void)
 				currentHuffmanNode->zerochild = newZeroNode;
 				newZeroNode->parent = currentHuffmanNode;
 				newZeroNode->code = huffmanCodes[i][leafNodes];
-				newZeroNode->bitstring = currentHuffmanNode->bitstring
                 leafNodes++;
 			} else {
 				HuffmanNode* newZeroNode = newHuffmanNode();
