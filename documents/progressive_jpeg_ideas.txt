@@ -1,0 +1,7 @@
+Idea:
+- Doing some sort of re-ordering of a JPEG image to allow for progressive decode is quite complex since it requires
+huffman tables to be constructed for the data
+
+- The data is also run length encoded, adding additional complexity
+
+- Remember if we are writing our own compressor we can just use some pre-built huffman tables
