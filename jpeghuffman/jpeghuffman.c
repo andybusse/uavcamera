@@ -19,7 +19,8 @@ struct HuffmanNode_t {
 	struct HuffmanNode_t* parent;
 	BOOL leafNode;
 	char code;
-	
+	unsigned int bitstring;
+	unsigned int bitstringLength;
 };
 
 typedef struct HuffmanNode_t HuffmanNode;
@@ -28,6 +29,8 @@ void initHuffmanNode(HuffmanNode* nodeToInit) {
 	nodeToInit->onechild = NULL;
 	nodeToInit->zerochild = NULL;
 	nodeToInit->parent = NULL;
+	nodeToInit->bitstring = 0;
+	nodeToInit->bitstringLength = 0;
 }
 
 HuffmanNode* newHuffmanNode() {
@@ -149,7 +152,7 @@ int main(void)
 	initLinkedList(&lastLevelBranchNodes);
 
 	addLinkedListItemToEnd(&lastLevelBranchNodes, newLinkedListItem(rootNode));
-	
+	   
 	LinkedList currentLevelBranchNodes;
 	initLinkedList(&currentLevelBranchNodes);
 	
@@ -177,12 +180,18 @@ int main(void)
 				currentHuffmanNode->zerochild = newZeroNode;
 				newZeroNode->parent = currentHuffmanNode;
 				newZeroNode->code = huffmanCodes[i][leafNodes];
+				// copy our parents bistring we don't need to set the bit to 0 since all the bits are initialized as 0's
+				newZeroNode->bitstring = currentHuffmanNode->bitstring;
+				newZeroNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
                 leafNodes++;
 			} else {
 				HuffmanNode* newZeroNode = newHuffmanNode();
 				newZeroNode->leafNode = FALSE;
 				newZeroNode->parent = currentHuffmanNode;
 				currentHuffmanNode->zerochild = newZeroNode;
+				// copy our parents bistring we don't need to set the bit to 0 since all the bits are initialized as 0's
+				newZeroNode->bitstring = currentHuffmanNode->bitstring;
+				newZeroNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
 				addLinkedListItemToEnd(&currentLevelBranchNodes, newLinkedListItem(newZeroNode));
 			}
 			
@@ -197,12 +206,19 @@ int main(void)
 				currentHuffmanNode->onechild = newOneNode;
 				newOneNode->parent = currentHuffmanNode;
 				newOneNode->code = huffmanCodes[i][leafNodes];
+				// get our parents bitstring and set the next bit in the bitstring to 1
+				newOneNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
+				newOneNode->bitstring = currentHuffmanNode->bitstring | (1 << newOneNode->bitstringLength);
+				
                 leafNodes++;
 			} else {
 				HuffmanNode* newOneNode = newHuffmanNode();
 				newOneNode->leafNode = FALSE;
 				newOneNode->parent = currentHuffmanNode;
 				currentHuffmanNode->onechild = newOneNode;
+				// get our parents bitstring and set the next bit in the bitstring to 1
+				newOneNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
+				newOneNode->bitstring = currentHuffmanNode->bitstring | (1 << newOneNode->bitstringLength);
 				addLinkedListItemToEnd(&currentLevelBranchNodes, newLinkedListItem(newOneNode));
 			}
 					 
@@ -217,4 +233,9 @@ int main(void)
 			currLLCopyItem = currLLCopyItem->nextItem;
 		}
 	}
+	
+	clearLinkedList(&lastLevelBranchNodes);
+	clearLinkedList(&currentLevelBranchNodes);
+	
+
 }
