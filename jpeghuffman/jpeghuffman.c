@@ -1,3 +1,5 @@
+#if 0
+
 /*
  * jpeghuffman.c
  *
@@ -154,6 +156,9 @@ int main(void)
     huffmanCodes[15] = huff15;
 	char huff16[] = { 0x72, 0x53, 0x18, 0x44, 0x82, 0x92, 0xD2 };
     huffmanCodes[16] = huff16;
+	
+	
+	
 
 	HuffmanNode* rootNode = newHuffmanNode();
 	rootNode->leafNode = FALSE;
@@ -270,3 +275,5 @@ int main(void)
 	printf("numHuffmanNodes: %d, size of a huffman node: %d", numHuffmanNodes, sizeof(HuffmanNode));
 
 }
+
+#endif
