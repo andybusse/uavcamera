@@ -5,8 +5,14 @@
  *  Author: mh23g08
  */ 
 
+#define PC_DEBUG
 
+#ifdef PC_DEBUG
+#include <stdio.h>
+#else
 #include <avr/io.h>
+#endif
+
 #include <stdlib.h>
 
 #define BOOL int
@@ -33,29 +39,32 @@ void initHuffmanNode(HuffmanNode* nodeToInit) {
 	nodeToInit->bitstringLength = 0;
 }
 
+int numHuffmanNodes = 0;
+
 HuffmanNode* newHuffmanNode() {
+	numHuffmanNodes += 1;
 	HuffmanNode* huffmanNode = malloc(sizeof(HuffmanNode));
 	initHuffmanNode(huffmanNode);
 	return huffmanNode;
 }
 
-struct LinkedListNode_t{
-	struct LinkedListNode_t* nextItem;
-	struct LinkedListNode_t* previousItem;
+struct LinkedListItem_t{
+	struct LinkedListItem_t* nextItem;
+	struct LinkedListItem_t* previousItem;
 	void* dataPointer;
 };
 
-typedef struct LinkedListNode_t LinkedListNode;
+typedef struct LinkedListItem_t LinkedListItem;
 
 struct LinkedList_t {
-	LinkedListNode* rootItem;
-	LinkedListNode* endItem;
+	LinkedListItem* rootItem;
+	LinkedListItem* endItem;
 };
 
 typedef struct LinkedList_t LinkedList;
 
-void insertLinkedListNodeAfter(LinkedList* linkedList, LinkedListNode* itemToAddAfter, LinkedListNode* itemToAdd) {
-	LinkedListNode* prevItemToAddAfterNext = itemToAddAfter->nextItem;
+void insertLinkedListItemAfter(LinkedList* linkedList, LinkedListItem* itemToAddAfter, LinkedListItem* itemToAdd) {
+	LinkedListItem* prevItemToAddAfterNext = itemToAddAfter->nextItem;
 	itemToAddAfter->nextItem = itemToAdd;
 	itemToAdd->previousItem = itemToAddAfter;
 	itemToAdd->nextItem = prevItemToAddAfterNext;
@@ -68,14 +77,14 @@ void insertLinkedListNodeAfter(LinkedList* linkedList, LinkedListNode* itemToAdd
 
 
 
-void initLinkedListItem(LinkedListNode* nodeToInit) {
+void initLinkedListItem(LinkedListItem* nodeToInit) {
 	nodeToInit->nextItem = NULL;
 	nodeToInit->previousItem = NULL;
 	nodeToInit->dataPointer = NULL;
 }
 
-LinkedListNode* newLinkedListItem(void* dataPointer) {
-	LinkedListNode* llNode = malloc(sizeof(LinkedListNode));
+LinkedListItem* newLinkedListItem(void* dataPointer) {
+	LinkedListItem* llNode = malloc(sizeof(LinkedListItem));
 	initLinkedListItem(llNode);
 	llNode->dataPointer = dataPointer;
 	return llNode;
@@ -86,20 +95,20 @@ void initLinkedList(LinkedList* linkedList) {
 	linkedList->endItem = NULL;
 }
 
-void addLinkedListItemToEnd(LinkedList* linkedList, LinkedListNode* nodeToAdd) {
+void addLinkedListItemToEnd(LinkedList* linkedList, LinkedListItem* nodeToAdd) {
 	if (linkedList->rootItem == NULL) {
 		linkedList->rootItem = nodeToAdd;
 		linkedList->endItem = nodeToAdd;
 	} else {
-		insertLinkedListNodeAfter(linkedList, linkedList->endItem, nodeToAdd);
+		insertLinkedListItemAfter(linkedList, linkedList->endItem, nodeToAdd);
 	}
 }
 
 void clearLinkedList(LinkedList* linkedList) {
-	LinkedListNode* nextItem = linkedList->rootItem;
+	LinkedListItem* nextItem = linkedList->rootItem;
 	linkedList->rootItem = NULL;
 	while(nextItem != NULL) {
-		LinkedListNode* currentItem = nextItem;
+		LinkedListItem* currentItem = nextItem;
 		nextItem = currentItem->nextItem;
 		currentItem->nextItem = NULL;
 		currentItem->previousItem = NULL;
@@ -109,8 +118,11 @@ void clearLinkedList(LinkedList* linkedList) {
 
 int main(void)
 {
+	#ifdef PC_DEBUG
+	printf("PC_DEBUG set\n");
+	#endif
 	char* huffmanCodes[17];
-	int numCodes[17] = { 0, 0, 2, 3, 4, 4, 2, 5, 2, 4, 4, 4, 5, 3, 3, 2, 7 };
+	int numCodes[17] = { 0, 0, 2, 1, 3, 3, 2, 5, 2, 4, 4, 4, 5, 3, 3, 2, 7 };
 	
 	char huff2[] = { 0x01, 0x02 };
     huffmanCodes[2] = huff2;
@@ -156,7 +168,6 @@ int main(void)
 	LinkedList currentLevelBranchNodes;
 	initLinkedList(&currentLevelBranchNodes);
 	
-	// it is a bit confusing because linkedLists have nodes and so does the tree
 	
 
 	// for each bitstring length (i.e. tree level)
@@ -166,7 +177,7 @@ int main(void)
 		 int leafNodes = 0;
 		 
 		 // for each branch node (i.e. node that is not a leaf node) in the last level of nodes
-		 LinkedListNode* currentLinkedListItem = lastLevelBranchNodes.rootItem;
+		 LinkedListItem* currentLinkedListItem = lastLevelBranchNodes.rootItem;
 		 while(currentLinkedListItem != NULL) {
 			 HuffmanNode* currentHuffmanNode = (HuffmanNode*)currentLinkedListItem->dataPointer;
 			// we go from zero to one, so zero first
@@ -181,8 +192,15 @@ int main(void)
 				newZeroNode->parent = currentHuffmanNode;
 				newZeroNode->code = huffmanCodes[i][leafNodes];
 				// copy our parents bistring we don't need to set the bit to 0 since all the bits are initialized as 0's
+				newZeroNode->bitstringLength = i;
 				newZeroNode->bitstring = currentHuffmanNode->bitstring;
-				newZeroNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
+				
+				#ifdef PC_DEBUG
+				printf("Zero leaf node: code = \t%X\t bitstring = \t%u\t bitstringLength = \t%u\n", newZeroNode->code, newZeroNode->bitstring, newZeroNode->bitstringLength);
+				#endif
+	//			if(i != 0)
+	//				newZeroNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
+				
                 leafNodes++;
 			} else {
 				HuffmanNode* newZeroNode = newHuffmanNode();
@@ -190,8 +208,11 @@ int main(void)
 				newZeroNode->parent = currentHuffmanNode;
 				currentHuffmanNode->zerochild = newZeroNode;
 				// copy our parents bistring we don't need to set the bit to 0 since all the bits are initialized as 0's
+				newZeroNode->bitstringLength = i;
 				newZeroNode->bitstring = currentHuffmanNode->bitstring;
-				newZeroNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
+	//			if(i != 0)
+	//				newZeroNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
+				
 				addLinkedListItemToEnd(&currentLevelBranchNodes, newLinkedListItem(newZeroNode));
 			}
 			
@@ -207,8 +228,14 @@ int main(void)
 				newOneNode->parent = currentHuffmanNode;
 				newOneNode->code = huffmanCodes[i][leafNodes];
 				// get our parents bitstring and set the next bit in the bitstring to 1
-				newOneNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
-				newOneNode->bitstring = currentHuffmanNode->bitstring | (1 << newOneNode->bitstringLength);
+	//			if(i != 0)
+	//				newOneNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
+				newOneNode->bitstringLength = i;
+				newOneNode->bitstring = currentHuffmanNode->bitstring | (1 << (16 - newOneNode->bitstringLength));
+				
+				#ifdef PC_DEBUG
+				printf("One leaf node: code = \t%X\t bitstring = \t%u\t bitstringLength = \t%u\n", newOneNode->code, newOneNode->bitstring, newOneNode->bitstringLength);
+				#endif
 				
                 leafNodes++;
 			} else {
@@ -217,8 +244,11 @@ int main(void)
 				newOneNode->parent = currentHuffmanNode;
 				currentHuffmanNode->onechild = newOneNode;
 				// get our parents bitstring and set the next bit in the bitstring to 1
-				newOneNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
-				newOneNode->bitstring = currentHuffmanNode->bitstring | (1 << newOneNode->bitstringLength);
+	//			if(i != 0)
+	//				newOneNode->bitstringLength = currentHuffmanNode->bitstringLength + 1;
+				newOneNode->bitstringLength = i;
+				newOneNode->bitstring = currentHuffmanNode->bitstring | (1 << (16 - newOneNode->bitstringLength));
+				
 				addLinkedListItemToEnd(&currentLevelBranchNodes, newLinkedListItem(newOneNode));
 			}
 					 
@@ -227,7 +257,7 @@ int main(void)
 		 
 		 // copy the linked list over
 		clearLinkedList(&lastLevelBranchNodes);
-		LinkedListNode* currLLCopyItem = currentLevelBranchNodes.rootItem;
+		LinkedListItem* currLLCopyItem = currentLevelBranchNodes.rootItem;
 		while(currLLCopyItem != NULL) {
 			addLinkedListItemToEnd(&lastLevelBranchNodes, newLinkedListItem(currLLCopyItem->dataPointer));
 			currLLCopyItem = currLLCopyItem->nextItem;
@@ -237,5 +267,6 @@ int main(void)
 	clearLinkedList(&lastLevelBranchNodes);
 	clearLinkedList(&currentLevelBranchNodes);
 	
+	printf("numHuffmanNodes: %d, size of a huffman node: %d", numHuffmanNodes, sizeof(HuffmanNode));
 
 }
