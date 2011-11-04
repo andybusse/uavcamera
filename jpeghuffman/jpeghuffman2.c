@@ -41,8 +41,7 @@ from http://www.impulseadventure.com/photo/jpeg-decoder.html accessed 04/11/2011
 
 
 
-int main(void)
-{
+int main(void){
 	printf("PC_DEBUG set\n");
 	unsigned char* huffmanCodes[16];
 	int numCodes[16] = { 0, 2, 1, 3, 3, 2, 5, 2, 4, 4, 4, 5, 3, 3, 2, 7 };
@@ -86,8 +85,9 @@ int main(void)
 	
 	// for ease of representation we should use unsigned chars since we don't want them to be signed (the codes don't have signs!)
 	
-	unsigned int huffmanbits[totalCodes];
-	unsigned char huffmancodesout[totalCodes];
+	unsigned int huffmanBits[totalCodes];
+	unsigned char huffmanCodesOut[totalCodes];
+	unsigned char huffmanBitsLength[totalCodes];
 	
 	// we begin with a bitstring of 0
 	unsigned int currentBitstring = 0;
@@ -96,10 +96,11 @@ int main(void)
 		
 		// for each code in the current bistring length level
 		for(int codeindex = 0; codeindex < numCodes[lengthlevel]; codeindex++) {
-			huffmanbits[currentCodeNo] = currentBitstring;
-			huffmancodesout[currentCodeNo] = huffmanCodes[lengthlevel][codeindex];
+			huffmanBits[currentCodeNo] = currentBitstring;
+			huffmanCodesOut[currentCodeNo] = huffmanCodes[lengthlevel][codeindex];
+			huffmanBitsLength[currentCodeNo] = lengthlevel + 1;
 			
-			printf("Code\t %X \t assigned to bits\t %u \n", huffmancodesout[currentCodeNo], huffmanbits[currentCodeNo]);
+			printf("Code\t %X \t assigned to bits\t %u \tat length\t %u \n", huffmanCodesOut[currentCodeNo], huffmanBits[currentCodeNo], huffmanBitsLength[currentCodeNo]);
 			
 			currentCodeNo++;
 			currentBitstring++; // increment by one to get the next huffman bitstring
@@ -110,5 +111,46 @@ int main(void)
 	}
 	
 	printf("Finished!");
+
+
+	#ifdef PC_DEBUG
+	// let's try to encode something and then decode it
+	
+	unsigned char testDataIn[] = { 0x00, 0x01, 0x03, 0x07, 0x08, 0x04, 0x00 };
+	
+	unsigned char encodedData[100];
+	
+	// encoding it is a bit odd, since we are not going to have to deal with byte boundries
+	// worst case is 16 bits long codeword which is two bytes
+	
+	// ENCODING
+	
+	// we will try to send a byte for every loop iteration seen below, but if we have any left over we will put it in this the two leftover byte variables
+	unsigned int leftover = 0;
+	int leftoverLength = 0;
+	int bytesEncoded = 0;
+	
+	for (int i = 0; i < 7; i++)
+	{
+		// find the corresponding huffman bitstring
+		int codeIndex = 0;
+		for (; codeIndex < totalCodes; codeIndex++)
+		{
+			if (testDataIn[i] == huffmanCodesOut[codeIndex])
+				break;
+		}
+		printf("Encoding code %X with bitstring %u of length %u\n", huffmanCodesOut[codeIndex], huffmanBits[codeIndex], huffmanBitsLength[codeIndex]);
+		
+		unsigned char toSend = 0;
+		if(leftoverLength >= 8) {
+			
+		}
+	}
+
+	// we assume the smallest amount we can read in at a time is a byte
+	unsigned char lowbyte = 0;
+	unsigned char highbyte = 0;
+	
+	#endif
 
 }

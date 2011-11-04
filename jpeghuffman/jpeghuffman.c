@@ -5,6 +5,7 @@
  *
  * Created: 01/11/2011 17:06:17
  *  Author: mh23g08
+ THIS CODE IS NOW OBSOLETE, SEE jpeghuffman2.c for more efficient version
  */ 
 
 #define PC_DEBUG
