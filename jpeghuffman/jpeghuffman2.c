@@ -35,46 +35,77 @@ from http://www.impulseadventure.com/photo/jpeg-decoder.html accessed 04/11/2011
 
 #include <stdlib.h>
 
+#include <stdint.h>
+
+#include <assert.h>
+
 #define BOOL int
 #define FALSE 0
 #define TRUE 1
 
 
 
+//void initHuffmanSendBuffer();
+//BOOL bufferHuffmanBits(uint16_t huffmanBitsIn, int huffmanBitsLengthIn);
+//BOOL attemptHuffmanSend();
+
+
+
+typedef struct FixedLengthBitQueue_t {
+	int fixedMaxSize;
+	int headIndex;
+	int currentSize;
+	BOOL* items;	
+} FixedLengthBitQueue;
+
+FixedLengthBitQueue fixedLengthBitQueue_new(int queueLength, BOOL* arrayToUse);
+BOOL fixedLengthBitQueue_enqueue(FixedLengthBitQueue* queue, BOOL item);
+BOOL fixedLengthBitQueue_dequeue(FixedLengthBitQueue* queue, BOOL* bitOut);
+
+BOOL attemptSend(FixedLengthBitQueue* queue);
+void sendAndTerminate(FixedLengthBitQueue* queue);
+
+void printBitString(uint16_t bitString, int bitStringLength);
+void printByte(uint8_t byteToPrint);
+
+uint16_t* huffmanBits;
+uint8_t* huffmanCodesOut;
+int* huffmanBitsLength;
+
 int main(void){
 	printf("PC_DEBUG set\n");
-	unsigned char* huffmanCodes[16];
+	uint8_t* huffmanCodes[16];
 	int numCodes[16] = { 0, 2, 1, 3, 3, 2, 5, 2, 4, 4, 4, 5, 3, 3, 2, 7 };
 	
-	unsigned char huff2[] = { 0x01, 0x02 };
+	uint8_t huff2[] = { 0x01, 0x02 };
     huffmanCodes[1] = huff2;
-	unsigned char huff3[] = { 0x03 };
+	uint8_t huff3[] = { 0x03 };
     huffmanCodes[2] = huff3;
-	unsigned char huff4[] =  { 0x04, 0x05, 0x11 };
+	uint8_t huff4[] =  { 0x04, 0x05, 0x11 };
     huffmanCodes[3] = huff4;
-	unsigned char huff5[] = { 0x00, 0x06, 0x21 };
+	uint8_t huff5[] = { 0x00, 0x06, 0x21 };
     huffmanCodes[4] = huff5;
-	unsigned char huff6[] = { 0x12, 0x31 };
+	uint8_t huff6[] = { 0x12, 0x31 };
     huffmanCodes[5] = huff6;
-	unsigned char huff7[] = { 0x07, 0x13, 0x22, 0x41, 0x51 };
+	uint8_t huff7[] = { 0x07, 0x13, 0x22, 0x41, 0x51 };
     huffmanCodes[6] = huff7;
-	unsigned char huff8[] = { 0x14, 0x61 };
+	uint8_t huff8[] = { 0x14, 0x61 };
     huffmanCodes[7] = huff8;
-	unsigned char huff9[] = { 0x08, 0x32, 0x71, 0x81 };
+	uint8_t huff9[] = { 0x08, 0x32, 0x71, 0x81 };
     huffmanCodes[8] = huff9;
-	unsigned char huff10[] = { 0x15, 0x23, 0x91, 0xA1 };
+	uint8_t huff10[] = { 0x15, 0x23, 0x91, 0xA1 };
     huffmanCodes[9] = huff10;
-	unsigned char huff11[] = { 0x42, 0xB1, 0xC1, 0xF0 };
+	uint8_t huff11[] = { 0x42, 0xB1, 0xC1, 0xF0 };
     huffmanCodes[10] = huff11;
-	unsigned char huff12[] = { 0x16, 0x33, 0x52, 0xD1, 0xF1 };
+	uint8_t huff12[] = { 0x16, 0x33, 0x52, 0xD1, 0xF1 };
     huffmanCodes[11] = huff12;
-	unsigned char huff13[] = { 0x09, 0x24, 0xE1 };
+	uint8_t huff13[] = { 0x09, 0x24, 0xE1 };
     huffmanCodes[12] = huff13;
-	unsigned char huff14[] = { 0x17, 0x34, 0x43 };
+	uint8_t huff14[] = { 0x17, 0x34, 0x43 };
     huffmanCodes[13] = huff14;
-	unsigned char huff15[] = { 0x62, 0x25 };
+	uint8_t huff15[] = { 0x62, 0x25 };
     huffmanCodes[14] = huff15;
-	unsigned char huff16[] = { 0x72, 0x53, 0x18, 0x44, 0x82, 0x92, 0xD2 };
+	uint8_t huff16[] = { 0x72, 0x53, 0x18, 0x44, 0x82, 0x92, 0xD2 };
     huffmanCodes[15] = huff16;
 	
 	int totalCodes = 0;
@@ -83,14 +114,14 @@ int main(void){
 		totalCodes += numCodes[i];
 	}
 	
-	// for ease of representation we should use unsigned chars since we don't want them to be signed (the codes don't have signs!)
+	// for ease of representation we should use uint8_ts since we don't want them to be signed (the codes don't have signs!)
 	
-	unsigned int huffmanBits[totalCodes];
-	unsigned char huffmanCodesOut[totalCodes];
-	unsigned char huffmanBitsLength[totalCodes];
+	huffmanBits = malloc(totalCodes * sizeof(uint16_t));
+	huffmanCodesOut = malloc(totalCodes * sizeof(uint8_t));
+	huffmanBitsLength = malloc(totalCodes * sizeof(int));
 	
 	// we begin with a bitstring of 0
-	unsigned int currentBitstring = 0;
+	uint16_t currentBitstring = 0;
 	int currentCodeNo = 0;
 	for (int lengthlevel = 0; lengthlevel < 16; lengthlevel++) {
 		
@@ -101,6 +132,9 @@ int main(void){
 			huffmanBitsLength[currentCodeNo] = lengthlevel + 1;
 			
 			printf("Code\t %X \t assigned to bits\t %u \tat length\t %u \n", huffmanCodesOut[currentCodeNo], huffmanBits[currentCodeNo], huffmanBitsLength[currentCodeNo]);
+			printf("Bitstring: ");
+			printBitString(huffmanBits[currentCodeNo], huffmanBitsLength[currentCodeNo]);
+			printf("\n");
 			
 			currentCodeNo++;
 			currentBitstring++; // increment by one to get the next huffman bitstring
@@ -110,15 +144,14 @@ int main(void){
 		currentBitstring *= 2;
 	}
 	
-	printf("Finished!");
+	printf("Finished!\n");
 
 
 	#ifdef PC_DEBUG
 	// let's try to encode something and then decode it
+	uint8_t testDataIn[] = { 0x00, 0x01, 0x03, 0x07, 0x08, 0x04, 0x00, 0x92, 0x00, 0x00, 0x00, 0x00};
 	
-	unsigned char testDataIn[] = { 0x00, 0x01, 0x03, 0x07, 0x08, 0x04, 0x00 };
-	
-	unsigned char encodedData[100];
+	uint8_t encodedData[100];
 	
 	// encoding it is a bit odd, since we are not going to have to deal with byte boundries
 	// worst case is 16 bits long codeword which is two bytes
@@ -126,11 +159,10 @@ int main(void){
 	// ENCODING
 	
 	// we will try to send a byte for every loop iteration seen below, but if we have any left over we will put it in this the two leftover byte variables
-	unsigned int leftover = 0;
-	int leftoverLength = 0;
-	int bytesEncoded = 0;
+	BOOL bitQueueArray[16+8];
+	FixedLengthBitQueue bitQueue = fixedLengthBitQueue_new(16+8, bitQueueArray);
 	
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 12; i++)
 	{
 		// find the corresponding huffman bitstring
 		int codeIndex = 0;
@@ -139,18 +171,244 @@ int main(void){
 			if (testDataIn[i] == huffmanCodesOut[codeIndex])
 				break;
 		}
-		printf("Encoding code %X with bitstring %u of length %u\n", huffmanCodesOut[codeIndex], huffmanBits[codeIndex], huffmanBitsLength[codeIndex]);
+		printf("Encoding code %X with bitstring %u of length %u ", huffmanCodesOut[codeIndex], huffmanBits[codeIndex], huffmanBitsLength[codeIndex]);
+		printBitString(huffmanBits[codeIndex], huffmanBitsLength[codeIndex]);
+		printf("\n");
 		
-		unsigned char toSend = 0;
-		if(leftoverLength >= 8) {
+		
+		// now we want to send bits one by one for each code so we enqueue them on the bitqueue
+		// we need to pick each bit out
+		uint16_t mask = (0x01 << (huffmanBitsLength[codeIndex] - 1));
+		for(int bitIndex = 0; bitIndex < huffmanBitsLength[codeIndex]; bitIndex++) {
+			// for each bit
+			// first we find the bit value
+			BOOL bit = FALSE;
+			if(huffmanBits[codeIndex] & (mask >> bitIndex)) 
+				bit = TRUE;
 			
+			// now we try to add it to the queue and then try to send the queue, if we cannot add it something has gone wrong with the code,
+			// since we should be flushing the queue before we have a chance to run out of room
+			BOOL added = FALSE;
+			added = fixedLengthBitQueue_enqueue(&bitQueue, bit);
+			assert(added == TRUE); // should always be able to be added
+			
+			attemptSend(&bitQueue);
+		
 		}
+	
+		
 	}
+	
+	sendAndTerminate(&bitQueue);
 
 	// we assume the smallest amount we can read in at a time is a byte
-	unsigned char lowbyte = 0;
-	unsigned char highbyte = 0;
+	uint8_t lowbyte = 0;
+	uint8_t highbyte = 0;
 	
 	#endif
 
 }
+
+
+
+// provide a queueLength and an array of preallocated memory to use
+FixedLengthBitQueue fixedLengthBitQueue_new(int queueLength, BOOL* arrayToUse) {
+	FixedLengthBitQueue queue;
+	queue.currentSize = 0;
+	queue.fixedMaxSize = queueLength;
+	queue.headIndex = 0;
+	queue.items = arrayToUse;
+	return queue;
+}
+
+// returns true if the item could be added to the queue, false otherwise
+BOOL fixedLengthBitQueue_enqueue(FixedLengthBitQueue* queue, BOOL item) {
+	
+	// see if the queue is full
+	if (queue->currentSize >= queue->fixedMaxSize)
+		return FALSE;
+	
+	// if not, find the index at which we want to add our item
+	int enqueueIndex = (queue->headIndex + queue->currentSize) % queue->fixedMaxSize;
+	
+	// add our item at the enqueueIndex
+	queue->items[enqueueIndex] = item;
+	
+	// add one to the current size of the queue
+	queue->currentSize++;
+	
+	return TRUE; 
+}
+
+// gets bit value at the beginning of the queue and removes it, returns false if queue is empty, true otherwise
+BOOL fixedLengthBitQueue_dequeue(FixedLengthBitQueue* queue, BOOL* bitOut) {
+	
+	// see if the queue is empty
+	if (queue->currentSize <= 0)
+		return FALSE;
+	
+	// if not, put the item at the head of the queue into butOut and remove it from the queue by advancing the headIndex and decrementing the current size
+	*bitOut = queue->items[queue->headIndex];
+	queue->headIndex = (queue->headIndex + 1) % queue->fixedMaxSize;
+	queue->currentSize--;
+	
+	return TRUE; 
+}
+
+BOOL attemptSend(FixedLengthBitQueue* queue) {
+	// if we have at least a byte of data to send
+	if(queue->currentSize >= 8) {
+
+		uint8_t byteToSend = 0x00;
+		
+		uint16_t mask = (0x01 << 7);
+		for(int bitIndex = 0; bitIndex < 8; bitIndex++) {
+			BOOL currentBit;
+			BOOL dequeued = fixedLengthBitQueue_dequeue(queue, &currentBit);
+			
+			assert(dequeued == TRUE); // we know this should be true since we have established above that the current size of the queue is at least 8
+				
+			if(currentBit == TRUE)
+				byteToSend = byteToSend | (mask >> bitIndex);
+			
+		} 
+		printf("Byte to send hex: %X bits: ", byteToSend);
+		printByte(byteToSend);
+		printf("\n");
+		
+		// let's do some recursion (yay!) to try to send as many bytes as possible
+		// to be honest this will probably never do anything in our use (might be best to remove it to optimize)
+		attemptSend(queue);
+		return TRUE; // we have sent at least one byte so return true here
+		
+	} else {
+		return FALSE;
+	}
+}
+
+// send the last remaining bytes in the buffer even if there is less than 8 bits 
+// and terminate with an EOF (end of file marker) and pad with 0's or whatever we decide to use 
+// NB: EOF NOT ACTUALLY IMPLEMENTED YET
+void sendAndTerminate(FixedLengthBitQueue* queue) {
+	while(attemptSend(queue) == TRUE); // attempt to send normally until we can't any more
+	// we should now have less than 8 bits left in the queue
+	uint8_t byteToSend = 0x00;
+	uint16_t mask = (0x01 << 7);
+	int numBits = queue->currentSize;
+	for(int bitIndex = 0; bitIndex < numBits; bitIndex++) {
+		BOOL currentBit;
+		BOOL dequeued = fixedLengthBitQueue_dequeue(queue, &currentBit);
+		
+		assert(dequeued == TRUE); // we know this should be true since we are looping through the current size of the queue
+				
+		if(currentBit == TRUE)
+			byteToSend = byteToSend | (mask >> bitIndex);
+			
+	} 
+	printf("Sending and terminating with byte hex: %X bits: ", byteToSend);
+	printByte(byteToSend);
+	printf("\n");
+	
+}
+
+void printBitString(uint16_t bitString, int bitStringLength) {			
+	uint16_t mask = (0x01 << (bitStringLength - 1));
+	for(int bitIndex = 0; bitIndex < bitStringLength; bitIndex++) {
+		if(bitString & (mask >> bitIndex)) {
+			printf("1");
+		} else {
+			printf("0");
+		}
+	}
+}	
+
+void printByte(uint8_t byteToPrint) {
+	uint16_t mask = (0x01 << 7);
+	for(int bitIndex = 0; bitIndex < 8; bitIndex++) {
+		if(byteToPrint & (mask >> bitIndex)) {
+			printf("1");
+		} else {
+			printf("0");
+		}
+	}
+}
+
+/*
+uint8_t currentSendByteBuffer = 0x00;
+int currentSendByteBufferLength = 0;
+int huffmanSendBufferHeadIndex = 0;
+uint16_t huffmanBitsSendBuffer[8];
+int huffmanBitsLengthSendBuffer[8];
+
+void initHuffmanSendBuffer() {
+	for (int i = 0; i < 8; i++)
+	{
+		huffmanBitsLengthSendBuffer[i] = 0;
+	}
+}
+
+
+
+BOOL bufferHuffmanBits(uint16_t huffmanBitsIn, int huffmanBitsLengthIn) {
+	int posIndex = huffmanSendBufferHeadIndex;
+	int i = 0;
+	while(TRUE)
+	{
+		if (huffmanBitsLengthSendBuffer[posIndex] <= 0)
+		{
+			huffmanBitsSendBuffer[posIndex] = huffmanBitsIn;
+			huffmanBitsLengthSendBuffer[posIndex] = huffmanBitsLengthIn;
+			printf("Bits %u with length %u added to send buffer at position %d\n", huffmanBitsIn, huffmanBitsLengthIn, posIndex);
+			break;
+		}
+		
+		i++;
+		if(i >= 8)
+			return FALSE;
+		posIndex++;
+		// loop back round once we reach the end
+		if (posIndex >= 8)
+			posIndex = 0;
+	}		
+	
+	// try to send as much data as possible
+	attemptHuffmanSend();
+		
+	return TRUE;
+}
+
+// send as much data as possible
+BOOL attemptHuffmanSend() {
+	// we assume we can only send whole bytes
+	
+	// repeat until we cannot send any more
+	while(TRUE) {
+		// we could probably optimise all this by putting huffmanBitsLengthSendBuffer[huffmanSendBufferHeadIndex] etc in tempoary variables
+		// look at the length of the value at the head of the buffer i.e. value at huffmanSendBufferHeadIndex
+		if(huffmanBitsLengthSendBuffer[huffmanSendBufferHeadIndex] <= 0) {
+			// if it is 0 then we have run out of things to send so return false
+			return FALSE;
+		} else {
+			// we actually have something
+			// NB: the currentSendByteBufferLength should not equal or be above 8 since otherwise it would already have been sent
+			
+			// get the number of extra bits needed to fill currentSendByteBuffer
+			int extraBits = 8 - currentSendByteBufferLength;
+			
+			// rule for our bits and bytes is left to right, i.e. first bit on the left then going to the right
+			// we need to add our new bits to rightmost end of this buffer going from left to right 
+			// i.e. [old bytes|new bytes]
+			
+			// so let's get the leftmost extraBits number of bits from our current buffer index and put it into the currentSendByteBuffer so pick out the bits one by one
+			// there is probably a more optimal way of doing this then picking the bits out one by one but we can worry about that later if needed
+			for (int i = 0; i < extraBits; i++)
+			{
+				uint16_t currentBit = 
+				currentSendByteBuffer = currentSendByteBuffer & (huffmanBitsSendBuffer[huffmanSendBufferHeadIndex] & (0x01 << huffmanBitsLengthSendBuffer[huffmanSendBufferHeadIndex] - 1))
+			}
+			
+		}
+	}
+	
+}
+*/
