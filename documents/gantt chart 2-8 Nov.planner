@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<project name="" company="" manager="" phase="" project-start="20111005T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="0" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days>
+        <day date="20111029" type="day-type" id="0"/>
+        <day date="20111022" type="day-type" id="0"/>
+        <day date="20111015" type="day-type" id="0"/>
+        <day date="20111008" type="day-type" id="0"/>
+        <day date="20111001" type="day-type" id="0"/>
+      </days>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Deadlines" note="" work="0" start="20111005T000000Z" end="20120111T000000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="2" name="Opening lecture" note="" work="0" start="20111005T000000Z" end="20111005T000000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20111005T000000Z"/>
+      </task>
+      <task id="3" name="First progress seminar" note="" work="0" start="20111026T000000Z" end="20111026T000000Z" work-start="20111026T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20111026T000000Z"/>
+      </task>
+      <task id="4" name="Second progress seminar" note="" work="0" start="20111130T000000Z" end="20111130T000000Z" work-start="20111130T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20111130T000000Z"/>
+      </task>
+      <task id="5" name="Final report" note="" work="0" start="20111215T000000Z" end="20111215T000000Z" work-start="20111215T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20111215T000000Z"/>
+      </task>
+      <task id="6" name="Final presentation" note="" work="0" start="20120111T000000Z" end="20120111T000000Z" work-start="20120111T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20120111T000000Z"/>
+      </task>
+    </task>
+    <task id="7" name="Acquire Equipment" note="" work="1444500" start="20111005T000000Z" end="20111101T091500Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="8" name="Acquire camera" note="" work="666900" start="20111005T000000Z" end="20111101T091500Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="9" name="Acquire Schematic Parts" note="" work="489600" start="20111005T000000Z" end="20111024T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="10" name="Acquire final payload controller" note="" work="144000" start="20111015T170000Z" end="20111021T170000Z" work-start="20111017T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="45" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="11" name="Acquire autopilot and basestation" note="" work="144000" start="20111005T000000Z" end="20111010T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="12" name="Payload Module" note="" work="2014200" start="20111005T000000Z" end="20111125T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="13" name="Camera module communication" note="" work="244800" start="20111101T091500Z" end="20111110T141500Z" work-start="20111101T091500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="14" name="Prototype camera module communication" note="" work="158400" start="20111101T091500Z" end="20111107T141500Z" work-start="20111101T091500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="8" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="15" name="Payload controller &lt;-&gt; camera module communication" note="" work="86400" start="20111107T141500Z" end="20111110T141500Z" work-start="20111107T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="14" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="16" name="Image Encoding and Transmission" note="" work="1053900" start="20111005T000000Z" end="20111116T141500Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="17" name="Basic Raw encoding/(JPEG?)" note="" work="144000" start="20111110T141500Z" end="20111116T141500Z" work-start="20111110T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="18" name="Payload controller implementation" note="" work="144000" start="20111110T141500Z" end="20111116T141500Z" work-start="20111110T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="15" type="FS"/>
+            </predecessors>
+          </task>
+        </task>
+        <task id="19" name="Custom (compressed) encoding" note="" work="288000" start="20111005T000000Z" end="20111015T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="20" name="Matlab algorithm prototype" note="" work="288000" start="20111005T000000Z" end="20111015T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        </task>
+        <task id="21" name="JPEG Reordered Payload controller implementation" note="" work="621900" start="20111101T000000Z" end="20111114T170000Z" work-start="20111101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="22" name="Huffman Table Build" note="" work="72000" start="20111103T000000Z" end="20111105T120000Z" work-start="20111103T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20111103T000000Z"/>
+          </task>
+          <task id="23" name="Huffman Encoding/Decoding" note="" work="72000" start="20111105T120000Z" end="20111108T170000Z" work-start="20111105T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="22" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="24" name="JPEG Single Component Sender" note="" work="144000" start="20111108T170000Z" end="20111114T170000Z" work-start="20111109T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="23" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="25" name="Extract JPEG header and payload data" note="" work="333900" start="20111101T000000Z" end="20111114T134500Z" work-start="20111101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20111101T000000Z"/>
+          </task>
+        </task>
+      </task>
+      <task id="26" name="Payload module construction" note="" work="715500" start="20111101T091500Z" end="20111125T170000Z" work-start="20111101T091500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="27" name="Payload breadboard prototype and debugging" note="" work="168300" start="20111101T091500Z" end="20111107T170000Z" work-start="20111101T091500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="10" type="FS"/>
+            <predecessor id="1" predecessor-id="8" type="FS"/>
+            <predecessor id="1" predecessor-id="9" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="28" name="Payload stripboard construction and debugging" note="" work="86400" start="20111107T170000Z" end="20111110T170000Z" work-start="20111108T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="27" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="29" name="Payload PCB design" note="" work="144000" start="20111107T170000Z" end="20111112T170000Z" work-start="20111108T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="27" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="30" name="Aquiring payload PCB" note="" work="144000" start="20111112T170000Z" end="20111118T170000Z" work-start="20111114T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="29" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="31" name="Payload PCB construction and debugging" note="" work="172800" start="20111118T170000Z" end="20111125T170000Z" work-start="20111119T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="30" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+    </task>
+    <task id="32" name="Image recieve/viewing software" note="" work="614700" start="20111005T000000Z" end="20111125T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="33" name="TCP/IP Basestation Communications" note="" work="201600" start="20111005T000000Z" end="20111013T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="34" name="Basic dummy server communication" note="" work="115200" start="20111005T000000Z" end="20111008T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="35" name="Basestation communications" note="" work="86400" start="20111010T170000Z" end="20111013T170000Z" work-start="20111011T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="11" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="36" name="Decode Image" note="" work="230400" start="20111116T141500Z" end="20111125T141500Z" work-start="20111116T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="37" name="Basic image decoding" note="" work="57600" start="20111116T141500Z" end="20111118T141500Z" work-start="20111116T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="18" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="38" name="Ground Station Reordered JPEG decoder" note="" work="172800" start="20111118T141500Z" end="20111125T141500Z" work-start="20111118T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="37" type="FS"/>
+            <predecessor id="1" predecessor-id="24" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="39" name="UI" note="" work="182700" start="20111118T141500Z" end="20111125T170000Z" work-start="20111118T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="40" name="Functional user interface" note="" work="182700" start="20111118T141500Z" end="20111125T170000Z" work-start="20111118T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="37" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+    </task>
+    <task id="41" name="Integration" note="" work="86400" start="20111116T141500Z" end="20111119T141500Z" work-start="20111116T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="42" name="Payload controller to autopilot/base station" note="" work="86400" start="20111116T141500Z" end="20111119T141500Z" work-start="20111116T141500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="11" type="FS"/>
+          <predecessor id="1" predecessor-id="18" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="43" name="Background Research" note="" work="547200" start="20111005T000000Z" end="20111015T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="44" name="Camera selection" note="" work="86400" start="20111005T000000Z" end="20111007T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="45" name="Payload controller (e.g. microcontroller/FPGA) selection" note="" work="115200" start="20111011T170000Z" end="20111015T170000Z" work-start="20111012T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="47" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="46" name="Communication protocols" note="" work="86400" start="20111005T000000Z" end="20111007T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="47" name="Image processing/compression" note="" work="172800" start="20111005T000000Z" end="20111011T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="48" name="Programming language" note="" work="86400" start="20111005T000000Z" end="20111007T170000Z" work-start="20111005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="49" name="Prepare presentation" note="" work="288000" start="20111022T000000Z" end="20120110T170000Z" work-start="20111022T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="50" name="Progress seminar 1" note="" work="86400" start="20111022T000000Z" end="20111025T170000Z" work-start="20111022T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20111022T000000Z"/>
+      </task>
+      <task id="51" name="Progress seminar 2" note="" work="86400" start="20111125T000000Z" end="20111128T170000Z" work-start="20111125T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20111125T000000Z"/>
+      </task>
+      <task id="52" name="Final presentation" note="" work="115200" start="20120106T000000Z" end="20120110T170000Z" work-start="20120106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20120106T000000Z"/>
+      </task>
+    </task>
+    <task id="53" name="Report Writing" note="" work="288000" start="20111130T000000Z" end="20111210T170000Z" work-start="20111130T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="4" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="54" name="Whole System Testing" note="" work="144000" start="20111125T170000Z" end="20111201T170000Z" work-start="20111126T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="32" type="FS"/>
+        <predecessor id="1" predecessor-id="12" type="FS"/>
+      </predecessors>
+    </task>
+  </tasks>
+  <resource-groups>
+    <group id="1" name="" admin-name="" admin-phone="" admin-email=""/>
+  </resource-groups>
+  <resources>
+    <resource id="1" name="Andrew" short-name="ab" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="2" name="John" short-name="jc" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="3" name="Peak" short-name="pk" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="4" name="Mitch" short-name="ps" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="5" name="Michael" short-name="mh" type="1" units="0" email="" note="" std-rate="0"/>
+  </resources>
+  <allocations/>
+</project>
