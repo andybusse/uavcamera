@@ -25,7 +25,7 @@ from http://www.impulseadventure.com/photo/jpeg-decoder.html accessed 04/11/2011
  *  Author: mh23g08
  */ 
 
-#define PLATFORM_PC
+#define PLATFORM_PURE_AVR
 #define DEBUG
 
 #ifdef PLATFORM_PC
@@ -40,23 +40,11 @@ from http://www.impulseadventure.com/photo/jpeg-decoder.html accessed 04/11/2011
 
 #include <assert.h>
 
-#define BOOL int
-#define FALSE 0
-#define TRUE 1
+#include "jpeghuffmanlib.h"
 
-#ifdef DEBUG
-	#ifdef PLATFORM_PC
-		#define DLOG(...)  printf(__VA_ARGS__)
-	#elif defined PLATFORM_PURE_AVR
-		#define DLOG(...)
-	#elif PLATFORM_ARDUINO
-		#define DLOG(...)  
-	#else
-		#define DLOG(...)
-	#endif
-#else
-	#define DLOG(...)
-#endif
+
+
+
 
 //void initHuffmanSendBuffer();
 //BOOL bufferHuffmanBits(uint16_t huffmanBitsIn, int huffmanBitsLengthIn);
@@ -64,48 +52,6 @@ from http://www.impulseadventure.com/photo/jpeg-decoder.html accessed 04/11/2011
 
 
 
-typedef struct FixedLengthBitQueue_t {
-	int fixedMaxSize;
-	int headIndex;
-	int currentSize;
-	BOOL* items; // items[0] does NOT always correspond to the first item in the queue, use fixedLengthBitQueue_peekIndex(...) if you want to peek at an item!
-} FixedLengthBitQueue;
-
-FixedLengthBitQueue fixedLengthBitQueue_new(int queueLength, BOOL* arrayToUse);
-BOOL fixedLengthBitQueue_enqueue(FixedLengthBitQueue* queue, BOOL item);
-BOOL fixedLengthBitQueue_dequeue(FixedLengthBitQueue* queue, BOOL* bitOut);
-void fixedLengthBitQueue_peekIndex(FixedLengthBitQueue* queue, int peekIndex, BOOL* bitOut);
-
-BOOL attemptSend(FixedLengthBitQueue* queue);
-void sendAndTerminate(FixedLengthBitQueue* queue);
-
-
-typedef struct HuffmanBitStringTable_t {
-	uint8_t** bitStrings_0_7; // aagggghhh!
-	uint16_t** bitStrings_7_15; // we only need two bytes for bitstrings above length 8
-	uint8_t* numBitStrings;
-	uint8_t** codes;
-} HuffmanBitStringTable;
-
-
-typedef struct HuffmanDecoderState_t {
-	uint16_t currentBitString;
-	int numCheckedBits;
-	FixedLengthBitQueue* queue;
-	HuffmanBitStringTable* bitStringsTable;
-} HuffmanDecoderState;
-
-
-HuffmanDecoderState huffmanDecoder_new(HuffmanBitStringTable* bitStringsTable, FixedLengthBitQueue* queue);
-BOOL huffmanDeocder_attemptDecodeSingleCode(HuffmanDecoderState* decoderState, uint8_t* codeOut);
-
-//BOOL matchHuffmanBitString(HuffmanBitStringTable huffTable, int startfrom, uint16_t bitString, uint16_t bitStringLength, uint8_t* foundCodeOut);
-
-HuffmanBitStringTable huffmanBitStringTable_build(uint8_t** huffmanCodes, uint8_t* numCodes);
-void huffmanBitStringTable_encode(HuffmanBitStringTable* huffTable, uint8_t codeToEncode, uint16_t* bitStringOut, uint8_t* bitStringLengthOut);
-
-void printBitString(uint16_t bitString, uint8_t length);
-void printByte(uint8_t byteToPrint);
 
 //uint16_t* huffmanBits;
 //uint8_t* huffmanCodesOut;
@@ -117,7 +63,7 @@ uint8_t encodedData[100];
 int encodedDataIndex = 0;
 
 
-int main(void){
+/*int main(void){
 
 	DLOG("PC_DEBUG set\n");
 	uint8_t* huffmanCodes[16];
@@ -256,7 +202,7 @@ int main(void){
 	// to make it as flexible as possible we should probably have a function which attempts to decode a single code and then
 	// call this whenever we want
 
-	}
+	}*/
 	
 
 

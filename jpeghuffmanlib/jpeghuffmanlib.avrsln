@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# AvrStudio Solution File, Format Version 11.00
+Project("{D1100916-62DA-4D80-A9B4-55A1E7CCEEB3}") = "jpeghuffmanlib", "jpeghuffmanlib\jpeghuffmanlib.avrgccproj", "{A47D232F-2F6F-4AEC-B348-0A0199848A24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A47D232F-2F6F-4AEC-B348-0A0199848A24}.Debug|AVR.ActiveCfg = Debug|AVR
+		{A47D232F-2F6F-4AEC-B348-0A0199848A24}.Debug|AVR.Build.0 = Debug|AVR
+		{A47D232F-2F6F-4AEC-B348-0A0199848A24}.Release|AVR.ActiveCfg = Release|AVR
+		{A47D232F-2F6F-4AEC-B348-0A0199848A24}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
