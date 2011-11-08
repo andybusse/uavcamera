@@ -8,3 +8,8 @@ C:\Users\peak\Desktop\GDP\uav_connector\portConnector\obj\x86\Debug\portConnecto
 C:\Users\peak\Desktop\GDP\uav_connector\portConnector\bin\Debug\portConnector.exe
 C:\Users\peak\Desktop\GDP\uav_connector\portConnector\bin\Debug\portConnector.pdb
 C:\Users\peak\Desktop\GDP\uav_connector\portConnector\obj\x86\Debug\ResolveAssemblyReference.cache
+H:\.das\Desktop\gdp\uav_connector\portConnector\obj\x86\Debug\portConnector.exe
+H:\.das\Desktop\gdp\uav_connector\portConnector\obj\x86\Debug\portConnector.pdb
+H:\.das\Desktop\gdp\uav_connector\portConnector\bin\Debug\portConnector.exe
+H:\.das\Desktop\gdp\uav_connector\portConnector\bin\Debug\portConnector.pdb
+H:\.das\Desktop\gdp\uav_connector\portConnector\obj\x86\Debug\ResolveAssemblyReference.cache
