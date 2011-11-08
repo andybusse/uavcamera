@@ -25,12 +25,13 @@ from http://www.impulseadventure.com/photo/jpeg-decoder.html accessed 04/11/2011
  *  Author: mh23g08
  */ 
 
-#define PC_DEBUG
+#define PLATFORM_PC
+#define DEBUG
 
-#ifdef PC_DEBUG
-#include <stdio.h>
-#else
-#include <avr/io.h>
+#ifdef PLATFORM_PC
+	#include <stdio.h>
+#else defined PLATFORM_PURE_AVR
+	#include <avr/io.h>
 #endif
 
 #include <stdlib.h>
@@ -43,7 +44,19 @@ from http://www.impulseadventure.com/photo/jpeg-decoder.html accessed 04/11/2011
 #define FALSE 0
 #define TRUE 1
 
-
+#ifdef DEBUG
+	#ifdef PLATFORM_PC
+		#define DLOG(...)  printf(__VA_ARGS__)
+	#elif defined PLATFORM_PURE_AVR
+		#define DLOG(...)
+	#elif PLATFORM_ARDUINO
+		#define DLOG(...)  
+	#else
+		#define DLOG(...)
+	#endif
+#else
+	#define DLOG(...)
+#endif
 
 //void initHuffmanSendBuffer();
 //BOOL bufferHuffmanBits(uint16_t huffmanBitsIn, int huffmanBitsLengthIn);
@@ -88,6 +101,9 @@ BOOL huffmanDeocder_attemptDecodeSingleCode(HuffmanDecoderState* decoderState, u
 
 //BOOL matchHuffmanBitString(HuffmanBitStringTable huffTable, int startfrom, uint16_t bitString, uint16_t bitStringLength, uint8_t* foundCodeOut);
 
+HuffmanBitStringTable huffmanBitStringTable_build(uint8_t** huffmanCodes, uint8_t* numCodes);
+void huffmanBitStringTable_encode(HuffmanBitStringTable* huffTable, uint8_t codeToEncode, uint16_t* bitStringOut, uint8_t* bitStringLengthOut);
+
 void printBitString(uint16_t bitString, uint8_t length);
 void printByte(uint8_t byteToPrint);
 
@@ -95,13 +111,15 @@ void printByte(uint8_t byteToPrint);
 //uint8_t* huffmanCodesOut;
 //int* huffmanBitsLength;
 
-HuffmanBitStringTable huffBitStringTable;
+
 
 uint8_t encodedData[100];
 int encodedDataIndex = 0;
 
+
 int main(void){
-	printf("PC_DEBUG set\n");
+
+	DLOG("PC_DEBUG set\n");
 	uint8_t* huffmanCodes[16];
 	uint8_t numCodes[16] = { 0, 2, 1, 3, 3, 2, 5, 2, 4, 4, 4, 5, 3, 3, 2, 7 };
 	
@@ -142,6 +160,110 @@ int main(void){
 		totalCodes += numCodes[i];
 	}
 	
+	HuffmanBitStringTable huffTable = huffmanBitStringTable_build(huffmanCodes, numCodes);
+
+
+	// let's try to encode something and then decode it
+	uint8_t testDataIn[] = { 0x00, 0x01, 0x03, 0x07, 0x08, 0x04, 0x00, 0x92, 0x00, 0x00, 0x00, 0x00};
+	
+
+	
+	// encoding it is a bit odd, since we are not going to have to deal with byte boundries
+	// worst case is 16 bits long codeword which is two bytes
+	
+	//////////////////////////////////////////////////////////////////////////
+	// ENCODING																//
+	//////////////////////////////////////////////////////////////////////////
+	
+	// we will try to send a byte for every loop iteration seen below, but if we have any left over we will put it in this the two leftover byte variables
+	BOOL bitQueueArray[16 + 8];
+	FixedLengthBitQueue bitQueue = fixedLengthBitQueue_new(16 + 8, bitQueueArray);
+	
+	for (int i = 0; i < 12; i++)
+	{
+		// find the corresponding huffman bitstring
+		
+		
+		uint16_t bitStringToSend;
+		uint8_t bitStringToSendLength;
+		huffmanBitStringTable_encode(&huffTable, testDataIn[i], &bitStringToSend, &bitStringToSendLength);	
+		
+		// now we want to send bits one by one for each code so we enqueue them on the bitqueue
+		// we need to pick each bit out
+		uint16_t mask = (0x01 << (bitStringToSendLength - 1));
+
+		for(int bitIndex = 0; bitIndex < bitStringToSendLength; bitIndex++) {
+			// for each bit
+			// first we find the bit value
+			BOOL bit = FALSE;
+			if(bitStringToSend & (mask >> bitIndex)) 
+				bit = TRUE;
+			
+			// now we try to add it to the queue and then try to send the queue, if we cannot add it something has gone wrong with the code,
+			// since we should be flushing the queue before we have a chance to run out of room
+			BOOL added = FALSE;
+			added = fixedLengthBitQueue_enqueue(&bitQueue, bit);
+			assert(added == TRUE); // should always be able to be added
+			
+			attemptSend(&bitQueue);
+		
+		}
+	
+		
+	}
+	
+	sendAndTerminate(&bitQueue);
+	
+	
+	//////////////////////////////////////////////////////////////////////////
+	// DECODING																//
+	//////////////////////////////////////////////////////////////////////////
+	
+	// we will need a bit queue at least 15 + 8 bits long (to cope with having a 15 bits of a 16 bit long bitstring
+	// in the queue and then having another byte added)
+	
+	BOOL decoderBitQueueArray[15 + 8];
+	FixedLengthBitQueue decoderBitQueue = fixedLengthBitQueue_new(15 + 8, decoderBitQueueArray);
+	HuffmanDecoderState decoderState = huffmanDecoder_new(&huffTable, &decoderBitQueue);
+	
+	for (int k = 0; k < encodedDataIndex; k++)
+	{
+		uint16_t mask = (0x01 << 7);
+		for(int bitIndex = 0; bitIndex < 8; bitIndex++) {
+			if(encodedData[k] & (mask >> bitIndex)) {
+				fixedLengthBitQueue_enqueue(&decoderBitQueue, TRUE);
+			} else {
+				fixedLengthBitQueue_enqueue(&decoderBitQueue, FALSE);
+			}
+			uint8_t codeOut = 0x00;
+			BOOL codeFound = FALSE;
+			codeFound = huffmanDeocder_attemptDecodeSingleCode(&decoderState, &codeOut);
+			if (codeFound == TRUE) {
+				DLOG("Code %X found!\n", codeOut);
+			}
+			
+			
+		}
+	}
+	
+	// we read in new bits one by one and try to decode them as we go
+	// we should repeat until the end of the stream:
+	//	read in one bit
+	//	attempt to decode
+	//	if successful then emit the code then continue
+	//	if unsuccessful then continue
+	
+	// to make it as flexible as possible we should probably have a function which attempts to decode a single code and then
+	// call this whenever we want
+
+	}
+	
+
+
+
+HuffmanBitStringTable huffmanBitStringTable_build(uint8_t** huffmanCodes, uint8_t* numCodes)
+{
+	HuffmanBitStringTable huffBitStringTable;
 	huffBitStringTable.bitStrings_0_7 = malloc(8 * sizeof(uint8_t*));
 	assert(huffBitStringTable.bitStrings_0_7 != NULL);
 	huffBitStringTable.bitStrings_7_15 = malloc(8 * sizeof(uint16_t));
@@ -175,22 +297,17 @@ int main(void){
 			if (lengthlevel < 8)
 			{
 				huffBitStringTable.bitStrings_0_7[lengthlevel][codeindex] = (uint8_t)currentBitstring;
-				printf("Code\t %X \t assigned to bits\t %u \tat length\t %u \n", huffBitStringTable.codes[lengthlevel][codeindex], huffBitStringTable.bitStrings_0_7[lengthlevel][codeindex], lengthlevel + 1);
-				printf("Bitstring: ");
+				DLOG("Code\t %X \t assigned to bits\t %u \tat length\t %u \n", huffBitStringTable.codes[lengthlevel][codeindex], huffBitStringTable.bitStrings_0_7[lengthlevel][codeindex], lengthlevel + 1);
+				DLOG("Bitstring: ");
 				printBitString(huffBitStringTable.bitStrings_0_7[lengthlevel][codeindex], lengthlevel + 1);
-				printf("\n");
+				DLOG("\n");
 			} else {
 				huffBitStringTable.bitStrings_7_15[lengthlevel - 8][codeindex] = currentBitstring;
-				printf("Code\t %X \t assigned to bits\t %u \tat length\t %u \n", huffBitStringTable.codes[lengthlevel][codeindex], huffBitStringTable.bitStrings_7_15[lengthlevel - 8][codeindex], lengthlevel + 1);
-				printf("Bitstring: ");
+				DLOG("Code\t %X \t assigned to bits\t %u \tat length\t %u \n", huffBitStringTable.codes[lengthlevel][codeindex], huffBitStringTable.bitStrings_7_15[lengthlevel - 8][codeindex], lengthlevel + 1);
+				DLOG("Bitstring: ");
 				printBitString(huffBitStringTable.bitStrings_7_15[lengthlevel - 8][codeindex], lengthlevel + 1);
-				printf("\n");
+				DLOG("\n");
 			}
-			
-
-
-			
-
 			currentBitstring++; // increment by one to get the next huffman bitstring
 		}
 		
@@ -198,137 +315,49 @@ int main(void){
 		currentBitstring *= 2;
 	}
 	
-	printf("Finished!\n");
+	DLOG("Finished!\n");
+	return huffBitStringTable;
+}
 
-
-	// let's try to encode something and then decode it
-	uint8_t testDataIn[] = { 0x00, 0x01, 0x03, 0x07, 0x08, 0x04, 0x00, 0x92, 0x00, 0x00, 0x00, 0x00};
-	
-
-	
-	// encoding it is a bit odd, since we are not going to have to deal with byte boundries
-	// worst case is 16 bits long codeword which is two bytes
-	
-	//////////////////////////////////////////////////////////////////////////
-	// ENCODING																//
-	//////////////////////////////////////////////////////////////////////////
-	
-	// we will try to send a byte for every loop iteration seen below, but if we have any left over we will put it in this the two leftover byte variables
-	BOOL bitQueueArray[16 + 8];
-	FixedLengthBitQueue bitQueue = fixedLengthBitQueue_new(16 + 8, bitQueueArray);
-	
-	for (int i = 0; i < 12; i++)
-	{
-		// find the corresponding huffman bitstring
-		
-		
-		int bitStringLengthLevel = 0;
-		int huffmanCodeIndex = 0;
-		BOOL codeFound = FALSE;
-		for(; bitStringLengthLevel < 16; bitStringLengthLevel++) {
-			huffmanCodeIndex = 0;
-			for(; huffmanCodeIndex < numCodes[bitStringLengthLevel]; huffmanCodeIndex++) {
-				if (testDataIn[i] == huffmanCodes[bitStringLengthLevel][huffmanCodeIndex]) {
-					codeFound = TRUE;
-					break;
-				}	
-			}
-			if (codeFound == TRUE)
-				break;				
-		}			
+void huffmanBitStringTable_encode(HuffmanBitStringTable* huffTable, uint8_t codeToEncode, uint16_t* bitStringOut, uint8_t* bitStringLengthOut) {
+	int bitStringLengthLevel = 0;
+	int huffmanCodeIndex = 0;
+	BOOL codeFound = FALSE;
+	for(; bitStringLengthLevel < 16; bitStringLengthLevel++) {
+		huffmanCodeIndex = 0;
+		for(; huffmanCodeIndex < huffTable->numBitStrings[bitStringLengthLevel]; huffmanCodeIndex++) {
+			if (codeToEncode == huffTable->codes[bitStringLengthLevel][huffmanCodeIndex]) {
+				codeFound = TRUE;
+				break;
+			}	
+		}
+		if (codeFound == TRUE)
+			break;				
+	}			
 					
-		assert(codeFound == TRUE); // if this is not true then no corresponding bitstring was found for this code which indicates something is wrong!
-		
+	assert(codeFound == TRUE); // if this is not true then no corresponding bitstring was found for this code which indicates something is wrong!
+	
+	#ifdef DEBUG	
 		if (bitStringLengthLevel < 8)
 		{
-			printf("Encoding code %X with bitstring %u of length %u ", huffmanCodes[bitStringLengthLevel][huffmanCodeIndex], huffBitStringTable.bitStrings_0_7[bitStringLengthLevel][huffmanCodeIndex], bitStringLengthLevel + 1);
-			printBitString(huffBitStringTable.bitStrings_0_7[bitStringLengthLevel][huffmanCodeIndex], bitStringLengthLevel + 1);
-			printf("\n");
+			DLOG("Encoding code %X with bitstring %u of length %u ", huffTable->codes[bitStringLengthLevel][huffmanCodeIndex], huffTable->bitStrings_0_7[bitStringLengthLevel][huffmanCodeIndex], bitStringLengthLevel + 1);
+			printBitString(huffTable->bitStrings_0_7[bitStringLengthLevel][huffmanCodeIndex], bitStringLengthLevel + 1);
+			DLOG("\n");
 		} else {
-			printf("Encoding code %X with bitstring %u of length %u ", huffmanCodes[bitStringLengthLevel][huffmanCodeIndex], huffBitStringTable.bitStrings_7_15[bitStringLengthLevel - 8][huffmanCodeIndex], bitStringLengthLevel + 1);
-			printBitString(huffBitStringTable.bitStrings_7_15[bitStringLengthLevel - 8][huffmanCodeIndex], bitStringLengthLevel + 1);
-			printf("\n");
+			DLOG("Encoding code %X with bitstring %u of length %u ", huffTable->codes[bitStringLengthLevel][huffmanCodeIndex], huffTable->bitStrings_7_15[bitStringLengthLevel - 8][huffmanCodeIndex], bitStringLengthLevel + 1);
+			printBitString(huffTable->bitStrings_7_15[bitStringLengthLevel - 8][huffmanCodeIndex], bitStringLengthLevel + 1);
+			DLOG("\n");
 		}
+	#endif
 		
-		
-		// now we want to send bits one by one for each code so we enqueue them on the bitqueue
-		// we need to pick each bit out
-		uint16_t mask = (0x01 << bitStringLengthLevel);
-		
-		uint16_t bitStringToSend;
-		if (bitStringLengthLevel < 8)
-		{
-			bitStringToSend = (uint8_t)huffBitStringTable.bitStrings_0_7[bitStringLengthLevel][huffmanCodeIndex];
-		} else {
-			bitStringToSend = huffBitStringTable.bitStrings_7_15[bitStringLengthLevel - 8][huffmanCodeIndex];
-		}
-		for(int bitIndex = 0; bitIndex < bitStringLengthLevel + 1; bitIndex++) {
-			// for each bit
-			// first we find the bit value
-			BOOL bit = FALSE;
-			if(bitStringToSend & (mask >> bitIndex)) 
-				bit = TRUE;
-			
-			// now we try to add it to the queue and then try to send the queue, if we cannot add it something has gone wrong with the code,
-			// since we should be flushing the queue before we have a chance to run out of room
-			BOOL added = FALSE;
-			added = fixedLengthBitQueue_enqueue(&bitQueue, bit);
-			assert(added == TRUE); // should always be able to be added
-			
-			attemptSend(&bitQueue);
-		
-		}
-	
-		
-	}
-	
-	sendAndTerminate(&bitQueue);
-	
-	
-	//////////////////////////////////////////////////////////////////////////
-	// DECODING																//
-	//////////////////////////////////////////////////////////////////////////
-	
-	// we will need a bit queue at least 15 + 8 bits long (to cope with having a 15 bits of a 16 bit long bitstring
-	// in the queue and then having another byte added)
-	
-	BOOL decoderBitQueueArray[15 + 8];
-	FixedLengthBitQueue decoderBitQueue = fixedLengthBitQueue_new(15 + 8, decoderBitQueueArray);
-	HuffmanDecoderState decoderState = huffmanDecoder_new(&huffBitStringTable, &decoderBitQueue);
-	
-	for (int k = 0; k < encodedDataIndex; k++)
+	if (bitStringLengthLevel < 8)
 	{
-		uint16_t mask = (0x01 << 7);
-		for(int bitIndex = 0; bitIndex < 8; bitIndex++) {
-			if(encodedData[k] & (mask >> bitIndex)) {
-				fixedLengthBitQueue_enqueue(&decoderBitQueue, TRUE);
-			} else {
-				fixedLengthBitQueue_enqueue(&decoderBitQueue, FALSE);
-			}
-			uint8_t codeOut = 0x00;
-			BOOL codeFound = FALSE;
-			codeFound = huffmanDeocder_attemptDecodeSingleCode(&decoderState, &codeOut);
-			if (codeFound == TRUE) {
-				printf("Code %X found!\n", codeOut);
-			}
-			
-			
-		}
+		*bitStringOut = (uint8_t)huffTable->bitStrings_0_7[bitStringLengthLevel][huffmanCodeIndex];
+	} else {
+		*bitStringOut = huffTable->bitStrings_7_15[bitStringLengthLevel - 8][huffmanCodeIndex];
 	}
-	
-	// we read in new bits one by one and try to decode them as we go
-	// we should repeat until the end of the stream:
-	//	read in one bit
-	//	attempt to decode
-	//	if successful then emit the code then continue
-	//	if unsuccessful then continue
-	
-	// to make it as flexible as possible we should probably have a function which attempts to decode a single code and then
-	// call this whenever we want
-
-	}
-	
-
+	*bitStringLengthOut = bitStringLengthLevel + 1;
+}
 
 HuffmanDecoderState huffmanDecoder_new(HuffmanBitStringTable* bitStringsTable, FixedLengthBitQueue* queue) {
 	HuffmanDecoderState huff;
@@ -495,9 +524,9 @@ BOOL attemptSend(FixedLengthBitQueue* queue) {
 				byteToSend = byteToSend | (mask >> bitIndex);
 			
 		} 
-		printf("Byte to send hex: %X bits: ", byteToSend);
+		DLOG("Byte to send hex: %X bits: ", byteToSend);
 		printByte(byteToSend);
-		printf("\n");
+		DLOG("\n");
 		
 		encodedData[encodedDataIndex] = byteToSend;
 		encodedDataIndex++;
@@ -531,9 +560,9 @@ void sendAndTerminate(FixedLengthBitQueue* queue) {
 			byteToSend = byteToSend | (mask >> bitIndex);
 			
 	} 
-	printf("Sending and terminating with byte hex: %X bits: ", byteToSend);
+	DLOG("Sending and terminating with byte hex: %X bits: ", byteToSend);
 	printByte(byteToSend);
-	printf("\n");
+	DLOG("\n");
 	
 }
 
@@ -541,9 +570,9 @@ void printBitString(uint16_t bitString, uint8_t length) {
 	uint16_t mask = (0x01 << (length - 1));
 	for(int bitIndex = 0; bitIndex < length; bitIndex++) {
 		if(bitString & (mask >> bitIndex)) {
-			printf("1");
+			DLOG("1");
 		} else {
-			printf("0");
+			DLOG("0");
 		}
 	}
 }	
@@ -552,9 +581,9 @@ void printByte(uint8_t byteToPrint) {
 	uint16_t mask = (0x01 << 7);
 	for(int bitIndex = 0; bitIndex < 8; bitIndex++) {
 		if(byteToPrint & (mask >> bitIndex)) {
-			printf("1");
+			DLOG("1");
 		} else {
-			printf("0");
+			DLOG("0");
 		}
 	}
 }
@@ -584,7 +613,7 @@ BOOL bufferHuffmanBits(uint16_t huffmanBitsIn, int huffmanBitsLengthIn) {
 		{
 			huffmanBitsSendBuffer[posIndex] = huffmanBitsIn;
 			huffmanBitsLengthSendBuffer[posIndex] = huffmanBitsLengthIn;
-			printf("Bits %u with length %u added to send buffer at position %d\n", huffmanBitsIn, huffmanBitsLengthIn, posIndex);
+			DLOG("Bits %u with length %u added to send buffer at position %d\n", huffmanBitsIn, huffmanBitsLengthIn, posIndex);
 			break;
 		}
 		
@@ -638,3 +667,4 @@ BOOL attemptHuffmanSend() {
 	
 }
 */
+
