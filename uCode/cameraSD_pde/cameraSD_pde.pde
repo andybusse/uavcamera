@@ -42,7 +42,7 @@ void setup()
   }
   DLOG("SD Working");
   
-  jpgFile = SD.open(fileName, FILE_WRITE);
+  jpgFile = SD.open(fileName, O_CREAT | O_WRITE);
   
   
   //DLOG("Attemting to establish contact.\n\r");
@@ -152,28 +152,35 @@ boolean takeSnapshot() {
   sSerial.println();
   
   byte dataIn[packageSize]; // 512 is from the setpackagesize command
+  int flushCount = 0;
   
   for(unsigned int package = 0;package<numPackages;package++){
     
-    DLOG("Sending ACK for package ");
-    DLOG(package,DEC);
-    DLOG("\n\r");
+    //DLOG("Sending ACK for package ");
+    //DLOG(package,DEC);
+    //DLOG("\n\r");
     sendACK(0x00,0x00,(byte)package,(byte)(package>>8));
     
-    // receive package
-    for(int dataPoint = 0; dataPoint<packageSize;dataPoint++){
-      while (Serial.available() <= 0) {} // wait for data to be available n.b. will wait forever...
-      dataIn[dataPoint] = Serial.read();
-      if(dataPoint > 3 && dataPoint < (packageSize - 2)){ //strips out header data
-      //sSerial.print(dataIn[dataPoint],BYTE);
-      jpgFile.print(dataIn[dataPoint]);   
-    }
-      //DLOG(dataPoint);
-      //DLOG("\n\r");
-    }
-    DLOG("Package ");
-    DLOG(package);
-    DLOG(" read successfully\n\r");
+      // receive package
+      for(int dataPoint = 0; dataPoint<packageSize;dataPoint++){
+        while (Serial.available() <= 0) {} // wait for data to be available n.b. will wait forever...
+        dataIn[dataPoint] = Serial.read();
+          if(dataPoint > 3 && dataPoint < (packageSize - 2)){ //strips out header data
+          //sSerial.print(dataIn[dataPoint],BYTE);
+          jpgFile.print(dataIn[dataPoint]);
+            if(flushCount == 511){
+              jpgFile.flush();
+              flushCount = -1; // because it adds one straight away after
+            }
+          flushCount++;
+          }
+        //DLOG(dataPoint);
+        //DLOG("\n\r");
+      }
+    //DLOG("Package ");
+    //DLOG(package);
+    //DLOG(" read successfully\n\r");
+
   }
   
   sendACK(0x0A,0x00,0xF0,0xF0);
