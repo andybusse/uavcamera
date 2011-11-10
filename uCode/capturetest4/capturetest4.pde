@@ -136,7 +136,7 @@ boolean takeSnapshot() {
     for(int dataPoint = 0; dataPoint<packageSize;dataPoint++){
       while (Serial.available() <= 0) {} // wait for data to be available n.b. will wait forever...
       dataIn[dataPoint] = Serial.read();
-      if(dataPoint > 3 || dataPoint < (packageSize - 2)){
+      if(dataPoint > 3 && dataPoint < (packageSize - 2)){
       sSerial.print(dataIn[dataPoint],BYTE);
       }
       //DLOG(dataPoint);
