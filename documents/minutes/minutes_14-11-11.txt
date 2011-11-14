@@ -1,0 +1,25 @@
+14 Nov 2011 2:30:
+
+- andy not here
+
+- possible that transmission fast enough not to require custom compression
+- drop down custom compression priority
+	- have one person working on the custom compression stuff
+	- mitch will be working on this
+	- mitch will assume we get 64 bytes at a time from the camera to the custom compression code
+	- 'c read binary file'
+	- goals by next monday: 21/11/2011
+		- extract relevant jpeg header info (by tuesday evening)
+		- use this in the huffman coder (talk to michael)
+		- rest we will worry about later
+- john will try to add bus/tristate buffer for the tx rx on arduino to allow camera and
+payload to communicate
+- peak will work on getting payload to work
+- michael will also work on getting payload to work
+- when finished payload peak will work on ground station UI
+- andy working on payload code for the ardunio
+- andy assigned to pcb production (should talk more about this tomorrow)
+
+essential tasks remaining:
+	- payload to autopilot communication (all on one chip)
+	- ground station software and UI
