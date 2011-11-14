@@ -10,6 +10,7 @@
 
 #include <SoftwareSerial.h>
 #include <SD.h>
+#include <stdio.h>
 
 #define DLOG(...)  sSerial.print(__VA_ARGS__)
 //#define DLOG(...)
@@ -21,7 +22,10 @@ byte RXtest[6];
 #define sTxPin 3
 
 SoftwareSerial sSerial = SoftwareSerial(sRxPin, sTxPin);
-char fileName[] = "test.jpg";
+char filePrefix[] = "test"; //Prefix of file name written to the SD card
+char fileExt[] = ".jpg"; //File extension of the file being written to
+char fileName[13]; //Contains full file name of file being written to
+char numBuf[5]; //Number buffer, for the "find a file that doesn't exist" procedure. Could be a number up to 32767
 File jpgFile;
 
 void setup()
@@ -41,12 +45,7 @@ void setup()
     DLOG("SD Failed");
     return;
   }
-  DLOG("SD Working");
-  
-  // For Optimisation of the SD card writing process.
-  // See http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1293975555
-  jpgFile = SD.open(fileName, O_CREAT | O_WRITE);
-  
+  DLOG("SD Working"); 
   
   //DLOG("Attemting to establish contact.\n\r");
   establishContact();  // send a byte to establish contact until receiver responds
@@ -59,6 +58,18 @@ void setup()
 void loop()
 {
   sSerial.read(); //Wait for something to be sent over the PC serial line
+  
+  boolean fileExists = true;
+  int fileNum = 0;
+  while(fileExists){
+    fileNum++;
+    snprintf(fileName, sizeof(fileName), "%s%i%s", filePrefix, fileNum, fileExt); // prints "test{num},jpg" to fileName
+    fileExists = SD.exists(fileName); // checks whether that file is on the SD card.
+  }
+  
+  sSerial.println(fileName);
+  setupSD(fileName); // creates the file on the sd for writing
+  
   boolean wellness = takeSnapshot(); //Take a snapshot
   if(wellness){ //If no error is detected
    DLOG("All's well\n\r");
@@ -67,6 +78,14 @@ void loop()
     DLOG("Trouble at mill...\n\r");
   }
   jpgFile.close(); // Close JPG file
+}
+
+// setup the file on the sd card
+
+void setupSD(char fileName[]){
+  // For Optimisation of the SD card writing process.
+  // See http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1293975555
+  jpgFile = SD.open(fileName, O_CREAT | O_WRITE);
 }
 
 // synchronise with camera
