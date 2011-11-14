@@ -4,11 +4,9 @@
 // Digital 13  <->  SD CLK
 // Digital 12  <->  SD MISO / Data 0 / SO
 // Digital 11  <->  SD MOSI / CMD / DI
-// Digital 10   <->  SD D3
-
-
-
-// Package size = maximum of 512 bytes
+// Digital 4   <->  SD D3
+// Arduino RX  <->  Camera TX
+// Arduino TX  <->  Camera RX
 
 #include <SoftwareSerial.h>
 #include <SD.h>
@@ -18,6 +16,7 @@
 byte SYNC[] = {0xAA,0x0D,0x00,0x00,0x00,0x00};
 byte RXtest[6];
 
+// Serial PC cable to view error messages
 #define sRxPin 2
 #define sTxPin 3
 
@@ -34,14 +33,18 @@ void setup()
   // start software serial library for debugging
   pinMode(sRxPin, INPUT);
   pinMode(sTxPin, OUTPUT);
+  // Pin 10 = Chip Select
   pinMode(10, OUTPUT);
   
+  // If SD not connected, stop execution
   if (!SD.begin(4)) {
     DLOG("SD Failed");
     return;
   }
   DLOG("SD Working");
   
+  // For Optimisation of the SD card writing process.
+  // See http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1293975555
   jpgFile = SD.open(fileName, O_CREAT | O_WRITE);
   
   
@@ -55,21 +58,21 @@ void setup()
 
 void loop()
 {
-  //trollololol
-  sSerial.read();
-  boolean wellness = takeSnapshot();
-  if(wellness){
+  sSerial.read(); //Wait for something to be sent over the PC serial line
+  boolean wellness = takeSnapshot(); //Take a snapshot
+  if(wellness){ //If no error is detected
    DLOG("All's well\n\r");
    delay(2000);
-  }else{
+  }else{ //Error has been detected
     DLOG("Trouble at mill...\n\r");
   }
-  jpgFile.close();
+  jpgFile.close(); // Close JPG file
 }
 
 // synchronise with camera
 void establishContact() {
-  DLOG("Sending syncs\n\r\r");
+  DLOG("Sending syncs\n\r\r"); // Send SYNC to the camera.
+  //This could be up to 60 times
   while(1){
     while (Serial.available() <= 0) {
       DLOG(".");
@@ -78,7 +81,7 @@ void establishContact() {
     }
     
     receiveComd();
- 
+ // Verify that the camera has sent back an ACK followed by SYNC
     if(!isACK(RXtest,0x0D,0x00,0x00))
       continue;
     DLOG("ACK received\n\r");
@@ -88,7 +91,7 @@ void establishContact() {
      continue;
    
    DLOG("SYNC received\n\r");
-   
+   // Send back an ACK
    sendACK(0x0D,0x00,0x00,0x00);
    
    break;
@@ -107,6 +110,8 @@ boolean takeSnapshot() {
       return false;
   DLOG("ACK received\n\r");
   
+  // Package size = maximum of 512 bytes
+  // Arduino serial.read() buffer size = 128 bytes
   unsigned int packageSize = 64;
   
   // sets the size of the packets to be sent from the camera
@@ -139,7 +144,9 @@ boolean takeSnapshot() {
   if(!isDATA(RXtest))
       return false;
   DLOG("DATA received\n\r");
-      
+  
+  // Strips out the "number of packages" from the DATA command
+  // then displays this over the serial link  
   unsigned long bufferSize = 0;
   bufferSize = RXtest[5] | bufferSize;
   bufferSize = (bufferSize<<8) | RXtest[4];
@@ -151,7 +158,7 @@ boolean takeSnapshot() {
   DLOG(numPackages,DEC);
   sSerial.println();
   
-  byte dataIn[packageSize]; // 512 is from the setpackagesize command
+  byte dataIn[packageSize];
   int flushCount = 0;
   
   for(unsigned int package = 0;package<numPackages;package++){
@@ -187,6 +194,9 @@ boolean takeSnapshot() {
   DLOG("Final ACK sent\n\r");
   return true;
 }
+
+// The following are all self-explanatory.
+// Follows command structure described in the camera's datasheet
 
 void sendSYNC() {
   sendCommand(0xAA,0x0D,0x00,0x00,0x00,0x00);
