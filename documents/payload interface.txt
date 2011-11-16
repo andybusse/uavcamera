@@ -1,0 +1,36 @@
+- Not sure how communication over autopilot works so this interface spec is limited for now:
+- It may be that the autopilot sends and recieves 'packets' of data from the payload, or it may be that shared memory is used to communicate between the two systems
+- If we are using shared memory we can still have basic packet structure
+
+- Basic packet structure:
+[0xFF (to denote this is a packet, we may not actually need this)] [ Command ID (identifies the packet) ] [ ... misc other bytes depending on Command ID ... ] [ (optional) error checking e.g. modulo 2 of every bit ]
+
+- Modulo 2 (CRC) error checking may be useful
+
+- We need to decide if we want to acknowelege each packet as it comes
+
+- If we need to send variable length data we should simply do [ Length of data ] [ Data ]
+
+GS = Ground Station
+PL = Payload
+Messages:
+	- GS > PL: Take Picture [ Take Picture Message ID ]
+		- PL should send back Picture Taken message
+	- PL > GS: Picture Taken [ Picture Taken Message ID ] [ Image ID ] [ Image Data Size ]
+	- GS > PL: Image Download Request [ Image Download Request Message ID ] [ Image ID ] [ Byte To Begin At ]
+	- PL > GS: Image Data [ Image Data Message ID ] [ Image ID ] [ Size of Data ]
+	- GS > PL: Set Colour Type [ Set Colour Type Message ID ] [ Colour Type ]
+	- GS > PL: Set Image Resolution [ Set Image Resolution Message ID ] [ Image Resolution ]
+	- GS > PL: Set Colour Type and Image Resolution [ Set Colour Type and Image Resolution Message ID ] [ Colour Type and Resolution (all one byte) ]
+
+	- We may also need a general ACK message which could be sent in acknowelegement of any message
+		- Could be [ ACK Message ID ] [ ID of Message ACK is for ] possibly we could add some checksum bits too
+
+Steps for GS to take image:
+
+1. GS sends Take Picture message and waits for Picture Taken message
+2. When GS gets Picture Taken message it remembers the Image ID and Image Size
+3. Loop until all image downloaded:
+	4. The GS sends Image Download Request message for the next set of bytes in the image and waits for an Image Data message
+	5. When the GS gets the Image Data message it stores the data in the message to a JPEG file.
+
