@@ -1,0 +1,53 @@
+15-11-2011, 4pm-5.30pm, Hartley Library Room 1B
+
+Agenda: Beat together a report structure, review any further progress made.
+
+Taking some inspiration from the example LaTeX GDP report on Steve Gunn's webpage (NB: This is highly subject to change / re-ordering):
+
+=====
+* Introduction (mentioning that it's also for proof "payload" of concept)
+* Background Research
+    - Image Compression: JPEG Structure / Huffman Coding
+    - Choice of Camera / Payload Documentation / GCS.exe
+    - Hardware Selection: Payload Controller (AVR/Arduino/Olimex/etc.) / Programming Language (C/C#)
+* Specification
+    - Proposal (Handed in first week)
+    - Consideration of options
+* Development [1]
+    - Research, possible solutions, design approaches
+* Hardware [1]
+* Software [1]
+* Overview
+    - Final Deliverables
+* Project Management
+    - Gantt Charts (more than just first one)
+    - Risk Management (from presentation 1, also risks encountered)
+    - Work Allocation (planned, actual)
+    - Meetings (minutes in annexe?)
+* Future Work [2]
+    - (Real-time) video, (higher-res) other cameras, better GUI, progressive scan, radar, additional setting choices
+* Evaluation [2]
+* Conclusions
+* Documentation
+    - User Manual
+    - Technical Docs
+    - Source Code (github/sourceforge/somewhere public) (GPL'd)
+    - BOM (Bill of Materials)
+* APPENDICES
+    - BOM
+    - Gantt
+    - Source Code
+    - Presentations (links to, not all the slides)
+    - Minutes
+    - SVN / git log (github charts).
+=====
+
+[1] Think it may be nicer to combine this into "Technical Content" section. (or something slightly better worded):
+    - Camera <-> Payload Controller (SD Card)
+    - Payload Controller (SD Card) <-> Autopilot
+    - (Autopilot <->) Ground Station Software
+[2] These two sections could probably be combined. (Evaluation containing what future work could be done)
+
+PROGRESS MADE: Image from camera to SD card. Complete. Including a file numbering situation. Some quirks that need to be ironed out, though (power cycling of camera, removal of camera RX/TX to program arduino) . (svn r97, git 04e4d70b, 10/11/11) JOY!
+
+TO DO: Docs, Payload link (Matt Bennett has been emailed), Progressive JPG, User Interface. See yesterday's minutes for who's been re-assigned to what.
