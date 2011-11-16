@@ -61,6 +61,9 @@
     <GenerateEepFile>True</GenerateEepFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CRunner.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="gettingJPEGdataInC.c">
       <SubType>compile</SubType>
     </Compile>
