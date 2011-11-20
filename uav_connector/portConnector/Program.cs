@@ -19,6 +19,7 @@ namespace portConnector
             Connector connector1 = new Connector();
             connector1.ConnectToPort(8802,"localhost");
             data = connector1.byte_stream_from_port();
+            Console.WriteLine();
         }
     }
 }

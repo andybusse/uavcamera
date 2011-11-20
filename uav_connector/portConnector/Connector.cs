@@ -50,7 +50,7 @@ namespace portConnector
             byte[] address = new byte[1];
             byte[] uavData = new byte[8]; //take one byte at a time
             byte[] imageData = new byte[100000];
-            byte[] testMessage = { 0 }; // send 0 to receive data
+            byte[] testMessage = { 0,0,0,0,0,0,0,0,0 }; // send 0 to receive data
             bool isEndOfFile = false;
             bool isStartOfFile = false;
             try
@@ -80,10 +80,10 @@ namespace portConnector
                                 {
                                     if (uavData[oneCycleCount] == 0xFF)
                                     {
-                                        imageData[allDataCount] = (byte)((int)uavData[oneCycleCount] % 160); //save 0xFF 
+                                        imageData[allDataCount] = (byte)((int)uavData[oneCycleCount]); //save 0xFF 
                                         sendByte=UAV.Receive(uavData, dataLength, SocketFlags.None);    //do another cycle
                                         allDataCount++;
-                                        if ((int)uavData[allDataCount]%160 == 0xD8)                 //if start of file
+                                        if ((int)uavData[allDataCount] == 0xD8)                 //if start of file
                                         {          
                                             isStartOfFile = true;
                                         }
@@ -107,7 +107,7 @@ namespace portConnector
                                     imageData[allDataCount] = (byte)((int)uavData[oneCycleCount] % 160);//save 0xFF
                                     allDataCount++;
                                     sendByte=UAV.Receive(uavData, dataLength, SocketFlags.None); //do another cycle
-                                    if ((int)uavData[allDataCount]%160 == 0xD9)
+                                    if ((int)uavData[allDataCount] == 0xD9)
                                     {
                                         isEndOfFile = true; //set end of file to be true
                                     }
@@ -119,7 +119,7 @@ namespace portConnector
                         //if using the real data don't comment the line below
                         //if (isStartOfFile == true && isEndOfFile == false)
                         {
-                            imageData[allDataCount] = (byte)((int)uavData[oneCycleCount] % 160);
+                            imageData[allDataCount] = (byte)((int)uavData[oneCycleCount]);
                             Console.WriteLine(imageData[allDataCount]);
                             allDataCount++;
                         }

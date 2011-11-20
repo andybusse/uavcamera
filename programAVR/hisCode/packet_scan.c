@@ -19,7 +19,7 @@ void packet_scan(uint8_t *data, uint8_t length)
 		switch (data[0])
 		{
 			case 0:
-				send_text("%d", adc_z_new);
+				send_text("hello");
 				break;
 		}
 	}
@@ -28,8 +28,8 @@ void packet_scan(uint8_t *data, uint8_t length)
 void packet_tx_request()
 {
 	PORTC ^= STATUS_LED;
-	adc_pack_buffer();
+	//adc_pack_buffer();
 	
 	// send output packet
-	send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, CLASS_PAYLOAD_MEM_BYTES, 0, adc_z_buffer_packed, 31);
+	//send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, CLASS_PAYLOAD_MEM_BYTES, 0, adc_z_buffer_packed, 31);
 }

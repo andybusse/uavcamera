@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>5.0</ProjectVersion>
     <ProjectGuid>{72d250f0-395d-4f5f-bfb0-28e03f2e89ba}</ProjectGuid>
-    <avrdevice>ATmega168P</avrdevice>
+    <avrdevice>ATmega168</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
     <Language>C</Language>
@@ -21,7 +21,8 @@
     <AssemblyName>hisCode</AssemblyName>
     <Name>fastacc</Name>
     <RootNamespace>hisCode</RootNamespace>
-    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <avrtool>
+    </avrtool>
     <avrtoolinterface>
     </avrtoolinterface>
     <com_atmel_avrdbg_tool_jtagicemkii>

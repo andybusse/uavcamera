@@ -63,7 +63,7 @@ uint8_t encodedData[100];
 int encodedDataIndex = 0;
 
 
-/*int main(void){
+int main(void){
 
 	DLOG("PC_DEBUG set\n");
 	uint8_t* huffmanCodes[16];
@@ -202,7 +202,7 @@ int encodedDataIndex = 0;
 	// to make it as flexible as possible we should probably have a function which attempts to decode a single code and then
 	// call this whenever we want
 
-	}*/
+	}
 	
 
 

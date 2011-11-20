@@ -1,0 +1,1721 @@
+Archive member included because of file (symbol)
+
+H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                              ./main.o (HardwareSerial::begin(long))
+H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                              ./SD/SD.o (Print::write(char const*))
+H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (String::operator[](unsigned int) const)
+H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                              ./SD/utility/Sd2Card.o (millis)
+H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+                              ./SD/utility/Sd2Card.o (pinMode)
+H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o) (port_to_mode_PGM)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__subsf3)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o) (__addsf3x)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__ltsf2)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__divsf3)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o) (__divsf3x)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__fixsfsi)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__fixunssfsi)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__floatunsisf)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o) (__fp_cmp)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_inf)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_nan)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_pscA)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_pscB)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o) (__fp_round)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_split3)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_zero)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__mulsf3)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o) (__mulsf3x)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                              ./SD/utility/SdVolume.o (__mulsi3)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+                              ./SD/utility/SdFile.o (__udivmodqi4)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                              ./SoftwareSerial/SoftwareSerial.o (__divmodhi4)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                              ./SoftwareSerial/SoftwareSerial.o (__udivmodsi4)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+                              ./SoftwareSerial/SoftwareSerial.o (__divmodsi4)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o (exit)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                              ./SD/utility/SdFile.o (__do_copy_data)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                              ./SD/utility/SdFile.o (__do_clear_bss)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+                              ./SD/SD.o (__do_global_ctors)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o) (__udivmodhi4)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o) (__tablejump__)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (malloc)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (realloc)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (atol)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (isspace)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (tolower)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (toupper)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcmp.o)
+                              ./SD/utility/SdFile.o (memcmp)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcpy.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o) (memcpy)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strcat)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strchr)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strcmp)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strcpy)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strncmp)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strncpy)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strrchr)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strstr)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (itoa)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (ltoa)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(mulsi10.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o) (__mulsi_const_10)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (ultoa)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
+                              ./main.o (snprintf)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o) (vfprintf)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o) (__ctype_isfalse)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o) (strnlen_P)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o) (strnlen)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o) (strrev)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o) (fputc)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o) (__ultoa_invert)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o) (__prologue_saves__)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o) (__epilogue_restores__)
+
+Allocating common symbols
+Common symbol       size              file
+
+__brkval            0x2               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__flp               0x2               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+LOAD ./SoftwareSerial/SoftwareSerial.o
+LOAD ./SD/utility/Sd2Card.o
+LOAD ./SD/utility/SdFile.o
+LOAD ./SD/utility/SdVolume.o
+LOAD ./SD/File.o
+LOAD ./SD/SD.o
+LOAD ./main.o
+LOAD ./pure_virtual.o
+LOAD H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x6e62
+ *(.vectors)
+ .vectors       0x00000000       0x68 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+ .progmem.data  0x00000068       0x10 ./SD/utility/SdFile.o
+ .progmem.data  0x00000078       0x5a H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                0x00000078                port_to_mode_PGM
+                0x00000096                digital_pin_to_port_PGM
+                0x000000aa                digital_pin_to_bit_mask_PGM
+                0x00000082                port_to_output_PGM
+                0x0000008c                port_to_input_PGM
+                0x000000be                digital_pin_to_timer_PGM
+                0x000000d2                . = ALIGN (0x2)
+                0x000000d2                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x000000d2        0x0 linker stubs
+ *(.trampolines*)
+                0x000000d2                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x000000d2                __ctors_start = .
+ *(.ctors)
+ .ctors         0x000000d2        0x2 ./SD/SD.o
+ .ctors         0x000000d4        0x2 ./main.o
+ .ctors         0x000000d6        0x2 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                0x000000d8                __ctors_end = .
+                0x000000d8                __dtors_start = .
+ *(.dtors)
+                0x000000d8                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x000000d8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x000000d8                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x000000d8        0xc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x000000e4       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                0x000000e4                __do_copy_data
+ .init4         0x000000fa       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x000000fa                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ .init6         0x0000010a       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+                0x0000010a                __do_global_ctors
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x00000120        0x8 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ *(.init9)
+ *(.text)
+ .text          0x00000128        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x00000128                __vector_22
+                0x00000128                __vector_1
+                0x00000128                __vector_24
+                0x00000128                __vector_12
+                0x00000128                __bad_interrupt
+                0x00000128                __vector_6
+                0x00000128                __vector_3
+                0x00000128                __vector_23
+                0x00000128                __vector_25
+                0x00000128                __vector_11
+                0x00000128                __vector_13
+                0x00000128                __vector_17
+                0x00000128                __vector_19
+                0x00000128                __vector_7
+                0x00000128                __vector_5
+                0x00000128                __vector_4
+                0x00000128                __vector_9
+                0x00000128                __vector_2
+                0x00000128                __vector_21
+                0x00000128                __vector_15
+                0x00000128                __vector_8
+                0x00000128                __vector_14
+                0x00000128                __vector_10
+                0x00000128                __vector_20
+ .text          0x0000012c      0x428 ./SoftwareSerial/SoftwareSerial.o
+                0x00000476                SoftwareSerial::begin(long)
+                0x000003e4                SoftwareSerial::println(int)
+                0x0000043a                SoftwareSerial::print(char const*)
+                0x00000310                SoftwareSerial::print(unsigned int)
+                0x000001ec                SoftwareSerial::printNumber(unsigned long, unsigned char)
+                0x0000031c                SoftwareSerial::println()
+                0x000004b4                SoftwareSerial::read()
+                0x0000012c                SoftwareSerial::SoftwareSerial(unsigned char, unsigned char)
+                0x00000460                SoftwareSerial::println(char const*)
+                0x000003be                SoftwareSerial::println(long)
+                0x000001e6                SoftwareSerial::print(char)
+                0x00000378                SoftwareSerial::print(long)
+                0x00000336                SoftwareSerial::println(unsigned long)
+                0x00000424                SoftwareSerial::println(long, int)
+                0x00000308                SoftwareSerial::print(unsigned long)
+                0x0000034c                SoftwareSerial::println(unsigned char)
+                0x000003d4                SoftwareSerial::print(int)
+                0x0000013c                SoftwareSerial::SoftwareSerial(unsigned char, unsigned char)
+                0x0000014c                SoftwareSerial::print(unsigned char)
+                0x00000362                SoftwareSerial::println(char)
+                0x00000404                SoftwareSerial::print(long, int)
+ .text          0x00000554      0x9f4 ./SD/utility/Sd2Card.o
+                0x00000cba                Sd2Card::readBlock(unsigned long, unsigned char*)
+                0x0000084e                Sd2Card::writeStart(unsigned long, unsigned long)
+                0x000005ee                Sd2Card::chipSelectHigh()
+                0x000009a8                Sd2Card::readRegister(unsigned char, void*)
+                0x00000b80                Sd2Card::readData(unsigned long, unsigned int, unsigned int, unsigned char*)
+                0x00000748                Sd2Card::readEnd()
+                0x00000a2a                Sd2Card::eraseSingleBlockEnable()
+                0x000005e2                Sd2Card::chipSelectLow()
+                0x0000078e                Sd2Card::partialBlockRead(unsigned char)
+                0x000008ee                Sd2Card::writeBlock(unsigned long, unsigned char const*)
+                0x00000cda                Sd2Card::erase(unsigned long, unsigned long)
+                0x000005fa                Sd2Card::writeStop()
+                0x00000554                Sd2Card::setSckRate(unsigned char)
+                0x000006b4                Sd2Card::writeData(unsigned char const*)
+                0x0000059e                Sd2Card::waitNotBusy(unsigned int)
+                0x00000da2                Sd2Card::init(unsigned char, unsigned char)
+                0x00000a6a                Sd2Card::cardSize()
+                0x000006ee                Sd2Card::waitStartBlock()
+                0x00000640                Sd2Card::writeData(unsigned char, unsigned char const*)
+                0x000007a8                Sd2Card::cardCommand(unsigned char, unsigned long)
+ .text          0x00000f48     0x1b3e ./SD/utility/SdFile.o
+                0x00002176                SdFile::addCluster()
+                0x0000292a                SdFile::makeDir(SdFile*, char const*)
+                0x000013e0                SdFile::close()
+                0x0000254c                SdFile::write(unsigned char)
+                0x00002536                SdFile::write(char const*)
+                0x000021c4                SdFile::write(void const*, unsigned int)
+                0x000019ae                SdFile::rmDir()
+                0x00001054                SdFile::seekSet(unsigned long)
+                0x00001b26                SdFile::printFatDate(unsigned int)
+                0x000011a6                SdFile::contiguousRange(unsigned long*, unsigned long*)
+                0x00001ca8                SdFile::openCachedEntry(unsigned char, unsigned char)
+                0x00000f8a                SdFile::make83Name(char const*, unsigned char*)
+                0x000013f8                SdFile::timestamp(unsigned char, unsigned int, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)
+                0x00002636                SdFile::open(SdFile*, char const*, unsigned char)
+                0x0000256e                SdFile::addDirCluster()
+                0x00001f9c                SdFile::ls(unsigned char, unsigned char)
+                0x00001e04                SdFile::rmRfStar()
+                0x0000103e                SdFile::writeln_P(char const*)
+                0x00001ac8                SdFile::printFatTime(unsigned int)
+                0x00001a8a                SdFile::printTwoDigits(unsigned char)
+                0x00001a20                SdFile::readDir(directoryEntry*)
+                0x0000191a                SdFile::readDirCache()
+                0x000016f0                SdFile::read(void*, unsigned int)
+                0x00001350                SdFile::sync()
+                0x0000100c                SdFile::write_P(char const*)
+                0x00001d84                SdFile::open(SdFile*, unsigned int, unsigned char)
+                0x00001f54                SdFile::dirEntry(directoryEntry*)
+                0x0000289a                SdFile::createContiguous(SdFile*, char const*, unsigned long)
+                0x00001c06                SdFile::openRoot(SdVolume*)
+                0x00002844                SdFile::remove(SdFile*, char const*)
+                0x00001316                SdFile::cacheDirEntry(unsigned char)
+                0x00001522                SdFile::truncate(unsigned long)
+                0x00000f48                SdFile::dirName(directoryEntry const&, char*)
+                0x00001b86                SdFile::printDirName(directoryEntry const&, unsigned char)
+                0x000016b8                SdFile::remove()
+ .text          0x00002a86      0x98a ./SD/utility/SdVolume.o
+                0x000031f2                SdVolume::allocContiguous(unsigned long, unsigned long*)
+                0x00002b44                SdVolume::cacheRawBlock(unsigned long, unsigned char)
+                0x00003062                SdVolume::freeChain(unsigned long)
+                0x00002bba                SdVolume::init(Sd2Card*, unsigned char)
+                0x00002afc                SdVolume::cacheZeroBlock(unsigned long)
+                0x00002e44                SdVolume::fatPut(unsigned long, unsigned long)
+                0x00002f7c                SdVolume::fatGet(unsigned long, unsigned long*) const
+                0x00002a86                SdVolume::cacheFlush()
+                0x00003114                SdVolume::chainSize(unsigned long, unsigned long*) const
+ .text          0x00003410      0x116 ./SD/File.o
+                0x0000346a                File::flush()
+                0x00003508                File::write(unsigned char const*, unsigned int)
+                0x00003410                File::available()
+                0x0000344c                File::operator bool()
+                0x000034aa                File::peek()
+                0x00003512                File::write(char const*)
+                0x00003456                File::close()
+                0x00003428                File::position()
+                0x0000351c                File::write(unsigned char)
+                0x00003460                File::seek(unsigned long)
+                0x0000343a                File::size()
+                0x00003474                File::read()
+ .text          0x00003526      0x44e ./SD/SD.o
+                0x00003928                SDClass::exists(char*)
+                0x00003526                getNextPathComponent(char*, unsigned int*, char*)
+                0x000037cc                walkPath(char*, SdFile&, unsigned char (*)(SdFile&, char*, unsigned char, void*), void*)
+                0x00003910                SDClass::mkdir(char*)
+                0x000035ea                SDClass::begin(unsigned char)
+                0x00003712                callback_pathExists(SdFile&, char*, unsigned char, void*)
+                0x00003640                callback_rmdir(SdFile&, char*, unsigned char, void*)
+                0x000038f8                SDClass::rmdir(char*)
+                0x000036a0                callback_remove(SdFile&, char*, unsigned char, void*)
+                0x000036ae                callback_openPath(SdFile&, char*, unsigned char, void*)
+                0x00003940                SDClass::open(char*, unsigned char)
+                0x000038e0                SDClass::remove(char*)
+                0x00003772                callback_makeDirPath(SdFile&, char*, unsigned char, void*)
+ .text          0x00003974      0x6ea ./main.o
+                0x00003b3c                receiveComd()
+                0x000039ea                isSYNC(unsigned char*)
+                0x00003f50                loop
+                0x00003a16                isDATA(unsigned char*)
+                0x00003a4a                sendCommand(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)
+                0x00003ad0                sendSETPACKAGESIZE(unsigned char, unsigned char)
+                0x00003c76                takeSnapshot()
+                0x00003b6a                establishContact()
+                0x00004050                main
+                0x00003b04                sendACK(unsigned char, unsigned char, unsigned char, unsigned char)
+                0x00003ab4                sendSNAPSHOT(unsigned char, unsigned char, unsigned char)
+                0x00003aea                sendINITIAL(unsigned char, unsigned char, unsigned char)
+                0x00003c04                setup
+                0x00003b22                sendSYNC()
+                0x00003a9a                sendGETPICTURE(unsigned char)
+                0x00003f2c                setupSD(char*)
+                0x00003974                isACK(unsigned char*, unsigned char, unsigned char, unsigned char)
+ .text          0x0000405e        0x4 ./pure_virtual.o
+                0x0000405e                __cxa_pure_virtual
+ .text          0x00004062      0x378 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                0x000042ac                HardwareSerial::peek()
+                0x0000428a                HardwareSerial::available()
+                0x00004340                HardwareSerial::write(unsigned char)
+                0x00004184                HardwareSerial::begin(long)
+                0x00004328                HardwareSerial::flush()
+                0x00004236                HardwareSerial::end()
+                0x00004124                HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)
+                0x000040c4                HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)
+                0x000042e0                HardwareSerial::read()
+                0x00004062                __vector_18
+ .text          0x000043da      0x5a6 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                0x000047b6                Print::println(String const&)
+                0x0000473a                Print::println(unsigned int, int)
+                0x000046f6                Print::println()
+                0x000047e2                Print::println(int, int)
+                0x000044ac                Print::printNumber(unsigned long, unsigned char)
+                0x0000440a                Print::write(unsigned char const*, unsigned int)
+                0x00004964                Print::print(double, int)
+                0x000046d2                Print::print(char, int)
+                0x000043da                Print::write(char const*)
+                0x0000484c                Print::printFloat(double, unsigned char)
+                0x000046ac                Print::print(int, int)
+                0x0000461c                Print::print(unsigned char, int)
+                0x000047a0                Print::println(char const*)
+                0x0000476c                Print::println(unsigned char, int)
+                0x00004818                Print::println(char, int)
+                0x000045fa                Print::print(unsigned int, int)
+                0x00004448                Print::print(char const*)
+                0x000045dc                Print::print(unsigned long, int)
+                0x000047cc                Print::println(long, int)
+                0x0000496a                Print::println(double, int)
+                0x00004640                Print::print(long, int)
+                0x00004724                Print::println(unsigned long, int)
+                0x00004458                Print::print(String const&)
+ .text          0x00004980     0x101a H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                0x00004990                String::setCharAt(unsigned int, char)
+                0x00004d76                String::operator+=(String const&)
+                0x000054c0                String::lastIndexOf(String const&) const
+                0x00004aa0                String::startsWith(String const&, unsigned int) const
+                0x00004c70                String::operator>=(String const&) const
+                0x000053de                String::substring(unsigned int) const
+                0x00004fb0                String::String(unsigned long, int)
+                0x00005370                String::substring(unsigned int, unsigned int) const
+                0x000049f8                String::toCharArray(char*, unsigned int)
+                0x000049b2                String::operator[](unsigned int)
+                0x000049ec                String::toInt()
+                0x00005266                String::toLowerCase() const
+                0x00004f44                String::String(String const&)
+                0x00004b7c                String::indexOf(String const&, unsigned int) const
+                0x000049dc                String::operator[](unsigned int) const
+                0x000051f4                String::toUpperCase() const
+                0x00004f10                String::String(char)
+                0x00004d00                String::operator!=(String const&) const
+                0x00004de6                String::concat(String const&)
+                0x00004980                String::charAt(unsigned int) const
+                0x00004adc                String::startsWith(String const&) const
+                0x00004d30                String::operator==(String const&) const
+                0x000056e8                String::replace(char, char)
+                0x00004a80                String::~String()
+                0x00004f7a                String::String(String const&)
+                0x00004bfa                String::indexOf(char) const
+                0x00004e14                String::operator=(String const&)
+                0x000057b6                String::String(long, int)
+                0x00005128                String::String(unsigned int, int)
+                0x00004e74                String::String(unsigned char)
+                0x00004dec                String::getBuffer(unsigned int)
+                0x00004c36                String::endsWith(String const&) const
+                0x000054dc                String::trim() const
+                0x000058aa                String::String(int, int)
+                0x000053f6                String::lastIndexOf(String const&, unsigned int) const
+                0x000051a4                String::String(char const*)
+                0x00004d64                String::compareTo(String const&) const
+                0x00004b02                String::lastIndexOf(char, unsigned int) const
+                0x00004bb8                String::indexOf(String const&) const
+                0x00004c04                String::equals(String const&) const
+                0x00004cdc                String::operator<(String const&) const
+                0x00004c98                String::operator<=(String const&) const
+                0x00004ea8                String::String(unsigned char)
+                0x00005766                String::String(char const*)
+                0x000050ac                String::String(unsigned int, int)
+                0x00005922                String::String(int, int)
+                0x000052d8                String::equalsIgnoreCase(String const&) const
+                0x00004b6c                String::lastIndexOf(char) const
+                0x00005830                String::String(long, int)
+                0x0000502e                String::String(unsigned long, int)
+                0x00004edc                String::String(char)
+                0x00004bc2                String::indexOf(char, unsigned int) const
+                0x00004a3c                String::getBytes(unsigned char*, unsigned int)
+                0x000055b2                String::replace(String const&, String const&)
+                0x00004cba                String::operator>(String const&) const
+ .text          0x0000599a      0x1ce H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                0x00005af2                init
+                0x00005a46                micros
+                0x00005a92                delay
+                0x0000599a                __vector_16
+                0x00005a2a                millis
+                0x00005ade                delayMicroseconds
+ .text          0x00005b68      0x170 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+                0x00005c78                digitalRead
+                0x00005c0e                digitalWrite
+                0x00005b68                pinMode
+ .text          0x00005cd8        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcmp.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcpy.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(mulsi10.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                0x00005cd8                . = ALIGN (0x2)
+ *(.text.*)
+ .text.avr-libc.fplib
+                0x00005cd8        0xa c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                0x00005cd8                __subsf3
+                0x00005cda                __addsf3
+ .text.avr-libc.fplib
+                0x00005ce2       0xc0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+                0x00005cfc                __addsf3x
+ .text.avr-libc.fplib
+                0x00005da2        0x8 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+                0x00005da2                __lesf2
+                0x00005da2                __nesf2
+                0x00005da2                __eqsf2
+                0x00005da2                __cmpsf2
+                0x00005da2                __ltsf2
+ .text.avr-libc.fplib
+                0x00005daa        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
+                0x00005daa                __divsf3
+ .text.avr-libc.fplib
+                0x00005dae       0xcc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                0x00005dc4                __divsf3x
+                0x00005dc8                __divsf3_pse
+ .text.avr-libc.fplib
+                0x00005e7a        0xa c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+                0x00005e7a                __fixsfsi
+ .text.avr-libc.fplib
+                0x00005e84       0x58 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                0x00005e84                __fixunssfsi
+ .text.avr-libc.fplib
+                0x00005edc       0x7a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                0x00005ee0                __floatsisf
+                0x00005edc                __floatunsisf
+ .text.avr-libc.fplib
+                0x00005f56       0x48 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+                0x00005f56                __fp_cmp
+ .text.avr-libc.fplib
+                0x00005f9e        0xc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                0x00005f9e                __fp_inf
+ .text.avr-libc.fplib
+                0x00005faa        0x6 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                0x00005faa                __fp_nan
+ .text.avr-libc.fplib
+                0x00005fb0        0xe c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                0x00005fb0                __fp_pscA
+ .text.avr-libc.fplib
+                0x00005fbe        0xe c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                0x00005fbe                __fp_pscB
+ .text.avr-libc.fplib
+                0x00005fcc       0x22 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                0x00005fcc                __fp_round
+ .text.avr-libc.fplib
+                0x00005fee       0x44 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                0x00005fee                __fp_split3
+                0x00005ffe                __fp_splitA
+ .text.avr-libc.fplib
+                0x00006032        0xe c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                0x00006032                __fp_zero
+                0x00006034                __fp_szero
+ .text.avr-libc.fplib
+                0x00006040        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+                0x00006040                __mulsf3
+ .text.avr-libc.fplib
+                0x00006044       0xc2 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                0x0000605c                __mulsf3_pse
+                0x00006058                __mulsf3x
+ .text.libgcc   0x00006106       0x3e c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                0x00006106                __mulsi3
+ .text.libgcc   0x00006144       0x18 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+                0x00006144                __udivmodqi4
+ .text.libgcc   0x0000615c       0x26 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                0x0000615c                __divmodhi4
+                0x0000615c                _div
+ .text.libgcc   0x00006182       0x44 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                0x00006182                __udivmodsi4
+ .text.libgcc   0x000061c6       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+                0x000061c6                __divmodsi4
+ .text.libgcc   0x000061fc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x000061fc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x000061fc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x000061fc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text.libgcc   0x000061fc       0x28 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                0x000061fc                __udivmodhi4
+ .text.libgcc   0x00006224        0xc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                0x00006228                __tablejump__
+                0x00006224                __tablejump2__
+ .text.avr-libc
+                0x00006230      0x20a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x00006230                malloc
+                0x0000638a                free
+ .text.avr-libc
+                0x0000643a      0x19c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+                0x0000643a                realloc
+ .text.avr-libc
+                0x000065d6       0x4e c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o)
+                0x000065d6                atol
+ .text.avr-libc
+                0x00006624       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+                0x00006624                isspace
+ .text.avr-libc
+                0x00006634       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+                0x00006634                tolower
+ .text.avr-libc
+                0x00006644       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+                0x00006644                toupper
+ .text.avr-libc
+                0x00006654       0x1a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcmp.o)
+                0x00006654                memcmp
+ .text.avr-libc
+                0x0000666e       0x12 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcpy.o)
+                0x0000666e                memcpy
+ .text.avr-libc
+                0x00006680       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+                0x00006680                strcat
+ .text.avr-libc
+                0x00006696       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+                0x00006696                strchr
+ .text.avr-libc
+                0x000066ac       0x12 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+                0x000066ac                strcmp
+ .text.avr-libc
+                0x000066be        0xe c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                0x000066be                strcpy
+ .text.avr-libc
+                0x000066cc       0x1c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+                0x000066cc                strncmp
+ .text.avr-libc
+                0x000066e8       0x1e c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+                0x000066e8                strncpy
+ .text.avr-libc
+                0x00006706       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+                0x00006706                strrchr
+ .text.avr-libc
+                0x0000671c       0x34 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+                0x0000671c                strstr
+ .text.avr-libc
+                0x00006750       0x42 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                0x00006750                itoa
+ .text.avr-libc
+                0x00006792       0x68 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+                0x00006792                ltoa
+ .text.avr-libc
+                0x000067fa       0x2a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(mulsi10.o)
+                0x000067fa                __mulsi_const_10
+ .text.avr-libc
+                0x00006824       0x4a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+                0x00006824                ultoa
+ .text.avr-libc
+                0x0000686e       0x62 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
+                0x0000686e                snprintf
+ .text.avr-libc
+                0x000068d0      0x3ba c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+                0x000068d0                vfprintf
+ .text.avr-libc
+                0x00006c8a        0x6 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+                0x00006c8e                __ctype_istrue
+                0x00006c8a                __ctype_isfalse
+ .text.avr-libc
+                0x00006c90       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+                0x00006c90                strnlen_P
+ .text.avr-libc
+                0x00006ca6       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
+                0x00006ca6                strnlen
+ .text.avr-libc
+                0x00006cbc       0x20 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00006cbc                strrev
+ .text.avr-libc
+                0x00006cdc       0x58 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
+                0x00006cdc                fputc
+ .text.avr-libc
+                0x00006d34       0xbc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+                0x00006d34                __ultoa_invert
+ .text.libgcc   0x00006df0       0x38 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                0x00006df0                __prologue_saves__
+ .text.libgcc   0x00006e28       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                0x00006e28                __epilogue_restores__
+                0x00006e5e                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00006e5e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00006e5e                exit
+                0x00006e5e                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00006e5e        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00006e62                _etext = .
+
+.data           0x00800100      0x192 load address 0x00006e62
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ .data          0x00800100        0x0 ./SoftwareSerial/SoftwareSerial.o
+ .data          0x00800100        0x0 ./SD/utility/Sd2Card.o
+ .data          0x00800100        0xa ./SD/utility/SdFile.o
+                0x00800100                vtable for SdFile
+ .data          0x0080010a        0x4 ./SD/utility/SdVolume.o
+                0x0080010a                SdVolume::cacheBlockNumber_
+ .data          0x0080010e       0x12 ./SD/File.o
+                0x0080010e                vtable for File
+ .data          0x00800120       0x12 ./SD/SD.o
+                0x00800120                vtable for Stream
+ .data          0x00800132      0x129 ./main.o
+                0x00800244                fileExt
+                0x00800239                SYNC
+                0x0080023f                filePrefix
+ .data          0x0080025b        0x0 ./pure_virtual.o
+ .data          0x0080025b       0x24 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                0x0080025b                vtable for HardwareSerial
+ .data          0x0080027f        0xc H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                0x00800281                vtable for Print
+ .data          0x0080028b        0x1 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+ .data          0x0080028c        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+ .data          0x0080028c        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+ .data          0x0080028c        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .data          0x0080028c        0x6 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x0080028e                __malloc_heap_start
+                0x00800290                __malloc_heap_end
+                0x0080028c                __malloc_margin
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcmp.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcpy.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(mulsi10.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .data          0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x00800292                . = ALIGN (0x2)
+                0x00800292                _edata = .
+                0x00800292                PROVIDE (__data_end, .)
+
+.bss            0x00800292      0x336
+                0x00800292                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800292        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ .bss           0x00800292        0x0 ./SoftwareSerial/SoftwareSerial.o
+ .bss           0x00800292        0x0 ./SD/utility/Sd2Card.o
+ .bss           0x00800292        0x4 ./SD/utility/SdFile.o
+                0x00800292                SdFile::dateTime_
+                0x00800294                SdFile::oldDateTime_
+ .bss           0x00800296      0x207 ./SD/utility/SdVolume.o
+                0x00800296                SdVolume::cacheBuffer_
+                0x00800499                SdVolume::cacheMirrorBlock_
+                0x00800496                SdVolume::sdCard_
+                0x00800498                SdVolume::cacheDirty_
+ .bss           0x0080049d        0x0 ./SD/File.o
+ .bss           0x0080049d       0x64 ./SD/SD.o
+                0x0080049d                SD
+ .bss           0x00800501       0x22 ./main.o
+                0x00800501                RXtest
+                0x0080051c                numBuf
+                0x0080050f                fileName
+                0x00800507                sSerial
+                0x00800521                jpgFile
+ .bss           0x00800523        0x0 ./pure_virtual.o
+ .bss           0x00800523       0x97 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                0x00800523                rx_buffer
+                0x008005a7                Serial
+ .bss           0x008005ba        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+ .bss           0x008005ba        0x1 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+ .bss           0x008005bb        0x9 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                0x008005bb                timer0_overflow_count
+                0x008005bf                timer0_millis
+ .bss           0x008005c4        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+ .bss           0x008005c4        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcmp.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcpy.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(mulsi10.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x008005c4        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x008005c4                __brkval
+                0x008005c6                __flp
+                0x008005c8                PROVIDE (__bss_end, .)
+                0x00006e62                __data_load_start = LOADADDR (.data)
+                0x00006ff4                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008005c8        0x0
+                0x008005c8                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008005c8                PROVIDE (__noinit_end, .)
+                0x008005c8                _end = .
+                0x008005c8                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(CamPayloadArduino.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+File::available()                                 ./SD/File.o
+File::close()                                     ./SD/File.o
+                                                  ./main.o
+File::flush()                                     ./SD/File.o
+                                                  ./main.o
+File::operator bool()                             ./SD/File.o
+File::peek()                                      ./SD/File.o
+File::position()                                  ./SD/File.o
+File::read()                                      ./SD/File.o
+File::seek(unsigned long)                         ./SD/File.o
+File::size()                                      ./SD/File.o
+File::write(char const*)                          ./SD/File.o
+File::write(unsigned char const*, unsigned int)   ./SD/File.o
+File::write(unsigned char)                        ./SD/File.o
+HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::available()                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+HardwareSerial::begin(long)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+HardwareSerial::end()                             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::flush()                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::peek()                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::read()                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+HardwareSerial::write(unsigned char)              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+Print::print(String const&)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(char const*)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  ./SD/utility/SdFile.o
+Print::print(char, int)                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  ./SD/utility/SdFile.o
+Print::print(double, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(int, int)                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(long, int)                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(unsigned char, int)                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  ./main.o
+                                                  ./SD/utility/SdFile.o
+Print::print(unsigned int, int)                   H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  ./SD/utility/SdFile.o
+Print::print(unsigned long, int)                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  ./SD/utility/SdFile.o
+Print::printFloat(double, unsigned char)          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::printNumber(unsigned long, unsigned char)  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println()                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  ./SD/utility/SdFile.o
+Print::println(String const&)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(char const*)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(char, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(double, int)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(int, int)                          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(long, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(unsigned char, int)                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(unsigned int, int)                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(unsigned long, int)                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::write(char const*)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+                                                  ./SD/SD.o
+Print::write(unsigned char const*, unsigned int)  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+                                                  ./SD/SD.o
+                                                  ./SD/utility/SdFile.o
+RXtest                                            ./main.o
+SD                                                ./SD/SD.o
+                                                  ./main.o
+                                                  ./SD/File.o
+SDClass::begin(unsigned char)                     ./SD/SD.o
+                                                  ./main.o
+SDClass::exists(char*)                            ./SD/SD.o
+                                                  ./main.o
+SDClass::mkdir(char*)                             ./SD/SD.o
+SDClass::open(char*, unsigned char)               ./SD/SD.o
+                                                  ./main.o
+SDClass::remove(char*)                            ./SD/SD.o
+SDClass::rmdir(char*)                             ./SD/SD.o
+SYNC                                              ./main.o
+Sd2Card::cardCommand(unsigned char, unsigned long) ./SD/utility/Sd2Card.o
+Sd2Card::cardSize()                               ./SD/utility/Sd2Card.o
+Sd2Card::chipSelectHigh()                         ./SD/utility/Sd2Card.o
+Sd2Card::chipSelectLow()                          ./SD/utility/Sd2Card.o
+Sd2Card::erase(unsigned long, unsigned long)      ./SD/utility/Sd2Card.o
+Sd2Card::eraseSingleBlockEnable()                 ./SD/utility/Sd2Card.o
+Sd2Card::init(unsigned char, unsigned char)       ./SD/utility/Sd2Card.o
+                                                  ./SD/SD.o
+Sd2Card::partialBlockRead(unsigned char)          ./SD/utility/Sd2Card.o
+Sd2Card::readBlock(unsigned long, unsigned char*) ./SD/utility/Sd2Card.o
+                                                  ./SD/utility/SdVolume.o
+Sd2Card::readData(unsigned long, unsigned int, unsigned int, unsigned char*) ./SD/utility/Sd2Card.o
+                                                  ./SD/utility/SdFile.o
+Sd2Card::readEnd()                                ./SD/utility/Sd2Card.o
+Sd2Card::readRegister(unsigned char, void*)       ./SD/utility/Sd2Card.o
+Sd2Card::setSckRate(unsigned char)                ./SD/utility/Sd2Card.o
+Sd2Card::waitNotBusy(unsigned int)                ./SD/utility/Sd2Card.o
+Sd2Card::waitStartBlock()                         ./SD/utility/Sd2Card.o
+Sd2Card::writeBlock(unsigned long, unsigned char const*) ./SD/utility/Sd2Card.o
+                                                  ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+Sd2Card::writeData(unsigned char const*)          ./SD/utility/Sd2Card.o
+Sd2Card::writeData(unsigned char, unsigned char const*) ./SD/utility/Sd2Card.o
+Sd2Card::writeStart(unsigned long, unsigned long) ./SD/utility/Sd2Card.o
+Sd2Card::writeStop()                              ./SD/utility/Sd2Card.o
+SdFile::addCluster()                              ./SD/utility/SdFile.o
+SdFile::addDirCluster()                           ./SD/utility/SdFile.o
+SdFile::cacheDirEntry(unsigned char)              ./SD/utility/SdFile.o
+SdFile::close()                                   ./SD/utility/SdFile.o
+                                                  ./SD/SD.o
+                                                  ./SD/File.o
+SdFile::contiguousRange(unsigned long*, unsigned long*) ./SD/utility/SdFile.o
+SdFile::createContiguous(SdFile*, char const*, unsigned long) ./SD/utility/SdFile.o
+SdFile::dateTime_                                 ./SD/utility/SdFile.o
+SdFile::dirEntry(directoryEntry*)                 ./SD/utility/SdFile.o
+SdFile::dirName(directoryEntry const&, char*)     ./SD/utility/SdFile.o
+SdFile::ls(unsigned char, unsigned char)          ./SD/utility/SdFile.o
+SdFile::make83Name(char const*, unsigned char*)   ./SD/utility/SdFile.o
+SdFile::makeDir(SdFile*, char const*)             ./SD/utility/SdFile.o
+                                                  ./SD/SD.o
+SdFile::oldDateTime_                              ./SD/utility/SdFile.o
+SdFile::open(SdFile*, char const*, unsigned char) ./SD/utility/SdFile.o
+                                                  ./SD/SD.o
+SdFile::open(SdFile*, unsigned int, unsigned char) ./SD/utility/SdFile.o
+SdFile::openCachedEntry(unsigned char, unsigned char) ./SD/utility/SdFile.o
+SdFile::openRoot(SdVolume*)                       ./SD/utility/SdFile.o
+                                                  ./SD/SD.o
+SdFile::printDirName(directoryEntry const&, unsigned char) ./SD/utility/SdFile.o
+SdFile::printFatDate(unsigned int)                ./SD/utility/SdFile.o
+SdFile::printFatTime(unsigned int)                ./SD/utility/SdFile.o
+SdFile::printTwoDigits(unsigned char)             ./SD/utility/SdFile.o
+SdFile::read(void*, unsigned int)                 ./SD/utility/SdFile.o
+                                                  ./SD/File.o
+SdFile::readDir(directoryEntry*)                  ./SD/utility/SdFile.o
+SdFile::readDirCache()                            ./SD/utility/SdFile.o
+SdFile::remove()                                  ./SD/utility/SdFile.o
+SdFile::remove(SdFile*, char const*)              ./SD/utility/SdFile.o
+                                                  ./SD/SD.o
+SdFile::rmDir()                                   ./SD/utility/SdFile.o
+                                                  ./SD/SD.o
+SdFile::rmRfStar()                                ./SD/utility/SdFile.o
+SdFile::seekSet(unsigned long)                    ./SD/utility/SdFile.o
+                                                  ./SD/SD.o
+                                                  ./SD/File.o
+SdFile::sync()                                    ./SD/utility/SdFile.o
+                                                  ./SD/File.o
+SdFile::timestamp(unsigned char, unsigned int, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) ./SD/utility/SdFile.o
+SdFile::truncate(unsigned long)                   ./SD/utility/SdFile.o
+SdFile::write(char const*)                        ./SD/utility/SdFile.o
+                                                  ./SD/File.o
+SdFile::write(unsigned char)                      ./SD/utility/SdFile.o
+                                                  ./SD/File.o
+SdFile::write(void const*, unsigned int)          ./SD/utility/SdFile.o
+                                                  ./SD/File.o
+SdFile::write_P(char const*)                      ./SD/utility/SdFile.o
+SdFile::writeln_P(char const*)                    ./SD/utility/SdFile.o
+SdVolume::allocContiguous(unsigned long, unsigned long*) ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::cacheBlockNumber_                       ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::cacheBuffer_                            ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::cacheDirty_                             ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::cacheFlush()                            ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::cacheMirrorBlock_                       ./SD/utility/SdVolume.o
+SdVolume::cacheRawBlock(unsigned long, unsigned char) ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::cacheZeroBlock(unsigned long)           ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::chainSize(unsigned long, unsigned long*) const ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::fatGet(unsigned long, unsigned long*) const ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::fatPut(unsigned long, unsigned long)    ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::freeChain(unsigned long)                ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+SdVolume::init(Sd2Card*, unsigned char)           ./SD/utility/SdVolume.o
+                                                  ./SD/SD.o
+SdVolume::sdCard_                                 ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+Serial                                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+                                                  ./SD/utility/SdFile.o
+SoftwareSerial::SoftwareSerial(unsigned char, unsigned char) ./SoftwareSerial/SoftwareSerial.o
+                                                  ./main.o
+SoftwareSerial::SoftwareSerial(unsigned char, unsigned char) ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::begin(long)                       ./SoftwareSerial/SoftwareSerial.o
+                                                  ./main.o
+SoftwareSerial::print(char const*)                ./SoftwareSerial/SoftwareSerial.o
+                                                  ./main.o
+SoftwareSerial::print(char)                       ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::print(int)                        ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::print(long)                       ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::print(long, int)                  ./SoftwareSerial/SoftwareSerial.o
+                                                  ./main.o
+SoftwareSerial::print(unsigned char)              ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::print(unsigned int)               ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::print(unsigned long)              ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::printNumber(unsigned long, unsigned char) ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::println()                         ./SoftwareSerial/SoftwareSerial.o
+                                                  ./main.o
+SoftwareSerial::println(char const*)              ./SoftwareSerial/SoftwareSerial.o
+                                                  ./main.o
+SoftwareSerial::println(char)                     ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::println(int)                      ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::println(long)                     ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::println(long, int)                ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::println(unsigned char)            ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::println(unsigned long)            ./SoftwareSerial/SoftwareSerial.o
+SoftwareSerial::read()                            ./SoftwareSerial/SoftwareSerial.o
+                                                  ./main.o
+String::String(String const&)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(String const&)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(char const*)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(char const*)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(char)                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(char)                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(int, int)                          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(int, int)                          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(long, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(long, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned char)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned char)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned int, int)                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned int, int)                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned long, int)                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned long, int)                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::charAt(unsigned int) const                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::compareTo(String const&) const            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::concat(String const&)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::endsWith(String const&) const             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::equals(String const&) const               H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::equalsIgnoreCase(String const&) const     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::getBuffer(unsigned int)                   H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::getBytes(unsigned char*, unsigned int)    H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::indexOf(String const&) const              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::indexOf(String const&, unsigned int) const H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::indexOf(char) const                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::indexOf(char, unsigned int) const         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::lastIndexOf(String const&) const          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::lastIndexOf(String const&, unsigned int) const H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::lastIndexOf(char) const                   H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::lastIndexOf(char, unsigned int) const     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator!=(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator+=(String const&)                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator<(String const&) const            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator<=(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator=(String const&)                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator==(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator>(String const&) const            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator>=(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator[](unsigned int)                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator[](unsigned int) const            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+String::replace(String const&, String const&)     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::replace(char, char)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::setCharAt(unsigned int, char)             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::startsWith(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::startsWith(String const&, unsigned int) const H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::substring(unsigned int) const             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::substring(unsigned int, unsigned int) const H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::toCharArray(char*, unsigned int)          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::toInt()                                   H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::toLowerCase() const                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::toUpperCase() const                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::trim() const                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::~String()                                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+__addsf3                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+__addsf3x                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+__bad_interrupt                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__brkval                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__bss_end                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+__bss_start                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+__cmpsf2                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+__ctors_end                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+__ctors_start                                     c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+__ctype_isfalse                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+__ctype_istrue                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+__cxa_pure_virtual                                ./pure_virtual.o
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+                                                  ./SD/SD.o
+__data_end                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__data_load_start                                 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__data_start                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__divmodhi4                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                                                  ./SoftwareSerial/SoftwareSerial.o
+__divmodsi4                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+                                                  ./SoftwareSerial/SoftwareSerial.o
+__divsf3                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+__divsf3_pse                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+__divsf3x                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
+__do_clear_bss                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+                                                  ./SD/SD.o
+                                                  ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+__do_copy_data                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+                                                  ./SD/SD.o
+                                                  ./SD/File.o
+                                                  ./SD/utility/SdVolume.o
+                                                  ./SD/utility/SdFile.o
+__do_global_ctors                                 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+                                                  ./SD/SD.o
+__epilogue_restores__                             c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+__eqsf2                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+__fixsfsi                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+__fixunssfsi                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+__floatsisf                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+__floatunsisf                                     c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+__flp                                             c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__fp_cmp                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+__fp_inf                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_nan                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_pscA                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_pscB                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_round                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+__fp_split3                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_splitA                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+__fp_szero                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+__fp_zero                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__heap_end                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__heap_start                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__init                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__lesf2                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+__ltsf2                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+__malloc_heap_end                                 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+__malloc_heap_start                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__malloc_margin                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+__mulsf3                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+__mulsf3_pse                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+__mulsf3x                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+__mulsi3                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                                                  ./SD/utility/SdVolume.o
+__mulsi_const_10                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(mulsi10.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o)
+__nesf2                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+__prologue_saves__                                c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+__stack                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__subsf3                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+__tablejump2__                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+__tablejump__                                     c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+__udivmodhi4                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+__udivmodqi4                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+                                                  ./SD/utility/SdFile.o
+__udivmodsi4                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  ./main.o
+                                                  ./SoftwareSerial/SoftwareSerial.o
+__ultoa_invert                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+__vector_1                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_10                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_11                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_12                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_13                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_14                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_15                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_16                                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_17                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_18                                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_19                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_2                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_20                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_21                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_22                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_23                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_24                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_25                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_3                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_4                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_5                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_6                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_7                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_8                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_9                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_default                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vectors                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+_div                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+_exit                                             c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+atol                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+callback_makeDirPath(SdFile&, char*, unsigned char, void*) ./SD/SD.o
+callback_openPath(SdFile&, char*, unsigned char, void*) ./SD/SD.o
+callback_pathExists(SdFile&, char*, unsigned char, void*) ./SD/SD.o
+callback_remove(SdFile&, char*, unsigned char, void*) ./SD/SD.o
+callback_rmdir(SdFile&, char*, unsigned char, void*) ./SD/SD.o
+delay                                             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                                                  ./main.o
+delayMicroseconds                                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                                                  ./SoftwareSerial/SoftwareSerial.o
+digitalRead                                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+                                                  ./SoftwareSerial/SoftwareSerial.o
+digitalWrite                                      H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+                                                  ./SD/utility/Sd2Card.o
+                                                  ./SoftwareSerial/SoftwareSerial.o
+digital_pin_to_bit_mask_PGM                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+digital_pin_to_port_PGM                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+digital_pin_to_timer_PGM                          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+establishContact()                                ./main.o
+exit                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+fileExt                                           ./main.o
+fileName                                          ./main.o
+filePrefix                                        ./main.o
+fputc                                             c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+free                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+getNextPathComponent(char*, unsigned int*, char*) ./SD/SD.o
+init                                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                                                  ./main.o
+isACK(unsigned char*, unsigned char, unsigned char, unsigned char) ./main.o
+isDATA(unsigned char*)                            ./main.o
+isSYNC(unsigned char*)                            ./main.o
+isspace                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+itoa                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+jpgFile                                           ./main.o
+loop                                              ./main.o
+ltoa                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+main                                              ./main.o
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+malloc                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+memcmp                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcmp.o)
+                                                  ./SD/utility/SdFile.o
+memcpy                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcpy.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+micros                                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+millis                                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                                                  ./SD/utility/Sd2Card.o
+numBuf                                            ./main.o
+pinMode                                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+                                                  ./main.o
+                                                  ./SD/utility/Sd2Card.o
+port_to_input_PGM                                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+port_to_mode_PGM                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+port_to_output_PGM                                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+realloc                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+receiveComd()                                     ./main.o
+rx_buffer                                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+sSerial                                           ./main.o
+sendACK(unsigned char, unsigned char, unsigned char, unsigned char) ./main.o
+sendCommand(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) ./main.o
+sendGETPICTURE(unsigned char)                     ./main.o
+sendINITIAL(unsigned char, unsigned char, unsigned char) ./main.o
+sendSETPACKAGESIZE(unsigned char, unsigned char)  ./main.o
+sendSNAPSHOT(unsigned char, unsigned char, unsigned char) ./main.o
+sendSYNC()                                        ./main.o
+setup                                             ./main.o
+setupSD(char*)                                    ./main.o
+snprintf                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
+                                                  ./main.o
+strcat                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+strchr                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+strcmp                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+strcpy                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+strncmp                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+strncpy                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+strnlen                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+strnlen_P                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+strrchr                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+strrev                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+strstr                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+takeSnapshot()                                    ./main.o
+timer0_millis                                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+timer0_overflow_count                             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+tolower                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+toupper                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+ultoa                                             c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+vfprintf                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+                                                  c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
+vtable for File                                   ./SD/File.o
+                                                  ./main.o
+                                                  ./SD/SD.o
+vtable for HardwareSerial                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+vtable for Print                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+vtable for SdFile                                 ./SD/utility/SdFile.o
+                                                  ./SD/SD.o
+vtable for Stream                                 ./SD/SD.o
+walkPath(char*, SdFile&, unsigned char (*)(SdFile&, char*, unsigned char, void*), void*) ./SD/SD.o
