@@ -461,14 +461,3 @@ pinlabel=VCC
 T 3350 4900 5 8 0 1 0 8 1
 pintype=pwr
 }
-P 3700 4700 3400 4700 1 0 0
-{
-T 3500 4750 5 8 1 1 0 0 1
-pinnumber=31
-T 3500 4650 5 8 0 1 0 2 1
-pinseq=17
-T 3350 4700 9 8 1 1 0 6 1
-pinlabel=VCC
-T 3350 4700 5 8 0 1 0 8 1
-pintype=pwr
-}
