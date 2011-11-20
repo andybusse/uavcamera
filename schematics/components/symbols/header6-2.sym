@@ -2,7 +2,7 @@ v 20110115 2
 P 0 1000 300 1000 1 0 0
 {
 T 100 1050 5 8 1 1 0 0 1
-pinnumber=1
+pinnumber=2
 T 100 1050 9 8 0 1 0 0 1
 pinlabel=1
 T 100 1050 5 8 0 0 0 0 1
@@ -13,7 +13,7 @@ pintype=pas
 P 1100 1000 1400 1000 1 0 1
 {
 T 1200 1050 5 8 1 1 0 0 1
-pinnumber=2
+pinnumber=1
 T 1200 1050 9 8 0 1 0 0 1
 pinlabel=2
 T 1200 1050 5 8 0 0 0 0 1
@@ -24,7 +24,7 @@ pintype=pas
 P 0 600 300 600 1 0 0
 {
 T 100 650 5 8 1 1 0 0 1
-pinnumber=3
+pinnumber=4
 T 100 650 9 8 0 1 0 0 1
 pinlabel=3
 T 100 650 5 8 0 0 0 0 1
@@ -35,7 +35,7 @@ pintype=pas
 P 1100 600 1400 600 1 0 1
 {
 T 1200 650 5 8 1 1 0 0 1
-pinnumber=4
+pinnumber=3
 T 1200 650 9 8 0 1 0 0 1
 pinlabel=4
 T 1200 650 5 8 0 0 0 0 1
@@ -46,7 +46,7 @@ pintype=pas
 P 0 200 300 200 1 0 0
 {
 T 100 250 5 8 1 1 0 0 1
-pinnumber=5
+pinnumber=6
 T 100 250 9 8 0 1 0 0 1
 pinlabel=5
 T 100 250 5 8 0 0 0 0 1
@@ -57,7 +57,7 @@ pintype=pas
 P 1100 200 1400 200 1 0 1
 {
 T 1250 250 5 8 1 1 0 0 1
-pinnumber=6
+pinnumber=5
 T 1250 250 9 8 0 1 0 0 1
 pinlabel=6
 T 1250 250 5 8 0 0 0 0 1
@@ -65,11 +65,11 @@ pinseq=6
 T 1250 250 5 8 0 0 0 0 1
 pintype=pas
 T 0 1200 5 10 0 1 0 0 1
-device=HEADER8
+device=HEADER6
 T 0 1200 5 10 0 1 0 0 1
 numslots=0
 T 0 1200 5 10 0 1 0 0 1
-description=Header 8 pins
+description=Header 6 pins
 T 600 1300 8 10 1 1 0 0 1
 refdes=J?
 }
