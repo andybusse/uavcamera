@@ -23,6 +23,8 @@
   $Id: wiring.c 248 2007-02-03 15:36:30Z mellis $
 */
 
+/* this file declares a load of stuff HardwareSerial already declares */
+#if 0
 
 #include "wiring_private.h"
 
@@ -135,4 +137,6 @@ ISR(USART##uart_##_RX_vect) \
 UART_ISR(0)
 #if defined(__AVR_ATmega644P__) 
 UART_ISR(1)
+#endif
+
 #endif
