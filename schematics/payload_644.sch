@@ -335,11 +335,6 @@ device=HEADER10
 T 53700 52900 5 10 1 1 0 0 1
 refdes=J2
 }
-C 48800 51200 1 0 0 header6-2.sym
-{
-T 49400 52500 5 10 1 1 0 0 1
-refdes=J2
-}
 T 53300 50500 9 10 1 0 0 0 1
 JTAG header
 T 49000 50900 9 10 1 0 0 0 1
@@ -428,3 +423,10 @@ footprint=hirose-dm3at.fp
 }
 T 40500 48600 9 10 1 0 0 0 1
 NC
+C 48800 51200 1 0 0 header6-2.sym
+{
+T 48800 52400 5 10 0 1 0 0 1
+device=HEADER6
+T 49400 52500 5 10 1 1 0 0 1
+refdes=J1
+}
