@@ -67,7 +67,7 @@ all: CamPayloadArduino.elf secondary-outputs
 CamPayloadArduino.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C++ Linker'
-	avr-gcc --cref -s -Os -o"CamPayloadArduino.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lm -Wl,-Map,CamPayloadArduino.map,--cref -L"H:\gdp\uavcamera\ArduinoCore\Release" -mmcu=atmega328p
+	avr-gcc --cref -s -Os -o"CamPayloadArduino.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lm -Wl,-Map,CamPayloadArduino.map,--cref -L"H:\gdp\uavcamera\eclipse\ArduinoCore\Release" -mmcu=atmega328p
 	@echo 'Finished building target: $@'
 	@echo ' '
 

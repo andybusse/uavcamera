@@ -22,6 +22,9 @@
   $Id: wiring.c 388 2008-03-08 22:05:23Z mellis $
 */
 
+#include "../config.h"
+#include <avr/delay.h>
+
 #include "wiring_private.h"
 
 volatile unsigned long timer0_overflow_count = 0;
@@ -76,10 +79,14 @@ unsigned long micros() {
 
 void delay(unsigned long ms)
 {
+#ifndef STD_DELAY
 	unsigned long start = millis();
 	
 	while (millis() - start <= ms)
 		;
+#else
+	_delay_ms(ms);
+#endif
 }
 
 /* Delay for the given number of microseconds.  Assumes a 8 or 16 MHz clock. 
@@ -87,6 +94,7 @@ void delay(unsigned long ms)
  * too frequently. */
 void delayMicroseconds(unsigned int us)
 {
+#ifndef STD_DELAY
 	uint8_t oldSREG;
 
 	// calling avrlib's delay_us() function with low values (e.g. 1 or
@@ -142,6 +150,9 @@ void delayMicroseconds(unsigned int us)
 
 	// reenable interrupts.
 	SREG = oldSREG;
+#else
+	_delay_us(us);
+#endif
 }
 
 void init()

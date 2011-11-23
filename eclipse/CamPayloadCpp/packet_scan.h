@@ -7,6 +7,8 @@
 
 // Public globals
 
+
+
 // Function prototypes
 
 // extern prototypes for packet_scan() and packet_rx_request() prototypes already supplied in common modules file mod/module.h but must be implemented locally

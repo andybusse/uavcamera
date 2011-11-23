@@ -19,6 +19,8 @@
   Modified 23 November 2006 by David A. Mellis
 */
 
+#include "../config.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
@@ -65,11 +67,13 @@ inline void store_char(unsigned char c, ring_buffer *rx_buffer)
 }
 
 #if defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1280__)
+#ifndef CUSTOM_UART_0
 ISR(USART0_RX_vect)
 {
   unsigned char c = UDR0;
   store_char(c, &rx_buffer);
 }
+#endif
 
 ISR(USART1_RX_vect)
 {
@@ -217,10 +221,12 @@ void HardwareSerial::write(uint8_t c)
 
 // Preinstantiate Objects //////////////////////////////////////////////////////
 
-#if defined(__AVR_ATmega8__)
-HardwareSerial Serial(&rx_buffer, &UBRRH, &UBRRL, &UCSRA, &UCSRB, &UDR, RXEN, TXEN, RXCIE, UDRE, U2X);
-#else
-HardwareSerial Serial(&rx_buffer, &UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UDR0, RXEN0, TXEN0, RXCIE0, UDRE0, U2X0);
+#ifndef CUSTOM_UART_0
+	#if defined(__AVR_ATmega8__)
+	HardwareSerial Serial(&rx_buffer, &UBRRH, &UBRRL, &UCSRA, &UCSRB, &UDR, RXEN, TXEN, RXCIE, UDRE, U2X);
+	#else
+	HardwareSerial Serial(&rx_buffer, &UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UDR0, RXEN0, TXEN0, RXCIE0, UDRE0, U2X0);
+	#endif
 #endif
 
 #if defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1280__)
