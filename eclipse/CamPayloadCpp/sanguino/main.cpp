@@ -1,14 +1,15 @@
-#include <WProgram.h>
+/*#include <WProgram.h>
 
 int main(void)
 {
-/*	init();
+	init();
 
 	setup();
     
 	for (;;)
 		loop();
-        */
+
 	return 0;
 }
 
+*/
