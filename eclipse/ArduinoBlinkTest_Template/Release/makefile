@@ -45,56 +45,56 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-ArduinoBlinkTest.lss \
+ArduinoBlinkTest_Template.lss \
 
 FLASH_IMAGE += \
-ArduinoBlinkTest.hex \
+ArduinoBlinkTest_Template.hex \
 
 EEPROM_IMAGE += \
-ArduinoBlinkTest.eep \
+ArduinoBlinkTest_Template.eep \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: ArduinoBlinkTest.elf secondary-outputs
+all: ArduinoBlinkTest_Template.elf secondary-outputs
 
 # Tool invocations
-ArduinoBlinkTest.elf: $(OBJS) $(USER_OBJS)
+ArduinoBlinkTest_Template.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C++ Linker'
-	avr-gcc --cref -s -Os -o"ArduinoBlinkTest.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lm -Wl,-Map,ArduinoBlinkTest.map,--cref -L"H:\gdp\uavcamera\ArduinoCore\Release" -mmcu=atmega328p
+	avr-gcc --cref -s -Os -o"ArduinoBlinkTest_Template.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lm -Wl,-Map,ArduinoBlinkTest_Template.map,--cref -L"H:\gdp\uavcamera\eclipse\ArduinoCore\Release" -mmcu=atmega328p
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-ArduinoBlinkTest.lss: ArduinoBlinkTest.elf
+ArduinoBlinkTest_Template.lss: ArduinoBlinkTest_Template.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S ArduinoBlinkTest.elf  >"ArduinoBlinkTest.lss"
+	-avr-objdump -h -S ArduinoBlinkTest_Template.elf  >"ArduinoBlinkTest_Template.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-ArduinoBlinkTest.hex: ArduinoBlinkTest.elf
+ArduinoBlinkTest_Template.hex: ArduinoBlinkTest_Template.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -O ihex ArduinoBlinkTest.elf  "ArduinoBlinkTest.hex"
+	-avr-objcopy -R .eeprom -O ihex ArduinoBlinkTest_Template.elf  "ArduinoBlinkTest_Template.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-ArduinoBlinkTest.eep: ArduinoBlinkTest.elf
+ArduinoBlinkTest_Template.eep: ArduinoBlinkTest_Template.elf
 	@echo 'Create eeprom image (ihex format)'
-	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex ArduinoBlinkTest.elf  "ArduinoBlinkTest.eep"
+	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex ArduinoBlinkTest_Template.elf  "ArduinoBlinkTest_Template.eep"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: ArduinoBlinkTest.elf
+sizedummy: ArduinoBlinkTest_Template.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega328p ArduinoBlinkTest.elf
+	-avr-size --format=avr --mcu=atmega328p ArduinoBlinkTest_Template.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EEPROM_IMAGE)$(ELFS)$(FLASH_IMAGE)$(LSS)$(S_DEPS)$(CXX_DEPS)$(S_UPPER_DEPS)$(C++_DEPS)$(ASM_DEPS)$(CC_DEPS)$(CPP_DEPS)$(C_UPPER_DEPS)$(SIZEDUMMY) ArduinoBlinkTest.elf
+	-$(RM) $(OBJS)$(C_DEPS)$(EEPROM_IMAGE)$(ELFS)$(FLASH_IMAGE)$(LSS)$(S_DEPS)$(CXX_DEPS)$(S_UPPER_DEPS)$(C++_DEPS)$(ASM_DEPS)$(CC_DEPS)$(CPP_DEPS)$(C_UPPER_DEPS)$(SIZEDUMMY) ArduinoBlinkTest_Template.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)

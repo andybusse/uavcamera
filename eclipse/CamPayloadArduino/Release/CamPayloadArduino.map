@@ -1,33 +1,33 @@
 Archive member included because of file (symbol)
 
-H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                               ./main.o (HardwareSerial::begin(long))
-H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
                               ./SD/SD.o (Print::write(char const*))
-H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (String::operator[](unsigned int) const)
-H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o) (String::operator[](unsigned int) const)
+H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
                               ./SD/utility/Sd2Card.o (millis)
-H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
                               ./SD/utility/Sd2Card.o (pinMode)
-H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o) (port_to_mode_PGM)
+H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o) (port_to_mode_PGM)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__subsf3)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o) (__subsf3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o) (__addsf3x)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__ltsf2)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o) (__ltsf2)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__divsf3)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o) (__divsf3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o) (__divsf3x)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__fixsfsi)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o) (__fixsfsi)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__fixunssfsi)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o) (__fixunssfsi)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__floatunsisf)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o) (__floatunsisf)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o) (__fp_cmp)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
@@ -45,7 +45,7 @@ c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_s
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_zero)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o) (__mulsf3)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o) (__mulsf3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o) (__mulsf3x)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
@@ -71,45 +71,45 @@ c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o) (__tablejump__)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (malloc)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (malloc)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (realloc)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (realloc)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (atol)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (atol)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (isspace)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (isspace)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (tolower)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (tolower)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (toupper)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (toupper)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcmp.o)
                               ./SD/utility/SdFile.o (memcmp)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcpy.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o) (memcpy)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strcat)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (strcat)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strchr)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (strchr)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strcmp)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (strcmp)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strcpy)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (strcpy)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strncmp)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (strncmp)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strncpy)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (strncpy)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strrchr)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (strrchr)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (strstr)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (strstr)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (itoa)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (itoa)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (ltoa)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (ltoa)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(mulsi10.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o) (__mulsi_const_10)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
-                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o) (ultoa)
+                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o) (ultoa)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
                               ./main.o (snprintf)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
@@ -160,7 +160,7 @@ LOAD ./SD/File.o
 LOAD ./SD/SD.o
 LOAD ./main.o
 LOAD ./pure_virtual.o
-LOAD H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a
+LOAD H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
@@ -266,7 +266,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.progmem.gcc*)
  *(.progmem*)
  .progmem.data  0x00000068       0x10 ./SD/utility/SdFile.o
- .progmem.data  0x00000078       0x5a H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+ .progmem.data  0x00000078       0x5a H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
                 0x00000078                port_to_mode_PGM
                 0x00000096                digital_pin_to_port_PGM
                 0x000000aa                digital_pin_to_bit_mask_PGM
@@ -287,7 +287,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.ctors)
  .ctors         0x000000d2        0x2 ./SD/SD.o
  .ctors         0x000000d4        0x2 ./main.o
- .ctors         0x000000d6        0x2 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+ .ctors         0x000000d6        0x2 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                 0x000000d8                __ctors_end = .
                 0x000000d8                __dtors_start = .
  *(.dtors)
@@ -486,7 +486,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00003974                isACK(unsigned char*, unsigned char, unsigned char, unsigned char)
  .text          0x0000405e        0x4 ./pure_virtual.o
                 0x0000405e                __cxa_pure_virtual
- .text          0x00004062      0x378 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+ .text          0x00004062      0x378 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                 0x000042ac                HardwareSerial::peek()
                 0x0000428a                HardwareSerial::available()
                 0x00004340                HardwareSerial::write(unsigned char)
@@ -497,7 +497,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x000040c4                HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)
                 0x000042e0                HardwareSerial::read()
                 0x00004062                __vector_18
- .text          0x000043da      0x5a6 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+ .text          0x000043da      0x5a6 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
                 0x000047b6                Print::println(String const&)
                 0x0000473a                Print::println(unsigned int, int)
                 0x000046f6                Print::println()
@@ -521,7 +521,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00004640                Print::print(long, int)
                 0x00004724                Print::println(unsigned long, int)
                 0x00004458                Print::print(String const&)
- .text          0x00004980     0x101a H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+ .text          0x00004980     0x101a H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
                 0x00004990                String::setCharAt(unsigned int, char)
                 0x00004d76                String::operator+=(String const&)
                 0x000054c0                String::lastIndexOf(String const&) const
@@ -577,18 +577,18 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00004a3c                String::getBytes(unsigned char*, unsigned int)
                 0x000055b2                String::replace(String const&, String const&)
                 0x00004cba                String::operator>(String const&) const
- .text          0x0000599a      0x1ce H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+ .text          0x0000599a      0x1ce H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
                 0x00005af2                init
                 0x00005a46                micros
                 0x00005a92                delay
                 0x0000599a                __vector_16
                 0x00005a2a                millis
                 0x00005ade                delayMicroseconds
- .text          0x00005b68      0x170 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+ .text          0x00005b68      0x170 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
                 0x00005c78                digitalRead
                 0x00005c0e                digitalWrite
                 0x00005b68                pinMode
- .text          0x00005cd8        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+ .text          0x00005cd8        0x0 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
  .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
  .text          0x00005cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
@@ -870,14 +870,14 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00800239                SYNC
                 0x0080023f                filePrefix
  .data          0x0080025b        0x0 ./pure_virtual.o
- .data          0x0080025b       0x24 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+ .data          0x0080025b       0x24 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                 0x0080025b                vtable for HardwareSerial
- .data          0x0080027f        0xc H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+ .data          0x0080027f        0xc H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
                 0x00800281                vtable for Print
- .data          0x0080028b        0x1 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
- .data          0x0080028c        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
- .data          0x0080028c        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
- .data          0x0080028c        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+ .data          0x0080028b        0x1 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+ .data          0x0080028c        0x0 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+ .data          0x0080028c        0x0 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+ .data          0x0080028c        0x0 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
  .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
  .data          0x0080028c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
@@ -972,16 +972,16 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00800507                sSerial
                 0x00800521                jpgFile
  .bss           0x00800523        0x0 ./pure_virtual.o
- .bss           0x00800523       0x97 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+ .bss           0x00800523       0x97 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                 0x00800523                rx_buffer
                 0x008005a7                Serial
- .bss           0x008005ba        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
- .bss           0x008005ba        0x1 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
- .bss           0x008005bb        0x9 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+ .bss           0x008005ba        0x0 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+ .bss           0x008005ba        0x1 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+ .bss           0x008005bb        0x9 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
                 0x008005bb                timer0_overflow_count
                 0x008005bf                timer0_millis
- .bss           0x008005c4        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
- .bss           0x008005c4        0x0 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+ .bss           0x008005c4        0x0 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+ .bss           0x008005c4        0x0 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
  .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
  .bss           0x008005c4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
@@ -1153,52 +1153,52 @@ File::size()                                      ./SD/File.o
 File::write(char const*)                          ./SD/File.o
 File::write(unsigned char const*, unsigned int)   ./SD/File.o
 File::write(unsigned char)                        ./SD/File.o
-HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
-HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
-HardwareSerial::available()                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::available()                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
-HardwareSerial::begin(long)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::begin(long)                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
-HardwareSerial::end()                             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
-HardwareSerial::flush()                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
-HardwareSerial::peek()                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
-HardwareSerial::read()                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::end()                             H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::flush()                           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::peek()                            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+HardwareSerial::read()                            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
-HardwareSerial::write(unsigned char)              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
-Print::print(String const&)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::print(char const*)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+HardwareSerial::write(unsigned char)              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+Print::print(String const&)                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(char const*)                         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
                                                   ./SD/utility/SdFile.o
-Print::print(char, int)                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(char, int)                           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
                                                   ./SD/utility/SdFile.o
-Print::print(double, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::print(int, int)                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::print(long, int)                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::print(unsigned char, int)                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(double, int)                         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(int, int)                            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(long, int)                           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(unsigned char, int)                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
                                                   ./main.o
                                                   ./SD/utility/SdFile.o
-Print::print(unsigned int, int)                   H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(unsigned int, int)                   H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
                                                   ./SD/utility/SdFile.o
-Print::print(unsigned long, int)                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::print(unsigned long, int)                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
                                                   ./SD/utility/SdFile.o
-Print::printFloat(double, unsigned char)          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::printNumber(unsigned long, unsigned char)  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::println()                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::printFloat(double, unsigned char)          H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::printNumber(unsigned long, unsigned char)  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println()                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
                                                   ./SD/utility/SdFile.o
-Print::println(String const&)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::println(char const*)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::println(char, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::println(double, int)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::println(int, int)                          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::println(long, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::println(unsigned char, int)                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::println(unsigned int, int)                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::println(unsigned long, int)                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-Print::write(char const*)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+Print::println(String const&)                     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(char const*)                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(char, int)                         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(double, int)                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(int, int)                          H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(long, int)                         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(unsigned char, int)                H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(unsigned int, int)                 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::println(unsigned long, int)                H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+Print::write(char const*)                         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
                                                   ./SD/SD.o
-Print::write(unsigned char const*, unsigned int)  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+Print::write(unsigned char const*, unsigned int)  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
                                                   ./SD/SD.o
                                                   ./SD/utility/SdFile.o
@@ -1319,7 +1319,7 @@ SdVolume::init(Sd2Card*, unsigned char)           ./SD/utility/SdVolume.o
                                                   ./SD/SD.o
 SdVolume::sdCard_                                 ./SD/utility/SdVolume.o
                                                   ./SD/utility/SdFile.o
-Serial                                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+Serial                                            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
                                                   ./SD/utility/SdFile.o
 SoftwareSerial::SoftwareSerial(unsigned char, unsigned char) ./SoftwareSerial/SoftwareSerial.o
@@ -1350,64 +1350,64 @@ SoftwareSerial::println(unsigned char)            ./SoftwareSerial/SoftwareSeria
 SoftwareSerial::println(unsigned long)            ./SoftwareSerial/SoftwareSerial.o
 SoftwareSerial::read()                            ./SoftwareSerial/SoftwareSerial.o
                                                   ./main.o
-String::String(String const&)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(String const&)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(char const*)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(char const*)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(char)                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(char)                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(int, int)                          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(int, int)                          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(long, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(long, int)                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(unsigned char)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(unsigned char)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(unsigned int, int)                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(unsigned int, int)                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(unsigned long, int)                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::String(unsigned long, int)                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::charAt(unsigned int) const                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::compareTo(String const&) const            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::concat(String const&)                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::endsWith(String const&) const             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::equals(String const&) const               H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::equalsIgnoreCase(String const&) const     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::getBuffer(unsigned int)                   H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::getBytes(unsigned char*, unsigned int)    H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::indexOf(String const&) const              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::indexOf(String const&, unsigned int) const H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::indexOf(char) const                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::indexOf(char, unsigned int) const         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::lastIndexOf(String const&) const          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::lastIndexOf(String const&, unsigned int) const H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::lastIndexOf(char) const                   H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::lastIndexOf(char, unsigned int) const     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator!=(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator+=(String const&)                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator<(String const&) const            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator<=(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator=(String const&)                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator==(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator>(String const&) const            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator>=(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator[](unsigned int)                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::operator[](unsigned int) const            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-String::replace(String const&, String const&)     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::replace(char, char)                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::setCharAt(unsigned int, char)             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::startsWith(String const&) const           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::startsWith(String const&, unsigned int) const H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::substring(unsigned int) const             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::substring(unsigned int, unsigned int) const H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::toCharArray(char*, unsigned int)          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::toInt()                                   H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::toLowerCase() const                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::toUpperCase() const                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::trim() const                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-String::~String()                                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(String const&)                     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(String const&)                     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(char const*)                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(char const*)                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(char)                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(char)                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(int, int)                          H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(int, int)                          H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(long, int)                         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(long, int)                         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned char)                     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned char)                     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned int, int)                 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned int, int)                 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned long, int)                H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::String(unsigned long, int)                H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::charAt(unsigned int) const                H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::compareTo(String const&) const            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::concat(String const&)                     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::endsWith(String const&) const             H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::equals(String const&) const               H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::equalsIgnoreCase(String const&) const     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::getBuffer(unsigned int)                   H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::getBytes(unsigned char*, unsigned int)    H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::indexOf(String const&) const              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::indexOf(String const&, unsigned int) const H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::indexOf(char) const                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::indexOf(char, unsigned int) const         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::lastIndexOf(String const&) const          H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::lastIndexOf(String const&, unsigned int) const H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::lastIndexOf(char) const                   H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::lastIndexOf(char, unsigned int) const     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator!=(String const&) const           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator+=(String const&)                 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator<(String const&) const            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator<=(String const&) const           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator=(String const&)                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator==(String const&) const           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator>(String const&) const            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator>=(String const&) const           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator[](unsigned int)                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::operator[](unsigned int) const            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+String::replace(String const&, String const&)     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::replace(char, char)                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::setCharAt(unsigned int, char)             H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::startsWith(String const&) const           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::startsWith(String const&, unsigned int) const H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::substring(unsigned int) const             H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::substring(unsigned int, unsigned int) const H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::toCharArray(char*, unsigned int)          H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::toInt()                                   H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::toLowerCase() const                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::toUpperCase() const                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::trim() const                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+String::~String()                                 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 __addsf3                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 __addsf3x                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
 __bad_interrupt                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
@@ -1422,8 +1422,8 @@ __ctype_isfalse                                   c:/winavr-20100110/bin/../lib/
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
 __ctype_istrue                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
 __cxa_pure_virtual                                ./pure_virtual.o
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
                                                   ./SD/SD.o
 __data_end                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
@@ -1434,31 +1434,31 @@ __divmodhi4                                       c:/winavr-20100110/bin/../lib/
 __divmodsi4                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
                                                   ./SoftwareSerial/SoftwareSerial.o
 __divsf3                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 __divsf3_pse                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
 __divsf3x                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3x.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(divsf3.o)
 __do_clear_bss                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
                                                   ./SD/SD.o
                                                   ./SD/utility/SdVolume.o
                                                   ./SD/utility/SdFile.o
 __do_copy_data                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
                                                   ./SD/SD.o
                                                   ./SD/File.o
                                                   ./SD/utility/SdVolume.o
                                                   ./SD/utility/SdFile.o
 __do_global_ctors                                 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
                                                   ./SD/SD.o
 __epilogue_restores__                             c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
@@ -1467,14 +1467,14 @@ __epilogue_restores__                             c:/winavr-20100110/bin/../lib/
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
 __eqsf2                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
 __fixsfsi                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 __fixunssfsi                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 __floatsisf                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 __floatunsisf                                     c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 __flp                                             c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
 __fp_cmp                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
@@ -1518,14 +1518,14 @@ __heap_start                                      c:/winavr-20100110/bin/../lib/
 __init                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
 __lesf2                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
 __ltsf2                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 __malloc_heap_end                                 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
 __malloc_heap_start                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
 __malloc_margin                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
 __mulsf3                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 __mulsf3_pse                                      c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
 __mulsf3x                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(mulsf3.o)
@@ -1540,7 +1540,7 @@ __prologue_saves__                                c:/winavr-20100110/bin/../lib/
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
 __stack                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
 __subsf3                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 __tablejump2__                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
 __tablejump__                                     c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
@@ -1553,8 +1553,8 @@ __udivmodsi4                                      c:/winavr-20100110/bin/../lib/
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   ./main.o
                                                   ./SoftwareSerial/SoftwareSerial.o
 __ultoa_invert                                    c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
@@ -1566,10 +1566,10 @@ __vector_12                                       c:/winavr-20100110/bin/../lib/
 __vector_13                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
 __vector_14                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
 __vector_15                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
-__vector_16                                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+__vector_16                                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
 __vector_17                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
-__vector_18                                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+__vector_18                                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
 __vector_19                                       c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
 __vector_2                                        c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
@@ -1591,27 +1591,27 @@ __vectors                                         c:/winavr-20100110/bin/../lib/
 _div                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
 _exit                                             c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
 atol                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(atol.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 callback_makeDirPath(SdFile&, char*, unsigned char, void*) ./SD/SD.o
 callback_openPath(SdFile&, char*, unsigned char, void*) ./SD/SD.o
 callback_pathExists(SdFile&, char*, unsigned char, void*) ./SD/SD.o
 callback_remove(SdFile&, char*, unsigned char, void*) ./SD/SD.o
 callback_rmdir(SdFile&, char*, unsigned char, void*) ./SD/SD.o
-delay                                             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+delay                                             H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
                                                   ./main.o
-delayMicroseconds                                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+delayMicroseconds                                 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
                                                   ./SoftwareSerial/SoftwareSerial.o
-digitalRead                                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+digitalRead                                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
                                                   ./SoftwareSerial/SoftwareSerial.o
-digitalWrite                                      H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+digitalWrite                                      H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
                                                   ./SD/utility/Sd2Card.o
                                                   ./SoftwareSerial/SoftwareSerial.o
-digital_pin_to_bit_mask_PGM                       H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
-digital_pin_to_port_PGM                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
-digital_pin_to_timer_PGM                          H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+digital_pin_to_bit_mask_PGM                       H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+digital_pin_to_port_PGM                           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+digital_pin_to_timer_PGM                          H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
 establishContact()                                ./main.o
 exit                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
@@ -1622,47 +1622,47 @@ fputc                                             c:/winavr-20100110/bin/../lib/
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
 free                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 getNextPathComponent(char*, unsigned int*, char*) ./SD/SD.o
-init                                              H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+init                                              H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
                                                   ./main.o
 isACK(unsigned char*, unsigned char, unsigned char, unsigned char) ./main.o
 isDATA(unsigned char*)                            ./main.o
 isSYNC(unsigned char*)                            ./main.o
 isspace                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 itoa                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 jpgFile                                           ./main.o
 loop                                              ./main.o
 ltoa                                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 main                                              ./main.o
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
 malloc                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 memcmp                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcmp.o)
                                                   ./SD/utility/SdFile.o
 memcpy                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(memcpy.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
-micros                                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
-millis                                            H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+micros                                            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+millis                                            H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
                                                   ./SD/utility/Sd2Card.o
 numBuf                                            ./main.o
-pinMode                                           H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+pinMode                                           H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
                                                   ./main.o
                                                   ./SD/utility/Sd2Card.o
-port_to_input_PGM                                 H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
-port_to_mode_PGM                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
-port_to_output_PGM                                H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+port_to_input_PGM                                 H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+port_to_mode_PGM                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
+port_to_output_PGM                                H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(pins_arduino.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring_digital.o)
 realloc                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(realloc.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 receiveComd()                                     ./main.o
-rx_buffer                                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+rx_buffer                                         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
 sSerial                                           ./main.o
 sendACK(unsigned char, unsigned char, unsigned char, unsigned char) ./main.o
 sendCommand(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) ./main.o
@@ -1676,45 +1676,45 @@ setupSD(char*)                                    ./main.o
 snprintf                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
                                                   ./main.o
 strcat                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 strchr                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 strcmp                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 strcpy                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 strncmp                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 strncpy                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 strnlen                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
 strnlen_P                                         c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
 strrchr                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 strrev                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
 strstr                                            c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 takeSnapshot()                                    ./main.o
-timer0_millis                                     H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
-timer0_overflow_count                             H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+timer0_millis                                     H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
+timer0_overflow_count                             H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(wiring.o)
 tolower                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 toupper                                           c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 ultoa                                             c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
-                                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(WString.o)
+                                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(WString.o)
 vfprintf                                          c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
                                                   c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(snprintf.o)
 vtable for File                                   ./SD/File.o
                                                   ./main.o
                                                   ./SD/SD.o
-vtable for HardwareSerial                         H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
-vtable for Print                                  H:\gdp\uavcamera\ArduinoCore\Release\libArduinoCore.a(Print.o)
+vtable for HardwareSerial                         H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(HardwareSerial.o)
+vtable for Print                                  H:\gdp\uavcamera\eclipse\ArduinoCore\Release\libArduinoCore.a(Print.o)
 vtable for SdFile                                 ./SD/utility/SdFile.o
                                                   ./SD/SD.o
 vtable for Stream                                 ./SD/SD.o
