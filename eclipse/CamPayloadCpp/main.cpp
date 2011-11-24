@@ -31,12 +31,42 @@ uint8_t imagePacketToSend[IMAGE_PACKET_SIZE + 3];
 
 int main()
 {
+
+	io_pins_setup();
+	module_setup();
+
+	sei();
+
+	ILOG("Payload starting...");
+	ILOG("Initialising SD card...");
+
+	init_sd();
+
+	ILOG("Initialising camera...");
+
+	init_cam();
+
+	DLOG("Entering main loop...");
+	while(1) {
+		// main event loop
+
+		/* comms update will process any commands and packet_scan in packet_scan.cpp
+		 * will be called to handle any incoming data and messages
+		 */
+		comms_update();
+		/* now the messages have been taken care of we need to process any flags the messages may have set
+		 */
+	}
+	return 0;
+}
+
+#if 0
+int old_main() {
 	//init_debug_spi();
 
 	DDRA = 0xFF;
 
 	spiDebug.begin();
-	recTxToken = false;
 	io_pins_setup();
 	module_setup();
 
@@ -47,7 +77,6 @@ int main()
 	
 	// init our camera
 	//init_cam();
-
 
 	// open test1.jpg on the SD card and start reading bytes out of it
 	DLOG("Opening jpeg file.\n\r");
@@ -60,19 +89,19 @@ int main()
 	DLOG("Jpeg file opened.\n\r");
 	uint32_t testJPEGSDSize = testJPEGSD.size();
 	DLOG("TestJPEGDSize: ");
-	DLOG(testJPEGSDSize);
+	DLOG("%u", testJPEGSDSize);
 	DLOG("\n\r");
 	uint16_t numPackets = testJPEGSDSize / IMAGE_PACKET_SIZE;
 	if((testJPEGSDSize % IMAGE_PACKET_SIZE) != 0)
 		numPackets += 1;
 	DLOG("numPackets: ");
-	DLOG(numPackets);
+	DLOG("%u", numPackets);
 	DLOG("\n\r");
 
 	// wait until we start getting tx tokens addressed to us
 	DLOG("Waiting for tx token\n\r");
-	while (!recTxToken)
-		comms_update();
+	//while (!recTxToken)
+	//	comms_update();
 	DLOG("Tx token received\n\r");
 
 	delay(2000);
@@ -153,9 +182,9 @@ int main()
 //		}
 
 		//DLOG("Waiting for tx token\n\r");
-		recTxToken = false;
-		while(!recTxToken)
-			comms_update();
+		//recTxToken = false;
+		//while(!recTxToken)
+		//	comms_update();
 		//DLOG("Got tx token\n\r");
 		send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, CLASS_PAYLOAD_MEM_BYTES, 0, imagePacketToSend, currPacketLength);
 		//DLOG("Waiting for all data to be transmitted\n\r");
@@ -204,9 +233,6 @@ int main()
 		imagePacketToSend[2] = (uint8_t)(currPacketNum >> 8);
 		for(int currByte = 3; currByte < currPacketSize + 3; currByte++) {
 			imagePacketToSend[currByte] = (uint8_t)testJPEGSD.read();
-
-			data_read();
-
 			numBytesTrans++;
 			if(imagePacketToSend[currByte] == -1) {
 				DLOG("ERROR: Trying to read over the end of the file!\n\r");
@@ -237,7 +263,7 @@ int main()
 	}
 
 	DLOG("numBytesTrans: ");
-	DLOG(numBytesTrans);
+	DLOG("%u", numBytesTrans);
 	DLOG("\n\r");
 
 	DLOG("Finished!\n\r");
@@ -247,7 +273,7 @@ int main()
 
 	return (0);
 }
-
+#endif
 
 bool init_sd() {
 	// Pin 10 = Chip Select
