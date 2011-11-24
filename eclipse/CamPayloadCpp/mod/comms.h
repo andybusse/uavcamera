@@ -5,6 +5,7 @@
 
 #include "fifo.h" // for fifo_struct definition
 
+#include "base.h"
 // Definitions
 
 // comms packet bytes

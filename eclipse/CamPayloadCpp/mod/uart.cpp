@@ -32,6 +32,7 @@ ISR(USART0_UDRE_vect)
 		UDR0 = payload_stream.tx_fifo.buffer[payload_stream.tx_fifo.tail++];
 		if (payload_stream.tx_fifo.tail == payload_stream.tx_fifo.buffer_length)
 			payload_stream.tx_fifo.tail = 0;
+
 	}
 	else if (sent_etx_token == FALSE)
 	{

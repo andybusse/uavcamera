@@ -1,0 +1,2 @@
+- figure out and fix camera only working every other restart
+	- maybe send reset command before we try to connect to it

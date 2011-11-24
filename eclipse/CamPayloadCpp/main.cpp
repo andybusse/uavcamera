@@ -22,18 +22,22 @@
 #include "SD/SD.h"
 
 #include "mod/uart.h"
+#include "image_sender.h"
 
 bool init_sd();
 
-#define IMAGE_PACKET_SIZE 50
 
-uint8_t imagePacketToSend[IMAGE_PACKET_SIZE + 3];
+
+//uint8_t imagePacketToSend[IMAGE_PACKET_SIZE + 3];
 
 int main()
 {
 
 	io_pins_setup();
+	spiDebug.begin();
 	module_setup();
+	init_image_sender();
+
 
 	sei();
 
@@ -46,6 +50,7 @@ int main()
 
 	init_cam();
 
+
 	DLOG("Entering main loop...");
 	while(1) {
 		// main event loop
@@ -56,6 +61,23 @@ int main()
 		comms_update();
 		/* now the messages have been taken care of we need to process any flags the messages may have set
 		 */
+
+		if(imageSendState.sendingImage == true) {
+			//if(imageSendState.currentPacket == 0)
+				//DLOG("Starting to send image.\n\r");
+			// we are in the middle of sending an image
+			// so send the next packet
+
+			if(imageSendState.currentPacket < imageSendState.numPackets) {
+				//DLOG("Sending packet ");
+				//DLOG(imageSendState.currentPacket);
+				//DLOG("\n\r");
+				send_IMAGE_DATA_packet();
+			} else {
+				imageSendState.sendingImage = false;
+				DLOG("Finished sending image.\n\r");
+			}
+		}
 	}
 	return 0;
 }

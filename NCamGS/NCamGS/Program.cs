@@ -12,6 +12,20 @@ namespace NCamGS
         {
             UAVConnector uavConn = new UAVConnector();
             uavConn.Connect("localhost", 8802, 0);
+            while (true)
+            {
+                byte[] packet = uavConn.GetDataBytes();
+                int packetSize = packet.Length;
+                uint packetNum = (uint)packet[0] + (uint)(packet[1] << 8);
+
+                Console.Write("#" + packetNum + " ");
+
+                for (int i = 2; i < packetSize; i++)
+                {
+                    Console.Write(packet[i] + " ");
+                }
+                Console.WriteLine();
+            }
 
             FileStream fileStream = new FileStream("output.jpg", FileMode.Create);
             BinaryWriter opFile = new BinaryWriter(fileStream);
