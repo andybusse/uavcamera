@@ -13,23 +13,19 @@
 #include "payload_base.h"
 
 
-
-
-uint8_t myData[] = {3, 0x42, 0x45, 0x89};
-
 void packet_scan(uint8_t *data, uint8_t length)
 {
 	if (length > 0)
 	{
+		DLOG("data[0]: %u length: %u", data[0], length);
 		switch (data[0])
 		{
-			case 0:
-				//send_text("hello world!");
-				//send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, CLASS_PAYLOAD_MEM_BYTES, 0, myData, 4);
+			default: // not a valid message
 				break;
 		}
 	}
 }
+
 
 
 

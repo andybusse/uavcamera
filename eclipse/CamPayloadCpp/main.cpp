@@ -60,13 +60,13 @@ int main()
 	DLOG("Jpeg file opened.\n\r");
 	uint32_t testJPEGSDSize = testJPEGSD.size();
 	DLOG("TestJPEGDSize: ");
-	DLOG(testJPEGSDSize);
+	DLOG("%u", testJPEGSDSize);
 	DLOG("\n\r");
 	uint16_t numPackets = testJPEGSDSize / IMAGE_PACKET_SIZE;
 	if((testJPEGSDSize % IMAGE_PACKET_SIZE) != 0)
 		numPackets += 1;
 	DLOG("numPackets: ");
-	DLOG(numPackets);
+	DLOG("%u", numPackets);
 	DLOG("\n\r");
 
 	// wait until we start getting tx tokens addressed to us
@@ -204,9 +204,6 @@ int main()
 		imagePacketToSend[2] = (uint8_t)(currPacketNum >> 8);
 		for(int currByte = 3; currByte < currPacketSize + 3; currByte++) {
 			imagePacketToSend[currByte] = (uint8_t)testJPEGSD.read();
-
-			data_read();
-
 			numBytesTrans++;
 			if(imagePacketToSend[currByte] == -1) {
 				DLOG("ERROR: Trying to read over the end of the file!\n\r");
@@ -237,7 +234,7 @@ int main()
 	}
 
 	DLOG("numBytesTrans: ");
-	DLOG(numBytesTrans);
+	DLOG("%u", numBytesTrans);
 	DLOG("\n\r");
 
 	DLOG("Finished!\n\r");
