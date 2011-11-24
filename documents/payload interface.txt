@@ -16,9 +16,9 @@ PL = Payload
 Messages:
 	- GS > PL: Take Picture [ Take Picture Message ID ]
 		- PL should send back Picture Taken message
-	- PL > GS: Picture Taken [ Picture Taken Message ID ] [ Image ID ] [ Image Data Size ]
-	- GS > PL: Image Download Request [ Image Download Request Message ID ] [ Image ID ] [ Byte To Begin At ]
-	- PL > GS: Image Data [ Image Data Message ID ] [ Image ID ] [ Size of Data ]
+	- PL > GS: Picture Taken [ Picture Taken Message ID ] [ Image ID ]
+	- GS > PL: Image Download Request [ Image Download Request Message ID ] [ Image ID ]
+	- PL > GS: Image Data [ Image Data Message ID ] [ Image Packet Number ]
 	- GS > PL: Set Colour Type [ Set Colour Type Message ID ] [ Colour Type ]
 	- GS > PL: Set Image Resolution [ Set Image Resolution Message ID ] [ Image Resolution ]
 	- GS > PL: Set Colour Type and Image Resolution [ Set Colour Type and Image Resolution Message ID ] [ Colour Type and Resolution (all one byte) ]

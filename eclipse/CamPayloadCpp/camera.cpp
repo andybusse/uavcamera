@@ -261,7 +261,7 @@ void init_cam()
 
 }
 
-void take_picture()
+int take_picture()
 {
 	delay(2000);
   boolean fileExists = true;
@@ -282,8 +282,10 @@ void take_picture()
    delay(2000);
   }else{ //Error has been detected
     DLOG("Trouble at mill...\n\r");
+    return -1;
   }
   jpgFile.close(); // Close JPG file
+  return fileNum;
 }
 
 

@@ -4,6 +4,6 @@
 
 extern void init_cam();
 
-extern void take_picture();
+extern int take_picture();
 
 #endif /* CAMERA_H_ */

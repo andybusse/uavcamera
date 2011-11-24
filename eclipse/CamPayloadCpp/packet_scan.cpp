@@ -12,26 +12,38 @@
 
 #include "payload_base.h"
 
+#include "camera.h"
 
 
-
-uint8_t myData[] = {3, 0x42, 0x45, 0x89};
+uint8_t messageToSend[MAX_MESSAGE_LENGTH];
+uint8_t messageToSendLength;
+bool messageSendPending = false;
 
 void packet_scan(uint8_t *data, uint8_t length)
 {
 	if (length > 0)
 	{
+		DLOG("Got message, length: %u", data[0], length);
 		switch (data[0])
 		{
-			case 0:
-				//send_text("hello world!");
-				//send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, CLASS_PAYLOAD_MEM_BYTES, 0, myData, 4);
+			case MID_TAKE_PICTURE:
+				DLOG("TAKE_PICTURE message received");
+				int imageID;
+				imageID = take_picture();
+				if(imageID >= 0) {
+					ILOG("Picture taken with image ID: %d", imageID);
+					send_PICTURE_TAKEN_message(imageID);
+					DLOG("Sent picture taken message.");
+				} else {
+					ILOG("Picture taking failed!");
+				}
+				break;
+			default: // not a valid message
+				DLOG("Invalid message, length: %u", data[0], length);
 				break;
 		}
 	}
 }
-
-
 
 void packet_tx_request()
 {
@@ -62,8 +74,36 @@ void packet_tx_request()
 
 	//testInt++;
 
-	recTxToken = true;
-
 	PORTC ^= STATUS_LED;
 
+	if(messageSendPending) {
+		send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, CLASS_PAYLOAD_MEM_BYTES, 0, messageToSend, messageToSendLength);
+		//send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, CLASS_PAYLOAD_MEM_BYTES, 2, data, 4);
+		messageSendPending = false;
+	}
+
+}
+
+void send_PICTURE_TAKEN_message(uint16_t imageID) {
+	messageToSend[0] = 3; /* length */
+	messageToSend[1] = MID_PICTURE_TAKEN; /* message ID */
+	messageToSend[2] = (uint8_t)(imageID >> 8); /* image ID MSB */
+	messageToSend[3] = (uint8_t)imageID; /* image ID LSB */
+	messageToSendLength = 4;
+	send_message();
+}
+
+void send_IMAGE_DOWNLOAD_INFO_message(uint16_t numPackets) {
+	messageToSend[0] = 3;
+	messageToSend[1] = MID_IMAGE_DOWNLOAD_INFO;
+	messageToSend[2] = (uint8_t)(numPackets >> 8);
+	messageToSend[3] = (uint8_t)numPackets;
+	messageToSendLength = 4;
+	send_message();
+}
+
+void send_message() {
+	while(messageSendPending); // wait until the current pending messageToSend has been sent
+
+	messageSendPending = true;
 }
