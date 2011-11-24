@@ -13,9 +13,7 @@
 
 #define STD_DELAY
 
-//#define DLOG(...)  sSerial.print(__VA_ARGS__)
-//#define DLOG(...) send_debug_spi(__VA_ARGS__)
-#define DLOG(...) spiDebug.print(__VA_ARGS__)
+
 
 
 #endif /* CONFIG_H_ */

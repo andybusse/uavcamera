@@ -15,8 +15,6 @@
 #define CLASS_PAYLOAD               7
 #define CLASS_PAYLOAD_MEM_BYTES     10
 
-extern bool recTxToken;
-
 extern SPIDebug spiDebug;
 
 extern void send_text(const char * text, ...);
