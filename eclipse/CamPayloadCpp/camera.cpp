@@ -28,6 +28,8 @@
 #include "SD/SD.h"
 #include <stdio.h>
 
+#include "camera.h"
+
 
 //#define DLOG(...)
 byte SYNC[] = {0xAA,0x0D,0x00,0x00,0x00,0x00};
@@ -39,9 +41,8 @@ byte RXtest[6];
 
 char filePrefix[] = "test"; //Prefix of file name written to the SD card
 char fileExt[] = ".jpg"; //File extension of the file being written to
-char fileName[13]; //Contains full file name of file being written to
+char fileName[MAX_FILE_NAME_LENGTH]; //Contains full file name of file being written to
 char numBuf[5]; //Number buffer, for the "find a file that doesn't exist" procedure. Could be a number up to 32767
-File jpgFile;
 
 // The following are all self-explanatory.
 // Follows command structure described in the camera's datasheet
@@ -118,7 +119,7 @@ boolean isDATA(byte byteundertest[]){
 void setupSD(char fileName[]){
   // For Optimisation of the SD card writing process.
   // See http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1293975555
-  jpgFile = SD.open(fileName, O_CREAT | O_WRITE);
+  sdFile = SD.open(fileName, O_CREAT | O_WRITE);
 }
 
 // synchronise with camera
@@ -208,8 +209,7 @@ boolean takeSnapshot() {
   unsigned int numPackages = bufferSize/(packageSize-6);
 
   DLOG("Number of packages: ");
-  //DLOG(numPackages);
-  DLOG("some");
+  DLOG(numPackages);
   DLOG("\n\r");
 
   byte dataIn[packageSize];
@@ -228,9 +228,9 @@ boolean takeSnapshot() {
         dataIn[dataPoint] = Serial1.read();
           if(dataPoint > 3 && dataPoint < (packageSize - 2)){ //strips out header data
           //sSerial.print(dataIn[dataPoint],BYTE);
-          jpgFile.print(dataIn[dataPoint]);
+          sdFile.print(dataIn[dataPoint]);
             if(flushCount == 511){
-              jpgFile.flush();
+              sdFile.flush();
               flushCount = -1; // because it adds one straight away after
             }
           flushCount++;
@@ -257,7 +257,6 @@ void init_cam()
   DLOG("Attemting to establish contact.\n\r");
   establishContact();  // send a byte to establish contact until receiver responds
   DLOG("Contact established, captain\n\r");
-  delay(2000); // 2 second pause
 
 }
 
@@ -279,12 +278,11 @@ int take_picture()
   boolean wellness = takeSnapshot(); //Take a snapshot
   if(wellness){ //If no error is detected
    DLOG("All's well\n\r");
-   delay(2000);
   }else{ //Error has been detected
-    DLOG("Trouble at mill...\n\r");
+    ILOG("Trouble at mill...\n\r");
     return -1;
   }
-  jpgFile.close(); // Close JPG file
+  sdFile.close(); // Close JPG file
   return fileNum;
 }
 

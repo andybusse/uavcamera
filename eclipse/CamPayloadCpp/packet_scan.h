@@ -40,18 +40,26 @@
 	//	- GS > PL: Set Colour Type and Image Resolution [ Set Colour Type and Image Resolution Message ID ] [ Colour Type and Resolution (all one byte) ]*/
 
 
-#define MAX_MESSAGE_LENGTH 50
+#define MAX_MESSAGE_LENGTH 69
 
 // Public globals
 
 extern uint8_t messageToSend[];
-extern bool messageSendPending;
+extern uint8_t messageToSendLength;
+
+/* this MUST be volatile since it is changed inside an ISR and checked in normal code, otherwise the compiler can do funny things (see comment in
+ * wait_for_send_message() in packet_scan.cpp for more details about a bug it was causing
+ */
+volatile extern bool messageStartSendPending;
+
+
 
 // Function prototypes
 
 void send_PICTURE_TAKEN_message(uint16_t imageID);
 void send_IMAGE_DOWNLOAD_INFO_message(uint16_t numPackets);
-void send_message();
+void flag_want_to_send_message();
+void wait_for_send_message();
 
 // extern prototypes for packet_scan() and packet_rx_request() prototypes already supplied in common modules file mod/module.h but must be implemented locally
 

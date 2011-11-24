@@ -20,7 +20,7 @@ void SPIDebug::begin() {
 
 void SPIDebug::write(uint8_t b) {
 	digitalWrite(dSPISS, LOW);
-	delayMicroseconds(100);
+	delayMicroseconds(10);
 	for(int j = 0; j < 8; j++) {
 		if((b & (0x01 << j)) >> j)
 			digitalWrite(dSPIMOSIPin, LOW);
@@ -28,9 +28,9 @@ void SPIDebug::write(uint8_t b) {
 			digitalWrite(dSPIMOSIPin, HIGH);
 
 		digitalWrite(dSPISCLKPin, LOW);
-		delayMicroseconds(100);
+		delayMicroseconds(10);
 		digitalWrite(dSPISCLKPin, HIGH);
-		delayMicroseconds(100);
+		delayMicroseconds(10);
 	}
 	digitalWrite(dSPISS, HIGH);
 }
