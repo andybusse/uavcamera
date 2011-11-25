@@ -30,7 +30,7 @@ void send_IMAGE_DATA_packet() {
 		currPacketLength = IMAGE_PACKET_SIZE;
 	}
 
-	currPacketLength += 3;
+	currPacketLength += 4; // add the length required for the packet size, message id and the current packet number data
 
 	//if(currPacketNum > 1140) {
 	//	DLOG("#");
@@ -39,13 +39,14 @@ void send_IMAGE_DATA_packet() {
 	//}
 
 	messageToSend[0] = currPacketLength - 1;
-	messageToSend[1] = (uint8_t)imageSendState.currentPacket;
-	messageToSend[2] = (uint8_t)(imageSendState.currentPacket >> 8);
+	messageToSend[1] = MID_IMAGE_DATA;
+	messageToSend[2] = (uint8_t)imageSendState.currentPacket;
+	messageToSend[3] = (uint8_t)(imageSendState.currentPacket >> 8);
 
 	messageToSendLength = currPacketLength;
 
 
-	for(int currByteNum = 3; currByteNum < currPacketLength; currByteNum++) {
+	for(int currByteNum = 4; currByteNum < currPacketLength; currByteNum++) {
 		uint8_t currByte = (uint8_t)sdFile.read();
 		messageToSend[currByteNum] = currByte;
 		//if(currPacketNum > 1140) {

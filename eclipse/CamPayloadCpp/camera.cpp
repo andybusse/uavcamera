@@ -87,6 +87,13 @@ void sendGETPICTURE(byte picType) {
 }
 
 
+void sendRESET(bool fullReset) {
+	byte resetType = 0x00;
+	if(!fullReset)
+		resetType = 0x01;
+	sendCommand(0xAA, 0x08, resetType, 0x00, 0x00, 0x00);
+}
+
 
 // verifies ACK
 boolean isACK(byte byteundertest[],byte comID, byte pakID1, byte pakID2){
@@ -97,6 +104,17 @@ boolean isACK(byte byteundertest[],byte comID, byte pakID1, byte pakID2){
   }
   return true;
 }
+
+// verifies NAK
+boolean isNAK(byte byteundertest[]){
+  byte testACK[] = {0xAA,0x0F,0x00,0x00,0x00,0x00};
+  for(int z = 0;z<6;z++){
+    if((z != 3) && (z != 4) && (byteundertest[z] != testACK[z]))
+      return false;
+  }
+  return true;
+}
+
 
 // verifies SYNC
 boolean isSYNC(byte byteundertest[]){
@@ -123,21 +141,42 @@ void setupSD(char fileName[]){
 }
 
 // synchronise with camera
-void establishContact() {
+bool establishContact() {
+	DLOG("Resetting...\n\r");
+
+	//sendRESET(true);
   DLOG("Sending syncs\n\r\r"); // Send SYNC to the camera.
   //This could be up to 60 times
+	int numSyncs = 0;
   while(1){
     while (Serial1.available() <= 0) {
-      DLOG(".");
-      sendSYNC();
-      delay(50);
+    	delay(50);
+    	sendSYNC();
+
+      if(numSyncs > 60) {
+    		return false;
+      }
+      numSyncs++;
     }
-    //DLOG("Data available\n\r");
+    DLOG("Data available\n\r");
 
     receiveComd();
  // Verify that the camera has sent back an ACK followed by SYNC
+    // NB: for some reason the camera does not always send ACKs back even if it does send syncs
+
+    if(isNAK(RXtest)) {
+    	DLOG("Is NAK ");
+    	for(int i = 0; i < 6; i++) {
+    		DLOG((int)RXtest[i]);
+    		DLOG("|");
+    	}
+    	DLOG("\n\r");
+    	continue;
+    }
+
     if(!isACK(RXtest,0x0D,0x00,0x00))
-      continue;
+    	continue;
+
     DLOG("ACK received\n\r");
     receiveComd();
 
@@ -150,6 +189,8 @@ void establishContact() {
 
    break;
   }
+
+  return true;
 }
 
 // takes a snapshot
@@ -249,15 +290,20 @@ boolean takeSnapshot() {
   return true;
 }
 
-void init_cam()
+bool init_cam()
 {
   // start serial port at 115200 bps
   Serial1.begin(115200);
 
-  DLOG("Attemting to establish contact.\n\r");
-  establishContact();  // send a byte to establish contact until receiver responds
-  DLOG("Contact established, captain\n\r");
-
+  DLOG("Attemting to establish contact with camera.\n\r");
+  bool est = establishContact();  // send a byte to establish contact until receiver responds
+  if(est) {
+	  DLOG("Contact established, captain\n\r");
+	  return true;
+  } else {
+	  DLOG("ERROR: Failed to establish contact with camera!\n\r");
+	  return false;
+  }
 }
 
 int take_picture()

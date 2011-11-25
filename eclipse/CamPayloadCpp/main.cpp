@@ -51,6 +51,8 @@ int main()
 	init_cam();
 
 
+
+
 	DLOG("Entering main loop...");
 	while(1) {
 		// main event loop
