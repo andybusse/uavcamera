@@ -11,19 +11,23 @@ namespace NCamGS
     class UAVConnector
     {
         Socket dataPort = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        Socket consolePort = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        public void Connect(string portName, int portNumber, byte dataStream)
+        public void Connect(byte dataStream)
         {
             try
             {
-                dataPort.Connect(portName, portNumber);
+                dataPort.Connect("localhost", 8802);
                 //MessageBox.Show("Connection to Port Name" + portName + "Port Number" + portNumber + "is complete!");
-                Console.WriteLine("Data port connection to Port Name {0}  Port Number {1} is complete!", portName, portNumber);
+                Console.WriteLine("Data port connection to Port Name {0}  Port Number {1} is complete!", "localhost", 8802);
 
                 // send selection byte to select datastream 0
                 byte[] dataStreamSelection = { dataStream };
                 dataPort.Send(dataStreamSelection);
                 Console.WriteLine("Data stream selection completed.");
+
+                consolePort.Connect("localhost", 8800);
+                Console.WriteLine("Data port connection to Port Name {0} Port Number {1} is complete!", "localhost", 8800);
             }
             catch
             {
@@ -45,6 +49,63 @@ namespace NCamGS
             byte[] recBytes = new byte[numBytes];
             dataPort.Receive(recBytes, numBytes, SocketFlags.None);
             return recBytes;
+        }
+
+        public void SendTextToUAV(string textToUAV)
+        {
+            char[] toUAVChar = new char[512];
+            byte[] toUAVByte = new byte[512];
+            byte[] fromUAVByte = new byte[1000];
+            byte[] oneByteArray = new byte[1];
+            textToUAV += "\n";
+            toUAVChar = textToUAV.ToCharArray();
+            toUAVByte = System.Text.Encoding.ASCII.GetBytes(toUAVChar);
+            try
+            {
+                int sendByte = consolePort.Send(toUAVByte, toUAVChar.Length, SocketFlags.None);
+            }
+            catch (SocketException ex)
+            {
+                Console.WriteLine("ERROR: " + ex.Message);
+            }
+        }
+        public void SendCommand(byte[] command)
+        {
+            // use to send commmand to the uav
+            string toUAV;
+            //string fromUAV;
+            char[] toUAVChar = new char[512];
+            byte[] toUAVByte = new byte[512];
+            byte[] fromUAVByte = new byte[1000];
+            byte[] oneByteArray = new byte[1];
+
+            toUAV = "payload[0].send_bytes";
+
+            for (int commandByteCount = 0; commandByteCount < command.Length; commandByteCount++)
+            {
+                oneByteArray[0] = command[commandByteCount];
+                toUAV += " 0x" + BitConverter.ToString(oneByteArray);
+                //toUAV += " 0x" +System.Text.Encoding.ASCII.GetString(oneByteArray); 
+            }
+
+            toUAV += "\n";
+            toUAVChar = toUAV.ToCharArray();
+            toUAVByte = System.Text.Encoding.ASCII.GetBytes(toUAVChar);
+            try
+            {
+                int sendByte = consolePort.Send(toUAVByte, toUAVChar.Length, SocketFlags.None);
+            }
+            catch (SocketException ex)
+            {
+                Console.WriteLine("ERROR: " + ex.Message);
+            }
+            //Port.Receive(fromUAVByte);
+            //fromUAV = System.Text.Encoding.ASCII.GetString(fromUAVByte);
+        }
+
+        public void Close()
+        {
+            dataPort.Close();
         }
 
     }
