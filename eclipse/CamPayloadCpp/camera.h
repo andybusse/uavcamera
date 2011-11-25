@@ -4,7 +4,7 @@
 
 #define MAX_FILE_NAME_LENGTH 13
 
-extern void init_cam();
+extern bool init_cam();
 
 extern int take_picture();
 

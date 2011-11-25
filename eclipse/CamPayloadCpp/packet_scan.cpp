@@ -39,7 +39,7 @@ void packet_scan(uint8_t *data, uint8_t length)
 					int takePictureImageID;
 					takePictureImageID = take_picture();
 					if(takePictureImageID >= 0) {
-						ILOG("Picture taken with image ID:");
+						ILOG("Picture taken with image ID: ");
 						ILOG(takePictureImageID);
 						ILOG("\n\r");
 						send_PICTURE_TAKEN_message(takePictureImageID);
@@ -55,7 +55,7 @@ void packet_scan(uint8_t *data, uint8_t length)
 			case MID_IMAGE_DOWNLOAD_REQUEST:
 				if(length == 3) {
 					uint16_t downloadRequestImageID;
-					downloadRequestImageID = (uint16_t)(data[1] << 8) + (uint16_t)data[2];
+					downloadRequestImageID = (uint16_t)data[1] + (uint16_t)(data[2] << 8);
 					DLOG("IMAGE_DOWNLOAD_REQUEST message received with image ID ");
 					DLOG(downloadRequestImageID);
 					DLOG("\n\r");
@@ -165,8 +165,8 @@ void send_PICTURE_TAKEN_message(uint16_t imageID) {
 	wait_for_send_message();
 	messageToSend[0] = 3; /* length */
 	messageToSend[1] = MID_PICTURE_TAKEN; /* message ID */
-	messageToSend[2] = (uint8_t)(imageID >> 8); /* image ID MSB */
-	messageToSend[3] = (uint8_t)imageID; /* image ID LSB */
+	messageToSend[2] = (uint8_t)imageID; /* image ID LSB */
+	messageToSend[3] = (uint8_t)(imageID >> 8); /* image ID MSB */
 	messageToSendLength = 4;
 	flag_want_to_send_message();
 	//send_message();
@@ -176,8 +176,8 @@ void send_IMAGE_DOWNLOAD_INFO_message(uint16_t numPackets) {
 	wait_for_send_message();
 	messageToSend[0] = 3;
 	messageToSend[1] = MID_IMAGE_DOWNLOAD_INFO;
-	messageToSend[2] = (uint8_t)(numPackets >> 8);
-	messageToSend[3] = (uint8_t)numPackets;
+	messageToSend[2] = (uint8_t)numPackets;
+	messageToSend[3] = (uint8_t)(numPackets >> 8);
 	messageToSendLength = 4;
 	flag_want_to_send_message();
 
