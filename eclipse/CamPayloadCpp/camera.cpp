@@ -137,14 +137,36 @@ boolean isDATA(byte byteundertest[]){
 void setupSD(char fileName[]){
   // For Optimisation of the SD card writing process.
   // See http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1293975555
-  sdFile = SD.open(fileName, O_CREAT | O_WRITE);
+	File file;
+	file = SD.open(fileName, O_CREAT | O_WRITE);
+	sdFile = file;
 }
 
 // synchronise with camera
 bool establishContact() {
-	DLOG("Resetting...\n\r");
+	//DLOG("Resetting...\n\r");
 
-	//sendRESET(true);
+	/*sendRESET(false);
+
+	// see if we get a response
+	for(int resetAckCount = 0; resetAckCount < 20; resetAckCount++)
+	{
+		DLOG("Looking for Ack...\n\r");
+		delay(50);
+		if(Serial1.available() >= 6) {
+			DLOG("Got something.\n\r");
+			receiveComd();
+			if(isACK(RXtest, 0x08, 0x00, 0x00)) {
+				DLOG("Got ACK\n\r");
+			} else if(isNAK(RXtest)) {
+				DLOG("Got NAK\n\r");
+			}
+			break;
+		}
+	}*/
+
+
+
   DLOG("Sending syncs\n\r\r"); // Send SYNC to the camera.
   //This could be up to 60 times
 	int numSyncs = 0;
@@ -158,7 +180,7 @@ bool establishContact() {
       }
       numSyncs++;
     }
-    DLOG("Data available\n\r");
+   // DLOG("Data available\n\r");
 
     receiveComd();
  // Verify that the camera has sent back an ACK followed by SYNC
@@ -177,13 +199,13 @@ bool establishContact() {
     if(!isACK(RXtest,0x0D,0x00,0x00))
     	continue;
 
-    DLOG("ACK received\n\r");
+   // DLOG("ACK received\n\r");
     receiveComd();
 
    if(!isSYNC(RXtest))
      continue;
 
-   DLOG("SYNC received\n\r");
+   //DLOG("SYNC received\n\r");
    // Send back an ACK
    sendACK(0x0D,0x00,0x00,0x00);
 
@@ -320,6 +342,10 @@ int take_picture()
   DLOG(fileName);
   DLOG("\n\r");
   setupSD(fileName); // creates the file on the sd for writing
+  if(sdFile == false) {
+	  DLOG("ERROR: File not created\n\r");
+	  return -1;
+  }
 
   boolean wellness = takeSnapshot(); //Take a snapshot
   if(wellness){ //If no error is detected
@@ -329,6 +355,7 @@ int take_picture()
     return -1;
   }
   sdFile.close(); // Close JPG file
+  DLOG("File closed.\n\r");
   return fileNum;
 }
 

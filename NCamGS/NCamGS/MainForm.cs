@@ -16,6 +16,9 @@ namespace NCamGS
 {
     public partial class MainForm : Form
     {
+
+        string filePrefix = "img";
+        string fileExt = ".jpg";
         
         int count = 0;
         private static int uavDataLength = 512;
@@ -79,7 +82,15 @@ namespace NCamGS
             UAVConnector uavConn = new UAVConnector();
             uavConn.Connect(0);
 
-            FileStream fileStream = new FileStream("output.jpg", FileMode.Create);
+            int fileNum = 0;
+            while (File.Exists(filePrefix + fileNum.ToString() + fileExt))
+            {
+                fileNum++;
+            }
+
+            string fileName = filePrefix + fileNum.ToString() + fileExt;
+
+            FileStream fileStream = new FileStream(fileName, FileMode.Create);
             BinaryWriter opFile = new BinaryWriter(fileStream);
 
             uavConn.SendTextToUAV("da 20 payload[0].mem_bytes[0]");
@@ -92,16 +103,19 @@ namespace NCamGS
 
             while (true)
             {
+                Application.DoEvents();
                 Console.Write(".");
                 byte[] packet = uavConn.GetDataBytes();
                 int packetSize = packet.Length;
-
-                if (packet[0] == 1)
+                if (packetSize > 0)
                 {
-                    // got PICTURE_TAKEN
-                    Console.WriteLine("Found PICTURE_TAKEN");
-                    imageID = (uint)packet[1] + (uint)(packet[2] << 8);
-                    break;
+                    if (packet[0] == 1 && packetSize == 3)
+                    {
+                        // got PICTURE_TAKEN
+                        Console.WriteLine("Found PICTURE_TAKEN");
+                        imageID = (uint)packet[1] + (uint)(packet[2] << 8);
+                        break;
+                    }
                 }
             }
 
@@ -116,6 +130,9 @@ namespace NCamGS
             long numBytes = 0;
             while (true)
             {
+                Application.DoEvents();
+                // add cancel code check
+
                 Console.Write(".");
                 byte[] packet = uavConn.GetDataBytes();
                 int packetSize = packet.Length;
@@ -174,7 +191,7 @@ namespace NCamGS
 
             uavConn.Close();
 
-            Image img = Image.FromFile("output.jpg");
+            Image img = Image.FromFile(fileName);
             pictureBox.Image = img;
 
            // Console.ReadLine();

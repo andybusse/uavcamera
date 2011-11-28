@@ -39,6 +39,9 @@ int main()
 	init_image_sender();
 
 
+	DDRC = 0xFF;
+	PORTC = 0x00;
+
 	sei();
 
 	ILOG("Payload starting...");
@@ -77,6 +80,7 @@ int main()
 				send_IMAGE_DATA_packet();
 			} else {
 				imageSendState.sendingImage = false;
+				sdFile.close();
 				DLOG("Finished sending image.\n\r");
 			}
 		}

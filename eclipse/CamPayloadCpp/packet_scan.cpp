@@ -35,7 +35,7 @@ void packet_scan(uint8_t *data, uint8_t length)
 		{
 			case MID_TAKE_PICTURE:
 				if(length == 1) {
-					DLOG("TAKE_PICTURE message received");
+					DLOG("TAKE_PICTURE message received\n\r");
 					int takePictureImageID;
 					takePictureImageID = take_picture();
 					if(takePictureImageID >= 0) {
@@ -43,12 +43,12 @@ void packet_scan(uint8_t *data, uint8_t length)
 						ILOG(takePictureImageID);
 						ILOG("\n\r");
 						send_PICTURE_TAKEN_message(takePictureImageID);
-						DLOG("Sent picture taken message.");
+						DLOG("Sent picture taken message.\n\r");
 					} else {
-						ILOG("Picture taking failed!");
+						ILOG("Picture taking failed!\n\r");
 					}
 				} else {
-					DLOG("Invalid TAKE_PICTURE message received");
+					DLOG("Invalid TAKE_PICTURE message received\n\r");
 				}
 				break;
 
