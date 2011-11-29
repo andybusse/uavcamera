@@ -96,6 +96,7 @@ namespace NCamGS
             uavConn.SendTextToUAV("da 20 payload[0].mem_bytes[0]");
 
 
+
             byte[] zeroToken = { 0 }; // send 0 to receive data
             uavConn.SendCommand(zeroToken);
 
