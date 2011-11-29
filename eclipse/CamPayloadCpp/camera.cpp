@@ -87,11 +87,14 @@ void sendGETPICTURE(byte picType) {
 }
 
 
-void sendRESET(bool fullReset) {
+void sendRESET(bool fullReset, bool specialReset) {
 	byte resetType = 0x00;
+	byte specialResetType = 0x00;
 	if(!fullReset)
 		resetType = 0x01;
-	sendCommand(0xAA, 0x08, resetType, 0x00, 0x00, 0x00);
+	if(specialReset)
+		specialResetType = 0xFF;
+	sendCommand(0xAA, 0x08, resetType, 0x00, 0x00, specialResetType);
 }
 
 
@@ -221,7 +224,7 @@ boolean takeSnapshot() {
   // setup image parameters
   DLOG("sending initial\n\r");
   delay(50);
-  sendINITIAL(0x07,0x07,0x07);
+  sendINITIAL(colourType,rawRes,jpegRes);
   receiveComd();
   if(!isACK(RXtest,0x01,0x00,0x00))
       return false;
@@ -243,7 +246,11 @@ boolean takeSnapshot() {
   // camera stores a single frame in its buffer
   DLOG("sending snapshot\n\r");
   delay(50);
-  sendSNAPSHOT(0x00,0x00,0x00);
+  if(colourType == 0x07) {
+	  sendSNAPSHOT(0x00, 0x00, 0x00);
+  } else {
+	  sendSNAPSHOT(0x01, 0x00, 0x00);
+  }
   receiveComd();
   if(!isACK(RXtest,0x05,0x00,0x00))
       return false;
@@ -309,6 +316,7 @@ boolean takeSnapshot() {
 
   sendACK(0x0A,0x00,0xF0,0xF0);
   DLOG("Final ACK sent\n\r");
+  //sendRESET(false, true);
   return true;
 }
 
@@ -330,7 +338,6 @@ bool init_cam()
 
 int take_picture()
 {
-	delay(2000);
   boolean fileExists = true;
   int fileNum = 0;
   while(fileExists){

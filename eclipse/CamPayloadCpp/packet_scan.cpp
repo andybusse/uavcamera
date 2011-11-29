@@ -70,7 +70,7 @@ void packet_scan(uint8_t *data, uint8_t length)
 						sdFile.close(); // ensure old file is closed
 						sdFile = SD.open(imgFileName);
 						if(sdFile == false) {
-							ILOG("ERROR: JPEG file failed to open!");
+							ILOG("ERROR: JPEG file failed to open!\n\r");
 							imageSendState.sendingImage = false;
 							send_IMAGE_DOWNLOAD_INFO_message(0);
 						} else {
@@ -100,13 +100,30 @@ void packet_scan(uint8_t *data, uint8_t length)
 						}
 
 					} else {
-						ILOG("ERROR: JPEG file does not exist!");
+						ILOG("ERROR: JPEG file does not exist!\n\r");
 						// send image download message with number of packets = 0 to represent the fact that the file does not exist
 						send_IMAGE_DOWNLOAD_INFO_message(0);
 					}
 
 				} else {
-					DLOG("Invalid IMAGE_DOWNLOAD_REQUEST message received");
+					DLOG("Invalid IMAGE_DOWNLOAD_REQUEST message received\n\r");
+				}
+				break;
+
+			case MID_CONFIGURE_CAMERA:
+				if(length == 4) {
+					colourType = data[1];
+					rawRes = data[2];
+					jpegRes = data[3];
+					DLOG("Configuring camera. Colour Type: ");
+					DLOG((int)colourType);
+					DLOG(" Raw Resolution: ");
+					DLOG((int)rawRes);
+					DLOG(" JPEG Resolution ");
+					DLOG((int)jpegRes);
+					DLOG("\n\r");
+				} else {
+					DLOG("Invalid CONFIGURE_CAMERA message received\n\r");
 				}
 				break;
 

@@ -46,6 +46,10 @@ extern SPIDebug spiDebug;
 extern File sdFile;
 
 
+extern uint8_t colourType;
+extern uint8_t rawRes;
+extern uint8_t jpegRes;
+
 /* FUNCTION PROTOTYPES */
 
 extern void send_text(const char * text, ...);
