@@ -16,9 +16,6 @@ namespace NCamGS
 {
     public partial class MainForm : Form
     {
-
-        string filePrefix = "img";
-        string fileExt = ".jpg";
         
         int count = 0;
         private static int uavDataLength = 512;
@@ -49,6 +46,7 @@ namespace NCamGS
         int filePathCount = 0;
         string[] jpegList;
         int jpegOnlyCount = 0;
+        bool stopCommand = false,takeNewPicture=false;
 
 
         string fileDirectory = null;
@@ -62,6 +60,16 @@ namespace NCamGS
         private void MyInitialize()
         {
 
+            uavConn.Connect(0);
+            progressBar.Minimum = 1;
+            progressBar.Step = 1;
+            progressBar.Value = 1;
+            fileDirectory= System.IO.Directory.GetCurrentDirectory();
+            filePathTextBox.Text = System.IO.Directory.GetCurrentDirectory();
+            jpegList = Directory.GetFiles(fileDirectory, "*.jpg");
+            uavConn.SendTextToUAV("payload.broadcast_bytes 255 0");
+            ResolutionComboBox.SelectedIndex = 3;
+
         }
         /*[STAThread] //
         static void Main()
@@ -73,36 +81,30 @@ namespace NCamGS
 
         private void paintButton_Click(object sender, EventArgs e)
         {
-            
+            takeNewPicture = true;
             doCommand();
 
         }
         private void doCommand()
         {
-            UAVConnector uavConn = new UAVConnector();
-            uavConn.Connect(0);
+            statusLabel.Text = "Starting";
+            progressBar.Value = 1;
+            string fileName = string.Format("uavPictureAt{0:yyyy-MM-dd_hh-mm-ss-tt}.jpg", DateTime.Now);
+            FileStream fileStream;
 
-            int fileNum = 0;
-            while (File.Exists(filePrefix + fileNum.ToString() + fileExt))
-            {
-                fileNum++;
-            }
-
-            string fileName = filePrefix + fileNum.ToString() + fileExt;
-
-            FileStream fileStream = new FileStream(fileName, FileMode.Create);
+                fileStream = new FileStream(filePathTextBox.Text+"\\"+fileName, FileMode.Create);
             BinaryWriter opFile = new BinaryWriter(fileStream);
+
 
             uavConn.SendTextToUAV("da 20 payload[0].mem_bytes[0]");
 
-
-
+            stopCommand = false;
             byte[] zeroToken = { 0 }; // send 0 to receive data
             uavConn.SendCommand(zeroToken);
 
             uint imageID = 0;
 
-            while (true)
+            while (stopCommand == false)
             {
                 Application.DoEvents();
                 Console.Write(".");
@@ -113,6 +115,7 @@ namespace NCamGS
                     if (packet[0] == 1 && packetSize == 3)
                     {
                         // got PICTURE_TAKEN
+                        statusLabel.Text = "Found PICTURE_TAKEN";
                         Console.WriteLine("Found PICTURE_TAKEN");
                         imageID = (uint)packet[1] + (uint)(packet[2] << 8);
                         break;
@@ -129,7 +132,7 @@ namespace NCamGS
 
             bool startImage = false;
             long numBytes = 0;
-            while (true)
+            while (stopCommand==false)
             {
                 Application.DoEvents();
                 // add cancel code check
@@ -137,14 +140,18 @@ namespace NCamGS
                 Console.Write(".");
                 byte[] packet = uavConn.GetDataBytes();
                 int packetSize = packet.Length;
+                //progressbar maximum
 
                 if (packet[0] == 3) // is a IMAGE_DOWNLOAD_INFO packet 
                 {
+                    statusLabel.Text = "Found IMAGE_DOWNLOAD_INFO";
                     Console.WriteLine("Found IMAGE_DOWNLOAD_INFO");
                     totalPackets = (uint)packet[1] + (uint)(packet[2] << 8);
+                    progressBar.Maximum = (int)totalPackets;
                 }
                 else if (packet[0] == 4) // is a IMAGE_DATA packet
                 {
+                    statusLabel.Text = "Found IMAGE_DATA";
                     Console.WriteLine("Found IMAGE_DATA");
                     uint packetNum = (uint)packet[1] + (uint)(packet[2] << 8);
 
@@ -169,32 +176,52 @@ namespace NCamGS
                         //Console.WriteLine("End of image.");
                         continue;
                     }
-
+                    statusLabel.Text = "Writing";
                     Console.WriteLine("Writing.");
                     for (int i = 3; i < packetSize; i++)
                     {
                         opFile.Write(packet[i]);
                         numBytes++;
                     }
-
+                    progressBar.PerformStep();
                     if (packetNum == totalPackets - 1)
                         break;
                     lastPacketNum = packetNum;
+
                 }
             }
+            if (stopCommand == false)
+            {
+                fileStream.Close();
+                opFile.Close();
+                progressBar.Value = 1;
 
-            opFile.Close();
+                statusLabel.Text = "Done!";
+                Console.WriteLine("Done!");
 
- 
 
-            Console.WriteLine("Done!");
-            
+                
 
-            uavConn.Close();
 
-            Image img = Image.FromFile(fileName);
-            pictureBox.Image = img;
+                updateDirectory(fileName);
 
+                Array.Resize(ref jpegList, jpegList.Length + 1);
+                jpegList[jpegList.Length - 1] = fileDirectory + "\\" + fileName;
+                jpegList = Directory.GetFiles(fileDirectory, "*.jpg");
+
+
+                Image img = Image.FromFile(fileDirectory + "\\" + fileName);
+                pictureBox.Image = img;
+                statusLabel.Text = null;
+            }
+            if (stopCommand == true)
+            {
+
+                fileStream.Close();
+                opFile.Close();
+                File.Delete(filePathTextBox.Text + "\\" + fileName);
+                statusLabel.Text = "Stop";
+            }
            // Console.ReadLine();
 
             /*
@@ -366,10 +393,17 @@ namespace NCamGS
 
         private void updateDirectory(string fileName)
         {
+            fileDirectory =filePathTextBox.Text;
             
-            fileDirectory = fileName.Substring(0, fileName.LastIndexOf("\\"));
-            filePathTextBox.Text = fileDirectory;
+            fileName = fileDirectory +"\\"+ fileName;
             jpegList = Directory.GetFiles(fileDirectory, "*.jpg");
+            if (takeNewPicture == true)
+            {
+                Array.Resize(ref jpegList, jpegList.Length + 1);
+                jpegList[jpegList.Length - 1] = fileName;
+                takeNewPicture = false;
+                filePathCount = jpegList.Length;
+            }
             jpegOnlyCount = jpegList.Length;
             if(jpegOnlyCount!=0)
             {
@@ -412,8 +446,6 @@ namespace NCamGS
                     pictureBox.Image = Image.FromFile(jpegList[0]);
                 }
             }
-
-            
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
@@ -427,22 +459,36 @@ namespace NCamGS
             if (filePathCount == 0)
             {
                 leftButton.Hide();
-                pictureBox.Image = Image.FromFile(jpegList[filePathCount]);
+                try
+                {
+                    pictureBox.Image = Image.FromFile(jpegList[filePathCount]);
+                }
+                catch
+                {
+                    leftButton.Hide();
+                }
             }
             else
             {
                 rightButton.Show();
+
                 pictureBox.Image = Image.FromFile(jpegList[--filePathCount]);
             }
         }
 
         private void rightButton_Click(object sender, EventArgs e)
         {
-
-            if (filePathCount < jpegOnlyCount - 1)
+            if (filePathCount < jpegOnlyCount - 2)
             {
                 leftButton.Show();
-                pictureBox.Image = Image.FromFile(jpegList[++filePathCount]);
+                try
+                {
+                    pictureBox.Image = Image.FromFile(jpegList[++filePathCount]);
+                }
+                catch//(OutOfMemoryException ex)
+                { 
+                    
+                }
             }
             else rightButton.Hide();
         }
@@ -578,12 +624,58 @@ namespace NCamGS
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
-            if (filePathCount < jpegOnlyCount - 1)
+            if (filePathCount < jpegOnlyCount - 2)
             {
                 leftButton.Show();
-                pictureBox.Image = Image.FromFile(jpegList[++filePathCount]);
+                try
+                {
+                    pictureBox.Image = Image.FromFile(jpegList[++filePathCount]);
+                }
+                catch //(OutOfMemoryException ex)
+                { 
+                
+                }
             }
             else rightButton.Hide();
+        }
+
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+            stopCommand = true;
+        }
+
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+            uavConn.Connect(0);
+
+            uavConn.SendTextToUAV("da 20 payload[0].mem_bytes[0]");
+            uavConn.SendTextToUAV("payload.broadcast_bytes 255 0");
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            uavConn.Close();
+        }
+
+        private void ResolutionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (ResolutionComboBox.SelectedIndex)
+            {
+                case 0:
+                    uavConn.SendTextToUAV("payload[0].send_bytes 5 0x07 0x07 0x01");
+                    break;
+                case 1:
+                    uavConn.SendTextToUAV("payload[0].send_bytes 5 0x07 0x07 0x03");
+                    break;
+                case 2:
+                    uavConn.SendTextToUAV("payload[0].send_bytes 5 0x07 0x07 0x05");
+                    break;
+                case 3:
+                    uavConn.SendTextToUAV("payload[0].send_bytes 5 0x07 0x07 0x07");
+                    break;
+                default:
+                    break;
+            }
         }
 
 
