@@ -55,25 +55,25 @@ The segments which make up the image file properties are indicated by header mar
 \subsubsection{JPEG Segments}
 The number of headers found within a JPEG image file is not constant between images. The JPEG headers are capable of storing most of the metadata related to an image, not all of which is necessary for the decompression of the image. The following headers are those which contain all the information necessary for a successful decompression of the JPEG image, as well as those which can be found in all JPEG images. The number in brackets next to the segment name is the unique marker identifier value which appears directly after the 0xff marker indicator byte. All numerical values obtained from the byte stream are unsigned. ``DQT, DHT, DRI and SOF may line up in any order, but must be recorded after APP1 (or APP2 if any) and before SOS.'' (Exif)
 
-\paragraph{SOI: Start Of Image (0xd8)}
+\paragraph*{SOI: Start Of Image (0xd8)}
 This header identifies the start of the image and can be found in all JPEG images. This is the first header to be read in a JPEG file. This header does not contain any information to be stored by the decompression algorithm, but can be useful for differenciating multiple JPEG images from a single data stream.
 
-\paragraph{APP0: JFIF application segment (0xe0)}
+\paragraph*{APP0: JFIF application segment (0xe0)}
 There can be many APP segments in a single image. Subsequent APP segments are named ``APP\emph{n}'' with a marker identifier of 0xe\emph{n} with \emph{n} being the number of the APP segment. This segment does not contain any information necessary to the decompression algorithm used, so all APP segments ignored.
 
-\paragraph{SOF0: Start Of Frame (0xc0)}
+\paragraph*{SOF0: Start Of Frame (0xc0)}
 ``SOF is a marker code indicating the start of a frame segment and giving various parameters for that frame'' (Header guide) /this indicates that the image is a ``DCT-based JPEG, and specifies the width, height, number of components, and component subsampling (e.g., 4:2:0)'' as well as the data precision (in bits/sample) of an image. (narcap) From the component subsampling information, the size of the Minimum Coded Unit (MCU) which make up the JPEG image. Just like the APP segments, there can be multiple start of frame segments in more complex images, but the images sent by the camera will only need the information contained in the first SOF segment.
 
-\paragraph{DHT: Define Huffman Table(s) (0xc4)}
+\paragraph*{DHT: Define Huffman Table(s) (0xc4)}
 This segment defines the properties of one or many Huffman table(s) (HT) which will be used to decode the entropy-encoded image data. ``A single DHT segment may contain multiple HTs, each with its own information byte.'' This segment includes the number of the HT as identified by the image data and the type of the HT (either DC or AC) It also stores the ''number of symbols with codes of length 1..16, the sum (n) of these bytes is the total number of codes, which must be $\leq$ 256'' as well as ``the symbols in order of increasing code length ( n = total number of codes )'' (Header guide). In practice, a single image can also contain multiple DHT segments which all share the same marker identifier. 
 
-\paragraph{DQT: Define Quantization Table(s) (0xdb)}
+\paragraph*{DQT: Define Quantization Table(s) (0xdb)}
 This segment defines the properties of one or many quantization table(s).
 
-\paragraph{SOS: Start Of Scan (0xda)}
+\paragraph*{SOS: Start Of Scan (0xda)}
 This segment gives various scan-related parameters and is the last segment preceding the entropy-encoded image data. This segment associates each component in the scan with the appropriate AC and DC Huffman table by their ID number. 3 ignorable bytes seperate this segment from the image data. 
 
-\paragraph{EOI: End Of Image (0xd9)}
+\paragraph*{EOI: End Of Image (0xd9)}
 This header identifies the end of the image. ''It is possible that the end of the image is reached without finding the EOI marker. In this case, the image is technically malformed but the situation is tolerated and handled as if the EOI marker was found.`` (winzip) 
 
 \subsubsection{Entropy-encoded image data}
@@ -83,11 +83,13 @@ This header identifies the end of the image. ''It is possible that the end of th
 
 \subsection{Progressive Display of Image}
 
-\section{Payload and Software Documentation}
+\section{Existing Hardware and Software}
 Research concerning the payload and the associated software goes here...
 
-\section{Hardware Selection}
-Research justifying hardware choice goes here...
+\section{Cameras Available}
+
+%\section{Hardware Selection}
+%Research justifying hardware choice goes here...
 
 
 %% ----------------------------------------------------------------
@@ -138,19 +140,65 @@ All proposed solutions to meet the specification goes here...
 
 
 %% ----------------------------------------------------------------
-\chapter{Technical Content}
+\chapter{Design and Implementation}
 %% ----------------------------------------------------------------
-Technical content goes goes here...
 
-\section{Camera/Payload Interaction}
-Work done concerning the interactions between the camera and the payload  goes here. This includes the payload controller as well as getting the images from the camera and saving it to the SD card.
 
-\section{Payload/Autopilot Interaction}
-Work done for the payload/autopilot interaction goes here...
+\section{Options Considered}
 
-\section{Ground Station Software}
-Work done concerning the Ground Station Software goes here...
+\subsection{Camera/Payload Interaction}
+John
 
+\subsection{SD Card/Payload Interaction}
+Andy
+
+\subsection{Payload/Ground Station Interaction}
+Michael
+
+\subsection{Ground Station Image Viewer}
+Peak
+
+\subsection{Progressive JPEG Manipulation}
+Mitch
+
+\subsection{Physical Implementation}
+Andy
+
+\section{Chosen Options}
+
+
+\subsection{Camera/Payload Interaction}
+
+\subsection{SD Card/Payload Interaction}
+
+\subsection{Payload/Ground Station Interaction}
+
+\subsection{Ground Station Image Viewer}
+
+\subsection{Progressive JPEG Manipulation}
+
+\subsection{Physical Implementation}
+Andy
+
+\section{Implementation}
+Technical content goes here...
+
+
+\subsection{Camera/Payload Interaction}
+
+\subsection{SD Card/Payload Interaction}
+
+\subsection{Payload/Ground Station Interaction}
+
+\subsection{Ground Station Image Viewer}
+
+\subsection{Progressive JPEG Manipulation}
+
+\subsection{Physical Implementation}
+
+
+\subsection{System Integration}
+Michael
 
 %% ----------------------------------------------------------------
 \chapter{Overview}
@@ -160,6 +208,22 @@ An overview of the entire project process goes here...
 \section{Final Deliverables}
 The final deliverables of the project are described here...
 
+\section{Evaluation Against Specification}
+
+
+%% ----------------------------------------------------------------
+\chapter{Testing}
+%% ----------------------------------------------------------------
+
+\subsection{Camera/Payload Interaction}
+
+\subsection{SD Card/Payload Interaction}
+
+\subsection{Payload/Ground Station Interaction}
+
+\subsection{Ground Station Image Viewer}
+
+\subsection{Progressive JPEG Manipulation}
 
 %% ----------------------------------------------------------------
 \chapter{Project Management}
@@ -167,12 +231,15 @@ The final deliverables of the project are described here...
 Project management goes here...
 
 \section{Gantt Charts}
+Michael
 Place Gantt charts here.
 
 \section{Risk Management}
+Mitch
 Place risk management considerations and compare with risks encountered.
 
 \section{Work Allocation}
+Peak
 Talk about planned work allocation to be compared with actual work allocation. Reflect on efficiency.
 
 \subsection{Planned Work Allocation}
@@ -182,6 +249,7 @@ Talk about the tasks planned and the skills audit.
 Talk about who did what in the end and how tasks were passed around. How did people work together?
 
 \section{Team Resources}
+John
 What we used to get the job done...
 
 \subsection{Budget}
@@ -191,6 +259,7 @@ What did we need to buy in the end?
 Did we make use of anything electronic that we had before the project?
 
 \section{Group Communication}
+Andy
 Talk about how the group contacted each other (email, meetings, mobiles)...
 
 \subsection{Formal Meetings}
@@ -226,6 +295,7 @@ Conclusions go here.
 %% ----------------------------------------------------------------
 \chapter{Documentation}
 %% ----------------------------------------------------------------
+Mitch
 All supplementary documentation prepared for the project can be referenced here...
 
 %% ----------------------------------------------------------------
