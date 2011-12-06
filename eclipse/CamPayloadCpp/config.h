@@ -9,7 +9,7 @@
 #define CONFIG_H_
 
 #define CUSTOM_UART_0
-#define F_CPU 12000000
+#define F_CPU 16000000
 
 #define STD_DELAY
 

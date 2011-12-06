@@ -6,7 +6,8 @@
 // Definitions
 
 #define PAYLOAD_TX_ENABLE		0x01	// PC0
-#define STATUS_LED					0x02	// PC1
+#define STATUS_LED_PORT			PORTD
+#define STATUS_LED					0x80	// PD7
 
 // Public globals
 

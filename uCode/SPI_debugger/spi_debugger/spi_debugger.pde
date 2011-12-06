@@ -4,9 +4,9 @@
  
   This example code is in the public domain.
  */
-int spiClkPin = 2;
-int spiMISOPin = 4;
-int spiSSPin = 3;
+int spiClkPin = 12;
+int spiMISOPin = 13;
+int spiSSPin = 11;
 void setup() {                
   // initialize the digital pin as an output.
   // Pin 13 has an LED connected on most Arduino boards:
@@ -17,7 +17,7 @@ void setup() {
   attachInterrupt(1, spiSSInt, FALLING);
 
   Serial.begin(9600);
-
+  Serial.println("Debugger starting...");
   interrupts();
 }
 

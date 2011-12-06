@@ -33,7 +33,12 @@ bool init_sd();
 int main()
 {
 
+
+
 	io_pins_setup();
+
+	DDRD |= 0x80;
+	PORTD |= 0x80;
 	spiDebug.begin();
 	module_setup();
 	init_image_sender();
@@ -55,9 +60,9 @@ int main()
 
 
 
-
 	DLOG("Entering main loop...");
 	while(1) {
+		STATUS_LED_PORT ^= 0x20;
 		// main event loop
 
 		/* comms update will process any commands and packet_scan in packet_scan.cpp
