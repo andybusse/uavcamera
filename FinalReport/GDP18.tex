@@ -3,7 +3,7 @@
 %% ---------------------------------------------------------------- 
 \documentclass[oneside]{ecsgdp}         % Use the GDP Report Style
 \graphicspath{{../Figures/}}   % Location of your graphics files
-\usepackage{natbib}            % Use Natbib style for the refs.
+\usepackage[numbers]{natbib}            % Use Natbib style for the refs.
 \hypersetup{colorlinks=true}   % Set to false for black/white printing
 %% ----------------------------------------------------------------
 \begin{document}
@@ -345,20 +345,23 @@ All supplementary documentation prepared for the project can be referenced here.
 	\item[QT] Quantization Table
 	\item[SOS] Start Of Scan
 	\item[EOI] End Of Image
-	\item[SD card] 
+	\item[SD card]
 \end{description}
 \chapter{Appendix A}
+
 \bibliographystyle{ecs}
-\bibliography{ECS}
-\begin{enumerate}
-	\item Tortorella, Richard. \emph{Image Doctoring: JPEG Encoding and Analysis}. Rep. NARCAP, May 2009. Web. 11 Oct. 2011. \url{http://www.narcap.org/reports/narcap_IR-01_DigHoaxing.pdf}.
-	\item Japan Electronics and Information Technology Industries Association (JEITA). \emph{Digital Still Camera Image File Format Standard (Exchangeable Image File Format for Digital Still Cameras: Exif)} Version 2.1. Tech. Japan Electronic Industry Development Association (JEIDA), 12 June 1998. Web. 14 Oct. 2011 \url{http://www.exif.org/Exif2-1.PDF}.
-	\item Netravali, Arun N., and Barry G. Haskell. \emph{Digital Pictures: Representation and Compression}. New York: Plenum, 1988. Print. 
-	\item \emph{JPEG File Layout and Format}. Original URL: \\http://www.funducode.com/freec/Fileformats/format3/format3b.htm (defunct).\\DCube Software Technologies, 5 July 2002. Web. 28 Oct. 2011. \url{http://class.ee.iastate.edu/ee528/Reading%20material/JPEG_File_Format.pdf}
-	\item WinZip® International LLC. \emph{JPEG Compression}. Tech. Version 1.0. 11 Sept. 2008. Web. 28 Oct. 2011. \url{http://www.winzip.com/wz_jpg_comp.pdf}.
-	\item Poynton, Charles. \emph{Chroma Subsampling Notation.} Charles Poynton. 24 Jan. 2008. Web. 31 Oct. 2011. \url{http://poynton.com/PDFs/Chroma_subsampling_notation.pdf}.
-	\item Kerr, Douglas A. \emph{Chrominance Subsampling in Digital Images}. Rep. Issue 2. 3 Dec. 2009. Web. 31 Oct. 2011. \url{http://dougkerr.net/pumpkin/articles/Subsampling.pdf}.
-	\item Hass, Calvin. \emph{ImpulseAdventure - Digital Photography Articles.} 2008. Web. 22 Nov. 2011. \url{http://www.impulseadventure.com/photo/}.
-\end{enumerate}
+
+\begin{thebibliography}{9}
+
+	\bibitem{tortorella_jpeg_enc} Tortorella, Richard. \emph{Image Doctoring: JPEG Encoding and Analysis}. Rep. NARCAP, May 2009. Web. 11 Oct. 2011. \url{http://www.narcap.org/reports/narcap_IR-01_DigHoaxing.pdf}.
+	\bibitem{exif_std} Japan Electronics and Information Technology Industries Association (JEITA). \emph{Digital Still Camera Image File Format Standard (Exchangeable Image File Format for Digital Still Cameras: Exif)} Version 2.1. Tech. Japan Electronic Industry Development Association (JEIDA), 12 June 1998. Web. 14 Oct. 2011 \url{http://www.exif.org/Exif2-1.PDF}.
+	\bibitem{netravali_digital_repr} Netravali, Arun N., and Barry G. Haskell. \emph{Digital Pictures: Representation and Compression}. New York: Plenum, 1988. Print. 
+	\bibitem{jpeg_layout} \emph{JPEG File Layout and Format}. Original URL: \\http://www.funducode.com/freec/Fileformats/format3/format3b.htm (defunct).\\DCube Software Technologies, 5 July 2002. Web. 28 Oct. 2011. \url{http://class.ee.iastate.edu/ee528/Reading%20material/JPEG_File_Format.pdf}
+	\bibitem{winzip_jpeg_compression} WinZip® International LLC. \emph{JPEG Compression}. Tech. Version 1.0. 11 Sept. 2008. Web. 28 Oct. 2011. \url{http://www.winzip.com/wz_jpg_comp.pdf}.
+	\bibitem{poynton_chroma_subsampling} Poynton, Charles. \emph{Chroma Subsampling Notation.} Charles Poynton. 24 Jan. 2008. Web. 31 Oct. 2011. \url{http://poynton.com/PDFs/Chroma_subsampling_notation.pdf}.
+	\bibitem{kerr_chroma_subsampling} Kerr, Douglas A. \emph{Chrominance Subsampling in Digital Images}. Rep. Issue 2. 3 Dec. 2009. Web. 31 Oct. 2011. \url{http://dougkerr.net/pumpkin/articles/Subsampling.pdf}.
+	\bibitem{hass_impulse_jpeg} Hass, Calvin. \emph{ImpulseAdventure - Digital Photography Articles.} 2008. Web. 22 Nov. 2011. \url{http://www.impulseadventure.com/photo/}.
+
+\end{thebibliography}
 \end{document}
 %% ----------------------------------------------------------------
