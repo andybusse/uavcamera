@@ -24,22 +24,24 @@ void io_pins_setup()
 	DDRD |= 0b00000010; // only PD1 (PAYLOAD_TX) is an output
 	
 	PORTC |= 0x04; // set PAYLOAD_TX_ENABLE low, STATUS_LED off and nSPI_CS_ADC high
+	DDRD |= STATUS_LED;
+	DDRD |= 0x20;
 }
 
 void toggle_status_led()
 {
-	if (PORTC & STATUS_LED)
-		PORTC &= ~STATUS_LED;
+	if (STATUS_LED_PORT & STATUS_LED)
+		STATUS_LED_PORT &= ~STATUS_LED;
 	else
-		PORTC |= STATUS_LED;
+		STATUS_LED_PORT |= STATUS_LED;
 }
 
 void status_led_on()
 {
-	PORTC |= STATUS_LED;
+	STATUS_LED_PORT |= STATUS_LED;
 }
 
 void status_led_off()
 {
-	PORTC &= ~STATUS_LED;
+	STATUS_LED_PORT &= ~STATUS_LED;
 }
