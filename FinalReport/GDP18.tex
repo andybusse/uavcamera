@@ -37,7 +37,7 @@ Given an autopilot module for an unmanned aircraft vehicule (UAV), a camera modu
 %% ----------------------------------------------------------------
 \chapter{Introduction}
 %% ----------------------------------------------------------------
-The project aims in designing, implementing and testing a TCP/IP camera controller connect via UAV. The UAV ground receiver is a USB-compatible device. USB device driver has been developed by the customer’s in order to access hardware from a simple user application. The USB is active when the hose ask for a data. The data in its queue until the host ask for the data. The device has to listen to its address and request for its specific address. The TCP/IP connection between the port and the GUI must be implemented without any hesitation from the user. The data transmitted from the devices stream data to PC for further data processing (image processing).  The customer’s software is in user mode, where the programmer does not have the right to access directly to the hard ware in protected operating systems. 
+Introduction goes here...
 
 
 %% ----------------------------------------------------------------
@@ -179,12 +179,37 @@ Or whatever it is called
 IMAGE OF PAYLOAD CONTROLLER BLOCK?
 
 \subsection{Payload Controller Hardware}
-The hardware used to implement the payload controller is an important consideration. The exact requirements for this module depend on other design decisions made, such as the method used to interface with the camera module. 
+The hardware used to implement the payload controller is an important consideration.
+
+The exact requirements for this module depend on other design decisions made, such as the method used to interface with the camera module. However there are a certain fixed set of requirements derived from the specification:
+\begin{itemize}
+\item The module must communicate with the autopilot over an asynchronous RS-485 serial connection at 36 kbaud. This suggests that the module should have access to some form of UART.
+\end{itemize}
+
+Additional requirements depend on other design decisions:
+\begin{itemize}
+\item \emph{Camera communication:} Using a serial camera would mean the controller requiring access to another UART, while using a USB camera leaves the camera needing access to a USB host interface. Similarly using an analogue camera would mean either the controller be capable of digitising the camera data itself or have a method of interfacing with an external digitiser.
+
+\item \emph{Image buffering:} Most embedded systems do not have enough RAM or Flash to store a reasonable sized image on onboard memory. As described in section |||||| BUFFERING ||||||, there are a number of approaches worth considering for externally buffering an input image, however these do require the controller to have an interface with which to communicating with the external memory.
+
+\item \emph{Progressive JPEG Manipulation:} Section |||||| PROGRESSIVE JPEG MANIPULATION ||||| details several ways progressive JPEG manipulation could be tackled. Depending on the design choice taken this could influence the requirements of the controller substantially. Examples of such requirements could be: extra processing power, fast access to memory or FFT or DFT libraries being available for the device.
+\end{itemize}
+
+\subsubsection{Digital Signal Processor (DSP) Development Board}
+An appropriate Digital Signal Processor (DSP) development board would provide fast digital signal processing capabilities to the controller. This would be especially useful for the situations mentioned in section |||||| PROGRESSIVE JPEG MANIPULATION |||||.
+
+Since DSP chips tend to be specialist devices they are usually difficult to set up or program without first experimenting with the design using a development board - a special board designed with experimentation and product development in mind. Ideally a development board would be used for initial development of the system with a integrated PCB being developed later on to allow the DSP to be used on its own.
+
+Advantages:
+
+\begin{itemize}
+\item DSPs often have very good analogue to digital conversion built in as standard. If an analogue camera is used (as discussed in section ||||| ANALOUGE CAMERA |||||) a DSP may provide the necessary fast ADC without any extra components.
+\end{itemize}
+
 
 \subsubsection{Approach: Arduino with Multiplexed Serial}
 
 \subsubsection{Approach: Arduino with Dual Controllers}
-
 
 
 \subsection{Payload/Ground Station Interaction}
@@ -200,6 +225,11 @@ Mitch
 \section{Physical Implementation}
 Andy
 
+\subsection{Power Source}
+
+\subsubsection{Approach: Battery Powered}
+
+\subsubsection{Approach: Autopilot Powered}
 
 %% ----------------------------------------------------------------
 \chapter{Chosen Design Approaches}
