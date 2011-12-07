@@ -165,7 +165,7 @@ void packet_tx_request()
 
 	//testInt++;
 
-	PORTC ^= STATUS_LED;
+	STATUS_LED_PORT ^= STATUS_LED;
 	/*if(messageStartSendPending)
 		PORTC |= STATUS_LED;
 	else
