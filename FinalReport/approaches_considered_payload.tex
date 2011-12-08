@@ -7,7 +7,7 @@ The hardware used to implement the payload controller is an important considerat
 The exact requirements for this module depend on other design decisions made, such as the method used to interface with the camera module. However there are a certain fixed set of requirements derived from the specification:
 
 \begin{itemize}
-\item The module must communicate with the autopilot over an asynchronous RS-485 serial connection at 36 kbaud. This suggests that the module should have access to some form of UART.
+\item The module must communicate with the autopilot over an asynchronous RS-485 serial connection at 38.4 kBaud. This suggests that the module should have access to some form of UART.
 \end{itemize}
 
 Additional requirements depend on other design decisions:
@@ -115,6 +115,43 @@ Using an Arduino has the advantage of speeding up development at the beginning o
 
 \subsubsection{Approach: Arduino with Dual Controllers}
 
-
 \subsection{Communication between Payload Controller and Ground Station}
-One of the key 
+One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station Image Viewer (see section |||||| GS IMAGE VIEWER ||||||) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
+
+The autopilot provides a number of ways to communicate between a payload module and ground station software. The Ground Station software provided to us allows a `packet' of data to be sent to a payload module by executing the command shown below:
+\begin{verbatim} 
+payload[0].send_bytes BYTE1 BYTE2 ... BYTEN 
+\end{verbatim} 
+
+Which sends bytes 1 to N to payload number 0.
+
+Another method of communication is via the use of shared memory. Each registered payload module is assigned a set of shared memory which can be read and set by the payload module and the ground station software. This could be used to implement two-way communications between the two subsystems.
+
+The design approaches taken regarding this communication from the perspective of the Ground Station Image Viewer software is discussed in section ||||||| GS Image Viewer ||||||||.
+
+\subsubsection{Approach: Shared Memory for Both Directions}
+One possible way of producing two-way communications would involve two sets of shared memory: one for ground station to payload messages and another for payload to ground station messages. Both the payload and the autopilot would need to poll the shared memory to check for new messages.
+
+Advantages:
+\begin{itemize}
+\item 
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+\item The payload must access shared memory by sending a command to request a copy of its contents to be sent via the payload-autopilot serial link. This extra overhead would slow down communications.
+\end{itemize}
+
+
+\subsubsection{Approach: Send Bytes Command and Shared Memory}
+The send bytes command could be used to send messages from the Ground Station to the payload, with shared memory being set by the payload to send messages back from the payload to the Ground Station.
+
+Advantages:
+\begin{itemize}
+\item No overhead needed to get messages on the payload, they are sent directly from the autopilot to the payload, no polling needed.
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+\item Error coding??
+\end{itemize}
