@@ -34,334 +34,33 @@ Given an autopilot module for an unmanned aircraft vehicule (UAV), a camera modu
 \listofsymbols{ll}{$w$ & weight vector}
 \mainmatter
 
-%% ----------------------------------------------------------------
-\chapter{Introduction}
-%% ----------------------------------------------------------------
-Introduction goes here...
+\input{introduction}
+\newpage
+\input{research}
+\newpage
+\input{specification}
+\newpage
+\input{approaches_considered}
+\newpage
+\input{approaches_chosen}
+\newpage
+\input{implementation}
+\newpage
+\input{overview}
+\newpage
+\input{testing}
+\newpage
+\input{management}
+\newpage
+\input{future}
+\newpage
+\input{evaluation}
+\newpage
+\input{conclusions}
+\newpage
+\input{docs}
+\newpage
 
-
-%% ----------------------------------------------------------------
-\chapter{Background Research}
-%% ----------------------------------------------------------------
-
-\section{JPEG Image Compression}
-The images obtained from the camera will be in the JPEG image format. If the image data is sent to the ground station progressively, it must be necessary to understand how a JPEG image is structured to reconstruct the encoded image. Unlike raw image data, which can easily be read continuously, JPEG files have already been compressed and contain information which must first be read to properly decompress the image.
-
-\subsection{JPEG structure}
-A JPEG file can be separated into two main parts. The first part of the JPEG file is composed of segments containing information concerning various properties of the image which must be read in order to recover the image from its compressed form. The second part contains the entropy-encoded image data, which can be decoded using the information provided from the headers of the file.  
-
-The segments which make up the image file properties are indicated by header markers. ``Each marker is immediately preceded by an all 1 byte (0xff).'' (Header guide) This marker is then followed by a marker identifier byte specific to that segment type. The 0xff value will always indicates the start of the header in this part, but is treated differently in the image data stream. ``If a 0xff byte occurs in the compressed image data either a zero byte (0x00) or a marker identifier follows it.'' (Header guide) 0xff bytes followed by a zero byte are read in as the hexadecimal value 0xff and the 0x00 byte is ignored entirely. 0xff bytes not following this a 0x00 byte are considered to be the header byte of the next segment. If the segment contains useful information before the next marker identifier, it is then followed by two bytes specifying the total length of the segment (in bytes). For the SOS segment, this does not include the entropy-encoded image data.
-
-\subsubsection{JPEG Segments}
-The number of headers found within a JPEG image file is not constant between images. The JPEG headers are capable of storing most of the metadata related to an image, not all of which is necessary for the decompression of the image. The following headers are those which contain all the information necessary for a successful decompression of the JPEG image, as well as those which can be found in all JPEG images. The number in brackets next to the segment name is the unique marker identifier value which appears directly after the 0xff marker indicator byte. All numerical values obtained from the byte stream are unsigned. ``DQT, DHT, DRI and SOF may line up in any order, but must be recorded after APP1 (or APP2 if any) and before SOS.'' (Exif)
-
-\paragraph*{SOI: Start Of Image (0xd8)}
-This header identifies the start of the image and can be found in all JPEG images. This is the first header to be read in a JPEG file. This header does not contain any information to be stored by the decompression algorithm, but can be useful for differenciating multiple JPEG images from a single data stream.
-
-\paragraph*{APP0: JFIF application segment (0xe0)}
-There can be many APP segments in a single image. Subsequent APP segments are named ``APP\emph{n}'' with a marker identifier of 0xe\emph{n} with \emph{n} being the number of the APP segment. This segment does not contain any information necessary to the decompression algorithm used, so all APP segments ignored.
-
-\paragraph*{SOF0: Start Of Frame (0xc0)}
-``SOF is a marker code indicating the start of a frame segment and giving various parameters for that frame'' (Header guide) /this indicates that the image is a ``DCT-based JPEG, and specifies the width, height, number of components, and component subsampling (e.g., 4:2:0)'' as well as the data precision (in bits/sample) of an image. (narcap) From the component subsampling information, the size of the Minimum Coded Unit (MCU) which make up the JPEG image. Just like the APP segments, there can be multiple start of frame segments in more complex images, but the images sent by the camera will only need the information contained in the first SOF segment.
-
-\paragraph*{DHT: Define Huffman Table(s) (0xc4)}
-This segment defines the properties of one or many Huffman table(s) (HT) which will be used to decode the entropy-encoded image data. ``A single DHT segment may contain multiple HTs, each with its own information byte.'' This segment includes the number of the HT as identified by the image data and the type of the HT (either DC or AC) It also stores the ''number of symbols with codes of length 1..16, the sum (n) of these bytes is the total number of codes, which must be $\leq$ 256'' as well as ``the symbols in order of increasing code length ( n = total number of codes )'' (Header guide). In practice, a single image can also contain multiple DHT segments which all share the same marker identifier. 
-
-\paragraph*{DQT: Define Quantization Table(s) (0xdb)}
-This segment defines the properties of one or many quantization table(s).
-
-\paragraph*{SOS: Start Of Scan (0xda)}
-This segment gives various scan-related parameters and is the last segment preceding the entropy-encoded image data. This segment associates each component in the scan with the appropriate AC and DC Huffman table by their ID number. 3 ignorable bytes seperate this segment from the image data. 
-
-\paragraph*{EOI: End Of Image (0xd9)}
-This header identifies the end of the image. ''It is possible that the end of the image is reached without finding the EOI marker. In this case, the image is technically malformed but the situation is tolerated and handled as if the EOI marker was found.`` (winzip) 
-
-\subsubsection{Entropy-encoded image data}
-(Exif)
-
-\subsection{JPEG Header Information Extractor}
-
-\subsection{Progressive Display of Image}
-
-\section{Existing Hardware and Software}
-Research concerning the payload and the associated software goes here...
-
-\section{Cameras Available}
-
-%\section{Hardware Selection}
-%Research justifying hardware choice goes here...
-
-
-%% ----------------------------------------------------------------
-\chapter{Specification}
-%% ----------------------------------------------------------------
-
-\section{Proposed Brief}
-The original agreed project specification and plan, handed in on the first week of the project, was to design, build, and test an electronic module capable of capturing still images from an unmanned aerial vehicle (UAV) and transmitting the images to a ground station. The module must use the UAV autopilot’s low-bandwidth RS485 serial link (38.4 kBaud). A program must be written to interface with the base station software over a TCP/IP link, allowing image data to be received and then displayed to the user. The electronic module would be constructed using strip-boards and would later be implemented on PCB if time is available.
-
-
-\section{Objectives} 
-The aim of the project was to achieve the following criteria, which were also prioritized in order to ensure organized and efficient work: (maybe add some justification to the why things were certain priorities?)
-
-
-\begin{itemize}
-	\item The image would be encoded in such a way that a low quality image will be available quickly, the quality of which would improve as more information is downloaded. [high priority]
-	\item Minimise the time needed to download the images from the UAV to the base station. The time from the user’s prompt until the image has been fully downloaded will be measured against the theoretical 3 minutes necessary to transmit a full image without using any compression. The goal will be to obtain a full image in \textbf{less than 3 minutes.} [high priority]
-	\item The module weight will be\textbf{less than 250g}. [medium priority]
-	\item Image resolution of \textbf{640x480}. [medium priority]
-	\item Allow the user to perform the following actions on the UAV’s camera from the base station:
-	\begin{itemize}
-		\item Prompt the UAV to \textbf{capture and download an image}. [high priority]
-		\item \textbf{Cancel} the downloading of any image while the image is being downloaded. [medium priority]
-		\item \textbf{Resend} an image in case the current preview is corrupted. [low priority]
-		\item \textbf{Interrupt} the download of an incomplete image and allow the user to save the incomplete image. [low priority]
-		\item Select the \textbf{resolution settings} of the image. [low priority]
-		\item Display a progress indicator which will show the percentage of the image datareceived, as well as a time estimate for the rest of the image to be downloaded. [low priority]
-		\item The image capture will be triggered automatically by the UAV using triggers built into the autopilot. [low priority]
-		\item Allow the user to command the image capture to \textbf{trigger periodically} over a \textbf{userspecified time interval} will be added if time permits. [low priority]
-	\end{itemize}
-	\item Images will be transmitted in \textbf{colour} as opposed to black and white. [low priority]
-	\item The user can select between a colour image and a black and white. [low priority]
-\end{itemize}
-
-
-\section{Deliverables}
-The deliverables which were planned to be produced by the end of the project to the customer include:
-\begin{itemize}
-	\item \underline{Hardware}: Camera module, constructed on PCB (if time permits, otherwise on strip-board),including layout designs.
-	\item \underline{Software}: All firmware for the electronic module, and software on the base station for viewing images. The full source code and all executable files will be included.
-	\item \underline{Documentation}: Technical and User Documentation. This includes all schematics related to hardware as well as all other documents concerning both the software and hardware delivered.
-	\item \underline{Public repository}: The full source code, all schematics, and all documents concerning both the software and hardware will be included on a public repository so that the client may share this information with his clients.
-\end{itemize}
-
-%% ----------------------------------------------------------------
-\chapter{Design Approaches Considered}
-%% ----------------------------------------------------------------
-
-\section{Payload Image Capture}
-
-\subsection{Camera Module}
-John
-
-\subsubsection{Approach: Analogue Camera}
-Short description of the approach
-
-Advantages:
-\begin{itemize}
-\item Blah
-\item Blah
-\end{itemize}
-
-Disadvantages:
-\begin{itemize}
-\item Blah
-\item Blah
-\end{itemize}
-
-Conclusion of approach
-
-\subsubsection{Approach: Serial Camera}
-
-\subsubsection{Approach: USB Camera}
-
-
-\subsection{Image Buffering}
-Andy
-
-\subsubsection{Approach: Flash Chip}
-
-\subsubsection{Approach: SD Card}
-
-\subsubsection{Approach: SRAM}
-Or whatever it is called
-
-\section{Payload Controller}
-IMAGE OF PAYLOAD CONTROLLER BLOCK?
-
-\subsection{Payload Controller Hardware}
-The hardware used to implement the payload controller is an important consideration.
-
-The exact requirements for this module depend on other design decisions made, such as the method used to interface with the camera module. However there are a certain fixed set of requirements derived from the specification:
-\begin{itemize}
-\item The module must communicate with the autopilot over an asynchronous RS-485 serial connection at 36 kbaud. This suggests that the module should have access to some form of UART.
-\end{itemize}
-
-Additional requirements depend on other design decisions:
-\begin{itemize}
-\item \emph{Camera communication:} Using a serial camera would mean the controller requiring access to another UART, while using a USB camera leaves the camera needing access to a USB host interface. Similarly using an analogue camera would mean either the controller be capable of digitising the camera data itself or have a method of interfacing with an external digitiser.
-
-\item \emph{Image buffering:} Most embedded systems do not have enough RAM or Flash to store a reasonable sized image on onboard memory. As described in section |||||| BUFFERING ||||||, there are a number of approaches worth considering for externally buffering an input image, however these do require the controller to have an interface with which to communicating with the external memory.
-
-\item \emph{Progressive JPEG Manipulation:} Section |||||| PROGRESSIVE JPEG MANIPULATION ||||| details several ways progressive JPEG manipulation could be tackled. Depending on the design choice taken this could influence the requirements of the controller substantially. Examples of such requirements could be: extra processing power, fast access to memory or FFT or DFT libraries being available for the device.
-\end{itemize}
-
-\subsubsection{Digital Signal Processor (DSP) Development Board}
-An appropriate Digital Signal Processor (DSP) development board would provide fast digital signal processing capabilities to the controller. This would be especially useful for the situations mentioned in section |||||| PROGRESSIVE JPEG MANIPULATION |||||.
-
-Since DSP chips tend to be specialist devices they are usually difficult to set up or program without first experimenting with the design using a development board - a special board designed with experimentation and product development in mind. Ideally a development board would be used for initial development of the system with a integrated PCB being developed later on to allow the DSP to be used on its own.
-
-Advantages:
-
-\begin{itemize}
-\item DSPs often have very good analogue to digital conversion built in as standard. If an analogue camera is used (as discussed in section ||||| ANALOUGE CAMERA |||||) a DSP may provide the necessary fast ADC without any extra components.
-\end{itemize}
-
-
-\subsubsection{Approach: Arduino with Multiplexed Serial}
-
-\subsubsection{Approach: Arduino with Dual Controllers}
-
-
-\subsection{Payload/Ground Station Interaction}
-Michael
-
-
-\section{Ground Station Image Viewer}
-Peak
-
-\section{Progressive JPEG Manipulation}
-Mitch
-
-\section{Physical Implementation}
-Andy
-
-\subsection{Power Source}
-
-\subsubsection{Approach: Battery Powered}
-
-\subsubsection{Approach: Autopilot Powered}
-
-%% ----------------------------------------------------------------
-\chapter{Chosen Design Approaches}
-%% ----------------------------------------------------------------
-
-
-\section{Payload Image Capture}
-
-\section{Payload/Ground Station Interaction}
-
-\section{Ground Station Image Viewer}
-
-\section{Progressive JPEG Manipulation}
-
-\section{Physical Implementation}
-Andy
-
-%% ----------------------------------------------------------------
-\chapter{Implementation}
-%% ----------------------------------------------------------------
-
-
-\section{Payload Image Capture}
-
-\section{Payload Controller}
-
-\section{Ground Station Image Viewer}
-
-\section{Progressive JPEG Manipulation}
-
-\section{Physical Implementation}
-
-\section{System Integration}
-
-
-%% ----------------------------------------------------------------
-\chapter{Overview}
-%% ----------------------------------------------------------------
-An overview of the entire project process goes here...
-
-\section{Final Deliverables}
-The final deliverables of the project are described here...
-
-\section{Evaluation Against Specification}
-
-
-%% ----------------------------------------------------------------
-\chapter{Testing}
-%% ----------------------------------------------------------------
-
-\subsection{Camera/Payload Interaction}
-
-\subsection{SD Card/Payload Interaction}
-
-\subsection{Payload/Ground Station Interaction}
-
-\subsection{Ground Station Image Viewer}
-
-\subsection{Progressive JPEG Manipulation}
-
-%% ----------------------------------------------------------------
-\chapter{Project Management}
-%% ----------------------------------------------------------------
-Project management goes here...
-
-\section{Gantt Charts}
-Michael
-Place Gantt charts here.
-
-\section{Risk Management}
-Mitch
-Place risk management considerations and compare with risks encountered.
-
-\section{Work Allocation}
-Peak
-Talk about planned work allocation to be compared with actual work allocation. Reflect on efficiency.
-
-\subsection{Planned Work Allocation}
-Talk about the tasks planned and the skills audit.
-
-\subsection{Actual Task Allocation}
-Talk about who did what in the end and how tasks were passed around. How did people work together?
-
-\section{Team Resources}
-John
-What we used to get the job done...
-
-\subsection{Budget}
-What did we need to buy in the end?
-
-\subsection{Electronic Material}
-Did we make use of anything electronic that we had before the project?
-
-\section{Group Communication}
-Andy
-Talk about how the group contacted each other (email, meetings, mobiles)...
-
-\subsection{Formal Meetings}
-Talk about the usefulness and benefit of the formal Tuesday meetings...
-
-\subsection{Methods of Communication}
-Talk about which methods were used more often, which were useful...
-
-\subsection{Software Management}
-How we used e-mails, SVN Tortoise, and Github to keep our progress safe...
-
-
-%% ----------------------------------------------------------------
-\chapter{Future work}
-%% ----------------------------------------------------------------
-Future work goes here. May be combined with the Evaluation section.
-
-%% ----------------------------------------------------------------
-\chapter{Evaluation}
-%% ----------------------------------------------------------------
-
-\section{Success}
-Discuss how successful the final project is in terms of meeting the project brief goals...
-
-\section{Team}
-Discuss how successful the team functioned as a whole? Well communicated? Tasks properly assigned? Sufficient work done?
-
-%% ----------------------------------------------------------------
-\chapter{Conclusions}
-%% ----------------------------------------------------------------
-Conclusions go here.
-
-%% ----------------------------------------------------------------
-\chapter{Documentation}
-%% ----------------------------------------------------------------
-Mitch
-All supplementary documentation prepared for the project can be referenced here...
 
 %% ----------------------------------------------------------------
 \acknowledgements{I would like to thank...}
@@ -372,23 +71,9 @@ All supplementary documentation prepared for the project can be referenced here.
 \include{Conclusions}
 \appendix
 \backmatter
-\chapter{Glossary}
 
-\section*{Terms} 
-\begin{description}
-	\item[YCbCr] Colour space used to represent JPEG images. Composed of three values:
-		\begin{description}
-			\item[Y] luma component.
-			\item[Cb] blue-difference chroma component.
-			\item[Cr] red-difference chroma component.
-		\end{description}
-	\item[4:x:y]Chroma subsampling notation.
-		\begin{description}
-			\item[4] Luma horizontal (and vertical) sampling reference.
-			\item[x] Cb and Cr horizontal sampling factor.
-			\item[y] Cb and Cr horizontal sampling factor. If 0, indicates 2:1 vertical subsampling for both Cb and Cr.
-		\end{description}
-\end{description}
+\input{glossary}
+\newpage
 
 \section*{Abbreviations} 
 \begin{description}
@@ -416,24 +101,8 @@ All supplementary documentation prepared for the project can be referenced here.
 
 \bibliographystyle{ecs}
 
-\begin{thebibliography}{9}
+\input{bibliography}
+\newpage
 
-	\bibitem{tortorella_jpeg_enc} Tortorella, Richard. \emph{Image Doctoring: JPEG Encoding and Analysis}. Rep. NARCAP, May 2009. Web. 11 Oct. 2011. \url{http://www.narcap.org/reports/narcap_IR-01_DigHoaxing.pdf}.
-	
-	\bibitem{exif_std} Japan Electronics and Information Technology Industries Association (JEITA). \emph{Digital Still Camera Image File Format Standard (Exchangeable Image File Format for Digital Still Cameras: Exif)} Version 2.1. Tech. Japan Electronic Industry Development Association (JEIDA), 12 June 1998. Web. 14 Oct. 2011 \url{http://www.exif.org/Exif2-1.PDF}.
-	
-	\bibitem{netravali_digital_repr} Netravali, Arun N., and Barry G. Haskell. \emph{Digital Pictures: Representation and Compression}. New York: Plenum, 1988. Print. 
-	
-	\bibitem{jpeg_layout} \emph{JPEG File Layout and Format}. Original URL: \\http://www.funducode.com/freec/Fileformats/format3/format3b.htm (defunct).\\DCube Software Technologies, 5 July 2002. Web. 28 Oct. 2011. \url{http://class.ee.iastate.edu/ee528/Reading%20material/JPEG_File_Format.pdf}
-	
-	\bibitem{winzip_jpeg_compression} WinZip® International LLC. \emph{JPEG Compression}. Tech. Version 1.0. 11 Sept. 2008. Web. 28 Oct. 2011. \url{http://www.winzip.com/wz_jpg_comp.pdf}.
-	
-	\bibitem{poynton_chroma_subsampling} Poynton, Charles. \emph{Chroma Subsampling Notation.} Charles Poynton. 24 Jan. 2008. Web. 31 Oct. 2011. \url{http://poynton.com/PDFs/Chroma_subsampling_notation.pdf}.
-	
-	\bibitem{kerr_chroma_subsampling} Kerr, Douglas A. \emph{Chrominance Subsampling in Digital Images}. Rep. Issue 2. 3 Dec. 2009. Web. 31 Oct. 2011. \url{http://dougkerr.net/pumpkin/articles/Subsampling.pdf}.
-	
-	\bibitem{hass_impulse_jpeg} Hass, Calvin. \emph{ImpulseAdventure - Digital Photography Articles.} 2008. Web. 22 Nov. 2011. \url{http://www.impulseadventure.com/photo/}.
-
-\end{thebibliography}
 \end{document}
 %% ----------------------------------------------------------------

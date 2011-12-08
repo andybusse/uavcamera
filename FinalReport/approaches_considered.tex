@@ -1,0 +1,171 @@
+%% ----------------------------------------------------------------
+\chapter{Design Approaches Considered}
+%% ----------------------------------------------------------------
+
+\section{Payload Image Capture}
+
+\subsection{Camera Module}
+John
+
+\subsubsection{Approach: Analogue Camera}	
+Short description of the approach
+Advantages:
+\begin{itemize}
+\item Blah
+\item Blah
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+\item Blah
+\item Blah
+\end{itemize}
+
+Conclusion of approach
+
+
+\subsubsection{Approach: Serial Camera}
+
+\subsubsection{Approach: USB Camera}
+
+
+\subsection{Image Buffering}
+Andy.
+
+
+\subsubsection{Approach: Flash Chip}
+
+\subsubsection{Approach: SD Card}
+
+\subsubsection{Approach: SRAM}
+Or whatever it is called
+
+\section{Payload Controller}
+IMAGE OF PAYLOAD CONTROLLER BLOCK?
+
+\subsection{Payload Controller Hardware}
+The hardware used to implement the payload controller is an important consideration.
+
+The exact requirements for this module depend on other design decisions made, such as the method used to interface with the camera module. However there are a certain fixed set of requirements derived from the specification:
+
+\begin{itemize}
+\item The module must communicate with the autopilot over an asynchronous RS-485 serial connection at 36 kbaud. This suggests that the module should have access to some form of UART.
+\end{itemize}
+
+Additional requirements depend on other design decisions:
+
+\begin{itemize}
+\item \emph{Camera communication:} Using a serial camera would mean the controller requiring access to another UART, while using a USB camera leaves the camera needing access to a USB host interface. Similarly using an analogue camera would mean either the controller be capable of digitising the camera data itself or having a method of interfacing with an external digitiser.
+ 
+\item \emph{Image buffering:} Most embedded systems do not have enough RAM or Flash to store a reasonable sized image on onboard memory. As described in section |||||| BUFFERING ||||||, there are a number of approaches worth considering for externally buffering an input image, however these do require the controller to have an interface with which to communicate with the external memory. 
+
+\item \emph{Progressive JPEG Manipulation:} Section |||||| PROGRESSIVE JPEG MANIPULATION ||||| details several ways progressive JPEG manipulation could be tackled. Depending on the design choice taken this could influence the requirements of the controller substantially. Examples of such requirements could be: extra processing power, fast access to memory or FFT or DFT libraries being available for the device.
+\end{itemize}
+
+\subsubsection{Approach: Digital Signal Processor (DSP) Development Board}
+An appropriate Digital Signal Processor (DSP) development board would provide fast digital signal processing capabilities to the controller. This would be especially useful for the situations mentioned in section |||||| PROGRESSIVE JPEG MANIPULATION |||||.
+
+Since DSP chips tend to be specialist devices they are usually difficult to set up or program without first experimenting with the design using a development board - a special board designed with experimentation and product development in mind. Ideally a development board would be used for initial development of the system with a integrated PCB being developed later on to allow the DSP to be used on its own.
+
+Advantages:
+\begin{itemize}
+\item DSPs often have very good analogue to digital conversion built in as standard. If an analogue camera is used (as discussed in section ||||| ANALOUGE CAMERA |||||) a DSP may provide the necessary fast ADC without any extra components.
+
+\item Libraries for tasks such Fast Fourier Transforms or other signal and image processing related applications are often readily available for DSP chips. For some methods of performing progressive JPEG manipulation (see section |||||| PROGRESSIVE JPEG MANIPULATION |||||) this could be useful.
+
+\item Large number of miscellaneous signal processing related hardware features built in which could be useful in as-yet unforeseen circumstances.
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+\item DSP chips are often complex and may require significant work to produce a system running without a development board.
+
+\item DSP development boards often cannot be used effectively in a final version of a project due to size and power constraints.
+\end{itemize}
+
+
+DSP boards are a specialist tool, which could be especially useful - if not required - if implementing certain image processing algorithms such as some of those detailed in section |||||| PROGRESSIVE JPEG MANIPULATION |||||. The downside of this is a more complex overall system.
+
+\subsubsection{Approach: Atmel 8-bit AVR}
+\label{sec:desappr:avr}
+The Atmel 8-bit AVR family is a well-known set of low cost, single chip microcontrollers. Specific parameters taken from \cite{megaAVR_parameters}.
+
+Advantages:
+\begin{itemize}
+\item All members of our group have had experience working with AVR chips.
+
+\item Programming and debugging devices are readily available to us.
+
+\item Creating stand-alone systems easy: no need for large amounts of additional components.
+
+\item Commonly used devices mean large community built around the device family meaning support and additional libraries are more likely to be available.
+
+\item Some initial payload code available to us already implemented on a AVR.
+
+\item Large range of different devices which work with the same programming tools and minimal code changes available.
+
+\item Many through-hole versions of the devices are available, making prototyping significantly easier (and cheaper, due to lack of need for breakout boards) than using surface mount components.
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+\item Most 8-bit AVR devices are reasonably low speed (20MHz maximum), meaning they could be unsuitable for heavy calculations such as image processing.
+
+\item 8-bit AVRs do not have floating point processing units, making some image processing tasks much slower to complete on an AVR.
+
+\item Less communication options than some other, more complex, devices. This limits the number of peripheral devices that can be connected to the controller at once, and so may reduce flexibility.
+
+\item Limited RAM available on the commonly used devices which are available in through-hole format. A common amount of RAM for a larger through-hole AVR is 4 kbytes.
+
+\item The smaller, cheaper, devices have reasonably limited program memory, with 64 kbytes being a typical amount for a larger through-hole device. This could be a problem if implementing large amounts of code or using significant numbers of lookup tables for example.
+\end{itemize}
+	
+AVRs are robust, widely used, general purpose microcontrollers. The large community surrounding them is a particular advantage, as it means many libraries and development boards are available for the devices. Our previous experience with the devices is also a key advantage, although it is important to be aware of the devices limits.
+
+
+\subsubsection{Approach: Atmel 8-bit AVR with Arduino Prototyping Platform}
+
+The Arduino platform is a low cost, open-source development platform for the Atmel AVR microcontroller family. The latest versions of the development platform consists of an ATMega328 microcontroller along with voltage regulators, inbuilt USB programmer and serial interface and 16MHz crystal. A software library for the device provides a wrapper around many of the complexities of the AVR platform, allowing more rapid development to be possible than with a pure AVR. A simple IDE is used to program the device and a wide range of extra libraries are available which target the platform.
+
+The advantages and disadvantages of the Atmel 8-bit AVRs mentioned in section \ref{sec:desappr:avr} also apply.
+
+Advantages:
+\begin{itemize}
+\item Just an ATMega328 'under the hood' meaning that the additional power of the chip can be leveraged if needed.
+
+\item Many common tasks such as setting the baud rate of the serial link are made very simple by the Arduino libraries, meaning development time can be spent working on more challenging features.
+
+\item Very widely used by hobbyists, meaning a large number of open-source libraries are available for the platform.
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+\item Using the Arduino libraries means a certain amount of unused overhead is likely.
+
+\item The Arduino libraries hide much of the complexity of the device. This can mean advanced features are hidden or not exposed, negating some of the advantages of the library when advanced features are needed.
+\end{itemize}
+
+\subsubsection{Approach: Arduino with Multiplexed Serial}
+
+\subsubsection{Approach: Arduino with Dual Controllers}
+
+
+\subsection{Payload/Ground Station Interaction}
+Michael
+
+
+\section{Ground Station Image Viewer}
+Peak
+
+\section{Progressive JPEG Manipulation}
+Mitch
+
+\section{Physical Implementation}
+Andy
+	
+\subsection{Power Source}
+
+\subsubsection{Approach: Battery Powered}
+
+\subsubsection{Approach: Autopilot Powered}
+
