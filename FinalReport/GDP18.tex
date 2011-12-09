@@ -116,7 +116,7 @@ The aim of the project was to achieve the following criteria, which were also pr
 		\item \textbf{Resend} an image in case the current preview is corrupted. [low priority]
 		\item \textbf{Interrupt} the download of an incomplete image and allow the user to save the incomplete image. [low priority]
 		\item Select the \textbf{resolution settings} of the image. [low priority]
-		\item Display a progress indicator which will show the percentage of the image datareceived, as well as a time estimate for the rest of the image to be downloaded. [low priority]
+		\item Display a progress indicator which will show the percentage of the image data received, as well as a time estimate for the rest of the image to be downloaded. [low priority]
 		\item The image capture will be triggered automatically by the UAV using triggers built into the autopilot. [low priority]
 		\item Allow the user to command the image capture to \textbf{trigger periodically} over a \textbf{userspecified time interval} will be added if time permits. [low priority]
 	\end{itemize}
@@ -147,7 +147,27 @@ All proposed solutions to meet the specification goes here...
 \section{Options Considered}
 
 \subsection{Camera/Payload Interaction}
-John
+
+A range of different camera modules were researched and considered for use in the project. It was decided early on in the project that camera modules would be used rather than attempting to interface with standard digital cameras.
+
+Approach: USB Camera
+Many USB webcams are available for purchase and this was considered as a possibly approach.
+
+Advantages:
+      \begin{itemize}
+         \item Low cost of typically around £15
+         \item High resolution of typically 1 to 3 Megapixels
+		 \item Small size
+		 \item Cabling included so can be easily positioned in the UAV
+     \end{itemize}
+
+Disadvantages:
+     \begin{itemize}
+        \item Difficult to communicate with
+        \item Requires USB host device
+     \end{itemize}
+
+This approach was ruled out because of the difficulty in communicating with this camera type. In order to communicate with a USB camera a USB host is required and as the process is usually fairly complex a driver is normally used. This is extremely difficult to implement on a device compact enough for use in this project.
 
 \subsection{SD Card/Payload Interaction}
 Andy
@@ -168,6 +188,8 @@ Andy
 
 
 \subsection{Camera/Payload Interaction}
+
+
 
 \subsection{SD Card/Payload Interaction}
 
