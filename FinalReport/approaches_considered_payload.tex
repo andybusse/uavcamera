@@ -119,11 +119,10 @@ Using an Arduino has the advantage of speeding up development at the beginning o
 One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station Image Viewer (see section |||||| GS IMAGE VIEWER ||||||) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
 
 The autopilot provides a number of ways to communicate between a payload module and ground station software. The Ground Station software provided to us allows a `packet' of data to be sent to a payload module by executing the command shown below:
-\begin{verbatim} 
+~\\
+\begin{lstlisting}[caption={Sending bytes 1 to N from ground station to payload module}, label=lst:ground_station_send_bytes]
 payload[0].send_bytes BYTE1 BYTE2 ... BYTEN 
-\end{verbatim} 
-
-Which sends bytes 1 to N to payload number 0.
+\end{lstlisting} 
 
 Another method of communication is via the use of shared memory. Each registered payload module is assigned a set of shared memory which can be read and set by the payload module and the ground station software. This could be used to implement two-way communications between the two subsystems.
 

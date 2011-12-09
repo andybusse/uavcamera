@@ -48,7 +48,7 @@ autopilot payload interface.
 To better explain the protocol used we will split the explanation into two 
 sections: a \emph{Autopilot Payload Interface} section describing the
 pre-existing autopilot payload interface on which we are building the 
-protocol and a \emph{UAV Camera Control Protocol} section describing the 
+protocol and a \emph{UAV Camera Communication Protocol} section describing the 
 protocol we have implemented as a part of this project.
 
 \subsubsection{Autopilot Payload Interface}
@@ -70,7 +70,9 @@ leave the line tristated. This means that each payload must know when it is
 allowed to use the transmit line so as not to clobber any other payload module.
 In this system this is achieved by the use of `transmit tokens' handed out 
 by the autopilot over the RX line. A `transmit token' is sent to each payload 
-module in turn, informing the module that it is clear to transmit data.
+module in turn, informing the module that it is clear to transmit data. With 
+only one payload module connected to the autopilot, these tokens are sent out 
+every 20 ms. |||||| CHECK THIS ||||||||
 
 This two way communication link is used to implement a command interface to 
 the autopilot. A payload module can execute commands on the autopilot, 
@@ -78,10 +80,9 @@ allowing a variety of useful and interesting possibilities for payload
 module design. Of interest to us however, is the ability of the payload
 module to set shared memory. Since this shared memory can be accessed 
 through the ground station software this allows us to send data through the
-autopilot link to the ground station. A set of shared memory is allocated to 
+autopilot link to the ground station. Shared memory is allocated to 
 each payload module, accessible on the ground station using the command:
-
-
+~\\
 \begin{lstlisting}[caption={Accessing shared memory from Ground Station}, label=lst:gs_shared_mem_set]
 payload[payload_num].mem_bytes[mem_bytes_num]
 \end{lstlisting}
@@ -91,8 +92,8 @@ Where \emph{payload\_num} is the ID number identifying the payload and
 
 Each shared memory set is of variable length and can be set from the payload 
 module using the following function (code provided by customer):
-
-\begin{lstlisting}[caption={Setting shared memory from Payload}, label=lst:payload_shared_mem_set]
+~\\
+\begin{lstlisting}[language=C, caption={Setting shared memory from Payload}, label=lst:payload_shared_mem_set]
 send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, 
 CLASS_PAYLOAD_MEM_BYTES, mem_bytes_num, message_to_send,
 message_to_send_length)
@@ -101,16 +102,25 @@ message_to_send_length)
 Where \emph{CLASS\_PAYLOAD} and \emph{CLASS\_PAYLOAD\_MEM\_BYTES} are constants 
 informing the autopilot that the \emph{mem\_bytes} item of the \emph{payload} 
 object should be set, \emph{module\_id} is the ID of the payload module,
-\emph{mem\_bytes\_num} is the same as used in listing \ref{lst:gs_shared_mem_set},
-\emph{message\_to\_send} is the message to be sent (consisting of an array of 
-length \emph{message_to_send_length}, the first element of which should be 
-the number of bytes to set in the shared memory).
+\emph{mem\_bytes\_num} is the same as used in listing
+\ref{lst:gs_shared_mem_set} and \emph{message\_to\_send} is the message to be 
+sent (consisting of an array of length \emph{message\_to\_send\_length}, the 
+first element of which should be the number of bytes to set in the shared 
+memory).
 
 The method through which this shared memory is accessed via the ground station
 image viewer is discussed in section ||||||||| GS IMAGE VIEWER |||||||||.
 
 The ground station software can also send data directly to a payload module 
-through the autopilot, where it will be sent onto the RX line of the RS485
-bus. 
+through the autopilot, where it will be sent on to the RX line of the RS485
+bus. The \emph{send\_bytes} command is used to do this, as can be seen in 
+listing \ref{lst:ground_station_send_bytes}. 
 
-\subsubsection{UAV Camera Control Protocol}
+\subsubsection{UAV Camera Communication Protocol}
+Using shared memory and \emph{send\_bytes} commands, two way 
+communications between the payload controller and ground station software 
+can be established.
+
+
+
+\section{PROBLEMS CHALLENGES}
