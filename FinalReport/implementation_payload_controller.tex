@@ -83,7 +83,7 @@ through the ground station software this allows us to send data through the
 autopilot link to the ground station. Shared memory is allocated to 
 each payload module, accessible on the ground station using the command:
 ~\\
-\begin{lstlisting}[caption={Accessing shared memory from Ground Station}, label=lst:gs_shared_mem_set]
+\begin{lstlisting}[caption={Accessing shared memory from ground station}, label=lst:gs_shared_mem_set]
 payload[payload_num].mem_bytes[mem_bytes_num]
 \end{lstlisting}
 
@@ -93,7 +93,7 @@ Where \emph{payload\_num} is the ID number identifying the payload and
 Each shared memory set is of variable length and can be set from the payload 
 module using the following function (code provided by customer):
 ~\\
-\begin{lstlisting}[language=C, caption={Setting shared memory from Payload}, label=lst:payload_shared_mem_set]
+\begin{lstlisting}[language=C, caption={Setting shared memory from payload module}, label=lst:payload_shared_mem_set]
 send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, 
 CLASS_PAYLOAD_MEM_BYTES, mem_bytes_num, message_to_send,
 message_to_send_length)
@@ -199,4 +199,28 @@ data for this packet and is variable size, with a maximum size of 50.
 \end{itemize}
 
 
+\section{Payload Debug Interface}
+\label{sec:payload_debug_interface}
+While the payload module was being developed debugging was a major concern. 
+Having access to an oscilloscope very useful when debugging some particularly 
+difficult problems, as described elsewhere in this report ||||||| WHERE |||||.
+However, while building the payload module it was clear more complex details 
+about the internal state of the program as it was running would be useful.
+
+While prototyping the camera module on the Arduino platform this problem was 
+solved by using the \emph{SoftwareSerial} library (for information see 
+\cite{software_serial}) to send textual debug information via a serial to USB 
+cable to PC. This proved very useful when prototyping camera communications.
+
+A slightly different approach was taken when using the ATMega644P. Initial 
+testing of the software serial library on this platform suggested that it 
+would not work without a reasonable investment in time fixing it. It was
+therefore decided that it would be faster to send debug messages over 
+`bit-banged' SPI to a spare Arduino board which then forwarded this data to 
+the connected PC over serial. Again, having the use of this debug interface 
+proved very useful while implementing the system, and was well worth the 
+small amount of extra time taken to develop it.
+
 \section{PROBLEMS CHALLENGES}
+\section{REMINDER: HOW DID WE SOLVE PROBLEMS, DEBUGGING, TESTING, ETC}
+\section{REMINDER: JOHN COULD TALK ABOUT HOW BROKEN CAMERAS SLOWED DOWN DEVELOPMENT BUT GOOD PLANNING AND CONTINGENCY MINIMISED RISK}
