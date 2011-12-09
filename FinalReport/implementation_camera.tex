@@ -1,6 +1,56 @@
-\subsection{Camera Module}
+\section{Camera Module}
 \label{sec:John_Implementation}
 
 The first step in the implementation of the camera module was to verify the communication with the camera by talking to it via a pc. Once this step was complete the next step was to implement communications between the camera and a microprocessor, with the pc for debugging. With the microcontroller able to communicate with the camera this module was ready for integration with the payload.
 
-\subsubsection{First camera}
+\subsection{First camera}
+
+The first attempt at communicating with the original camera was done using the arduino microcontroller board. The arduino was chosen as the platform for this first communication because it is simple to program and its programming environment provides various useful libraries, for example for serial communication. The hardware also provides an easily accessible serial port.
+
+The first implementation of this code managed to occasionally sync with the camera but would generate errors after this point. After examining the code and the camera's datasheet it was discovered that the camera was only syncing occasionally because the arduino was using a slower baud rate than the camera could auto-detect, after increasing the baud rate on the arduino the camera would sync every time but the code still generated errors after this point.
+
+It was at this point that the first camera broke. It was no longer syncing at all where before it had been doing so reliably and so it was checked with one of the bench-top power supplies and was seen to be no longer drawing current properly.
+
+\subsection{Second camera}
+
+Once it was established that the first camera was dead a couple of cheaper surface mount camera modules were purchased as possible replacements however making a successful connection to these components proved excessively difficult so a new camera of the same type as the previous one was ordered.
+
+\subsubsection{Serial cable to computer}
+
+The operation of the new camera module was verified using a usb to serial cable connected to a pc which was running the sample program which was provided by the camera's manufacturer. Using this set up it was shown that the camera was working and that it was possible to get images from it.
+
+[] diagram of pin connections []
+
+\subsection{Arduino implementation}
+
+With the operation of the camera verified it was reconnected to the arduino board and the code run again with the same result as before: it would correctly sync but no more than this. On inspection of the code it became clear that this was because the same serial line was being used for both communication with the camera and debug messages and that these debug messages were interfering with further communications. Debug messages were therefore moved to a software serial line and sent to the computer via the usb to serial cable and observed using PuTTy.
+
+The code is broken down so that there are functions for each type of command that the camera can receive, functions that verify the responses from the camera and functions that combine these together in the correct sequence in order to perform a useful task with the camera.
+
+\subsubsection{Camera synchronisation}
+
+The first task in communicating with the camera is to synchronise the serial channel, the uCam datasheet gives the correct protocol to do this.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.00\textwidth]{figures/SyncProtocal.png}
+        \captionof{figure}{Command protocol for synchronisation, sourced from \ref{ucam_datasheet} }
+        \label{fig:syncProto}
+\end{figure}
+
+It should be noted that in \ref{fig:syncProto} the first sync sent from the host will be repeated until an acknowledgement is received, with everything working correctly this process usually takes 3 or 4 syncs before an ACK is received.
+
+The inclusion of a separate debugging line allows for messages at each stage of this process to verify that it is connecting correctly and to indicate where any errors may have occurred. With all debug messages enabled this function will output "Sending syncs" followed by a "." for each sync command sent and then "ACK received" and "SYNC received", the main code will then output a message to the effect that contact has been successfully established.
+
+\subsubsection{Taking a snapshot}
+
+With the camera successfully synchronised the controller needs to be able to trigger the camera to take a photograph and then retrieve said photograph, again the uCam datasheet gives an example of how to implement this.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.00\textwidth]{figures/SnapshotProtocal.png}
+        \captionof{figure}{Command protocol for taking and retrieving a jpeg snapshot at 640x480 resolution, sourced from \ref{ucam_datasheet} }
+        \label{fig:snapProto}
+\end{figure}
+
+It should be noted in \ref{fig:snapProto} that the values in the commands are for the example and are not necessarily the values used in the code.
