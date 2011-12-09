@@ -121,6 +121,82 @@ Using shared memory and \emph{send\_bytes} commands, two way
 communications between the payload controller and ground station software 
 can be established.
 
+This two way communications is the interface between the payload and the 
+ground station software, so some standard protocol was required. A message 
+based system was constructed, with the messages from the ground station to
+the payload module being sent using \emph{send\_bytes} and the messages sent
+from the payload to the ground station being put into shared memory. Each
+message is composed of two elements, one byte for the message ID -
+unique to each type of message - and a variable number of data bytes 
+(depending on the message type.) The different message types are detailed 
+below:
+
+\paragraph{Messages sent from Ground Station To Payload}
+
+\begin{itemize}
+\item \textbf{Take Picture}
+\begin{itemize}
+\item \emph{Data:} None
+\item Prompts payload module to capture an image and save it to the SD card.
+\end{itemize}
+
+\item \textbf{Image Download Request} 
+\begin{itemize}
+
+\item \emph{Data:} Image ID
+\item Requests the payload send the image with ID \emph{Image ID} to the 
+ground station. This message allows any image stored by the payload module 
+to be downloaded over the connection, increasing flexibility. 
+\end{itemize}
+
+\item \textbf{Configure Camera}
+\begin{itemize}
+\item \emph{Data:} Colour Type, Raw Image Resolution, JPEG Image
+Resolution
+\item Sets the image resolution and colour mode of the camera. Only the 
+JPEG mode has been tested so far.
+\end{itemize}
+
+\end{itemize}
+
+\paragraph{Messages Sent from Payload to Ground Station}
+
+\begin{itemize}
+
+\item \textbf{Picture Taken}
+
+\begin{itemize}
+\item \emph{Data:} Image ID
+
+\item Informs the ground station software that an image has been taken and 
+saved to the SD card. \emph{Image ID} is the ID of the image that has been 
+saved to the SD card.
+\end{itemize} 
+
+\item \textbf{Image Download Info}
+
+\begin{itemize}
+
+\item \emph{Data:} Number of Image Packets
+
+\item Sent by the payload after a successful \emph{Image Download Request}
+message from the ground station. Informs the ground station how many 
+\emph{Image Data} packets to expect.
+\end{itemize}
+
+\item \textbf{Image Data} 
+\begin{itemize}
+\item \emph{Data:} Packet Number, Image Data
+\item This message contains an amount of actual image data. Sent after a
+\emph{Image Download Info} message which is in turn in response to an 
+\emph{Image Download Request} message. The whole image is sent over
+\emph{Number of Image Packets} packets (as defined by the \emph{Image Download
+Info} message.) \emph{Packet Number} informs the ground station which of these
+packets the message is carrying. \emph{Image Data} contains the actual image 
+data for this packet and is variable size, with a maximum size of 50. 
+\end{itemize}
+
+\end{itemize}
 
 
 \section{PROBLEMS CHALLENGES}
