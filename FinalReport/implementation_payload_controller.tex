@@ -312,7 +312,11 @@ As mentioned above in section \ref{sec:payload_existing_code} the code provided
 to us for communication with the autopilot was written for an ATMega168 chip. 
 Porting this code and the existing Arduino camera code to the 644P was not a 
 trivial task, although it was simplified by the use of the Sanguino library -
-a port of the Arduino core libraries to the 644P (see \cite{sanguino}).
+a port of the Arduino core libraries to the 644P (see \cite{sanguino}). Some 
+changes were made the the Sanguino libraries for use in our project, for 
+example the Sanguino handling code for one of the UARTs was disabled to allow
+it to be configured manually for autopilot communications. Some small pieces
+of code that were causing compilation issues were also modified.
 
 \section{REMINDER: PROBLEMS CHALLENGES}
 \section{REMINDER: HOW DID WE SOLVE PROBLEMS, DEBUGGING, TESTING, ETC}
