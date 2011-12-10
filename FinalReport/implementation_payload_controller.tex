@@ -1,63 +1,54 @@
-%\section{Payload Controller}
+\section{Payload Controller}
+\subsection{General Payload Controller Implementation OR MAYBE Overview}
+||||||| Might not want this in its own section ||||||||
 
+The payload controller module is an important part of the system, responsible
+for interfacing with the camera module and communicating with the ground 
+station image viewer software via the autopilot. Since this single module 
+encapsulates a significant amount of the complexity of the project it was 
+deemed sensible to split it up into sub-modules, which could be worked on in
+parallel by different members of the team. 
 
-\section{Communication Between Payload Controller and Ground Station}
-\subsection{Existing Code}
-Our customer had provided us with some payload module AVR code, written for a 
-ATMega168, for communicating with the autopilot. This code was the basis on 
-which the payload controllers communication link was built.
+With this in mind the payload controller module was split into four main 
+submodules:
 
-The code provided a number of useful utilities:
 \begin{itemize}
-\item Ability to set shared memory on the autopilot.
-
-\item Ability to receive messages sent from the Ground Station to the 
-autopilot.
-
-\item Example code for setting shared memory on the autopilot.
+	\item Camera Module Communication
+	\item Communication with Ground Station via Autopilot
+	\item SD Card Image Buffering
+	\item Progressive JPEG Manipulation
 \end{itemize}
 
-This base code was modified slightly after a bug was found in its handling of 
-the transmit enable signal. The RS485 communication protocol used for the 
-autopilot-payload link (as described in section |||||||| SEC ||||||||) 
-requires a `transmit enable' signal to be asserted when the payload is 
-transmitting. This signal should be asserted just before data is to be sent 
-and cleared just after. However, the original payload base code cleared this 
-signal in an interrupt service routine (ISR) which fired after the transmit 
-buffer of the UART was ready to accept new data. Since this transmit buffer 
-would be ready to accept new data before the data was actually sent over the
-physical connection this lead to the transmit enable signal being cleared
-before all data had been sent, causing strange behaviour on the RS485 link.
-This bug did not seem to cause any problems, and the odd behaviour was only
-noticed when testing the system with an oscilloscope. ||||| INC TRACES ||||||
-It was considered sensible to fix the bug in case it did cause problems later.
+||||||| INCLUDE REFERENCES TO EACH ||||||||||
 
-The fix for this problem was reasonably simple: a new ISR was set up which 
-fired only when the current transmission had actually completed, and the 
-command to clear the transmit enable signal was moved into this ISR.
-||||| INC AFTER TRACE ||||||
+||||||| INCLUDE SUBMODULE DIAGRAM OF THE PAYLOAD MODULE |||||||
 
 
-\subsection{Communication Protocol}
-In order to communicate with the ground station image viewing software some
-form of communications protocol is required so that both ends of the link 
-are communicating in a mutually understandable manner. The specification and 
-design decisions taken require this protocol to be built upon the existing
-autopilot payload interface.
+\subsection{Communication with Ground Station via Autopilot}
+Considering the overall aim of this project: to produce a system by which 
+images can be downloaded over-the-air from a payload module to a ground 
+station, it is fair to say that some method of communicating between the
+payload module and ground station are an essential component in the system.
 
-To better explain the protocol used we will split the explanation into two 
-sections: a \emph{Autopilot Payload Interface} section describing the
-pre-existing autopilot payload interface on which we are building the 
-protocol and a \emph{UAV Camera Communication Protocol} section describing the 
-protocol we have implemented as a part of this project.
+The specification - see chapter \ref{chap:specification} - requires the payload
+module to communicate with the ground station using the autopilots payload
+module interface (discussed in section \ref{sec:autopilot_payload_interface}
+below).
 
-\subsubsection{Autopilot Payload Interface}
+%To better explain the protocol used we will split the explanation into two 
+%sections: a \emph{Autopilot Payload Interface} section describing the
+%pre-existing autopilot payload interface on which we are building the 
+%protocol and a \emph{UAV Camera Communication Protocol} section describing the 
+%protocol we have implemented as a part of this project.
+
+\subsubsection{Autopilot Payload Module Interface}
+\label{sec:autopilot_payload_interface}
 |||||| Maybe have this in background research ||||||
 
 The SkyCircuits autopilot module allows extension modules named `payload 
 modules' to be connected to the autopilot. These payload modules are connected 
-via a RS485 serial connection, allowing several payload modules to be 
-connected at once in a daisy-chain configuration. All payload modules are 
+via a RS485 serial connection at 38.4 kBaud, allowing several payload modules
+to be connected at once in a daisy-chain configuration. All payload modules are 
 connected to common TX and RX lines, where the RX line is used by the
 autopilot to send commands and data to the payload modules, and the TX
 line is used by all daisy-chained modules to communicate with the autopilot.
@@ -66,7 +57,7 @@ line is used by all daisy-chained modules to communicate with the autopilot.
 
 Since the TX line is shared between all modules only one payload module can be 
 transmitting at once over the link, with all other payload modules required to
-leave the line tristated. This means that each payload must know when it is
+leave the line tristated. This means that each payload module must know when it is
 allowed to use the transmit line so as not to clobber any other payload module.
 In this system this is achieved by the use of `transmit tokens' handed out 
 by the autopilot over the RX line. A `transmit token' is sent to each payload 
@@ -116,18 +107,25 @@ through the autopilot, where it will be sent on to the RX line of the RS485
 bus. The \emph{send\_bytes} command is used to do this, as can be seen in 
 listing \ref{lst:ground_station_send_bytes}. 
 
+As discussed in section |||||||| REF |||||||| it was decided that 
+our communications protocol would use shared memory and \emph{send\_bytes} 
+commands, allowing two way communications between the payload controller and 
+ground station software to be established.
+
 \subsubsection{UAV Camera Communication Protocol}
-Using shared memory and \emph{send\_bytes} commands, two way 
-communications between the payload controller and ground station software 
-can be established.
+The Payload Module Interface discussed above (section \ref{sec:autopilot_payload_interface})
+allows us to send strings of bytes in both directions. However, in order to 
+communicate with the ground station image viewing software some form of 
+additional communications protocol is required so that both ends of the link 
+are communicating in a mutually understandable manner.
 
 This two way communications is the interface between the payload and the 
-ground station software, so some standard protocol was required. A message 
-based system was constructed, with the messages from the ground station to
-the payload module being sent using \emph{send\_bytes} and the messages sent
-from the payload to the ground station being put into shared memory. Each
-message is composed of two elements, one byte for the message ID -
-unique to each type of message - and a variable number of data bytes 
+ground station software, so some standard protocol was required. It was decided
+that a message based system would be used, with the messages from the ground
+station to the payload module being sent using \emph{send\_bytes} and the 
+messages sent from the payload to the ground station being put into shared
+memory. Each message is composed of two elements, one byte for the message ID 
+- unique to each type of message - and a variable number of data bytes 
 (depending on the message type.) The different message types are detailed 
 below:
 
@@ -193,13 +191,52 @@ message from the ground station. Informs the ground station how many
 \emph{Number of Image Packets} packets (as defined by the \emph{Image Download
 Info} message.) \emph{Packet Number} informs the ground station which of these
 packets the message is carrying. \emph{Image Data} contains the actual image 
-data for this packet and is variable size, with a maximum size of 50. 
+data for this packet and is variable size, with a maximum size of 50 bytes. 
 \end{itemize}
 
 \end{itemize}
 
 
-\section{Payload Debug Interface}
+\subsubsection{Existing Code}
+\label{sec:payload_existing_code}
+Our customer had provided us with some payload module communication AVR code
+- written for a ATMega168 - for communicating with the autopilot. This code
+was the basis on which the payload controllers communication link was built.
+
+The code provided a number of useful utilities:
+\begin{itemize}
+\item Ability to set shared memory on the autopilot.
+
+\item Ability to receive messages sent from the Ground Station to the 
+autopilot.
+
+\item Example code for setting shared memory on the autopilot.
+\end{itemize}
+
+This base code was modified slightly after a bug was found in its handling of 
+the transmit enable signal. The RS485 communication protocol used for the 
+autopilot-payload link (as described in section |||||||| SEC ||||||||) 
+requires a `transmit enable' signal to be asserted when the payload is 
+transmitting. This signal should be asserted just before data is to be sent 
+and cleared just after. However, the original payload base code cleared this 
+signal in an interrupt service routine (ISR) which fired after the transmit 
+buffer of the UART was ready to accept new data. Since this transmit buffer 
+would be ready to accept new data before the data was actually sent over the
+physical connection this lead to the transmit enable signal being cleared
+before all data had been sent, causing strange behaviour on the RS485 link.
+This bug did not seem to cause any problems, and the odd behaviour was only
+noticed when testing the system with an oscilloscope. ||||| INC TRACES ||||||
+It was considered sensible to fix the bug in case it did cause problems later.
+
+The fix for this problem was reasonably simple: a new ISR was set up which 
+fired only when the current transmission had actually completed, and the 
+command to clear the transmit enable signal was moved into this ISR.
+||||| INC AFTER TRACE ||||||
+
+
+||||||||| FLOWCHART OF INTERACTIONS |||||||
+
+\subsection{Payload Debug Interface}
 \label{sec:payload_debug_interface}
 While the payload module was being developed debugging was a major concern. 
 Having access to an oscilloscope very useful when debugging some particularly 
@@ -208,19 +245,33 @@ However, while building the payload module it was clear more complex details
 about the internal state of the program as it was running would be useful.
 
 While prototyping the camera module on the Arduino platform this problem was 
-solved by using the \emph{SoftwareSerial} library (for information see 
-\cite{software_serial}) to send textual debug information via a serial to USB 
-cable to PC. This proved very useful when prototyping camera communications.
+solved by using the \emph{SoftwareSerial} library (for information regarding 
+the library see \cite{software_serial}) to send textual debug information via
+a serial to USB cable to PC. This proved very useful when prototyping camera
+communications.
 
 A slightly different approach was taken when using the ATMega644P. Initial 
 testing of the software serial library on this platform suggested that it 
-would not work without a reasonable investment in time fixing it. It was
+would not work without a significant investment in time fixing it. It was
 therefore decided that it would be faster to send debug messages over 
 `bit-banged' SPI to a spare Arduino board which then forwarded this data to 
 the connected PC over serial. Again, having the use of this debug interface 
 proved very useful while implementing the system, and was well worth the 
 small amount of extra time taken to develop it.
 
-\section{PROBLEMS CHALLENGES}
+||||| INC EXAMPLE OF DEBUG TEXT (MAYBE SCREENSHOT) ||||||
+
+\subsection{Integration of Payload Sub-Modules}
+
+\subsubsection{Implementation on ATMega644P}
+As discussed in section ||||||| REF |||||||
+
+As mentioned above in section \ref{sec:payload_existing_code} the code provided
+to us for communication with the autopilot was written for an ATMega168 chip. 
+
+
+
+\section{REMINDER: PROBLEMS CHALLENGES}
 \section{REMINDER: HOW DID WE SOLVE PROBLEMS, DEBUGGING, TESTING, ETC}
-\section{REMINDER: JOHN COULD TALK ABOUT HOW BROKEN CAMERAS SLOWED DOWN DEVELOPMENT BUT GOOD PLANNING AND CONTINGENCY MINIMISED RISK}
+\section{REMINDER: JOHN COULD TALK ABOUT HOW BROKEN CAMERAS SLOWED DOWN DEVELOPMENT BUT GOOD PLANNING AND CONTINGENCY MINIMISED RISK OR IN MANAGEMENT SECTION}
+\section{REMINDER: FUTURE WORK}
