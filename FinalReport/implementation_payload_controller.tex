@@ -263,13 +263,56 @@ small amount of extra time taken to develop it.
 
 \subsection{Integration of Payload Sub-Modules}
 
+\subsubsection{REMINDER: DISCUSSION OF ARDUINO MULTIPLEXED SERIAL}
+
 \subsubsection{Implementation on ATMega644P}
-As discussed in section ||||||| REF |||||||
+Initially we planned to implement the system on the Arduino prototyping 
+platform with an expansion `shiled' board providing any extra hardware needed -
+The reasons for this are discussed in section |||||| REF |||||||. 
+This plan relied on the implementation of the multiplexed serial solution 
+discussed above in section |||||||| REF ||||||||. 
+
+Unfortunately, due to time constraints alongside setbacks such as those
+discussed in sections ||||||| REF AUTOPILOT BUG |||||||| and |||||||| REF 
+CAMERA FAILURE |||||||| it was decided that implementing the system on the 
+Arduino platform may not the best way to proceed, since it would almost 
+certainly be non-trivial to implement and debug.
+
+Several options were considered alongside the multiplexing option. One 
+alternative workaround discussed was to use a separate AVR as an interface
+to the autopilot and connect it to the Arduino using bit-banged SPI or the
+inbuilt two-wire interface (TWI, sometimes known as I2C). This approach was 
+attractive as it meant we could use the existing Arduino code for the camera 
+and SD card and use the existing ATMega168 code for the autopilot communication.
+However, this solution would add another complex component to the system along
+with another communications link, increasing complexity significantly.
+
+Another option considered was using an AVR device with multiple UARTs so one 
+could be used for the camera and another for the autopilot link. However, 
+the code we had written for interacting with the SD card buffer relied upon 
+some Arduino specific libraries. Finding new libraries and rewriting this code 
+would be time consuming and inefficient, especially since we had already 
+invested time in creating a working SD card solution.
+
+Further investigation into the Arduino SD card library code (for more info
+regarding the library see reference \cite{arduino_sd_library}) suggested that
+it was coded to work with the ATMega644P chip as well as the ATMega168 and
+ATMega328P. Both the ATMega168 and ATMega328P feature only one UART, but the 
+ATMega644P features two, making it attractive for use in this project (see
+\cite{atmega644p} for more info about the ATMega644P).
+
+Since the ATMega644P provides two UARTs and the SD card library we were using
+supported this chip it was decided that using the 644P would be a sensible 
+way forward. 
+
+It is important to note that frequent progress reviews meant that this problem
+was caught early before it could become more damaging.
 
 As mentioned above in section \ref{sec:payload_existing_code} the code provided
 to us for communication with the autopilot was written for an ATMega168 chip. 
-
-
+Porting this code and the existing Arduino camera code to the 644P was not a 
+trivial task, although it was simplified by the use of the Sanguino library -
+a port of the Arduino core libraries to the 644P (see \cite{sanguino}).
 
 \section{REMINDER: PROBLEMS CHALLENGES}
 \section{REMINDER: HOW DID WE SOLVE PROBLEMS, DEBUGGING, TESTING, ETC}
