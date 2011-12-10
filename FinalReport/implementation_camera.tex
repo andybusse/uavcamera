@@ -54,3 +54,19 @@ With the camera successfully synchronised the controller needs to be able to tri
 \end{figure}
 
 It should be noted in \ref{fig:snapProto} that the values in the commands are for the example and are not necessarily the values used in the code.
+
+The "INITIAL" command has parameters that allow the image type and resolution to be set, in \ref{fig:snapProto} the image type is set to jpeg and the resolution is set to 640x480, these values are kept as the standard in the code.
+
+The "SET PACKAGE SIZE" command is only relevant for jpeg images and set the size of the data packages that are sent when one requests an image. In \ref{fig:snapProto} this value is set to 512 bytes however in the code this is set to 64 bytes as it was originally thought that the system might have to transmit these packages as soon as receiving them so they needed to be a reasonable size to fit in with the timing between transmit packets sent by the autopilot.
+
+The "SNAPSHOT" command tells the camera to take a single picture, its parameter sets whether the image is jpeg compressed or raw, in \ref{fig:snapProto} this is set to be a jpeg image and this is left as the default in the code.
+
+The last command sent by the controller is the "GET PICTURE" command which tells the camera to send image data, it has one parameter which sets which image is sent. In \ref{fig:snapProto} this is set to send the snapshot image and this is also how it is set in the code. As well as sending back an ACK this function will also send back a "DATA" message which tells the controller what type of image is being returned and how large it is.
+
+Once the controller has acknowledged the "DATA" message the camera starts to send data packages, each of which needs to be acknowledged, until the entire image is transferred. Whilst this process is going on the data packages are saved to an SD-card as described in [] ref to andy's section [].
+
+The use of the debug communication channel again allowed for detailed analysis of this process with the maximum amount of debug messages being one before each command is sent saying what that command is and another message once and ACK is received, there is also then a message with the size of the data in and then messages with the package number and the byte number within that package, the data can also be output to the debug channel.
+
+\subsubsection{Miscellaneous Problems}
+
+Before the SD-card was implemented the sending of the data directly via the debug channel was attempted and so was its reconstruction into a jpeg image on the computer, this could not be made to work however.
