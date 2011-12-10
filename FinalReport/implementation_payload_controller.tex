@@ -1,0 +1,324 @@
+\section{Payload Controller}
+\subsection{General Payload Controller Implementation OR MAYBE Overview}
+||||||| Might not want this in its own section ||||||||
+
+The payload controller module is an important part of the system, responsible
+for interfacing with the camera module and communicating with the ground 
+station image viewer software via the autopilot. Since this single module 
+encapsulates a significant amount of the complexity of the project it was 
+deemed sensible to split it up into sub-modules, which could be worked on in
+parallel by different members of the team. 
+
+With this in mind the payload controller module was split into four main 
+submodules:
+
+\begin{itemize}
+	\item Camera Module Communication
+	\item Communication with Ground Station via Autopilot
+	\item SD Card Image Buffering
+	\item Progressive JPEG Manipulation
+\end{itemize}
+
+||||||| INCLUDE REFERENCES TO EACH ||||||||||
+
+||||||| INCLUDE SUBMODULE DIAGRAM OF THE PAYLOAD MODULE |||||||
+
+
+\subsection{Communication with Ground Station via Autopilot}
+Considering the overall aim of this project: to produce a system by which 
+images can be downloaded over-the-air from a payload module to a ground 
+station, it is fair to say that some method of communicating between the
+payload module and ground station are an essential component in the system.
+
+The specification - see chapter \ref{chap:specification} - requires the payload
+module to communicate with the ground station using the autopilots payload
+module interface (discussed in section \ref{sec:autopilot_payload_interface}
+below).
+
+%To better explain the protocol used we will split the explanation into two 
+%sections: a \emph{Autopilot Payload Interface} section describing the
+%pre-existing autopilot payload interface on which we are building the 
+%protocol and a \emph{UAV Camera Communication Protocol} section describing the 
+%protocol we have implemented as a part of this project.
+
+\subsubsection{Autopilot Payload Module Interface}
+\label{sec:autopilot_payload_interface}
+|||||| Maybe have this in background research ||||||
+
+The SkyCircuits autopilot module allows extension modules named `payload 
+modules' to be connected to the autopilot. These payload modules are connected 
+via a RS485 serial connection at 38.4 kBaud, allowing several payload modules
+to be connected at once in a daisy-chain configuration. All payload modules are 
+connected to common TX and RX lines, where the RX line is used by the
+autopilot to send commands and data to the payload modules, and the TX
+line is used by all daisy-chained modules to communicate with the autopilot.
+
+||||||| Include diagram of daisy chain configuration ||||||||||
+
+Since the TX line is shared between all modules only one payload module can be 
+transmitting at once over the link, with all other payload modules required to
+leave the line tristated. This means that each payload module must know when it is
+allowed to use the transmit line so as not to clobber any other payload module.
+In this system this is achieved by the use of `transmit tokens' handed out 
+by the autopilot over the RX line. A `transmit token' is sent to each payload 
+module in turn, informing the module that it is clear to transmit data. With 
+only one payload module connected to the autopilot, these tokens are sent out 
+every 20 ms. |||||| CHECK THIS ||||||||
+
+This two way communication link is used to implement a command interface to 
+the autopilot. A payload module can execute commands on the autopilot, 
+allowing a variety of useful and interesting possibilities for payload
+module design. Of interest to us however, is the ability of the payload
+module to set shared memory. Since this shared memory can be accessed 
+through the ground station software this allows us to send data through the
+autopilot link to the ground station. Shared memory is allocated to 
+each payload module, accessible on the ground station using the command:
+~\\
+\begin{lstlisting}[caption={Accessing shared memory from ground station}, label=lst:gs_shared_mem_set]
+payload[payload_num].mem_bytes[mem_bytes_num]
+\end{lstlisting}
+
+Where \emph{payload\_num} is the ID number identifying the payload and 
+\emph{mem\_bytes\_num} is the index of the set of shared memory to be accessed.
+
+Each shared memory set is of variable length and can be set from the payload 
+module using the following function (code provided by customer):
+~\\
+\begin{lstlisting}[language=C, caption={Setting shared memory from payload module}, label=lst:payload_shared_mem_set]
+send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, 
+CLASS_PAYLOAD_MEM_BYTES, mem_bytes_num, message_to_send,
+message_to_send_length)
+\end{lstlisting}
+
+Where \emph{CLASS\_PAYLOAD} and \emph{CLASS\_PAYLOAD\_MEM\_BYTES} are constants 
+informing the autopilot that the \emph{mem\_bytes} item of the \emph{payload} 
+object should be set, \emph{module\_id} is the ID of the payload module,
+\emph{mem\_bytes\_num} is the same as used in listing
+\ref{lst:gs_shared_mem_set} and \emph{message\_to\_send} is the message to be 
+sent (consisting of an array of length \emph{message\_to\_send\_length}, the 
+first element of which should be the number of bytes to set in the shared 
+memory).
+
+The method through which this shared memory is accessed via the ground station
+image viewer is discussed in section ||||||||| GS IMAGE VIEWER |||||||||.
+
+The ground station software can also send data directly to a payload module 
+through the autopilot, where it will be sent on to the RX line of the RS485
+bus. The \emph{send\_bytes} command is used to do this, as can be seen in 
+listing \ref{lst:ground_station_send_bytes}. 
+
+As discussed in section |||||||| REF |||||||| it was decided that 
+our communications protocol would use shared memory and \emph{send\_bytes} 
+commands, allowing two way communications between the payload controller and 
+ground station software to be established.
+
+\subsubsection{UAV Camera Communication Protocol}
+The Payload Module Interface discussed above (section \ref{sec:autopilot_payload_interface})
+allows us to send strings of bytes in both directions. However, in order to 
+communicate with the ground station image viewing software some form of 
+additional communications protocol is required so that both ends of the link 
+are communicating in a mutually understandable manner.
+
+This two way communications is the interface between the payload and the 
+ground station software, so some standard protocol was required. It was decided
+that a message based system would be used, with the messages from the ground
+station to the payload module being sent using \emph{send\_bytes} and the 
+messages sent from the payload to the ground station being put into shared
+memory. Each message is composed of two elements, one byte for the message ID 
+- unique to each type of message - and a variable number of data bytes 
+(depending on the message type.) The different message types are detailed 
+below:
+
+\paragraph{Messages sent from Ground Station To Payload}
+
+\begin{itemize}
+\item \textbf{Take Picture}
+\begin{itemize}
+\item \emph{Data:} None
+\item Prompts payload module to capture an image and save it to the SD card.
+\end{itemize}
+
+\item \textbf{Image Download Request} 
+\begin{itemize}
+
+\item \emph{Data:} Image ID
+\item Requests the payload send the image with ID \emph{Image ID} to the 
+ground station. This message allows any image stored by the payload module 
+to be downloaded over the connection, increasing flexibility. 
+\end{itemize}
+
+\item \textbf{Configure Camera}
+\begin{itemize}
+\item \emph{Data:} Colour Type, Raw Image Resolution, JPEG Image
+Resolution
+\item Sets the image resolution and colour mode of the camera. Only the 
+JPEG mode has been tested so far.
+\end{itemize}
+
+\end{itemize}
+
+\paragraph{Messages Sent from Payload to Ground Station}
+
+\begin{itemize}
+
+\item \textbf{Picture Taken}
+
+\begin{itemize}
+\item \emph{Data:} Image ID
+
+\item Informs the ground station software that an image has been taken and 
+saved to the SD card. \emph{Image ID} is the ID of the image that has been 
+saved to the SD card.
+\end{itemize} 
+
+\item \textbf{Image Download Info}
+
+\begin{itemize}
+
+\item \emph{Data:} Number of Image Packets
+
+\item Sent by the payload after a successful \emph{Image Download Request}
+message from the ground station. Informs the ground station how many 
+\emph{Image Data} packets to expect.
+\end{itemize}
+
+\item \textbf{Image Data} 
+\begin{itemize}
+\item \emph{Data:} Packet Number, Image Data
+\item This message contains an amount of actual image data. Sent after a
+\emph{Image Download Info} message which is in turn in response to an 
+\emph{Image Download Request} message. The whole image is sent over
+\emph{Number of Image Packets} packets (as defined by the \emph{Image Download
+Info} message.) \emph{Packet Number} informs the ground station which of these
+packets the message is carrying. \emph{Image Data} contains the actual image 
+data for this packet and is variable size, with a maximum size of 50 bytes. 
+\end{itemize}
+
+\end{itemize}
+
+
+\subsubsection{Existing Code}
+\label{sec:payload_existing_code}
+Our customer had provided us with some payload module communication AVR code
+- written for a ATMega168 - for communicating with the autopilot. This code
+was the basis on which the payload controllers communication link was built.
+
+The code provided a number of useful utilities:
+\begin{itemize}
+\item Ability to set shared memory on the autopilot.
+
+\item Ability to receive messages sent from the Ground Station to the 
+autopilot.
+
+\item Example code for setting shared memory on the autopilot.
+\end{itemize}
+
+This base code was modified slightly after a bug was found in its handling of 
+the transmit enable signal. The RS485 communication protocol used for the 
+autopilot-payload link (as described in section |||||||| SEC ||||||||) 
+requires a `transmit enable' signal to be asserted when the payload is 
+transmitting. This signal should be asserted just before data is to be sent 
+and cleared just after. However, the original payload base code cleared this 
+signal in an interrupt service routine (ISR) which fired after the transmit 
+buffer of the UART was ready to accept new data. Since this transmit buffer 
+would be ready to accept new data before the data was actually sent over the
+physical connection this lead to the transmit enable signal being cleared
+before all data had been sent, causing strange behaviour on the RS485 link.
+This bug did not seem to cause any problems, and the odd behaviour was only
+noticed when testing the system with an oscilloscope. ||||| INC TRACES ||||||
+It was considered sensible to fix the bug in case it did cause problems later.
+
+The fix for this problem was reasonably simple: a new ISR was set up which 
+fired only when the current transmission had actually completed, and the 
+command to clear the transmit enable signal was moved into this ISR.
+||||| INC AFTER TRACE ||||||
+
+
+||||||||| FLOWCHART OF INTERACTIONS |||||||
+
+\subsection{Payload Debug Interface}
+\label{sec:payload_debug_interface}
+While the payload module was being developed debugging was a major concern. 
+Having access to an oscilloscope very useful when debugging some particularly 
+difficult problems, as described elsewhere in this report ||||||| WHERE |||||.
+However, while building the payload module it was clear more complex details 
+about the internal state of the program as it was running would be useful.
+
+While prototyping the camera module on the Arduino platform this problem was 
+solved by using the \emph{SoftwareSerial} library (for information regarding 
+the library see \cite{software_serial}) to send textual debug information via
+a serial to USB cable to PC. This proved very useful when prototyping camera
+communications.
+
+A slightly different approach was taken when using the ATMega644P. Initial 
+testing of the software serial library on this platform suggested that it 
+would not work without a significant investment in time fixing it. It was
+therefore decided that it would be faster to send debug messages over 
+`bit-banged' SPI to a spare Arduino board which then forwarded this data to 
+the connected PC over serial. Again, having the use of this debug interface 
+proved very useful while implementing the system, and was well worth the 
+small amount of extra time taken to develop it.
+
+||||| INC EXAMPLE OF DEBUG TEXT (MAYBE SCREENSHOT) ||||||
+
+\subsection{Integration of Payload Sub-Modules}
+
+\subsubsection{REMINDER: DISCUSSION OF ARDUINO MULTIPLEXED SERIAL}
+
+\subsubsection{Implementation on ATMega644P}
+Initially we planned to implement the system on the Arduino prototyping 
+platform with an expansion `shiled' board providing any extra hardware needed -
+The reasons for this are discussed in section |||||| REF |||||||. 
+This plan relied on the implementation of the multiplexed serial solution 
+discussed above in section |||||||| REF ||||||||. 
+
+Unfortunately, due to time constraints alongside setbacks such as those
+discussed in sections ||||||| REF AUTOPILOT BUG |||||||| and |||||||| REF 
+CAMERA FAILURE |||||||| it was decided that implementing the system on the 
+Arduino platform may not the best way to proceed, since it would almost 
+certainly be non-trivial to implement and debug.
+
+Several options were considered alongside the multiplexing option. One 
+alternative workaround discussed was to use a separate AVR as an interface
+to the autopilot and connect it to the Arduino using bit-banged SPI or the
+inbuilt two-wire interface (TWI, sometimes known as I2C). This approach was 
+attractive as it meant we could use the existing Arduino code for the camera 
+and SD card and use the existing ATMega168 code for the autopilot communication.
+However, this solution would add another complex component to the system along
+with another communications link, increasing complexity significantly.
+
+Another option considered was using an AVR device with multiple UARTs so one 
+could be used for the camera and another for the autopilot link. However, 
+the code we had written for interacting with the SD card buffer relied upon 
+some Arduino specific libraries. Finding new libraries and rewriting this code 
+would be time consuming and inefficient, especially since we had already 
+invested time in creating a working SD card solution.
+
+Further investigation into the Arduino SD card library code (for more info
+regarding the library see reference \cite{arduino_sd_library}) suggested that
+it was coded to work with the ATMega644P chip as well as the ATMega168 and
+ATMega328P. Both the ATMega168 and ATMega328P feature only one UART, but the 
+ATMega644P features two, making it attractive for use in this project (see
+\cite{atmega644p} for more info about the ATMega644P).
+
+Since the ATMega644P provides two UARTs and the SD card library we were using
+supported this chip it was decided that using the 644P would be a sensible 
+way forward. 
+
+It is important to note that frequent progress reviews meant that this problem
+was caught early before it could become more damaging.
+
+As mentioned above in section \ref{sec:payload_existing_code} the code provided
+to us for communication with the autopilot was written for an ATMega168 chip. 
+Porting this code and the existing Arduino camera code to the 644P was not a 
+trivial task, although it was simplified by the use of the Sanguino library -
+a port of the Arduino core libraries to the 644P (see \cite{sanguino}). Some 
+changes were made the the Sanguino libraries for use in our project, for 
+example the Sanguino handling code for one of the UARTs was disabled to allow
+it to be configured manually for autopilot communications. Some small pieces
+of code that were causing compilation issues were also modified.
+
+\section{REMINDER: PROBLEMS CHALLENGES}
+\section{REMINDER: HOW DID WE SOLVE PROBLEMS, DEBUGGING, TESTING, ETC}
+\section{REMINDER: JOHN COULD TALK ABOUT HOW BROKEN CAMERAS SLOWED DOWN DEVELOPMENT BUT GOOD PLANNING AND CONTINGENCY MINIMISED RISK OR IN MANAGEMENT SECTION}
+\section{REMINDER: FUTURE WORK}
