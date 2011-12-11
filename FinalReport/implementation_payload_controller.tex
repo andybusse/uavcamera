@@ -129,7 +129,7 @@ memory. Each message is composed of two elements, one byte for the message ID
 (depending on the message type.) The different message types are detailed 
 below:
 
-\paragraph{Messages sent from Ground Station To Payload}
+\paragraph*{Messages sent from Ground Station To Payload}
 
 \begin{itemize}
 \item \textbf{Take Picture}
@@ -157,7 +157,7 @@ JPEG mode has been tested so far.
 
 \end{itemize}
 
-\paragraph{Messages Sent from Payload to Ground Station}
+\paragraph*{Messages Sent from Payload to Ground Station}
 
 \begin{itemize}
 
@@ -236,30 +236,9 @@ command to clear the transmit enable signal was moved into this ISR.
 
 ||||||||| FLOWCHART OF INTERACTIONS |||||||
 
-\subsection{Payload Debug Interface}
-\label{sec:payload_debug_interface}
-While the payload module was being developed debugging was a major concern. 
-Having access to an oscilloscope very useful when debugging some particularly 
-difficult problems, as described elsewhere in this report ||||||| WHERE |||||.
-However, while building the payload module it was clear more complex details 
-about the internal state of the program as it was running would be useful.
 
-While prototyping the camera module on the Arduino platform this problem was 
-solved by using the \emph{SoftwareSerial} library (for information regarding 
-the library see \cite{software_serial}) to send textual debug information via
-a serial to USB cable to PC. This proved very useful when prototyping camera
-communications.
 
-A slightly different approach was taken when using the ATMega644P. Initial 
-testing of the software serial library on this platform suggested that it 
-would not work without a significant investment in time fixing it. It was
-therefore decided that it would be faster to send debug messages over 
-`bit-banged' SPI to a spare Arduino board which then forwarded this data to 
-the connected PC over serial. Again, having the use of this debug interface 
-proved very useful while implementing the system, and was well worth the 
-small amount of extra time taken to develop it.
 
-||||| INC EXAMPLE OF DEBUG TEXT (MAYBE SCREENSHOT) ||||||
 
 \subsection{Integration of Payload Sub-Modules}
 
@@ -344,9 +323,44 @@ example the Sanguino handling code for one of the UARTs was disabled to allow
 it to be configured manually for autopilot communications. Some small pieces
 of code that were causing compilation issues were also modified.
 
+\subsection{Debug Interface}
+\label{sec:payload_debug_interface}
+While the payload module was being developed debugging was a major concern. 
+Having access to an oscilloscope very useful when debugging some particularly 
+difficult problems, as described elsewhere in this report ||||||| WHERE |||||.
+However, while building the payload module it was clear more complex details 
+about the internal state of the program as it was running would be useful.
+
+While prototyping the camera module on the Arduino platform this problem was 
+solved by using the \emph{SoftwareSerial} library (for information regarding 
+the library see \cite{software_serial}) to send textual debug information via
+a serial to USB cable to PC. This proved very useful when prototyping camera
+communications.
+
+A slightly different approach was taken when using the ATMega644P. Initial 
+testing of the software serial library on this platform suggested that it 
+would not work without a significant investment in time fixing it. It was
+therefore decided that it would be faster to send debug messages over 
+`bit-banged' SPI to a spare Arduino board which then forwarded this data to 
+the connected PC over serial. Again, having the use of this debug interface 
+proved very useful while implementing the system, and was well worth the 
+small amount of extra time taken to develop it.
+
+||||| INC EXAMPLE OF DEBUG TEXT (MAYBE SCREENSHOT) ||||||
+
+\subsection{Development Testing and Debugging}
+The payload module and submodules were tested throughout development in order 
+to ensure the latest changes and features added were working as expected. 
+This allowed bugs to be caught and fixed as quickly as possible, as well as
+increasing our knowledge of the current state and progress of the system and
+project as a whole.
+
+\section{REMINDER: TALK ABOUT VOLATILE VARIABLE PROBLEM}
+
 \section{REMINDER: AUTOPILOT PROBLEMS}
 
 \section{REMINDER: PROBLEMS CHALLENGES}
 \section{REMINDER: HOW DID WE SOLVE PROBLEMS, DEBUGGING, TESTING, ETC}
 \section{REMINDER: JOHN COULD TALK ABOUT HOW BROKEN CAMERAS SLOWED DOWN DEVELOPMENT BUT GOOD PLANNING AND CONTINGENCY MINIMISED RISK OR IN MANAGEMENT SECTION}
 \section{REMINDER: FUTURE WORK}
+\section{REMINDER: ADD NEWPAGES BETWEEN SECTIONS}
