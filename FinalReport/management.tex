@@ -7,9 +7,7 @@ Project management goes here...
 Michael
 Place Gantt charts here.
 
-\section{Risk Management}
-Mitch
-Place risk management considerations and compare with risks encountered.
+\input{management_risk}
 
 \section{Work Allocation}
 
@@ -118,7 +116,7 @@ being a very useful tool to facilitate group work, it also helps us to meet
 our customer's request to deliver this as an open source project - at the end 
 of the project, a repository could easily be gardened and presented, with the 
 addition of appropriate open-source licenses at the end of the project.
-\\
+
 Initially, we used a central Subversion (SVN) repository hosted on ECS' 
 UGForge service. It was decided to use this as most of the group had 
 experience using SVN. This worked well for most of the project, but 
@@ -127,7 +125,7 @@ open sourced (the customer's Ground Control Station software). This presented
 us with a problem, as although it would be trivial to revert this commit with 
 the "\$ svn merge" command, this creates a new commit, and the file in 
 question would remain in the repository's history and could still be accessed.
-\\
+
 In theory, it would be possible to remove this commit from SVN history by 
 using the "\$ svnadmin dump" command, filtering the offending commit out of 
 the dumpfile, and regenerate the repository with the "\$ svnadmin load" 
@@ -135,7 +133,7 @@ command. However, in practice, this was not possible as our repository
 contains binary information above 64kB, therefore the ASCII editor used to 
 modify the dumpfile would cut off data in the binary file after the 64kB 
 limit, rendering any following data useless.
-\\
+
 It would be possible to start a new SVN repository and check in our 
 repository up to but not including the offending commit, but we would lose 
 all metadata (i.e. committer, commit time, etc.). Therefore, it was decided to 

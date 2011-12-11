@@ -1,0 +1,98 @@
+\subsection{JPEG Information Extractor}
+
+\subsubsection{Progressive Scan of JPEG (commandCheck)}
+
+After receiving the size of the JPEG file (in bytes), 
+the JPEG Information Extractor starts reading the bytes of the JPEG stored in the SD card. 
+Because the information will not all be available instantly, 
+the extractor uses a class to read the next byte in the input stream, one at a time. This class \textbf{read\_byte()} is 
+how the JPEG extractor gains access to the JPEG input stream. 
+
+As the extractor reads in the bytes from the input stream, it checks to see if the byte indicates the start of a header (0xff). 
+If this is the case, the next byte identifying the header is read and the \textbf{JPEGMethod} class is 
+called which uses a switch command to determine the actions to take. 
+If not, the data is discarded and the extractor continues to read the next byte is read from the input stream. 
+
+\subsubsection{Image Data Extraction (JPEGMethod)}
+
+The JPEG Information Extraction class does not need all the possible information that can be extracted from a JPEG image. 
+The few image headers containing important information store the important information from the input stream into 
+variables which will be sent to the custom encoding algorithm. 
+
+If the header is not recognized by this class, 
+it is assumed to not have any important information and is ignored; 
+the code continues to scan through the input stream for the next header byte. 
+The following headers have  information to be stored (all information is considered to be stored in one byte unless stated otherwise):
+
+\paragraph*{SOF0: Start Of Frame (0xc0)}
+\begin{description}
+	\item[Data precision] indicates how many bits compose one sample (generally 8 to indicate a byte).
+	\item[Image height] indicates the height of the image in pixels (2 bytes long).
+	\item[Image width] indicates the width of the image in pixels (2 bytes long).
+	\item[Number of components] indicates how many components define one pixel. 
+		This will always be three for our cases to indicate the use of the YCbCr colour model. 
+		The component information is read in in the order Y, Cb, Cr.
+	\item[Component ID] indicates the ID number used by the JPEG file for this component.\footnote{One for each component}
+	\item[Sampling factor] both horizontal and vertical are stored within a single byte. 
+		The least significant 4 bits indicate teh vertical sampling factor, 
+		while the most significant 4 bits indicate the horizontal sampling factor.\footnotemark[1] 
+	\item[Quantization Table Number] associates the component to a quantization table.\footnotemark[1] 
+\end{description}
+
+\paragraph*{APP0: JFIF application segment (0xe0)}
+\begin{description}
+	\item[File Identifier Mark] indicates that this is a JFIF standard image.
+	\item[Major Revision Number] must be checked to be 1.
+	\item[Minor Revision Number] 
+	\item[Units for x/y Density] 
+	\item[X Density]2 bytes
+	\item[Y Density]2 bytes
+	\item[Thumbnail Width] Not used.
+	\item[Thumbnail Height] Not used.
+	\item[Remaining bytes] contains information regarding the image's thumbnail. This is not used in our extractor.
+\end{description}
+
+\paragraph*{DHT: Define Huffman Table(s) (0xc4)}
+\begin{description}
+	\item[HT Information] contains the following information concerning the indicated Huffman Table in one byte:
+		\begin{description}
+			\item[Bits 0\ldots3] ID number of the HT (cannot exceed 3)
+			\item[Bit 4] Indicates whether the HT is DC (0) or AC (1)
+			\item[Bits 5\ldots7] Unused.
+		\end{description}
+	\item[Number of Symbols] is a string of 16 bytes, each byte containing the number of symbols with 
+		codes of length 1\ldots16. For example, if the third byte of the string is 7, 
+		there are 7 signals of code length 3 in this Huffman Table.
+	\item[Symbols] is a string of \emph{n} bytes, where \emph{n} is 
+		the sum of all the values in the previous 16-byte string. 
+		The extractor stores the Huffman tables in a linked list of struct objects representing the Huffman Tables.
+\end{description}
+
+\paragraph*{DQT: Define Quantization Table(s) (0xdb)}
+\begin{description}
+	\item[QT Information] contains the following information concerning the indicated Quantization Table in one byte:
+		\begin{itemize}
+			\item[Bits 0\ldots3] ID number of the QT (cannot exceed 3).
+			\item[Bits 4\ldots7] Precision of the QT. Either 8-bit (0) or 16-bit (all other values).
+		\end{itemize}
+	\item[QT values] is a string of \emph{n} bytes, where \emph{n} is $64*$precision$+1$.
+\end{description}
+
+\paragraph*{SOS: Start Of Scan (0xda)}
+\begin{description}
+	\item[Number of components in scan] indicates how many components define one pixel in the scan. 
+		This is usually identical to  the number of components obtained from the SOF segment.
+	\item[Component ID] indicates the ID number used by the JPEG file for this component.\footnotemark[1] 
+	\item[Huffman Table Indicator] stores the AC and DC Huffman Table ID number associated with this component in one byte. 
+		The AC Table number is stored in bits 0\ldots3. The DC Table number is stored in bits 4\ldots7.\footnotemark[1]
+\end{description}
+
+\subsubsection{Image Data Treatment}
+
+The SOS Header information extraction segment is followed by 
+an algorithm which sorts the image data into chrominance pixels before 
+sending the chrominance pixel to the custom JPEG encoding class. 
+If we consider \emph{n} to be the number of image pixels in a chrominance pixel, then 
+we associate the first $n - 2$ bytes with the Y (luma) Huffman tables, the $n - 1$ byte with the Cb Huffman tables, and 
+the $n^{th}$ byte with the Cr Huffman Table. 
+This continues until the EOI header is found, or until there is no more bytes coming in from the input stream.

@@ -42,43 +42,9 @@ Figure\ref{GUI_finalUseCase} shows an agreed use case diagram. It has changed sl
 \subsection{.NET C\# class: Socket for the UAV Port Connector}
 The socket class was the class chosen for the UAV port connector. It support TCP connection between the client and the server to do low level communication work\cite{xiaX}. The System.IO.Ports namespace has a SerialPort class that can control settings of the port such as baud rate, stop bit, parity bit, and data length. However, this become a disadvantage because the baud rate of the UAV has to be fixed according to the specification. Although it is good to set up a port, but for the software that uses an existing port, the Socket class is more useful and easier to implement by the programmer. The changes of class improve efficiency of connection between port and the program. The baud rate and extra bits are automatically adjusted to be the same as the port, so the setting is identical between the input and output. 
 
-\section{Progressive JPEG Manipulation}
+\input{approaches_chosen_jpeg_manipulation}
 
-\section{Physical Implementation}
-
-The physical implementation of the payload has taken many forms, reflecting 
-the each of the design-prototype-test cycles that our group experienced.
-
-\begin{itemize}
-\item Initially, the system was built in two separate parts: The first was 
-the modified version of the ATmega168P-based sample schematic provided by 
-our customer, which handled communication to the payload port of the 
-autopilot. The second was an Arduino Uno R2 with its Serial (UART) line 
-connected to the camera and an SPI connection to an SD card. This system 
-simply took an image from the camera and wrote it to the SD card. The SD card 
-to Arduino connection was via some protoboard and an SD card reader breakout 
-board on loan from Zepler Stores.
-\item The next design iteration used an "Il Matto" board and daughter board, 
-designed for 2011's D4 lab (a two-week Design and Build exercise for second 
-year Electronic Engineers). The board itself is rather simple - an ATmega644P 
-with all of its ports connected to expansion headers, an SPI line connection 
-to an SD card reader, and power taken from a mini-USB connection, stepped 
-down to 3V3 by a linear regulator. A daughter board (which slots into the 
-expansion headers) has the transceiver to communicate with the autopilot
-
-This implementation of the payload contains all the elements of the final 
-schematic, so technically could be test-flown.
-\item Whereas the above approach would technically fulfil the specification, 
-implementing it would be expensive: the Il Matto boards were one-off boards 
-designed specifically for a lab, so a customer would certainly need to 
-manufacture and build their own, including the daughter board. Having this as 
-a single PCB solution would be a lot neater, smaller, lighter and cheaper.
-
-Therefore, a final PCB was designed (this is elaborated upon in 
-\ref{sec:PCB-implementation}), specific to our application, with all the 
-features we need. Only through-hole components are used where possible, 
-making the task of soldering components to the PCB as easy as possible.
-\end{itemize}
+\input{approaches_chosen_physical_implementation}
 
 \section{System Design Overview}
 
