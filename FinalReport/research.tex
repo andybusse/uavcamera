@@ -2,6 +2,8 @@
 \chapter{Background Research}
 %% ----------------------------------------------------------------
 
+\input{research_custom_compression}
+
 \section{JPEG Image Compression}
 The images obtained from the camera will be in the JPEG image format. If the image data is sent to the ground station progressively, it must be necessary to understand how a JPEG image is structured to reconstruct the encoded image. Unlike raw image data, which can easily be read continuously, JPEG files have already been compressed and contain information which must first be read to properly decompress the image.
 
@@ -43,8 +45,6 @@ This header identifies the end of the image. ''It is possible that the end of th
 
 \section{Existing Hardware and Software}
 Research concerning the payload and the associated software goes here...
-
-\section{Cameras Available}
 
 \section{SkyCircuits Autopilot}
 
