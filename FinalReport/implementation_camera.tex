@@ -34,7 +34,7 @@ The first task in communicating with the camera is to synchronise the serial cha
 \begin{figure}[H]
         \centering
         \includegraphics[width=1.00\textwidth]{figures/SyncProtocal.png}
-        \captionof{figure}{Command protocol for synchronisation, sourced from \ref{ucam_datasheet} }
+        \captionof{figure}{Command protocol for synchronisation, sourced from \cite{ucam_datasheet} }
         \label{fig:syncProto}
 \end{figure}
 
@@ -49,7 +49,7 @@ With the camera successfully synchronised the controller needs to be able to tri
 \begin{figure}[H]
         \centering
         \includegraphics[width=1.00\textwidth]{figures/SnapshotProtocal.png}
-        \captionof{figure}{Command protocol for taking and retrieving a jpeg snapshot at 640x480 resolution, sourced from \ref{ucam_datasheet} }
+        \captionof{figure}{Command protocol for taking and retrieving a jpeg snapshot at 640x480 resolution, sourced from \cite{ucam_datasheet} }
         \label{fig:snapProto}
 \end{figure}
 
@@ -66,6 +66,8 @@ The last command sent by the controller is the "GET PICTURE" command which tells
 Once the controller has acknowledged the "DATA" message the camera starts to send data packages, each of which needs to be acknowledged, until the entire image is transferred. Whilst this process is going on the data packages are saved to an SD-card as described in [] ref to andy's section [].
 
 The use of the debug communication channel again allowed for detailed analysis of this process with the maximum amount of debug messages being one before each command is sent saying what that command is and another message once and ACK is received, there is also then a message with the size of the data in and then messages with the package number and the byte number within that package, the data can also be output to the debug channel.
+
+[] screenshots of debug channel, with camera disconnected and with it connected []
 
 \subsection{Miscellaneous Problems}
 
