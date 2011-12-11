@@ -6,113 +6,12 @@
 
 \input{approaches_considered_camera}
 
-
-\subsection{Local Image Storage}
-
-With a maximum image size of $640\times480$ pixels, an uncompressed JPEG 
-image's file size would be approximately 900kB.
-This is greater than the internal memory on the ATmega168, ATmega328 and 
-ATmega644 (1KiB, 2KiB, and 4KiB respectively) microprocessors that were used 
-during development of this project, therefore it cannot be guaranteed that a 
-complete single image can be stored locally, without adding some extra memory.
-\\
-The advantages of being able to store a full image locally are:
-\begin{itemize}
-\item Would allow all original images taken during flight to be viewed once 
-the UAV has been landed.
-\item Would make the implementation of automatic repeat requests (resending of 
-any corrupted payload -$>$ ground station packets) much easier.
-\item Customer mentioned that currently, customers take images with their 
-retrofitted cameras, but store the images locally instead of wirelessly 
-transmitting them. Keeping the functionality to store all images taken 
-on-board and then plug something into the ground station to view these once 
-the UAV has been landed would be desirable, but not essential (hence why this 
-is not mentioned in the specification).
-\end{itemize}
-
-The disadvantages:
-\begin{itemize}
-\item The material cost of the payload (in both component cost and PCB area) 
-would be increased.
-\item Addition of an extra component increases the project's complexity.
-\end{itemize}
-
-\subsubsection{Approach: Flash Chip}
-
-One option considered was the implementation of an external flash memory chip 
-(for evaluation purposes, the 4Mbit AMIC A25L040-F was purchased)
-
-Advantages:
-\begin{itemize}
-\item Non-volatile memory. Allows data to be retained even if power to the payload module is cut off.
-\item Excellent data integrity: ~100000 Write/Erase cycles, and $>$10 years data retention.
-\item Relatively good operating current of ~20mA makes it suitable for battery-powered application.
-\end{itemize}
-
-Disadvantages:
-\begin{itemize}
-\item Chips that contain a significant amount of memory storage (e.g. 1Gbit 
-and above), come in packages that are awkward to prototype (BGA, TSOP)
-\item Interfacing this type of device with a PC would require a similar amount 
-of work to the ground station software.
-\item Non-standard interface. The command set for the 4Mbit device is not the 
-same as for a 1Gbit device.
-\end{itemize}
-
-
-
-\subsubsection{Approach: SD Card}
-
-This is essentially the same as the flash chip above, but with an additional controller chip, and packaged in a standard case.
-
-Advantages:
-\begin{itemize}
-\item Non-volatile memory. Allows data to be retained even if power to the payload module is cut off.
-\item Same data integrity as for the above item.
-\item Getting image data from the card would be as trivial as removing the 
-card from the payload and inserting it into the ground station laptop. SD card 
-readers are cheap, and ubiquitous.
-\item Good value for money, when compared to price-per-Mbit of the other two 
-options under consideration. (For example, a 2GB microSD card (including 
-microSD -$>$ SD adapter) from Amazon costs ~£4.
-\end{itemize}
-
-Disadvantages:
-\begin{itemize}
-\item Open source libraries can only make use of an SD card's SPI Bus
-interface, not the quicker (but patent-covered) four-bit SD bus.
-\item Only standard SD cards may be used, not the more recent SDHC or SDXC 
-cards, which are increasingly popular.
-\end{itemize}
-
-\subsubsection{Approach: SRAM}
-
-SRAM was considered as a possible option as we had all used this before.
-
-Advantages:
-\begin{itemize}
-\item We have previous experience of interfacing these with AVRs from a 
-second-year lab, 
-\item This type of memory performs read/write operations much quicker than 
-the other two options.
-\item Very low operating current of ~10mA makes it suitable for this battery-powered application.
-\end{itemize}
-
-Disadvantages:
-\begin{itemize}
-\item Standard SRAM is volatile, so data is prone to being lost if the payload 
-module power is lost, or the payload module is reset. (While non-volatile SRAM 
-does exist, it is much more expensive per Mbit (~£18/Mbit) than the other 
-options under consideration.)
-\item Comparatively expensive
-\item Communication with the device requires connection to all data, address 
-and control pins (or implementation of shift registers with the same desired 
-effect), this would require more board space. (The other two devices can 
-communicate via an SPI bus, a four wire connection)
-\end{itemize}
+\input{approaches_considered_local_storage}
 
 \input{approaches_considered_payload}
 
+
+\input{approaches_considered_jpeg_manipulation}
 
 \section{Ground Station Image Viewer}
 Peak
