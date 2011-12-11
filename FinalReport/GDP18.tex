@@ -24,7 +24,7 @@
 \maketitle
 %% ----------------------------------------------------------------
 \begin{abstract}
-Given an autopilot module for an unmanned aircraft vehicule (UAV), a camera module was designed, built, and tested to be able to capture still images and transmit them to a ground station through the autopilot module's serial link. The systems described include... (42/200 words so far)
+Given an autopilot module for an unmanned aircraft vehicle (UAV), a camera module was designed, built, and tested to be able to capture still images and transmit them to a ground station through the autopilot module's serial link. The systems described include... (42/200 words so far)
 \end{abstract}
 %% ----------------------------------------------------------------
 \tableofcontents
@@ -395,12 +395,12 @@ These file dialogues are not stated in the image viewer specification. But it ha
 
 \subsubsection*{GUI data flow diagram}
 
-\begin{center}
 \begin{figure}[!hbtp]
+\begin{center}
 \includegraphics[scale=0.6]{GCS_Payload_communication.PNG} 
 \caption{The connection of data stream port\label{GCS_Payload_comm}}
-\end{figure}
 \end{center}
+\end{figure}
 
 Table~\ref{command_table} shows how the command receive and send at ground station.SEND\_ZERO\_TOKEN is use for toggle the data stream port in order to make it send data to the image viewer. TAKE\_ PICTURE command sends 0 byte to command port by sending a string command to the UAV as shown in Figure~\ref{GCS_Payload_comm}. The PICTURE\_ TAKEN signal act in a similar way to ACK (acknowledgement) command which send back to the ground with a value of number of packet of the byte data. To ensure that the number of packet is the same in ground station and the UAV, the SEND\_ DOWNLOAD\_ REQUEST command sends back the information of number of packet. The number of packet shows how many cycle does the image view to do to receive all the data.  The payload will then send the DOWNLOAD\_ INFO to the ground station which follows by the IMAGE\_ DATA. The image data consist of 3 information bytes the first byte is always 4, this number tell the image view program that it is an image data. The next 2 bytes is saying which number of packet it is. If there is any packet skipped, the image viewer program will noticed and either send error or ask the UAV for the old set of packet. The image data at each cycle have a variable length. The program is designed to take the variable length of data.
 
@@ -579,8 +579,30 @@ The text ''da 20 payload[0].mem\_ bytes[0]'' will be converted to char array and
 \end{lstlisting}         
 
        At every cycle of the data being received, opFile.Write() method will write the packet data into the file in the directory. After the cycle finished, the file will be saved and the image will be displayed in the picture box. 
-    
-    
+\subsubsection*{Update the Directory}
+The update directory method update itself every time the file directory is changing. This method will update the string of all the possible JPEG file in order to make it display in the picture box correctly. So when the left or right button got clocked, the string of JPEG file name will get plus or minus. This array of string have to update because it changes when the picture got deleted, or the new picture got taken. The array called \texttt{jpegList} is use as a string file storage for all the JPEG possible file
+\begin{lstlisting}[caption=update directory class highlight, label=updateD]
+            bool fileNameIsDirectory = false;
+            if (fileName.Substring(fileName.Length - 4, 4).Contains("."))
+            {
+                fileDirectory = fileName.Substring(0, fileName.LastIndexOf("\\"));
+                fileNameIsDirectory = false;
+
+            }
+            else
+            {
+                fileDirectory = fileName;
+                fileNameIsDirectory = true;
+            }
+            filePathTextBox.Text = fileDirectory;
+            try
+            {
+                jpegList = Directory.GetFiles(fileDirectory, "*.jpg");
+            }
+            catch
+            {
+            }
+\end{lstlisting}
 \subsubsection*{Other functions}
 The user might want to delete some unwanted photo, so the delete button have been implemented. The delete button work like a normal file deleting button. But it has been complicated because the photo to delete must be the photo on the pictureBox. There is an error because the photo is using by the pictureBox. To fix this problem, the picture have to shifted left or right first and then delete the photo. This will solve almost all the problem. But where there is only one picture in the file, the program can not delete because even the pictureBox is set to null, it's last memory is still point at the deleting file. However, the disadvantage of the delete button is that if the wanted photo got deleted accidentally, it might take a long time to launch the UAV again and take the same photo.
 
@@ -641,9 +663,75 @@ The final deliverables of the project are described here...
 \subsection{Payload/Ground Station Interaction}
 
 \subsection{Ground Station Image Viewer}
+The GUI needs a long winded testing. This is because all the button has to be click and test one by one separately. Because of this, some function of the UAV that does not need a button to test will have it own console application to test it in order to save time. The programmer has to detect all the possible bug that might cause during the real operation in user mode. This part is very important because for any program if it caught an error, the program will end unexpectedly.
+\subsubsection*{Connect to UAV,Send and Receive Data}
 
-\subsection{Progressive JPEG Manipulation}
+The UAV connector use .NET class called System.Net.Sockets. The method that will be using from this class is Sockets.Connect(), Sockets.Send(), Sockets.Receive(). To test the function of this class the programmer develop a separate console application in order to debug only the specific part of the program. Sockets.Connect can be tested by using the Console to display the error code of the running application. The problem could be wrong host name and port number. Therefore, the user are not allow to change these values. The other problem found in the program is that the programmer forgot to connect the UAV, tell the GCS to enable the enable the network server, and tell the GCS to stream data. Listing \ref{lst:connectionT} show a Conector class that use for testing the Socket connect, read and write method.
+\begin{lstlisting}[caption=the class that use to test the connection to the UAV,label=lst:connectionT]
+    class Connector
+    {
+        static int requestCounter;
+        static ArrayList hostData = new ArrayList();
+        static StringCollection hostNames = new StringCollection();
+        Socket UAV = new Socket(AddressFamily.InterNetwork,
+         SocketType.Stream, ProtocolType.Tcp);
 
+        public byte[] dataFromUAV()
+        {
+            byte[] uavData = new byte[1];
+            byte[] testMessage = {0}; //send zero token to 
+            start the datastream port to receive something
+            try
+            {
+                int sendByte = UAV.Send(testMessage, testMessage.Length, 
+                SocketFlags.None); //send zero token to the UAV
+                Console.WriteLine("Sent {0} bytes.", sendByte); //print on the console
+                 so we know what we know
+                int size = 8;
+
+                while (true)
+                {
+                    int byteCount = UAV.Receive(uavData, size, SocketFlags.None);
+                     //receive data from the uav of fixed length size
+                    for(int countIn=0; countIn<uavData.Length;countIn++)
+                    Console.WriteLine("{0}", uavData[countIn]); //
+                }
+            }
+            catch(SocketException uavMessage)
+            {
+                Console.WriteLine("{0} Error code:{1}.",
+                 uavMessage.Message, uavMessage.ErrorCode);
+            }
+            return uavData;
+        }
+
+        public void ConnectToPort()
+        {
+            const Int32 portNumber = 8802;
+            const string portName = "localhost";
+            try
+            {
+                UAV.Connect("localhost", portNumber);
+                Console.WriteLine("Connection to Port Name:{0}; Port Number{1} is complete!"
+                ,portName,portNumber);
+            }
+            catch (SocketException uavMessage)
+            {
+                Console.WriteLine("{0} Error code:{1}.", uavMessage.Message
+                , uavMessage.ErrorCode);
+            }
+        }
+    }
+\end{lstlisting}
+\subsubsection*{Save and Open Photo from FileDialog Class}
+In order to test the save and open FileDialog Class, we need a window application to test it. The  Get Picture button and the resolution option is commented out in order to test only the FileDialog. The only proper way to test the FileDialog class is to run the program and see the File directory from the file path TextBox. The problem founded by this long winded testing is that when the other file that is not JPEG file got picked in the user mode, the pictureBox will give an error. This problem can be fixed by not allowing the user to choose a file that is not a JPEG file. The FileDialog need a thread handler because it has to run an extra window application for the user to choose the file. This however can not change by the user. So this problem have already solved.
+\subsubsection*{Image Data}
+The connection between the aircraft and the ground station is using TCP port, it allows the data to send from the aircraft in any form of data. In order to test this relationship, a camera will take a picture that the developer know what the picture look like. If the picture display an image the same as we expected, the image data is correct. 
+\subsubsection*{Send command to console port}
+The ground station program allow the programmer to use the console port to send a string command to it. This string command can be test that it is correct by the ground station program will produce a line with ''@'' sign on the front of the command sent from the outside of the program.
+If the data is correct, the ground station program will detect it and send the data to UAV. So if we receive the correct data from the data stream, then we know that the the string command is correct.
+\subsubsection*{Get Picture Button}
+The get picture button is a combination of many function of the program. When the button got clicked, it must send the correct resolution signal, receive signal from data stream port, save the byte into a file, and display the image. Therefore, this will be the last button that will be tested. However, all the previous testing work properly so the testing of this button is very fast.
 %% ----------------------------------------------------------------
 \chapter{Project Management}
 %% ----------------------------------------------------------------
@@ -658,14 +746,65 @@ Mitch
 Place risk management considerations and compare with risks encountered.
 
 \section{Work Allocation}
-Peak
-Talk about planned work allocation to be compared with actual work allocation. Reflect on efficiency.
+
+Working in a group has its advantages, but it also has drawbacks. The group has more man power and time, but the effectiveness of work allocation and other management skills must be achieved. Therefore, to use all the human resources as competent as possible. Although the developers have known about the specification of the project well, it is not so obvious how to implement the entirely approach to the project that is driven by some device which the members never have seen it before such as camera module, and the UAV. The following factor has been considered thoroughly before assigning task to any team members:
+
+\begin{itemize}
+\item	Availability of each member.
+
+\item	The resource limitation
+ 
+\item	The clarification of the task
+
+\item   Time allowance for unexpected problems
+
+\item	Each individual skills
+\end{itemize}
+
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=0.6]{SystemBlockDiagram.PNG} 
+\caption{The system final diagram\label{systemBlocD}}
+\end{center}
+\end{figure}
+
 
 \subsection{Planned Work Allocation}
-Talk about the tasks planned and the skills audit.
+ It is very essential that each member other coursework deadline and exams include in the consideration of work allocation. 
+The engineer will work effectively if they got assigned  to their interest in the duty and that role clarified well. The work assign to each individual will be based on the posses sufficient skill and knowledge to perform the task. However, the team members must have flexibility in their time in order to support other team members when they have problems. Each task has been assigned a task leader and it will have the another member set to the same task in case the task leader has problems with the work they have done. In order to avoid work over run the time, the project has been set an earlier deadline so that if any unexpected problems happen, there are still a spare time to solve the problem. The specific skills that individuals want to mention are:
+
+\begin{itemize}
+\item Andy: Power, PCB, Control, MATLAB
+\item Mitch: Image Processing, MATLAB, ASM, Report Writing
+\item John: MATLAB, Image Processing, Control, Radio Transmission
+\item Peak: Digital Control, Display, MATLAB, Information Theory
+\item Michael: Programming, $\mu$Processors, Interfaces
+\end{itemize}
+
+Each member has variety of skills. Therefore the task has been located to each person according to this list.
+
+The time line of the task is also important because some task for each individual depend on a completion of another task. This cause problems when one task got stuck and so the productiveness of the time management will be reduced. This can be solved by assigning another task that is not dependant on the other tasks. 
+
+A Resource limitation is one of the factor that limited the group member to do tasks. This is because the customer provide only a single UAV and also only one camera has been purchased, so only one person can work on this device at a time. We solved this problem by having a laboratory space that the UAV will be placed their all the time so any of the team member can access it. To mange the limited resource, the only time that the individual access the UAV is when he wants to test the system. 
+
+To clarify the tasks so the individuals can understand and also to ensure that all the tasks have been assigned is essential. The real development of this project will analyze the requirement from the start of how the project could be ensemble. The project will be a bottom-up design. It will start from each individual completion of a small task and then integrate them into a successful complete project. 
+
+
 
 \subsection{Actual Task Allocation}
-Talk about who did what in the end and how tasks were passed around. How did people work together?
+
+In the real work environment, the unexpected situation happens at all time. Each members of the group face different problem, some problem is easy to solved but some is very difficult and time consuming. The back up plan and unplanned problem solving skills is needed. Although many problems happens, but all the team members have been flexible to support each other and most main problems have been solved.
+
+Figure\ref{systemBlocD} shows a block diagram of the whole system that the developers has slitted in to blocks of tasks. 
+The camera module and other hardware have uncontrollable acquiring time. Some of the group members has problem with the delay of the hardware deliveries. Therefore, the time has to extended longer than the gantt chart. The solution to this is the software has been developed according to the camera sheet of the hardware. And at this stage, the background reading is very necessary so the developers has used this waiting time to plan and develop the software, so when the components arrive, all the task can be implemented.
+
+The task that depend on acquiring the camera are the communication between the payload and the camera,prototype camera module, and image encoding. The problem that the developers have is the camera delivered is a faulty.These tasks has been suspended until the camera have arrived.  Therefore, the new camera has to be purchased and the allocation of work is necessary. There are part that is not depended on the hardware such as encoding/decoding images, and ground station software. So the members who were assigning to work on the camera has been allocate to do the software part first.
+
+The payload controller has the problem with the hardware part of the UAV. The payload did not respond to the UAV signal at first. Therefore, we assign another group member to support this problems. The task leader of this has been assigned to do another software module which have to be implemented. This problem also need a support from the customer to update the UAV firmware. After the problem have been noticed, it has been solved successfully. 
+
+The SD card memory task was considered as a small task in the planned work, but in the real implementation it is very important. Therefore, we assign on of the member responsible to this task. The SD started to implemented after the camera have been arrive and implemented correctly. 
+
+Because there is only one camera purchased, only one member of the team assign to keep the camera. There are problems with the cameras including the delay of deliveries, and camera faulty. The task leader of this has been assign to research on the progressive image on MATLAB in order to make a prototype presentation of a compression image taken. The task has been delayed from the time set to an individual. But after the second working camera arrived, the task has been done beautifully and there is enough time to combine with other tasks.
 
 \section{Team Resources}
 John
