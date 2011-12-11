@@ -1,11 +1,11 @@
 \section{Progressive JPEG Manipulation}
 
-\subsection*{JPEG Manipulation?}
+\subsection{JPEG Manipulation}
 
 This section weighs the decision of implementing a form of custom JPEG image manipulation to 
 allow the image to be displayed progressively, as requested by the customer.
 
-\subsubsection*{Custom JPEG Manipulation}
+\subsubsection{Custom JPEG Manipulation}
 
 This design approach details the choice to code an algorithm which 
 modify the image received from the camera in order to display it progressively. 
@@ -26,7 +26,7 @@ would progressively improve in resolution while more information is sent from th
 	\item May lose metadata of the JPEG image data (date created, etc.), which can cause software incompatibility issues.
 \end{itemize}
 
-\subsubsection*{Standard JPEG Transfer}
+\subsubsection{Standard JPEG Transfer}
 
 This design approach simply displays the JPEG image from the camera as it is received. 
 
@@ -44,12 +44,12 @@ This design approach simply displays the JPEG image from the camera as it is rec
 	\item Image sends all the metadata, including that which can be ignored.
 \end{itemize}
 
-\subsection*{JPEG Data Access}
+\subsection{JPEG Data Access}
 
 One of the biggest choices to make concerning the JPEG extractor was how it would 
 access the JPEG image data coming from the camera. The two methods applied and tested are studied below:
 
-\subsubsection*{Static Access}
+\subsubsection{Static Access}
 
 This method of accessing the image data involves storing the JPEG image data into memory and 
 having the extractor read the JPEG data as if it were a data array. 
@@ -72,7 +72,7 @@ This method would require all of the image data to be stored before beginning to
 	\item A lot of wasted memory. Not all the information from the image is needed for the progressive JPEG manipulation.
 \end{itemize}
 
-\subsubsection*{Dynamic Access}
+\subsubsection{Dynamic Access}
 
 This method of accessing the image data involves using a class to read in one byte from the image data stream at a time.
 
@@ -89,12 +89,12 @@ This method of accessing the image data involves using a class to read in one by
 	\item Memory allocated dynamically. More vulnerable to insufficient memory crashes during the extraction process.
 \end{itemize}
 
-\subsection*{Entropy-Encoded Data Storage}
+\subsection{Entropy-Encoded Data Storage}
 
 Another major decision to make was the method of storing the Entropy-encoded image data of the JPEG file, 
 which is divided into chrominance pixels made up of 3 different components.
 
-\subsubsection*{Store As Chrominance Pixels}
+\subsubsection{Store As Chrominance Pixels}
 
 This method stores the chrominance pixels in structures one by one. 
 The data is stored in a linked list of chrominance pixels, containing a certain number of Y values and one pair of Cb and Cr values.
@@ -114,7 +114,7 @@ The data is stored in a linked list of chrominance pixels, containing a certain 
 	\item Memory must be allocated dynamically. More vulnerable to insufficient memory crashes during the extraction process.
 \end{itemize}
 
-\subsection*{Store Components Seperately}
+\subsection{Store Components Seperately}
 
 This method of accessing the image data involves storing the three components Y, Cb, and Cr into tables.
 

@@ -1,6 +1,6 @@
-\subsection{JPEG Information Extractor}
+\section{JPEG Information Extractor}
 
-\subsubsection{Progressive Scan of JPEG (commandCheck)}
+\subsection{Progressive Scan of JPEG (commandCheck)}
 
 After receiving the size of the JPEG file (in bytes), 
 the JPEG Information Extractor starts reading the bytes of the JPEG stored in the SD card. 
@@ -13,7 +13,7 @@ If this is the case, the next byte identifying the header is read and the \textb
 called which uses a switch command to determine the actions to take. 
 If not, the data is discarded and the extractor continues to read the next byte is read from the input stream. 
 
-\subsubsection{Image Data Extraction (JPEGMethod)}
+\subsection{Image Data Extraction (JPEGMethod)}
 
 The JPEG Information Extraction class does not need all the possible information that can be extracted from a JPEG image. 
 The few image headers containing important information store the important information from the input stream into 
@@ -87,7 +87,7 @@ The following headers have  information to be stored (all information is conside
 		The AC Table number is stored in bits 0\ldots3. The DC Table number is stored in bits 4\ldots7.\footnotemark[1]
 \end{description}
 
-\subsubsection{Image Data Treatment}
+\subsection{Image Data Treatment}
 
 The SOS Header information extraction segment is followed by 
 an algorithm which sorts the image data into chrominance pixels before 

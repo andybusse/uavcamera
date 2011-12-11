@@ -1,0 +1,271 @@
+The implementation of the program needs to start from many very basic programs such as connect to the port, change byte data to image, and change image to byte. 
+So the first prototype was implemented by using console application in order to save time while debugging and we can see the output from the UAV. In order to see that the DataStream port stream data, the UAV set to send some data on the customer’s program, and then the data will be taken through the port and so we can see from the software.  
+
+\section{Get Picture Function}
+The 'Get Picture' functionality is the most important part of the GUI. The plan is when the user click on the Get Picture button, the program sends a string command to the ground station software with correct command bytes. Then the ground station software will generate a command byte and transmitted by TCP to the payload. Then the payload sends a ''Picture Taken'' command back through the data stream port. The GUI will then automatically send a download request command to the payload. The payload will then send image data back to the data stream port. The small programs that have been implemented in the early stage of development are reused here to send and receive data from the port. 
+
+\section{File Dialogue}
+For a .NET C\# Programming, there is a previous tools that we can use to change directory, open and save files. The OpenFileDialog,  SaveFileDialog, and FolderBrowser dialogue are existing classes that is suitable to do this job. However, to open any file dialogue, the application needs to have a STAThread in order to handle multiple objects. STAThread is an attribute which applied to the main method, indicating that the application should communicate with unmanaged COM code using the Single Threading Apartment. It allows main thread or the main form to run in the background while the file dialogue is executing. 
+
+These file dialogues are not stated in the image viewer specification. But it has been implemented because the user may install the program in many computers and the initial folder might not exist and this might cause the system to give an error. It is also make the users feel that they can use the program more freely.  It also give the advantage of limiting the access to only an existing file, so there is no error when trying to save the image.
+
+\section{GUI connection}
+ When the program start running, the program initialized the port and commands the customer’s application to tell the UAV to stream data to the data stream port. Figure~\ref{GCS_connect_command} shows the connection between the UAV data stream port and the ground station. The UAV has two ports, console port, and data stream port and it can send and receive any length of data. SEND\_ ZERO\_ TOKEN is designed by the customer’s so when the DataStream port receives this handshaking token, it will start streaming data. When any data transmission and receive, the software transfer the data through pipes. There are some global initializations that the software needs to perform only once when it is loaded for the first time. Note that the console port is manually connect by the ground control station software. The image viewer will give an error when there is no connection.
+ The method to stream data is by writing this code to the user program:
+ 
+\begin{center}
+\texttt{da 20 ht}
+\end{center}
+
+''da'' defines which graph on the customer's program to display the data. ''20'' define the time period to send an amount of data in millisecond. ''ht'' is the customer's defined code to show height on da graph. 
+
+
+
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=0.5]{figures/connect_command.png} 
+\end{center}
+\caption{The connection of data stream port\label{GCS_connect_command}}
+\end{figure}
+
+
+\section{GUI data flow diagram}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{figures/GCS_Payload_communication.PNG} 
+\caption{The connection of data stream port\label{GCS_Payload_comm}}
+\end{center}
+\end{figure}
+
+Table~\ref{command_table} shows how the command receive and send at ground station.SEND\_ZERO\_TOKEN is use for toggle the data stream port in order to make it send data to the image viewer. TAKE\_ PICTURE command sends 0 byte to command port by sending a string command to the UAV as shown in Figure~\ref{GCS_Payload_comm}. The PICTURE\_ TAKEN signal act in a similar way to ACK (acknowledgement) command which send back to the ground with a value of number of packet of the byte data. To ensure that the number of packet is the same in ground station and the UAV, the SEND\_ DOWNLOAD\_ REQUEST command sends back the information of number of packet. The number of packet shows how many cycle does the image view to do to receive all the data.  The payload will then send the DOWNLOAD\_ INFO to the ground station which follows by the IMAGE\_ DATA. The image data consist of 3 information bytes the first byte is always 4, this number tell the image view program that it is an image data. The next 2 bytes is saying which number of packet it is. If there is any packet skipped, the image viewer program will noticed and either send error or ask the UAV for the old set of packet. The image data at each cycle have a variable length. The program is designed to take the variable length of data.
+
+\begin{table}[H]
+
+\begin{center}
+\begin{tabular}{l l @{.} l}
+ Command&
+\multicolumn{2}{l}{Address Byte } \\
+
+\hline
+\underline{Command from Ground} & \\
+SEND\_ZERO\_TOKEN & 0 \\
+TAKE\_PICTURE & 0 \\
+SEND\_DOWNLOAD\_REQUEST & 2 [MSB] [LSB]  \\
+\\
+\underline{Command received at Ground}\\
+PICTURE\_TAKEN & 1 [MSB] [LSB]\\
+DOWNLOAD\_INFO & 3 [MSB] [LSB]\\
+IMAGE\_DATA & 4 $\overbrace{ [packet number]}^{2bytes} \overbrace{[image data]}^{data length}$ \\
+\end{tabular}
+\caption{Command table\label{command_table}}
+\end{center}
+\end{table}
+ 
+ 
+\section{Code Highlight}
+
+This section describe the code that is important for the program. The entire code will not be described but it will be in the appendix. In the image viewer program. It needs a class that can do these to port: connect, receive and send. FileStream class is a class in the .NET C\# which can create a file. BinaryWriter class used for writing the byte data into the generated file made by the FileStream class. The file directory will introduce a thread. While the open or save a file, the main application must be running, so the application need to deal with multi threads at the same time. Also when the get picture button got clicked, the main application is frozen because of the thread time organize do one thing at a time. The special code of thread need for handle this thread. 
+
+\subsubsection*{Connect to UAV}
+The Socket class has functions to send and receive byte and strings data. The handshaking protocol is using this code:
+
+\begin{lstlisting}[caption={connect to port},label=lst:connectT]
+public void ConnectToPort(Int32 portNumber, string portName)
+{
+        try            
+        {
+             Port.Connect(portName, portNumber);                
+        }            
+        catch 
+        {            
+            MessageBox.Show("Error code
+                
+             \n Unable to connect to dataStreamPort:
+             \n Please check that:                
+             \n1.The dataStreamPort is connected                 
+             \n2.The program gcs has opened                 
+             \n3.The program has connect to the dataStreamPort                
+             \n4.The program has send stream data                
+             \n5. The program as to run testbyte on da");                
+        }            
+}
+        \end{lstlisting}
+
+        
+	The design of the .NET Socket class simply connect to a Port by a single command without any hesitation of changing the baud rate, stop bits, and parity bits. This advantage makes the Socket class a more useful class to work with the Port with existing and static set up. 
+
+\subsection{Start of the program}
+
+\begin{lstlisting}[caption={Start of the program}, label=lst:payload_shared_mem_set]
+	statusLabel.Text = ''Starting'';   
+	progressBar.Value = 1;   
+	string fileName = string.Format(''uavPictureAt { 0:yyyy-MM-dd_hh-mm-ss-tt}.jpg'', DateTime.Now);
+	FileStream fileStream;
+	fileStream = new FileStream(filePathTextBox.Text+''\\"+fileName, FileMode.Create);      
+	BinaryWriter opFile = new BinaryWriter(fileStream);
+	uavConn.SendTextToUAV("da 20 payload[0].mem_bytes[0]");      
+ \end{lstlisting}
+             In order to make the file name different and meaningful, the name of the picture will be the time and date of the time taken the picture. This has been done using the date and time class. fileStream was initiate to be in FileMode.Create, so it can create file. The BinaryWriter write the binary byte into a file in the directory of the fileStream. 
+            
+\texttt{string fileName = string.Format("uavPictureAt{ 0 : yyyy-MM-dd\_ hh-mm-ss-tt}
+ .jpg", DateTime.Now);   }  
+        
+            This code time setting is valid for a file name. It will display year, month,date, and time in this order. The BinaryWriter class can create a binary file using specific data layout for its bytes. 
+
+\subsection{Change File Directory}
+If the user wish to change the directory of the image taken, the image viewer program must support it. the mnuOpen\_click() method introduce an OpenFileDialog class. It begin with open file dialog box. This allow the user to open an inital image to the program. If the user took a picture, it will be saved in the same directory as the open file. This file dialog is limited to only the jpg picture in order to avoid the error of displaying the image. 
+This file dialog introduce an extra thread. Without thread handler, the program will automatically organize the thread in the same timeline. This means it have to finish one event before it start another. The more detail about thread will be discussed in the thread section. 
+\begin{lstlisting}[caption={change file directory},label=lst:changeFD]
+
+        private void mnuOpen_Click(object sender, EventArgs e)        
+        {        
+             OpenFileDialog fileOpen = new OpenFileDialog();      
+            
+             fileOpen.Title = ''Select file to open:'';   
+             fileOpen.Filter =''(* .JPG)| *.JPG; |(*.* )| *.* '';           
+
+             if (fileOpen.ShowDialog() == DialogResult.OK)    
+             {
+    
+                 updateDirectory(fileOpen.FileName);     
+                 if (jpegList.Length != 0)     
+                 {                    
+                     pictureBox.Image = Image.FromFile(jpegList[filePathCount]);       
+                 }         
+                else       
+                {       
+                     pictureBox.Image = Image.FromFile(jpegList[0]);        
+                }        
+             }        
+             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;       
+             fileOpen.Dispose();        
+        }       
+        \end{lstlisting}
+\subsection{Threading}
+
+A Scheduler that is reponsible for time-slicing threads controls the thread execution, manaing blocking of I/O message and signal handling\cite{keithC}. In any program there is always a main or initial thread running in a recursive loop that repond to the client application. In image viewer program, the main thread is the window application. When the get picture button got clicked, it will generate another less fundamental thread which will be execute after the loop have done. Therefore, in order to deal with this application while the picture is loading we need
+
+\begin{center}
+\texttt{Application.DoEvents();.}
+\end{center}
+
+During a process of taking picture and loading from the sky, the program wait for the loop to be finished before the user can do any action on the program. This is because while the code is processing, all other events wait in the queue, and it makes the program stop working. This can be fixed by using Application.DoEvents(). This code processes all of the Windows event messages that have queued up \cite{davidW}. When this code has been applied, the application can deal with other event at the same time as the code is running.
+
+
+\begin{lstlisting}[caption={thread handling in the main},label=lst:threadH]
+        [STAThread]        
+        static void Main(string[] args)        
+        {        
+            mainForm.Show();
+            while (true)            
+            {            
+                Application.DoEvents();                
+            }
+        	...
+        \end{lstlisting}
+        Application.DoEvents() in the Main function delegate that wraps the method that indicate where to start execution. The thread begin to run when the Application.DoEvents(); get called\cite{xieX}.When the file dialog try to run, the main application must be close. The [STAthread] has to be introduced in order to run multi thread at the same time. But, this doesn't mean the processor will be faster, but thread can make use of the resources that would go unused. A background thread can continue to run, while a foreground thread waits for the user input. This is called an apartment thread. 
+        
+\subsection{Text Command}
+TCP/IP protocols transfer data without modifying them. This allow the application to freely encode the data.\cite{davidB}.The Ground station software allow the program to send a stream of string in bytes and it will read the command bytes and send it to the payload on the UAV. The code has shown the way to implement the string and send a byte array to the payload.
+	
+	
+
+\begin{lstlisting}[caption={send text in byte array},label=lst:sendT]
+	 public void SendTextToUAV(string textToUAV)	        
+         {        
+             char[] toUAVChar = new char[512];       
+             byte[] toUAVByte = new byte[512];        
+             byte[] fromUAVByte = new byte[1000];       
+             byte[] oneByteArray = new byte[1];       
+             textToUAV += '' $\backslash$ n'';        
+             toUAVChar = textToUAV.ToCharArray();        
+             toUAVByte = System.Text.Encoding.ASCII.GetBytes(toUAVChar);       
+             try       
+             {      
+                 int sendByte = consolePort.Send(toUAVByte, toUAVChar.Length, SocketFlags.None);     
+             }     
+            catch (SocketException ex)      
+            {       
+                Console.WriteLine(''ERROR\: '' + ex.Message);       
+            }       
+         }
+\end{lstlisting}
+                
+
+To send text, the string of characters is translated into an array of bytes. American Standard Code for Information Interchange(ASCII) is use for translating English into a binary code. In the System.Text classes provide converting mechanism between each character sets. The ASCIIEncoding.GetBytes() is used for convert character array into a byte array.  
+The Socket.Send() Method allow the user to send byte stream to the port connected.The customer's program will read from the port and display it onto the command line. The ''@ '' sign indicate that the command correctly sent from the application to the ground station software. The advantage of linking to the ground station software is that our customers can understand what is going on in the console line. For example:
+
+\begin{center}
+uavConn.SendTextToUAV(''da 20 payload[0].mem\_ bytes[0]'')\;
+\end{center}
+
+The text ''da 20 payload[0].mem\_ bytes[0]'' will be converted to char array and then to byte array. The byte array will then send the command to the console port to the payload by \texttt{consolePort.Send(toUAVByte, toUAVChar.Length)}. The customer is familiar with the ground station software program, so this method of sending data is satisfy. 
+
+\subsection{I/O Streams}
+    The .NET framework's stream class is use as a powerful tools for encoding and decoding\cite{davidB}. In the image viewer program, we use FileStream to create a directory and to save the byte data into image. However, the program might have to deal with a corrupted image data. Framing is the problem of the receiver failed to find the beginning and the end of the message. The solution is the data packet give the information of how many loop must the program do in order to receive all the image data. The packet address locate in the second and third byte of the image data stream. 
+     
+
+\begin{lstlisting}[caption={writing binary file},label=lst:writingb]          
+	for (int i = 3; i < packetSize; i++)
+	{
+          opFile.Write(packet[i]);
+          numBytes++;
+    	}
+\end{lstlisting}         
+
+       At every cycle of the data being received, opFile.Write() method will write the packet data into the file in the directory. After the cycle finished, the file will be saved and the image will be displayed in the picture box. 
+\subsubsection*{Update the Directory}
+The update directory method update itself every time the file directory is changing. This method will update the string of all the possible JPEG file in order to make it display in the picture box correctly. So when the left or right button got clocked, the string of JPEG file name will get plus or minus. This array of string have to update because it changes when the picture got deleted, or the new picture got taken. The array called \texttt{jpegList} is use as a string file storage for all the JPEG possible file
+\begin{lstlisting}[caption=update directory class highlight, label=updateD]
+            bool fileNameIsDirectory = false;
+            if (fileName.Substring(fileName.Length - 4, 4).Contains("."))
+            {
+                fileDirectory = fileName.Substring(0, fileName.LastIndexOf("\\"));
+                fileNameIsDirectory = false;
+
+            }
+            else
+            {
+                fileDirectory = fileName;
+                fileNameIsDirectory = true;
+            }
+            filePathTextBox.Text = fileDirectory;
+            try
+            {
+                jpegList = Directory.GetFiles(fileDirectory, "*.jpg");
+            }
+            catch
+            {
+            }
+\end{lstlisting}
+\subsection{Other functions}
+The user might want to delete some unwanted photo, so the delete button have been implemented. The delete button work like a normal file deleting button. But it has been complicated because the photo to delete must be the photo on the pictureBox. There is an error because the photo is using by the pictureBox. To fix this problem, the picture have to shifted left or right first and then delete the photo. This will solve almost all the problem. But where there is only one picture in the file, the program can not delete because even the pictureBox is set to null, it's last memory is still point at the deleting file. However, the disadvantage of the delete button is that if the wanted photo got deleted accidentally, it might take a long time to launch the UAV again and take the same photo.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{figures/resolutionOption.PNG} 
+\end{center}
+\caption{The resolution in combo box\label{resolutionOption}}
+\end{figure}
+The camera has options of resolution as shown in Figure\ref{resolutionOption}. This can be useful when the speed is important. The lower the resolution, the faster the data transmitted to the ground. GUI has the combo box for the user to choose any wanted resolution in the options. The resolution allow user to have more accessible to the camera. However, this mean there is more on the programmer side to program the application.
+
+
+The baud rate that we can transmit data from the UAV is 38.4kbaud. Bandwidth limitations severely restrict the volume of data to transfer over the wireless link. It takes around 8 to 20 seconds to transmit an image of resolution 640x480. This progress bar tells the user how much percentage of data received. The progress bar update at each cycle of the data receives. At the end of each image downloaded, the progress bar reset to its normal state.  The status text tells the user what signal have been sent or received. This status text ensures that the picture is downloading and it is good for testing that the tasking in process. These two nice application allocate on the bottom left of the GUI as shown in Figure\ref{progressBar}. However, these have to implement every cycle of the data collection and it might cause the cycle to run slower. The actual loop is much faster than the 38.4kbaud, therefore there is no problem implementing these in.
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=1]{figures/progressBar.PNG} 
+\end{center}
+\caption{The resolution in combo box\label{progressBar}}
+\end{figure}
+
+
+\section{Work Flow Diagram}
+Describe Work Flow
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{figures/finalWorkFlow.PNG} 
+\end{center}
+\caption{Final work flow diagram of the GUI\label{GUI_finalWorkFlow}}
+\end{figure}
