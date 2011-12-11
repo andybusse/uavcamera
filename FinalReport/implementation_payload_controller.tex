@@ -265,9 +265,35 @@ small amount of extra time taken to develop it.
 
 \subsubsection{REMINDER: DISCUSSION OF ARDUINO MULTIPLEXED SERIAL}
 
+\subsubsection{Integration of Camera Module with SD Card}
+Both the camera module and SD card module were initially prototyped and 
+partially tested separately, |||||| REFS ||||||||, but were integrated at
+a fairly early stage. This integration was the easiest way of testing the 
+camera module, since the images from the camera could be written to the SD
+card, allowing for easy inspection.
+
+\subsubsection{Integration of Camera Module and SD Card with Payload-Ground Station Communication}
+Integrating the camera module with the payload to ground station communications
+was a major milestone for the project, since completing it would mean we would
+have a basic working system. It was also one of the most challenging parts of
+the project. This step was performed iteratively over time, with the most basic
+features being implemented, integrated and tested before more advanced features
+were attempted
+
+Integration of the Payload-Ground Station communications with the Camera module
+was completed on the ATMega644P hardware, please see section \ref{sec:atmega644p_impl}
+for more info about this aspect and an idea of the challenges and problems
+faced.
+
+\subsubsection{Integration of Progressive JPEG Manipulation}
+Unfortunately due to time constraints we were not able to integrate the
+progressive JPEG manipulation code into the payload module, please see section
+||||||| REF |||||||| for more information.
+
 \subsubsection{Implementation on ATMega644P}
+\label{sec:atmega644p_impl}
 Initially we planned to implement the system on the Arduino prototyping 
-platform with an expansion `shiled' board providing any extra hardware needed -
+platform with an expansion `shield' board providing any extra hardware needed -
 The reasons for this are discussed in section |||||| REF |||||||. 
 This plan relied on the implementation of the multiplexed serial solution 
 discussed above in section |||||||| REF ||||||||. 
@@ -317,6 +343,8 @@ changes were made the the Sanguino libraries for use in our project, for
 example the Sanguino handling code for one of the UARTs was disabled to allow
 it to be configured manually for autopilot communications. Some small pieces
 of code that were causing compilation issues were also modified.
+
+\section{REMINDER: AUTOPILOT PROBLEMS}
 
 \section{REMINDER: PROBLEMS CHALLENGES}
 \section{REMINDER: HOW DID WE SOLVE PROBLEMS, DEBUGGING, TESTING, ETC}
