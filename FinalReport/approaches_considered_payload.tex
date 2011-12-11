@@ -1,7 +1,7 @@
-\section{Payload Controller}
+
 IMAGE OF PAYLOAD CONTROLLER BLOCK?
 
-\subsection{Payload Controller Hardware}
+\section{Payload Controller Hardware}
 The hardware used to implement the payload controller is an important consideration.
 
 The exact requirements for this module depend on other design decisions made, such as the method used to interface with the camera module. However there are a certain fixed set of requirements derived from the specification:
@@ -20,7 +20,7 @@ Additional requirements depend on other design decisions:
 \item \emph{Progressive JPEG Manipulation:} Section |||||| PROGRESSIVE JPEG MANIPULATION ||||| details several ways progressive JPEG manipulation could be tackled. Depending on the design choice taken this could influence the requirements of the controller substantially. Examples of such requirements could be: extra processing power, fast access to memory or FFT or DFT libraries being available for the device.
 \end{itemize}
 
-\subsubsection{Approach: Digital Signal Processor (DSP) Development Board}
+\subsection{Approach: Digital Signal Processor (DSP) Development Board}
 An appropriate Digital Signal Processor (DSP) development board would provide fast digital signal processing capabilities to the controller. This would be especially useful for the situations mentioned in section |||||| PROGRESSIVE JPEG MANIPULATION |||||.
 
 Since DSP chips tend to be specialist devices they are usually difficult to set up or program without first experimenting with the design using a development board - a special board designed with experimentation and product development in mind. Ideally a development board would be used for initial development of the system with a integrated PCB being developed later on to allow the DSP to be used on its own.
@@ -44,7 +44,7 @@ Disadvantages:
 
 DSP boards are a specialist tool, which could be especially useful - if not required - if implementing certain image processing algorithms such as some of those detailed in section |||||| PROGRESSIVE JPEG MANIPULATION |||||. The downside of this is a more complex overall system.
 
-\subsubsection{Approach: Atmel 8-bit AVR}
+\subsection{Approach: Atmel 8-bit AVR}
 \label{sec:desappr:avr}
 The Atmel 8-bit AVR family is a well-known set of low cost, single chip microcontrollers. Specific parameters taken from \cite{megaAVR_parameters}.
 
@@ -81,7 +81,7 @@ Disadvantages:
 AVRs are robust, widely used, general purpose microcontrollers. The large community surrounding them is a particular advantage, as it means many libraries and development boards are available for the devices. Our previous experience with the devices is also a key advantage, although it is important to be aware of the devices limits.
 
 
-\subsubsection{Approach: Atmel 8-bit AVR with Arduino Prototyping Platform}
+\subsection{Approach: Atmel 8-bit AVR with Arduino Prototyping Platform}
 
 The Arduino platform is a low cost, open-source development platform for the Atmel AVR microcontroller family. The latest versions of the development platform consists of an ATMega328 microcontroller along with voltage regulators, inbuilt USB programmer and serial interface and 16MHz crystal. A software library for the device provides a wrapper around many of the complexities of the AVR platform, allowing more rapid development to be possible than with a pure AVR. A simple IDE is used to program the device and a wide range of extra libraries are available which target the platform. The physical platform is designed to be easily extended using expansion boards called `shields'.
 
@@ -111,11 +111,11 @@ Disadvantages:
 
 Using an Arduino has the advantage of speeding up development at the beginning of the project. The large number of libraries built for the Arduino is another key advantage, as is the ease of re-implementation.
 
-\subsubsection{Approach: Arduino with Multiplexed Serial}
+\subsection{Approach: Arduino with Multiplexed Serial}
 
-\subsubsection{Approach: Arduino with Dual Controllers}
+\subsection{Approach: Arduino with Dual Controllers}
 
-\subsection{Communication between Payload Controller and Ground Station}
+\section{Communication between Payload Controller and Ground Station}
 One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station Image Viewer (see section |||||| GS IMAGE VIEWER ||||||) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
 
 The autopilot provides a number of ways to communicate between a payload module and ground station software. The Ground Station software provided to us allows a `packet' of data to be sent to a payload module by executing the command shown below:
@@ -128,7 +128,7 @@ Another method of communication is via the use of shared memory. Each registered
 
 The design approaches taken regarding this communication from the perspective of the Ground Station Image Viewer software is discussed in section ||||||| GS Image Viewer ||||||||.
 
-\subsubsection{Approach: Shared Memory for Both Directions}
+\subsection{Approach: Shared Memory for Both Directions}
 One possible way of producing two-way communications would involve two sets of shared memory: one for ground station to payload messages and another for payload to ground station messages. Both the payload and the autopilot would need to poll the shared memory to check for new messages.
 
 Advantages:
@@ -142,7 +142,7 @@ Disadvantages:
 \end{itemize}
 
 
-\subsubsection{Approach: Send Bytes Command and Shared Memory}
+\subsection{Approach: Send Bytes Command and Shared Memory}
 The send bytes command could be used to send messages from the Ground Station to the payload, with shared memory being set by the payload to send messages back from the payload to the Ground Station.
 
 Advantages:
@@ -155,4 +155,4 @@ Disadvantages:
 \item Error coding??
 \end{itemize}
 
-\subsection{SOMETHING ABOUT USING ANOTHER SUPPLEMENTARY RADIO LINK}
+\section{SOMETHING ABOUT USING ANOTHER SUPPLEMENTARY RADIO LINK}

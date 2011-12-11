@@ -1,5 +1,5 @@
 
-\subsection{Local Image Storage}
+\section{Local Image Storage}
 
 With a maximum image size of $640\times480$ pixels, an uncompressed JPEG 
 image's file size would be approximately 900kB.
@@ -29,7 +29,7 @@ would be increased.
 \item Addition of an extra component increases the project's complexity.
 \end{itemize}
 
-\subsubsection{Approach: Flash Chip}
+\subsection{Approach: Flash Chip}
 
 One option considered was the implementation of an external flash memory chip 
 (for evaluation purposes, the 4Mbit AMIC A25L040-F was purchased)
@@ -53,7 +53,7 @@ same as for a 1Gbit device.
 
 
 
-\subsubsection{Approach: SD Card}
+\subsection{Approach: SD Card}
 
 This is essentially the same as the flash chip above, but with an additional controller chip, and packaged in a standard case.
 
@@ -77,7 +77,7 @@ interface, not the quicker (but patent-covered) four-bit SD bus.
 cards, which are increasingly popular.
 \end{itemize}
 
-\subsubsection{Approach: SRAM}
+\subsection{Approach: SRAM}
 
 SRAM was considered as a possible option as we had all used this before.
 
