@@ -1,0 +1,15 @@
+\section{Custom Image Compression}
+\label{Custom_comp_research}
+
+Before starting research into how the jpeg standard works a few basic progressive compression methods were investigated and implemented in MATLAB.
+
+\subsection{Downsampling}
+
+The most obvious method for sending an image progressively is to simply send pixels in such an order that at any time they form a down sampled (lower resolution) version of the image. This way rather than having the image fill in from the top left hand corner the image can become less pixelated as more data is downloaded.
+
+[] diagram showing how this could work []
+
+Figure [] ref to above [] show one method that could be used to reconstruct the image progressively.
+
+\subsection{Transform Based}
+
