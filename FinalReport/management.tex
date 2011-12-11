@@ -85,7 +85,8 @@ contains binary information above 64kB, therefore the ASCII editor used to
 modify the dumpfile would cut off data in the binary file after the 64kB 
 limit, rendering any following data useless.
 \\
-It would be possible to start a new SVN repository and check in our repository up to but not including the offending commit, but we would lose 
+It would be possible to start a new SVN repository and check in our 
+repository up to but not including the offending commit, but we would lose 
 all metadata (i.e. committer, commit time, etc.). Therefore, it was decided to 
 switch to git, a distributed version control system (which would allow us to 
 modify project history). Converting the repository using git-svn was a trivial 
