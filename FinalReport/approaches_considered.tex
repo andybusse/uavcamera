@@ -43,7 +43,7 @@ The GUI design decision based on the specification on what feature does the cust
 The user interface has a picture box. When the user push a ‘Get Picture’ button, the picture box will display the picture taken from the UAV. During the downloading process, the application should keep running so the cancel button can be used. The gallery button will link to another page which will be the collection of all the image taken. The left and right button can navigate the picture box to view an earlier picture or later picture. The Cancel button cancel the receiving image, therefore the corrupted picture will not be downloaded. The user mode of the application can access only the main feature such as take picture, change directory, and cancel download picture.  It allows the user to choose the resolution and picture type (RAW or JPEG) to transmitted from the UAV to the ground station. But the user doesn't have access to changing the command, changing the receiving data, and any interaction with the UAV because of safety and avoid of any errors. 
 \begin{figure}[!hbtp]
 \begin{center}
-\includegraphics[scale=0.7]{initialGUI.png} 
+\includegraphics[scale=0.7]{figures/initialGUI.png} 
 \end{center}
 \caption{The initial design of GUI\label{ini_GUI}}
 \end{figure}
@@ -53,7 +53,7 @@ The user interface has a picture box. When the user push a ‘Get Picture’ but
 Figure~\ref{ini_Class} shows initial design of classes to implement. The \texttt{JPEGFileReader} Class is use for decoding the JPEG file. The decoding method is in the plan of the final program because the image take a long time to download. So, if a  The method is that in the JPEG file, there are headers. In order to make the image progressively better, these header must be extracted. The method commandCheck use check each byte of the image for a \texttt{0XFF} value. For any JPEG file, 0XFF is the start of the header of the JPEG image. The huffman table and quantization table can transform from the byte value. 
 \begin{center}
 \begin{figure}[!hbtp]
-\includegraphics[width=150mm,height=100mm]{initialClassDiagram.png} 
+\includegraphics[width=150mm,height=100mm]{figures/initialClassDiagram.png} 
 \caption{The initial design of GUI classes\label{ini_Class}}
 \end{figure}
 \end{center}
@@ -85,7 +85,7 @@ The \texttt{CameraCommand} class design for send the data from the ground statio
 Figure~\ref{GUI_useCase} shows a possible user action on the program. The user can save, open and delete any jpeg image from the computer. The program can also detect the corrupted image and ask the user to delete it. The user has an option to connect to the UAV. This is incase of the UAV is not connected properly. The most important function is get picture from the UAV camera. This will send and receive complex command which will be described. The internal program will process the byte and display the information as image onto the pictureBox. The user will then have an option to save the image and close the program.
 \begin{figure}[!hbtp]
 \begin{center}
-\includegraphics[scale=0.6]{userCase.PNG} 
+\includegraphics[scale=0.6]{figures/userCase.PNG} 
 \end{center}
 \caption{Use case diagram of the GUI\label{GUI_useCase}}
 \end{figure}
