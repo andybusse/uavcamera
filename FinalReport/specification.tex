@@ -8,7 +8,8 @@ The original agreed project specification and plan, handed in on the first week 
 
 \section{Objectives} 
 The aim of the project was to achieve the following criteria, which were also prioritized in order to ensure organized and efficient work: 
-|||||||||| maybe add some justification to the why things were certain priorities? ||||||||||||||
+
+%|||||||||| maybe add some justification to the why things were certain priorities? ||||||||||||||
 
 
 \begin{itemize}
@@ -42,3 +43,16 @@ The deliverables which were planned to be produced by the end of the project to 
 \end{itemize}
 
 \section{Block Diagram}
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.00\textwidth]{figures/spec_block_diagram_2.png}
+        \captionof{figure}{Block diagram of the specified system}
+        \label{fig:block1}
+\end{figure}
+
+The above diagram (figure \ref{fig:block1}) gives an overview of how the system described in the specification all comes together. The parts with a solid outline are parts that we were given by our customer to fit our system around. The parts with the dashed outline are the elements of the design that we need to implement ourselves.
+
+Inside the UAV itself will go the camera, the payload controller and the autopilot. The autopilot is provided by our customer and also provides our wireless link to the ground. The camera is simply a camera so that photographs can be taken. The payload controller is the part that needs the most work, it needs to be able to control the camera; take and get images as well as being able to communicate with the autopilot and interpret any commands sent up from the base station (also referred to as the ground station).
+
+On the ground station side of things there is a radio frequency (rf) link to the autopilot (simulated by a USB cable for development purposes) which attaches to a computer running the ground station software provided by our customer. The ground station software provides two TCP/IP ports as interfaces, one for sending commands to the ground station software and to the autopilot and one for streaming data from the autopilot. It is these TCP/IP ports that our software on the ground has to interface with so that it can send commands up to the payload controller and then receive and display an image.
