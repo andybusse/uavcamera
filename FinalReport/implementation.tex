@@ -33,8 +33,6 @@ submodules:
 
 \input{implementation_progressive_jpeg}
 
-\input{implementation_physical}
-
 \section{Integration of Payload Sub-Modules}
 
 |||||||| REMINDER: DISCUSSION OF ARDUINO MULTIPLEXED SERIAL
@@ -122,7 +120,7 @@ of code that were causing compilation issues were also modified.
 \label{sec:payload_debug_interface}
 While the payload module was being developed debugging was a major concern. 
 Having access to an oscilloscope very useful when debugging some particularly 
-difficult problems, as described elsewhere in this report ||||||| WHERE |||||.
+difficult problems.
 However, while building the payload module it was clear more complex details 
 about the internal state of the program as it was running would be useful.
 
@@ -149,6 +147,8 @@ to ensure the latest changes and features added were working as expected.
 This allowed bugs to be caught and fixed as quickly as possible, as well as
 increasing our knowledge of the current state and progress of the system and
 project as a whole.
+
+\input{implementation_physical}
 
 %% ----------------------------------------------------------------
 \chapter{Implementation - Ground Station}
