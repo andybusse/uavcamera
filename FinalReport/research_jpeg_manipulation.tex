@@ -13,13 +13,13 @@ various properties of the image which must be read in order to recover the image
 The second part contains the entropy-encoded image data, which can be decoded using the information provided from the headers of the file.  
 
 The segments which make up the image file properties are indicated by header markers. 
-``Each marker is immediately preceded by an all 1 byte (0xff).'' (Header guide) 
+``Each marker is immediately preceded by an all 1 byte (0xff).'' \cite{jpeg_layout}
 This marker is then followed by a marker identifier byte specific to that segment type. 
 The 0xff value will always indicates the start of the header in this part, but is treated differently in the image data stream. 
 
-``If a 0xff byte occurs in the compressed image data either a zero byte (0x00) or a marker identifier follows it.'' (Header guide) 
+``If a 0xff byte occurs in the compressed image data either a zero byte (0x00) or a marker identifier follows it.'' \cite{jpeg_layout} 
 0xff bytes followed by a zero byte are read in as the hexadecimal value 0xff and the 0x00 byte is ignored entirely. 
-0xff bytes not following this a 0x00 byte are considered to be the header byte of the next segment. 
+0xff bytes not following this 0x00 byte are considered to be the header byte of the next segment. 
 If the segment contains useful information before the next marker identifier, it is then followed by two bytes specifying the total length of the segment (in bytes). 
 For the SOS segment, this does not include the entropy-encoded image data.
 
@@ -30,25 +30,27 @@ The following headers are those which contain all the information necessary for
 a successful decompression of the JPEG image, as well as those which can be found in all JPEG images. 
 The number in brackets next to the segment name is the unique marker identifier value which appears directly after the 0xff marker indicator byte. 
 All numerical values obtained from the byte stream are unsigned. 
-``DQT, DHT, DRI and SOF may line up in any order, but must be recorded after APP1 (or APP2 if any) and before SOS.'' (Exif)
+``DQT, DHT, DRI and SOF may line up in any order, but must be recorded after APP1 (or APP2 if any) and before SOS.'' \cite{exif_std}
 
 \paragraph*{SOI: Start Of Image (0xd8)}
-This header identifies the start of the image and can be found in all JPEG images. 
+This header identifies the start of the image and can usually be found in all JPEG images. 
 This is the first header to be read in a JPEG file. 
 This header does not contain any information to be stored by the decompression algorithm, but 
 can be useful for differenciating multiple JPEG images from a single data stream.
 
 \paragraph*{APP0: JFIF application segment (0xe0)}
+APP sections give various metadata concerning software used to manipulate the image, including 
+information concerning the creation of the image. 
 There can be many APP segments in a single image. 
 Subsequent APP segments are named 
 ``APP\emph{n}'' with a marker identifier of 0xe\emph{n} with \emph{n} being the number of the APP segment. 
 This segment does not contain any information necessary to the decompression algorithm used, so all APP segments ignored.
 
 \paragraph*{SOF0: Start Of Frame (0xc0)}
-``SOF is a marker code indicating the start of a frame segment and giving various parameters for that frame'' (Header guide) 
+``SOF is a marker code indicating the start of a frame segment and giving various parameters for that frame'' \cite{jpeg_layout} 
 This indicates that the image is a ``DCT-based JPEG, and specifies 
 the width, height, number of components, and component subsampling (e.g., 4:2:0)'' as well as the data precision (in bits/sample) of an image. 
-(narcap) From the component subsampling information, the size of the Minimum Coded Unit (MCU) which make up the JPEG image. 
+(narcap) From the component subsampling information, the size of the Minimum Coded Unit (MCU) which make up the JPEG image can be deduced. 
 Just like the APP segments, there can be multiple start of frame segments in more complex images, but 
 the images sent by the camera will only need the information contained in the first SOF segment.
 
@@ -57,7 +59,7 @@ This segment defines the properties of one or many Huffman table(s) (HT) which w
 ``A single DHT segment may contain multiple HTs, each with its own information byte.'' 
 This segment includes the number of the HT as identified by the image data and the type of the HT (either DC or AC). 
 It also stores the number of symbols with codes of length 1..16, the sum (n) of these bytes is the total number of codes, 
-which must be $\leq$ 256 as well as ``the symbols in order of increasing code length ( n = total number of codes )'' (Header guide). 
+which must be $\leq$ 256 as well as ``the symbols in order of increasing code length ( n = total number of codes )'' \cite{jpeg_layout} . 
 In practice, a single image can also contain multiple DHT segments which all share the same marker identifier value. 
 
 \paragraph*{DQT: Define Quantization Table(s) (0xdb)}
@@ -70,7 +72,7 @@ This segment associates each component in the scan with the appropriate AC and D
 
 \paragraph*{EOI: End Of Image (0xd9)}
 This header identifies the end of the image. ``It is possible that the end of the image is reached without finding the EOI marker. 
-In this case, the image is technically malformed but the situation is tolerated and handled as if the EOI marker was found.'' (winzip) 
+In this case, the image is technically malformed but the situation is tolerated and handled as if the EOI marker was found.'' \cite{winzip_jpeg_compression}
 
 \subsubsection{Entropy-encoded image data}
 
@@ -85,7 +87,7 @@ For a 640x480 image, this means we have 921,600 bytes of information to send thr
 
 Instead of storing all the image data using the RGB colour model, 
 the JPEG file uses chroma sub-sampling to compress the image without losing any information that the human eye can discern. 
-Instead of using the additive RGB colour model, the image is ``first put into what is called a luma-chrominance color space.'' (DougKerr)
+Instead of using the additive RGB colour model, the image is ``first put into what is called a luma-chrominance color space.'' \cite{kerr_chroma_subsampling}
 
 \begin{quote}
 ``In this form, the color of a pixel is described by two values, 
@@ -94,7 +96,7 @@ one (\emph{chrominance}) describing what a lay person would think of as its ``co
 \end{quote}
 
 The difference between the \emph{luma} and \emph{chroma} values as opposed to actual luminance and chrominance is that 
-the former are nonlinear forms of the latter. The terms are borrowed from ``borrowed from the analog system used for television signals''. (DougKerr) 
+the former are nonlinear forms of the latter. The terms are ``borrowed from the analog system used for television signals''. \cite{kerr_chroma_subsampling} 
 
 Although this also seperates a single pixel into three values like the RBG colour model, 
 it allows for more loss of information due to the fact that the luma and chroma samples are not discerned equally by the human eye. 
@@ -102,11 +104,11 @@ In the RGB colour model, all three values must be taken at the same resolution i
 Lowering the resolution in this colour space quickly reduces the quality of an image. 
 
 Chroma subsampling, or the YCbCr colour model, takes advantage of the fact that the human eye 
-``is able to discern finer detail conveyed by differences in luminance than for detail conveyed by differences in chromaticity.'' (DougKerr) 
+``is able to discern finer detail conveyed by differences in luminance than for detail conveyed by differences in chromaticity.'' \cite{kerr_chroma_subsampling} 
 Therefore, by supporting different levels of resolution for the chroma and luma values, 
 it is possible to lower the amount of information stored within an image which appears identical to the uncompressed image to human eye.
 
-As an example, consider a 4x4 pixel image. Usingthe RGB colour model, the image would be represented with 48 bytes, 3 bytes for each pixel. 
+As an example, consider a 4x4 pixel image. Using the RGB colour model, the image would be represented with 48 bytes, 3 bytes for each pixel. 
 With chroma subsampling, we can group 2 or 4 pixels together to form a \emph{chrominance pixel}. 
 All the original image pixels in this new ``pixel'' would still be associated with a luma value (Y), but 
 they would all share the same chrominance information (Cb and Cr). 
@@ -119,11 +121,11 @@ Commonly used chrominance subsampling patterns are designated as follows:
 \begin{quote}
 ``Subsampling is designated by a string of 3 (or sometimes 4) integers separated by colons. 
 The relationship among the integers denotes the degree of vertical and horizontal subsampling. 
-At the outset of digital video, subsampling notation was logical; unfortunately, technology outgrew the notation''(poynton). 
+At the outset of digital video, subsampling notation was logical; unfortunately, technology outgrew the notation' '\cite{poynton_chroma_subsampling}. 
 \end{quote}
 
 The first integer is usually 4 and represents the now standard luma horizontal sampling rate. 
-The second digit ``specifies the horizontal subsampling of both Cb and Cr with respect to luma.''(poynton).
+The second digit ``specifies the horizontal subsampling of both Cb and Cr with respect to luma.''\cite{poynton_chroma_subsampling}.
 
 For our purposes, the JPEG image file uses 4:2:0 subsampling, which gives a chrominance pixel size of 2x2 image pixel blocks.
 
@@ -145,13 +147,13 @@ read in the same order as the image pixels within one chrominance pixel. This co
 After receiving the size of the JPEG file (in bytes), 
 the JPEG Information Extractor starts reading the bytes of the JPEG stored in the SD card. 
 Because the information will not all be available instantly, the extractor uses a class to read the next byte in the input stream, one at a time. 
-This class %%NAME OF CLASS HERE%% is how the JPEG extractor gains access to the JPEG input stream. 
+This class \emph{read\_byte()} is how the JPEG extractor gains access to the JPEG input stream. 
 As the extractor reads in the bytes from the input stream, it checks to see if the byte indicates the start of a header (0xff). 
 If this is the case, the next byte identifying the header is read and 
-the \emph{JPEGMEthod} class is called which uses a switch command to determine the actions to take. 
+the \emph{JPEGMethod} class is called which uses a switch command to determine the actions to take. 
 If not, the data is discarded and the extractor continues to read the next byte is read from the input stream. 
 
-\subsubsection{Image Data Extraction (JPEGMEthod)}
+\subsubsection{Image Data Extraction (JPEGMethod)}
 
 The JPEG Information Extraction class does not need all the possible information that can be extracted from a JPEG image. 
 The few image headers containing important information store the important information from 
