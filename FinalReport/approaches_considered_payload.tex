@@ -1,6 +1,3 @@
-
-IMAGE OF PAYLOAD CONTROLLER BLOCK?
-
 \section{Payload Controller Hardware}
 The hardware used to implement the payload controller is an important consideration.
 
@@ -131,10 +128,10 @@ The design approaches taken regarding this communication from the perspective of
 \subsection{Approach: Shared Memory for Both Directions}
 One possible way of producing two-way communications would involve two sets of shared memory: one for ground station to payload messages and another for payload to ground station messages. Both the payload and the autopilot would need to poll the shared memory to check for new messages.
 
-Advantages:
-\begin{itemize}
-\item 
-\end{itemize}
+%Advantages:
+%\begin{itemize}
+%\item 
+%\end{itemize}
 
 Disadvantages:
 \begin{itemize}
@@ -150,9 +147,7 @@ Advantages:
 \item No overhead needed to get messages on the payload, they are sent directly from the autopilot to the payload, no polling needed.
 \end{itemize}
 
-Disadvantages:
-\begin{itemize}
-\item Error coding??
-\end{itemize}
-
-\section{SOMETHING ABOUT USING ANOTHER SUPPLEMENTARY RADIO LINK}
+%Disadvantages:
+%\begin{itemize}
+%\item Error coding??
+%\end{itemize}
