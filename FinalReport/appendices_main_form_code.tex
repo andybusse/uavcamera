@@ -1,4 +1,9 @@
-﻿using System;
+\lstset{numbers=left,
+numberstyle=\footnotesize, 
+stepnumber=2,numbersep=5pt}
+\section{Main Form code}
+\begin{lstlisting}[caption=Main Form of GUI, label=appen:main_form]
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -77,10 +82,12 @@ namespace NCamGS
         {
             statusLabel.Text = "Starting";
             progressBar.Value = 1;
-            string fileName = string.Format("uavPictureAt{0:yyyy-MM-dd_hh-mm-ss-tt}.jpg", DateTime.Now);
+            string fileName = string.Format
+            ("uavPictureAt{0:yyyy-MM-dd_hh-mm-ss-tt}.jpg", DateTime.Now);
             FileStream fileStream;
 
-                fileStream = new FileStream(filePathTextBox.Text+"\\"+fileName, FileMode.Create);
+                fileStream = new FileStream(filePathTextBox.Text+
+                "\\"+fileName, FileMode.Create);
             BinaryWriter opFile = new BinaryWriter(fileStream);
 
 
@@ -260,7 +267,9 @@ namespace NCamGS
             jpegOnlyCount = jpegList.Length;
             if(jpegOnlyCount!=0)
             {
-                for (filePathCount = 0; jpegList[filePathCount] != fileName; filePathCount++)
+                for (filePathCount = 0; 
+                jpegList[filePathCount] != fileName;
+                 filePathCount++)
                 {
 
                 }
@@ -302,7 +311,9 @@ namespace NCamGS
             jpegOnlyCount = jpegList.Length;
             if (jpegOnlyCount != 0)
             {
-                if (fileNameIsDirectory == false &&( fileName.Substring(fileName.Length - 4, 4).Contains(".jpg") || fileName.Substring(fileName.Length - 4, 4).Contains(".JPG")))
+                if (fileNameIsDirectory == false &&
+                ( fileName.Substring(fileName.Length - 4, 4).Contains(".jpg") || 
+                fileName.Substring(fileName.Length - 4, 4).Contains(".JPG")))
                 {
                     try
                     {
@@ -397,8 +408,10 @@ namespace NCamGS
                 }
                 catch (OutOfMemoryException)
                 {
-                    DialogResult result1 = MessageBox.Show("Incomplete JpegFile founded. Do you want to delete it?"
-                                                , "Incomplete JpegFile founded!", MessageBoxButtons.YesNo);
+                    DialogResult result1 = MessageBox.Show("Incomplete JpegFile founded. 
+                    Do you want to delete it?"
+                                                , "Incomplete JpegFile founded!",
+                                                 MessageBoxButtons.YesNo);
                     if (result1 == DialogResult.Yes)
                     {
                         File.Delete(jpegList[filePathCount]);
@@ -421,8 +434,10 @@ namespace NCamGS
                 }
                 catch(OutOfMemoryException)
                 {
-                    DialogResult result1 = MessageBox.Show("Incomplete JpegFile founded. Do you want to delete it?"
-                                                                ,"Incomplete JpegFile founded!", MessageBoxButtons.YesNo);
+                    DialogResult result1 = MessageBox.Show
+                    ("Incomplete JpegFile founded. Do you want to delete it?"
+                                                                ,"Incomplete JpegFile founded!",
+                                                                 MessageBoxButtons.YesNo);
                     if (result1 == DialogResult.Yes)
                     {
                         File.Delete(jpegList[filePathCount]);
@@ -455,7 +470,8 @@ namespace NCamGS
         {
             if (filePathTextBox.Text == null)
             {
-                saveFileDialog1.InitialDirectory = Convert.ToString(Environment.SpecialFolder.MyDocuments);
+                saveFileDialog1.InitialDirectory = Convert.ToString
+                			(Environment.SpecialFolder.MyDocuments);
                 
             }
             else
@@ -561,8 +577,10 @@ namespace NCamGS
                 }
                 catch (OutOfMemoryException)
                 {
-                    DialogResult result1 = MessageBox.Show("Incomplete JpegFile founded. Do you want to delete it?"
-                                                , "Incomplete JpegFile founded!", MessageBoxButtons.YesNo);
+                    DialogResult result1 = MessageBox.Show("Incomplete JpegFile founded.
+                     Do you want to delete it?"
+                                                , "Incomplete JpegFile founded!",
+                                                 MessageBoxButtons.YesNo);
                     if (result1 == DialogResult.Yes)
                     {
                         pictureBox.Dispose();
@@ -619,3 +637,5 @@ namespace NCamGS
         }
     }
 }
+
+\end{lstlisting}

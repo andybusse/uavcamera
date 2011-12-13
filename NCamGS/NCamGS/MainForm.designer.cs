@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ColourTypeComboBox = new System.Windows.Forms.ComboBox();
             this.paintButton = new System.Windows.Forms.Button();
             this.ResolutionComboBox = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.leftButton = new System.Windows.Forms.Button();
@@ -63,26 +61,9 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ColourTypeComboBox
-            // 
-            this.ColourTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ColourTypeComboBox.FormattingEnabled = true;
-            this.ColourTypeComboBox.Items.AddRange(new object[] {
-            "2-bit Gray Scale(RAW, 2-bit for Y only)",
-            "4-bit Gray Scale(RAW,4-bit for Y only)",
-            "8-bit Gray Scale(RAW, 8-bit for Y only)",
-            "8-bit Colour (RAW,332(RGB))",
-            "12-bit Colour(RAW,332(RGB))",
-            "16-bit Colour(RAW,565(RGB))",
-            "JPEG"});
-            this.ColourTypeComboBox.Location = new System.Drawing.Point(138, 27);
-            this.ColourTypeComboBox.Name = "ColourTypeComboBox";
-            this.ColourTypeComboBox.Size = new System.Drawing.Size(188, 21);
-            this.ColourTypeComboBox.TabIndex = 0;
-            // 
             // paintButton
             // 
-            this.paintButton.Location = new System.Drawing.Point(97, 94);
+            this.paintButton.Location = new System.Drawing.Point(99, 58);
             this.paintButton.Name = "paintButton";
             this.paintButton.Size = new System.Drawing.Size(75, 23);
             this.paintButton.TabIndex = 0;
@@ -98,25 +79,16 @@
             "160 x 128 ",
             "320 x 240",
             "640 x 480"});
-            this.ResolutionComboBox.Location = new System.Drawing.Point(138, 57);
+            this.ResolutionComboBox.Location = new System.Drawing.Point(138, 27);
             this.ResolutionComboBox.Name = "ResolutionComboBox";
             this.ResolutionComboBox.Size = new System.Drawing.Size(188, 21);
             this.ResolutionComboBox.TabIndex = 1;
             this.ResolutionComboBox.SelectedIndexChanged += new System.EventHandler(this.ResolutionComboBox_SelectedIndexChanged);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Colour Type";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 57);
+            this.label2.Location = new System.Drawing.Point(13, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 4;
@@ -128,6 +100,7 @@
             this.pictureBox.Location = new System.Drawing.Point(376, 27);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(440, 330);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 6;
             this.pictureBox.TabStop = false;
             this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
@@ -154,7 +127,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(16, 94);
+            this.button4.Location = new System.Drawing.Point(18, 58);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 12;
@@ -163,7 +136,7 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(178, 94);
+            this.deleteButton.Location = new System.Drawing.Point(180, 58);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(75, 23);
             this.deleteButton.TabIndex = 14;
@@ -256,7 +229,7 @@
             // 
             // filePathButton
             // 
-            this.filePathButton.Location = new System.Drawing.Point(287, 182);
+            this.filePathButton.Location = new System.Drawing.Point(285, 182);
             this.filePathButton.Name = "filePathButton";
             this.filePathButton.Size = new System.Drawing.Size(39, 23);
             this.filePathButton.TabIndex = 20;
@@ -267,7 +240,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 169);
+            this.label3.Location = new System.Drawing.Point(12, 160);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(109, 13);
             this.label3.TabIndex = 21;
@@ -275,7 +248,7 @@
             // 
             // stopButton
             // 
-            this.stopButton.Location = new System.Drawing.Point(259, 94);
+            this.stopButton.Location = new System.Drawing.Point(99, 98);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(75, 23);
             this.stopButton.TabIndex = 22;
@@ -285,7 +258,7 @@
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(16, 134);
+            this.connectButton.Location = new System.Drawing.Point(18, 98);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(75, 23);
             this.connectButton.TabIndex = 23;
@@ -311,10 +284,8 @@
             this.Controls.Add(this.leftButton);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.ResolutionComboBox);
             this.Controls.Add(this.paintButton);
-            this.Controls.Add(this.ColourTypeComboBox);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MainForm";
@@ -333,10 +304,8 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox ColourTypeComboBox;
         private System.Windows.Forms.Button paintButton;
         private System.Windows.Forms.ComboBox ResolutionComboBox;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button leftButton;
