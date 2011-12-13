@@ -17,7 +17,6 @@ namespace NCamGS
     public partial class MainForm : Form
     {
         
-        int count = 0;
         private static int uavDataLength = 512;
         //Connector streamPort = new Connector();
 
@@ -36,11 +35,6 @@ namespace NCamGS
             DOWNLOAD_INFO_COMMAND = 0x03, // from cam to ground
             //[3][MSB][LSB]
             TAKEN_IMAGE_DATA = 0x04;// image data
-            //[4][MSB][LSB]
-        //byte[]readyForNextCommand =new byte[2];
-        //byte[]stopSendingDataCommand=new byte[2];
-        //byte[]notReadyCommand=new byte[2];
-        //bool pictureTaken=false;
         
 
         int filePathCount = 0;
@@ -71,19 +65,13 @@ namespace NCamGS
             ResolutionComboBox.SelectedIndex = 3;
 
         }
-        /*[STAThread] //
-        static void Main()
-        {
 
-            Application.Run(new MainForm());
-
-        }*/
 
         private void paintButton_Click(object sender, EventArgs e)
         {
             takeNewPicture = true;
             doCommand();
-
+           
         }
         private void doCommand()
         {
@@ -203,7 +191,7 @@ namespace NCamGS
                 
 
 
-                updateDirectory(fileName);
+                updateInitialDirectory(fileName);
 
                 Array.Resize(ref jpegList, jpegList.Length + 1);
                 jpegList[jpegList.Length - 1] = fileDirectory + "\\" + fileName;
@@ -222,140 +210,6 @@ namespace NCamGS
                 File.Delete(filePathTextBox.Text + "\\" + fileName);
                 statusLabel.Text = "Stop";
             }
-           // Console.ReadLine();
-
-            /*
-           // CameraCommand newCommand = new CameraCommand();
-            byte[] command = new byte[3];
-            byte[] uavDataCurrent = new byte[uavDataLength];
-            byte[] imageData = new byte[250];
-            byte[] allImageData = new byte[30000];
-            byte[] zeroToken = { 0 }; // send 0 to receive data
-            string fileName=string.Format("uavPictureAt{0:yyyy-MM-dd_hh-mm-ss-tt}.jpg", DateTime.Now);
-            
-
-           // uavConnector.SendTextToUAV("da 20 payload[0].mem_bytes[0]");
-
-            uavConnector.StartStream(0);
-
-            byte[] currentCommand = { 0 };
-
-            uavConnector.SendCommand(zeroToken);
-
-          //  uavConnector.SendTextToUAV("payload[0].mem_bytes[0] 0");
-
-            //while (currentCommand.Length > 0 && currentCommand[0] != PICTURE_TAKEN)
-            while (true)
-            {
-               // currentCommand = uavConnector.ReceiveFromStream();
-                currentCommand = uavConnector.ReceiveFromStream();
-            }
-            
-            //uavConnector.SendTextToUAV("payload[0].mem_byte[0] 0");
-
-            uint imageID = (uint)currentCommand[1] + (uint)(currentCommand[2] << 8);
-
-            command[0] = SEND_DOWNLOAD_REQUEST;
-            command[1] = currentCommand[1];
-            command[2] = currentCommand[2];
-
-            uavConnector.SendCommand(command);
-
-            while (currentCommand[0] != DOWNLOAD_INFO_COMMAND)
-            {
-                currentCommand = uavConnector.ReceiveFromStream();
-            }
-
-            uint numberOfPacket = (uint)command[1] + (uint)(command[2] << 8);
-            int allImageDataCount=0;
-
-            while (currentCommand[0] != TAKEN_IMAGE_DATA)
-            {
-                currentCommand = uavConnector.ReceiveFromStream();
-            }
-
-            uint prevPacketNumber = 500;
-
-            while(currentCommand[0] == TAKEN_IMAGE_DATA)
-            {
-                uint currentPacketNum = (uint)command[1] + (uint)(command[2] << 8);
-
-                if (currentPacketNum == prevPacketNumber + 1)
-                {
-
-                    for (int countData = 3; countData < currentCommand.Length; countData++, allImageDataCount++)
-                    {
-                        allImageData[allImageDataCount] = imageData[countData];
-                    }
-                    if (currentPacketNum >= numberOfPacket - 1)
-                    {
-                        break;
-                    }
-                }
-                else if(currentPacketNum != prevPacketNumber)
-                {
-                    throw new Exception("ERROR: Skipped a packet.");
-                }
-                prevPacketNumber = currentPacketNum;
-                currentCommand = uavConnector.ReceiveFromStream();
-            }
-            Image imageFromUAV = uavConnector.GetImage(allImageData);
-            pictureBox.Image = imageFromUAV;
-
-            uavConnector.SaveImage(allImageData, fileName, fileDirectory);
-            //uavDataPrevious = uavDataCurrent;
-             * 
-             * */
-            /*
-            while (!endOfCommand)
-            {
-                
-                uavDataCurrent= streamPort.StartReceiving();
-                switch (uavDataCurrent[COMMAND_BYTE_LOCATION])
-                {
-                    case PICTURE_TAKEN:
-                        pictureTaken = true;
-                        numberOfPacket = (int)uavDataCurrent[1]*0xFF+(int)uavDataCurrent[2];
-                        imageID = (int)uavDataCurrent[3];
-                        break;
-                    case IMAGE_DATA:
-                        if (pictureTaken == true)
-                        {
-
-                            if (uavDataCurrent != uavDataPrevious && pictureTaken == true)
-                            {
-                                packetID = (int)uavDataCurrent[PACKET_ID_LOCATION];
-                                dataLength = (int)uavDataCurrent[LENGTH_BYTE_LOCATION_1] * 0xFF + uavDataCurrent[LENGTH_BYTE_LOCATION_2];
-                                // IMPORTANT: Make the second byte(first byte is command byte) of the data a data length byte in the PAYLOAD MODULE
-                                //This for loop check whether the data is at the end of file or not //I set 0xD9 to be the end of file code
-                                //also it will check for data length cycle.
-                                //IMPORTANT: the eachByteCheck start at 1 so make sure that the data start at second byte !! (or modify the code)
-                                for (int eachByteCheck = START_OF_IMAGE_DATA; eachByteCheck < dataLength&&!endOfCommand; eachByteCheck++, count++)
-                                {
-                                    imageData[count] = uavDataCurrent[eachByteCheck];
-
-                                    //Check for end of file
-                                    if (imageData[count] == COMMAND_HEADER || nextIsCommandByte)
-                                    {
-                                        if (((eachByteCheck != dataLength - 1) && imageData[count + 1] == END_OF_FILE) || nextIsCommandByte && imageData[count] == END_OF_FILE)
-                                        {
-                                            endOfCommand = true;
-                                        }
-                                        else if (eachByteCheck == dataLength - 1)
-                                        {
-                                            nextIsCommandByte = true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-             * */
-            //consolePort.SendCommand(stopSendingDataCommand, STOP_SENDING_COMMAND_LENGTH); 
 
         }
         private void receivingCase(byte[] receivedData)
@@ -391,10 +245,9 @@ namespace NCamGS
 
         }
 
-        private void updateDirectory(string fileName)
+        private void updateInitialDirectory(string fileName)
         {
             fileDirectory =filePathTextBox.Text;
-            
             fileName = fileDirectory +"\\"+ fileName;
             jpegList = Directory.GetFiles(fileDirectory, "*.jpg");
             if (takeNewPicture == true)
@@ -424,6 +277,72 @@ namespace NCamGS
                 leftButton.Show();
             }
         }
+        private void updateDirectory(string fileName)
+        {
+            bool fileNameIsDirectory = false;
+            if (fileName.Substring(fileName.Length - 4, 4).Contains("."))
+            {
+                fileDirectory = fileName.Substring(0, fileName.LastIndexOf("\\"));
+                fileNameIsDirectory = false;
+
+            }
+            else
+            {
+                fileDirectory = fileName;
+                fileNameIsDirectory = true;
+            }
+            filePathTextBox.Text = fileDirectory;
+            try
+            {
+                jpegList = Directory.GetFiles(fileDirectory, "*.jpg");
+            }
+            catch
+            {
+            }
+            jpegOnlyCount = jpegList.Length;
+            if (jpegOnlyCount != 0)
+            {
+                if (fileNameIsDirectory == false &&( fileName.Substring(fileName.Length - 4, 4).Contains(".jpg") || fileName.Substring(fileName.Length - 4, 4).Contains(".JPG")))
+                {
+                    try
+                    {
+                        for (filePathCount = 0; jpegList[filePathCount] != fileName; filePathCount++)
+                        {
+
+                        }
+                    }
+                    catch 
+                    {
+                        filePathCount--;
+                    }
+                }
+                else
+                {
+                    filePathCount = 0;
+                }
+            }
+            if (jpegOnlyCount == 0)
+            {
+                rightButton.Hide();
+                leftButton.Hide();
+                pictureBox.Image = null;
+            }
+            else
+            {
+                try
+                {
+                    pictureBox.Image = Image.FromFile(jpegList[filePathCount]);
+
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                catch
+                { 
+                //do something
+                }
+                rightButton.Show();
+                leftButton.Show();
+            }
+        }
         private void mnuOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog fileOpen = new OpenFileDialog();
@@ -447,6 +366,7 @@ namespace NCamGS
                 }
             }
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            fileOpen.Dispose();
         }
 
         private void commandRecTimer_Tick(object sender, EventArgs e)
@@ -471,23 +391,47 @@ namespace NCamGS
             else
             {
                 rightButton.Show();
-
-                pictureBox.Image = Image.FromFile(jpegList[--filePathCount]);
+                try
+                {
+                    pictureBox.Image = Image.FromFile(jpegList[--filePathCount]);
+                }
+                catch (OutOfMemoryException)
+                {
+                    DialogResult result1 = MessageBox.Show("Incomplete JpegFile founded. Do you want to delete it?"
+                                                , "Incomplete JpegFile founded!", MessageBoxButtons.YesNo);
+                    if (result1 == DialogResult.Yes)
+                    {
+                        File.Delete(jpegList[filePathCount]);
+                        updateDirectory(jpegList[filePathCount]);
+                        pictureBox.Image = Image.FromFile(jpegList[filePathCount--]);
+                    }
+                    
+                }
             }
         }
 
         private void rightButton_Click(object sender, EventArgs e)
         {
-            if (filePathCount < jpegOnlyCount - 2)
+            if (filePathCount < jpegOnlyCount - 1)
             {
                 leftButton.Show();
                 try
                 {
                     pictureBox.Image = Image.FromFile(jpegList[++filePathCount]);
                 }
-                catch//(OutOfMemoryException ex)
-                { 
+                catch(OutOfMemoryException)
+                {
+                    DialogResult result1 = MessageBox.Show("Incomplete JpegFile founded. Do you want to delete it?"
+                                                                ,"Incomplete JpegFile founded!", MessageBoxButtons.YesNo);
+                    if (result1 == DialogResult.Yes)
+                    {
+                        File.Delete(jpegList[filePathCount]);
+                        updateDirectory(jpegList[filePathCount]);
+                        pictureBox.Image = Image.FromFile(jpegList[filePathCount--]);
+                    }
                     
+  
+  
                 }
             }
             else rightButton.Hide();
@@ -497,13 +441,14 @@ namespace NCamGS
 
         private void filePathButton_Click(object sender, EventArgs e)
         {
+            
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-               // filePathTextBox.Text = folderBrowserDialog1.SelectedPath;
+                filePathTextBox.Text = folderBrowserDialog1.SelectedPath;
                 updateDirectory(folderBrowserDialog1.SelectedPath);
             }
-
+           folderBrowserDialog1.Dispose();
         }
 
         private void saveMnu_Click(object sender, EventArgs e)
@@ -524,7 +469,7 @@ namespace NCamGS
             {
                 try
                 {
-                    updateDirectory(saveFileDialog1.FileName);
+                    //updateInitialDirectory(saveFileDialog1.FileName);
                     pictureBox.Image.Save(saveFileDialog1.FileName);
                     Array.Resize(ref jpegList, jpegList.Length + 1);
                     jpegList[jpegList.Length-1] = saveFileDialog1.FileName;
@@ -554,7 +499,7 @@ namespace NCamGS
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            DialogResult result=new DialogResult();
+            DialogResult result = new DialogResult();
 
             if (pictureBox.Image != null)
             {
@@ -567,13 +512,14 @@ namespace NCamGS
             if (result == DialogResult.Yes)
             {
                 pictureBox.Image.Dispose();
-                if (filePathCount < jpegOnlyCount-1)
+                if (filePathCount < jpegOnlyCount - 1)
                 {
                     pictureBox.Image = Image.FromFile(jpegList[filePathCount + 1]);
                 }
                 else if (jpegOnlyCount == 1)
                 {
                     pictureBox.Image = Image.FromFile(jpegList[0]);
+                    //add default image and We are done!!!
                 }
                 else
                 {
@@ -601,39 +547,30 @@ namespace NCamGS
                     MessageBox.Show(ex.Message);
                 }
             }
-
-            /*
-            pictureBox.Image= null;
-            string f = jpegList[filePathCount];
-            Array.Clear(jpegList, filePathCount, 1);
-            File.Delete(f);
-            pictureBox.Image=Image.FromFile(jpegList[++filePathCount]);
-            */
-            /*
-            pictureBox.Image = null;
-            File.Delete(jpegList[filePathCount]);
-            if (filePathCount != 0)
-                pictureBox.Image = Image.FromFile(jpegList[--filePathCount]);
-            else if (filePathCount == 0)
-                pictureBox.Image = Image.FromFile(jpegList[--filePathCount]);
-            else if (jpegOnlyCount == 1)
-                pictureBox.Image = null;
-            jpegOnlyCount--;
-             * */
         }
+
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
-            if (filePathCount < jpegOnlyCount - 2)
+            if (filePathCount < jpegOnlyCount - 1)
             {
                 leftButton.Show();
                 try
                 {
                     pictureBox.Image = Image.FromFile(jpegList[++filePathCount]);
                 }
-                catch //(OutOfMemoryException ex)
-                { 
-                
+                catch (OutOfMemoryException)
+                {
+                    DialogResult result1 = MessageBox.Show("Incomplete JpegFile founded. Do you want to delete it?"
+                                                , "Incomplete JpegFile founded!", MessageBoxButtons.YesNo);
+                    if (result1 == DialogResult.Yes)
+                    {
+                        pictureBox.Dispose();
+                        File.Delete(jpegList[filePathCount]);
+                        updateDirectory(jpegList[filePathCount]);
+                        pictureBox.Image = Image.FromFile(jpegList[filePathCount--]);
+                    }
+                    
                 }
             }
             else rightButton.Hide();
@@ -642,6 +579,9 @@ namespace NCamGS
         private void stopButton_Click(object sender, EventArgs e)
         {
             stopCommand = true;
+
+            if(filePathCount!=0)
+            updateDirectory(jpegList[filePathCount]);
         }
 
         private void connectButton_Click(object sender, EventArgs e)
@@ -677,26 +617,5 @@ namespace NCamGS
                     break;
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
