@@ -1,0 +1,154 @@
+% --------------------
+\chapter{Planning}
+% --------------------
+
+\section{Introduction}
+
+\section{Initial Milestones - (mh23g08)}
+\label{sec:initial_milestones}
+A set of milestones have been devised to help track progress and inform test plans.
+Each of the milestones represents a real and measurable progress step towards the 
+end goals of this project. The milestones were derived from the tasks listed in the initial
+Gantt chart (see appendix |||||||||||). It should be noted that these were the initial
+milestones derived for the project and were substantially throughout the course of
+the project in order to keep them relevant. The final state of the amended milestones
+can be seen later in section \ref{sec:amended_milestones}.
+
+To assist comprehension the milestones have been arranged into a number of categories,
+relating to the way in which the project work has been broken up.
+
+\subsection{Payload Module - Camera Module Communication Milestones}
+sections. 
+%\begin{itemize}
+	\subsubsection{Milestone: Prototype Camera Module Communication}
+	\label{sec:ms_init_prototype_camera_module_comms}
+		\begin{itemize}
+			\item 	Initial basic communication with a camera module, an image should be
+				downloaded from the camera and viewed in some way.
+		\end{itemize}
+
+	\subsubsection{Milestone: Payload controller to/from camera module communication}
+		\begin{itemize}
+			\item 	An image should be downloaded from the camera on to the 
+				payload controller hardware.
+			\item 	Sub milestones are as follows:
+			\begin{itemize}
+				\item The payload controller should be capable of changing the
+					image resolution of the camera.
+				\item The payload controller should be capable of changing the
+					colour type of the camera.
+			\end{itemize}
+		\end{itemize}
+
+%\end{itemize}
+
+\subsection{Payload Module - Image Encoding and Transmission Milestones}
+%\begin{itemize}
+	\subsubsection{Milestone: Basic Raw Encoding}
+		\label{sec:ms_init_basic_raw_encoding}
+		\begin{itemize}
+			\item 	The payload module should send raw image data in the same form as 
+				obtained from the camera via the autopilot link
+				to the ground station where it should be saved or viewed in some manner
+				to verify the milestone.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom (Progressive/Compressed) Encoding - Matlab Algorithm Prototype}
+		\label{sec:ms_init_custom_enc_matlab}
+		\begin{itemize}
+			\item 	A prototype of progressive encoding prototyped in matlab
+				should be implemented. This algorithm should demonstrate how the image
+				could be sent progressively and ideally in a compressed form.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom Encoding Algorithm Implementation on Payload Controller}
+		\label{sec:ms_init_custom_enc_payload}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_custom_enc_matlab} should be implemented on
+				the payload controller module.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom Encoding Data Breakdown and Transmission to Ground Station via Autopilot Link}
+		\label{sec:ms_init_custom_breakdown_transmission}
+		\begin{itemize}
+			\item 	The progressive data produced by milestone
+				\ref{sec:ms_init_custom_enc_payload} should be broken down and sent
+				via the autopilot link to the ground station.
+		\end{itemize}
+
+\subsection{Payload Module Construction Milestones}
+Many of the milestones listed above rely upon a working physical implementation of the system at each stage
+so these will not be duplicated. However, there are a few milestones which are specific to the physical implementation
+of the system.
+%Customer Provided `Dummy' Payload Schematics Working
+
+%Camera connection
+
+%Payload communication
+
+	\subsubsection{Milestone: Payload Breadboard Prototype}
+		\begin{itemize}
+			\item A finalized PCB design ready to be sent for manufacture.
+		\end{itemize}
+
+	\subsubsection{Milestone: Payload PCB Design}
+		\begin{itemize}
+			\item A finalized PCB design ready to be sent for manufacture. 
+		\end{itemize}
+		
+	\subsubsection{Milestone: Complete System on PCB}
+		\begin{itemize}
+			\item A working system implementation on PCB.
+		\end{itemize}
+
+%Final implementation
+
+\subsection{Ground Station Image Viewer Milestones}
+	\subsubsection{Milestone: Basic Dummy Server Communications}
+		\label{sec:ms_init_basic_dummy_server_comms}
+		\begin{itemize}
+			\item 	Some prototype programs should be produced to help understand TCP/IP communications.
+				One server program serving some test data over a TCP/IP port and one
+				client program connecting to this port and sending/receiving test data.
+		\end{itemize}
+
+	\subsubsection{Milestone: Basestation Communications}
+		\label{sec:ms_init_basestation_comms}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_basic_dummy_server_comms} should be
+				completed.
+			\item 	Communication with the customers ground station software via TCP/IP console and
+				data port. Data should be streamed from some known source and verified correct and
+				commands should be sent via the port and verified that they execute in the program.
+		\end{itemize}
+
+	\subsubsection{Milestone: Decode Basic Raw Image}
+		\label{sec:ms_init_decode_basic_raw_image}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_basestation_comms} should be completed.
+			\item 	Data sent from the implementation of \ref{sec:ms_init_basic_raw_encoding} should be
+				decoded and saved/displayed on the ground station in some way.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom Decoding - Matlab Implementation}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_custom_enc_matlab} should be completed.
+			\item 	Data sent from the implementation of \ref{sec:ms_init_custom_enc_matlab} should be
+				decoded and saved/displayed on the ground station in some way. NB: This does not require
+				a working payload implementation.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom Decoding - Deployable Implementation}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_decode_basic_raw_image} should be completed.
+			\item 	Data sent from the implementation of \ref{sec:ms_init_custom_breakdown_transmission} should be
+				decoded and saved/displayed on the ground station in some way.
+		\end{itemize}
+
+	\subsubsection{Milestone: Functional User Interface}
+		\begin{itemize}
+			\item 	A functional user interface that allows users to take images and view them using the implementations
+				for the milestones described above.
+		\end{itemize}
+
+%\end{itemize}
