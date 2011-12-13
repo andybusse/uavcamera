@@ -17,7 +17,7 @@ milestones - seen below.
 
 |||| How have we amended it? |||||
 
-	\subsubsection{Basic Camera Connection}
+	\subsubsection{Milestone: Basic Camera Connection}
 		|||| Description ||||
 		Prioirty
 		Completion Criteria:
@@ -28,7 +28,7 @@ milestones - seen below.
 				commands.
 		\end{itemize}
 
-	\subsubsection{Image from Camera}
+	\subsubsection{Milestone: Image from Camera}
 		\label{sec:ms_img_from_cam}
 		\begin{itemize}
 			\item 	Milestone \ref{sec:ms_basic_cam_comm} above should
@@ -39,7 +39,7 @@ milestones - seen below.
 			\item 	This image may be of any resolution and colour type.
 		\end{itemize} 
 
-	\subsubsection{Changing Camera Resolution}
+	\subsubsection{Milestone: Changing Camera Resolution}
 		\label{sec:ms_img_cam_change_res}
 		\begin{itemize}
 			\item 	Milestone \ref{sec:ms_img_from_cam} should be completed.
@@ -50,7 +50,7 @@ milestones - seen below.
 				should be changeable.
 		\end{itemize}
 
-	\subsubsection{Changing Camera Colour Type}
+	\subsubsection{Milestone: Changing Camera Colour Type}
 		\label{sec:ms_img_cam_change_colour_type}
 		\begin{itemize}
 			\item 	\ref{sec:ms_img_from_cam} milestone should be completed.
@@ -61,7 +61,7 @@ milestones - seen below.
 				should be changeable.
 		\end{itemize}
 
-	\subsubsection{Camera Payload Controller Implementation}
+	\subsubsection{Milestone: Camera Payload Controller Implementation}
 		\label{sec:ms_img_cam_controller_implementation}
 		\begin{itemize}
 			\item 	Milestone \ref{sec:ms_img_from_cam} should be completed.
@@ -71,7 +71,7 @@ milestones - seen below.
 		\end{itemize}
 
 \subsection{Payload to Ground Station Communications Milestones}
-	\subsubsection{Payload Responding to Transmit Tokens}
+	\subsubsection{Milestone: Payload Responding to Transmit Tokens}
 		\label{sec:ms_pl_tx_token_resp}
 		\begin{itemize}
 			\item 	The payload module should respond to transmit tokens
@@ -81,7 +81,7 @@ milestones - seen below.
 				\verb+FALSE+.
 		\end{itemize}
 
-	\subsubsection{Payload Setting Shared Memory on Autopilot}
+	\subsubsection{Milestone: Payload Setting Shared Memory on Autopilot}
 		\label{sec:ms_pl_shared_mem_set}
 		\begin{itemize}
 			\item 	Milestone \ref{sec:ms_pl_tx_token_resp}
@@ -90,7 +90,7 @@ milestones - seen below.
 				shared memory assigned to it to a recognizable value.
 		\end{itemize}
 
-	\subsubsection{Payload Receiving Messages from Ground Station}
+	\subsubsection{Milestone: Payload Receiving Messages from Ground Station}
 		\label{sec:ms_pl_rx_msg_gs}
 		\begin{itemize}
 			\item 	The payload should receive and respond in some way to 
@@ -98,7 +98,7 @@ milestones - seen below.
 				when executed on the ground station.
 		\end{itemize}
 
-	\subsubsection{Image Sending to Ground Station via Autopilot Link}
+	\subsubsection{Milestone: Image Sending to Ground Station via Autopilot Link}
 		\label{sec:ms_pl_img_sending_gs}
 		\begin{itemize}
 			\item 	Milestones \ref{sec:ms_img_cam_controller_implementation} and \ref{sec:ms_pl_shared_mem_set}
@@ -108,7 +108,7 @@ milestones - seen below.
 		\end{itemize}
 
 
-	\subsubsection{Triggering Image Capture from Ground Station}
+	\subsubsection{Milestone: Triggering Image Capture from Ground Station}
 		\label{sec:ms_pl_img_gs_trigger}
 		\begin{itemize}
 			\item 	Milestone \ref{sec:ms_pl_rx_msg_gs}
@@ -117,7 +117,7 @@ milestones - seen below.
 				from the ground station should trigger the payload to take a picture.
 		\end{itemize}
 
-	\subsubsection{Changing Camera Resolution from Ground Station}
+	\subsubsection{Milestone: Changing Camera Resolution from Ground Station}
 		\label{sec:ms_pl_img_gs_cam_res}
 		\begin{itemize}
 			\item 	Milestones \ref{sec:ms_img_cam_controller_implementation}, \ref{sec:ms_pl_rx_msg_gs} and 
@@ -128,7 +128,7 @@ milestones - seen below.
 		\end{itemize}
 
 
-	\subsubsection{Changing Colour Type from Ground Station}
+	\subsubsection{Milestone: Changing Colour Type from Ground Station}
 		\label{sec:ms_pl_img_gs_cam_colour_type}
 		\begin{itemize}
 			\item 	Milestones \ref{sec:ms_img_cam_controller_implementation}, \ref{sec:ms_pl_rx_msg_gs} and 
@@ -138,7 +138,7 @@ milestones - seen below.
 				the same outcomes as the \emph{Changing Camera Colour Type} milestone.
 		\end{itemize}
 
-	\subsubsection{Progressive Image Download}
+	\subsubsection{Milestone: Progressive Image Download}
 		\label{sec:ms_pl_img_gs_progressive_dl}
 		\begin{itemize}
 			\item 	Milestone \ref{sec:ms_pl_img_sending_gs} should be completed.
@@ -147,6 +147,9 @@ milestones - seen below.
 			\item 	Additional milestones relating to this area are to be added as design decisions
 				are made.
 		\end{itemize}
+
+\subsection{SD Card Milestones}
+|||||||||||||||||||||||||||||||||
 
 \subsection{Physical Implementation Milestones}
 Many of the milestones listed above rely upon a working physical implementation of the system at each stage
@@ -158,19 +161,19 @@ of the system.
 
 %Payload communication
 
-	\subsubsection{Payload Breadboard Prototype}
+	\subsubsection{Milestone: Payload Breadboard Prototype}
 		\label{sec:ms_phy_breadboard}
 		\begin{itemize}
 			\item A finalized PCB design ready to be sent for manufacture. 
 		\end{itemize}
 
-	\subsubsection{Payload PCB Design}
+	\subsubsection{Milestone: Payload PCB Design}
 		\label{sec:ms_phy_pcb_design}
 		\begin{itemize}
 			\item A finalized PCB design ready to be sent for manufacture. 
 		\end{itemize}
 		
-	\subsubsection{Complete System on PCB}
+	\subsubsection{Milestone: Complete System on PCB}
 		\label{sec:ms_phy_pcb_complete}
 		\begin{itemize}
 			\item A working system implementation on PCB.

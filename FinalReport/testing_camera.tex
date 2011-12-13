@@ -1,27 +1,62 @@
-\section{Camera module testing}
+\section{Camera Module Testing - (jgac1g08 and mh23g08)}
 
 The camera module and controller were tested throughout their development and thus problems were quickly discovered and swiftly rectified.
 
-\subsection{Existing Software}
+\subsection{Test: uCam Existing Software}
 
-The uCam has a freely downloadable piece of software that allows you to test the uCam and verify its functions. If you can connect the uCam to a COM port on the computer then you can sync with it and then take and view pictures in the different available formats and resolutions.
+The uCam has a freely downloadable piece of software (downloadable from \cite{ucam_test_software}) that allows you to test the uCam and verify its functions. If you can connect the uCam to a COM port on the computer then you can sync with it and then take and view pictures in the different available formats and resolutions.
 
 This allowed for not just the functionality of the camera to be verified but said functionality was then compared to the specification and it was shown that the uCam should be able to provide what is required from the camera module.
 
-[] image taken from camera with software []
+The uCam was connected to a host PC using a USB to Serial cable and tested using the software. The software connected to the camera successfully and downloaded an image as expected.
 
-\subsection{Arduino Implementation}
+This task did not verify any milestones, but it did show clearly that the camera was working. In the event of the camera becoming unresponsive, this software helped us diagnose the problem, since if the camera worked with this software it was clearly a problem with our implementation, while if the camera did not work with this software then it would suggest the camera itself was at fault. Before declaring any of the cameras used in the project faulty they were checked using this software.
 
-With the camera communication and SD-card successfully implemented it could be readily shown that a picture could be taken and stored. These photos could then be viewed on the computer.
+\subsection{Test: Basic Connection Test on Arduino}
+The first step when communicating with the camera module is to establish a connection to it.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{testing_screenshots/camera_basic_connection_test.png}
+        \captionof{figure}{Testing our implementation of the basic connection to the camera module.}
+        \label{fig:test_basic_connection}
+\end{figure}
+
+Figure \ref{fig:test_basic_connection} shows the result of a test for basic connection to the camera module. The implementation code follows the procedure shown in figure \ref{fig:syncProto} to connect to the camera, sending SYNC commands until the appropriate response is detected from the camera. In figure \ref{fig:test_basic_connection} the line ``Contact established'' means the Arduino has detected these correct responses.
+
+With this successful connection, milestone \ref{sec:ms_basic_cam_comm} is validated, meaning the implementation was free to move on.
+
+\subsection{Test: Image from Camera}
+
+The first attempt at a simple test for this was to use the debug connection to the Arduino camera
+controller implementing the camera connection code to relay image data to a PC, unfortunately as 
+described in section ||||| REF ||||| initial implementations of this were not successful, since
+the debug connection was not completely error free, causing the image to be malformed and
+unreadable.
+
+However, at this point in the implementation the basic SD card communication had already been
+implemented and tested as described in section ||||| REF ||||||. Because of this, it was decided 
+that a much more sensible test would be to write the image data directly to the SD card. Figure
+\ref{fig:test_camera_image_saving_sd_card} shows the debug information sent from the controller
+during this test and \ref{fig:Nyan1} shows the image saved to the SD card.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.00\textwidth]{testing_screenshots/camera_image_saving_sd_card_test.png}
+        \captionof{figure}{Debug information sent from camera controller to PC while taking a picture and saving it to an SC card.}
+        \label{fig:test_camera_image_saving_sd_card}
+\end{figure}
 
 \begin{figure}[H]
         \centering
         \includegraphics[width=1.00\textwidth]{figures/nyanNyan.jpg}
-        \captionof{figure}{Test image captured using the arduino implementation of the camera controller}
+        \captionof{figure}{Test image captured using the Arduino implementation of the camera controller}
         \label{fig:Nyan1}
 \end{figure}
 
 The testing during development means that functionality of the controller has been verified already, the test that needs to be performed on this element of the system is to time how long it takes to get an image from the camera and save it to the SD-card and check that this is well within the 3 minutes allowed by the specification. Timing of this process showed that it took around 5 seconds to complete, so well within the 3 minute limit in the specification.
+
+This test verifies milestone \ref{sec:ms_img_from_cam}. The resolution of the image is 640x480.
 
 \subsection{Integrated Implementation}
 
@@ -36,4 +71,4 @@ During the integration process the system was regularly tested for functionality
 
 The system can capture images at the 640x480 resolution specified and can also capture images at the other resolutions at which the uCam will take jpeg images. Currently the option to capture raw images is not implemented.
 
-The time taken for the system to capture an image at maximum resolution, save it to SD-card and then download and display it on the ground station software was measured at around 10 to 15 seconds |||||| TRIPLE CHECK |||||||. This is still well within the 3 minutes specified and has large amounts of overhead meaning that it should remain well within that limit even if there are other payloads implemented on the UAV or if a lot of packets are dropped and have to be resent.
+The time taken for the system to capture an image at maximum resolution, save it to SD-card and then download and display it on the ground station software was measured at around 10 to 15 seconds |||||| TRIPLE CHECK |||||||. This is still well within the 3 minutes specified and has large amounts of overhead meaning that it should remain well within that limit even if there are+ other payloads implemented on the UAV or if a lot of packets are dropped and have to be resent.
