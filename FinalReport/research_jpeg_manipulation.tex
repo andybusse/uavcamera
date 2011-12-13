@@ -1,136 +1,324 @@
 
-\section{JPEG Image Compression}
+\section{JPEG Image Compression (ps6g08)}
 \label{jpeg_image_compression}
-The images obtained from the camera will be in the JPEG image format. 
-If the image data is sent to the ground station progressively, 
-it must be necessary to understand how a JPEG image is structured to reconstruct the encoded image. 
-Unlike raw image data, which can easily be read continuously, 
-JPEG files have already been compressed and contain information which must first be read to properly decompress the image.
+\subsection{Introduction}
+The images obtained from a camera will generally be in the JPEG image format
+according to the 
+EXIF (Exchangeable image file format for digital still cameras)
+ (Exif Version 2.2).\cite{exif_std} 
+JPEG is a form of image compression standard named after its developers, 
+the Joint Photographic Experts Group. \cite{winzip_jpeg_compression}
+This section will provide a quick overview of the JPEG image compression algorithm
+and attempt to explain the information available by
+analysing the JPEG file structure.
 
-\subsection{JPEG structure}
-A JPEG file can be separated into two main parts. 
-The first part of the JPEG file is composed of segments containing information concerning 
-various properties of the image which must be read in order to recover the image from its compressed form. 
-The second part contains the entropy-encoded image data, which can be decoded using the information provided from the headers of the file.  
+\subsection{JPEG Compression Process}
 
-The segments which make up the image file properties are indicated by header markers. 
-``Each marker is immediately preceded by an all 1 byte (0xff).'' \cite{jpeg_layout}
-This marker is then followed by a marker identifier byte specific to that segment type. 
-The 0xff value will always indicates the start of the header in this part, but is treated differently in the image data stream. 
-
-``If a 0xff byte occurs in the compressed image data either a zero byte (0x00) or a marker identifier follows it.'' \cite{jpeg_layout} 
-0xff bytes followed by a zero byte are read in as the hexadecimal value 0xff and the 0x00 byte is ignored entirely. 
-0xff bytes not following this 0x00 byte are considered to be the header byte of the next segment. 
-If the segment contains useful information before the next marker identifier, it is then followed by two bytes specifying the total length of the segment (in bytes). 
-For the SOS segment, this does not include the entropy-encoded image data.
-
-\subsubsection{JPEG Segments}
-The number of headers found within a JPEG image file is not constant between images. 
-The JPEG headers are capable of storing most of the metadata related to an image, not all of which is necessary for the decompression of the image. 
-The following headers are those which contain all the information necessary for 
-a successful decompression of the JPEG image, as well as those which can be found in all JPEG images. 
-The number in brackets next to the segment name is the unique marker identifier value which appears directly after the 0xff marker indicator byte. 
-All numerical values obtained from the byte stream are unsigned. 
-``DQT, DHT, DRI and SOF may line up in any order, but must be recorded after APP1 (or APP2 if any) and before SOS.'' \cite{exif_std}
-
-\paragraph*{SOI: Start Of Image (0xd8)}
-This header identifies the start of the image and can usually be found in all JPEG images. 
-This is the first header to be read in a JPEG file. 
-This header does not contain any information to be stored by the decompression algorithm, but 
-can be useful for differenciating multiple JPEG images from a single data stream.
-
-\paragraph*{APP0: JFIF application segment (0xe0)}
-APP sections give various metadata concerning software used to manipulate the image, including 
-information concerning the creation of the image. 
-There can be many APP segments in a single image. 
-Subsequent APP segments are named 
-``APP\emph{n}'' with a marker identifier of 0xe\emph{n} with \emph{n} being the number of the APP segment. 
-This segment does not contain any information necessary to the decompression algorithm used, so all APP segments ignored.
-
-\paragraph*{SOF0: Start Of Frame (0xc0)}
-``SOF is a marker code indicating the start of a frame segment and giving various parameters for that frame'' \cite{jpeg_layout} 
-This indicates that the image is a ``DCT-based JPEG, and specifies 
-the width, height, number of components, and component subsampling (e.g., 4:2:0)'' as well as the data precision (in bits/sample) of an image. 
-(narcap) From the component subsampling information, the size of the Minimum Coded Unit (MCU) which make up the JPEG image can be deduced. 
-Just like the APP segments, there can be multiple start of frame segments in more complex images, but 
-the images sent by the camera will only need the information contained in the first SOF segment.
-
-\paragraph*{DHT: Define Huffman Table(s) (0xc4)}
-This segment defines the properties of one or many Huffman table(s) (HT) which will be used to decode the entropy-encoded image data. 
-``A single DHT segment may contain multiple HTs, each with its own information byte.'' 
-This segment includes the number of the HT as identified by the image data and the type of the HT (either DC or AC). 
-It also stores the number of symbols with codes of length 1..16, the sum (n) of these bytes is the total number of codes, 
-which must be $\leq$ 256 as well as ``the symbols in order of increasing code length ( n = total number of codes )'' \cite{jpeg_layout} . 
-In practice, a single image can also contain multiple DHT segments which all share the same marker identifier value. 
-
-\paragraph*{DQT: Define Quantization Table(s) (0xdb)}
-This segment defines the properties of one or many quantization table(s).
-
-\paragraph*{SOS: Start Of Scan (0xda)}
-This segment gives various scan-related parameters and is the last segment preceding the entropy-encoded image data. 
-This segment associates each component in the scan with the appropriate AC and DC Huffman table by their ID number. 
-3 ignorable bytes seperate this segment from the image data. 
-
-\paragraph*{EOI: End Of Image (0xd9)}
-This header identifies the end of the image. ``It is possible that the end of the image is reached without finding the EOI marker. 
-In this case, the image is technically malformed but the situation is tolerated and handled as if the EOI marker was found.'' \cite{winzip_jpeg_compression}
-
-\subsubsection{Entropy-encoded image data}
-
-\paragraph{Chroma subsampling}
-Before understanding how the image data is arranged within the Start Of Scan segment, 
-it is necessary to understand how the JPEG file format compresses the image data. 
-In an uncompressed image, each pixel's colour is defined by three values according to the RGB colour model. 
-This is an additive model where the pixel's colour is determined by a sum of red, green, and blue light. 
-If each value for R, G, and B is represented with a single byte, this means that each pixel in an image has 3 bytes associated to it, so 
+%%---------------------------------------
+%%TO BE MOVED AND REFERENCED
+%%---------------------------------------
+\subsubsection{Colour Space Conversion (May be moved)(ps6g08)}
+\label{sec:colour_space_conversion}
+Initially, all image information is defined using the RGB colour model.
+This means that each pixel's colour is defined by three values according to the RGB colour model. 
+In this additive model, the pixel's colour is determined by a sum of red, green, and blue light. 
+If each value for R, G, and B is represented with a single byte, 
+this means that each pixel in an image has 3 bytes associated to it, so 
+>>>>>>> 6cd2b7fbccc0f4a234e34933c95d3f6adacf4c37
 an image with $\mathbf{n}$ pixels would contain $\mathbf{3*n}$ bytes worth of information. 
 For a 640x480 image, this means we have 921,600 bytes of information to send through.
 
 Instead of storing all the image data using the RGB colour model, 
-the JPEG file uses chroma sub-sampling to compress the image without losing any information that the human eye can discern. 
-Instead of using the additive RGB colour model, the image is ``first put into what is called a luma-chrominance color space.'' \cite{kerr_chroma_subsampling}
-
-\begin{quote}
-``In this form, the color of a pixel is described by two values, 
-one (\emph{luma}) essentially (but not exactly) describing its \emph{luminance} (brightness), and 
-one (\emph{chrominance}) describing what a lay person would think of as its ``color''.''
-\end{quote}
-
-The difference between the \emph{luma} and \emph{chroma} values as opposed to actual luminance and chrominance is that 
-the former are nonlinear forms of the latter. The terms are ``borrowed from the analog system used for television signals''. \cite{kerr_chroma_subsampling} 
+the JPEG file compresses the image data using chroma sub-sampling 
+without losing any information that the human eye can discern. 
+The image is put into  a luma-chrominance color space. In this form, the color of a pixel is described by two values, 
+one (\emph{luma}) which describing its \emph{luminance} (brightness), and 
+one (\emph{chrominance}) which describes its colour 
+(represented using two components Cb and Cr).
+These values are nonlinear representations
+of the actual luminance and chrominance values.\cite{kerr_chroma_subsampling}
 
 Although this also seperates a single pixel into three values like the RBG colour model, 
-it allows for more loss of information due to the fact that the luma and chroma samples are not discerned equally by the human eye. 
+it allows for a more compact file due to the fact that the luma and chroma samples 
+are not equally discerned by the human eye. 
 In the RGB colour model, all three values must be taken at the same resolution in order to display the colour of one pixel. 
 Lowering the resolution in this colour space quickly reduces the quality of an image. 
 
 Chroma subsampling, or the YCbCr colour model, takes advantage of the fact that the human eye 
-``is able to discern finer detail conveyed by differences in luminance than for detail conveyed by differences in chromaticity.'' \cite{kerr_chroma_subsampling} 
+more easily distinguishes subtle differences in luminance than colour. \cite{kerr_chroma_subsampling} 
 Therefore, by supporting different levels of resolution for the chroma and luma values, 
-it is possible to lower the amount of information stored within an image which appears identical to the uncompressed image to human eye.
+it is possible to lower the amount of information stored
+ within an image which appears identical to the uncompressed image to human eye.
 
-As an example, consider a 4x4 pixel image. Using the RGB colour model, the image would be represented with 48 bytes, 3 bytes for each pixel. 
+As an example, consider a 4x4 pixel image. 
+Using the RGB colour model, the image would be represented with 48 bytes, 3 bytes for each pixel. 
 With chroma subsampling, we can group 2 or 4 pixels together to form a \emph{chrominance pixel}. 
 All the original image pixels in this new ``pixel'' would still be associated with a luma value (Y), but 
 they would all share the same chrominance information (Cb and Cr). 
-This means an image with $\mathbf{n}$ pixels would now contain $\mathbf{n+2n/c}$ bytes worth of information, where 
+This means an image with $\mathbf{n}$ pixels would 
+now contain $\mathbf{n+2n/c}$ bytes worth of information, where 
 c is the size (in image pixels) of the chrominance pixel. 
-In this example, using a resolution of 2 adjacent pixels gives us 32 byte and using a resolution of 2x2 pixel blocks gives us 24 bytes.
+In this example, using a resolution of 2 adjacent pixels 
+gives us 32 byte and using a resolution of 2x2 pixel blocks 
+gives us 24 bytes.
 
-Commonly used chrominance subsampling patterns are designated as follows:
+Commonly used chrominance subsampling patterns are designated as 
+a string of 3 integers separated by colons. 
+The relationship among the integers denotes 
+the degree of vertical and horizontal subsampling.
+The first integer is usually 4 and represents the 
+now standard luma horizontal sampling rate. 
+The second digit specifies the horizontal subsampling of 
+both Cb and Cr with respect to luma.\cite{poynton_chroma_subsampling}.
 
-\begin{quote}
-``Subsampling is designated by a string of 3 (or sometimes 4) integers separated by colons. 
-The relationship among the integers denotes the degree of vertical and horizontal subsampling. 
-At the outset of digital video, subsampling notation was logical; unfortunately, technology outgrew the notation' '\cite{poynton_chroma_subsampling}. 
-\end{quote}
+If the third digit is the same as the second,
+this denotes that there is no vertical subsampling.
+If the third digit is zero, 2:1 vertical subsampling
+for both Cb and Cr is indicated. This strange notation
+is due to the invention of this notation
+predating the concept of vertical subsampling.\cite{poynton_chroma_subsampling}.
 
-The first integer is usually 4 and represents the now standard luma horizontal sampling rate. 
-The second digit ``specifies the horizontal subsampling of both Cb and Cr with respect to luma.''\cite{poynton_chroma_subsampling}.
+The figure below compares 5 subsampling patterns used against a 2x2 pixel image.
 
-For our purposes, the JPEG image file uses 4:2:0 subsampling, which gives a chrominance pixel size of 2x2 image pixel blocks.
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=0.5]{figures/chromasub.png} 
+\end{center}
+\caption{Different chroma subsampling schemes for a 2x2 pixel colour image.\label{chroma_examples}\cite{poynton_chroma_subsampling}}
+\end{figure}
 
-\paragraph{Image data}
+%%---------------------------------------
+%% END MOVED PART
+%%---------------------------------------
+
+The JPEG compression algorithm uses 8 
+stages to compress an image: \cite{hass_impulse_jpeg}
+
+\subsubsection{Colour Space Conversion}
+The image undergoes chroma subsampling from the 
+RGB colour model to a 4:2:2 or a 4:2:0 YCbCr colour model. 
+Both subsampling patterns are approved by the
+EXIF (Exchangeable image file format for digital still cameras)
+and the pattern used is dependant on the camera's specifications. 
+(see section \ref{sec:colour_space_conversion})
+
+\subsubsection{Block Segmentation}
+The image is then separated into 8x8 or 16x16 pixel blocks,
+called MCUs (Minimum Coded Unit) 
+depending on whether the image has been chroma
+subsampled to a 4:2:2 or 4:2:0 model respectively. \cite{exif_std}
+
+\subsubsection{Discrete Cosine Transform}
+The image is transformed from a spatial domain 
+representation to a frequency domain representation
+using the Discrete Cosine Transform. \cite{hass_impulse_jpeg}
+%%
+%% REFERENCE TO DCT PART
+%%(see section \ref{sec:jpegmanipulation})
+
+\subsubsection{Quantization}
+Using the wave equations from the DCT step,
+the algorithm sorts them from low-frequency
+components (gradual colour changes) to 
+high-frequency components (sudden colour changes),
+from the top left to the bottom right corner of the image.
+The algorithm discards the high-frequency details
+due to the human eye not recognizing them as
+well as low-frequency details. This is down through 
+division of all DCT wave equation 
+coefficients using a quantization table and
+then rounding the result to the nearest integer.
+This quantization table differs between
+the majority of digital cameras and 
+software packages.\cite{hass_impulse_jpeg}
+
+\subsubsection{Zigzag Scan}
+The matrix obtained through quantization is
+then re-ordered from the top-left corner into a 
+64-element vector in a zig-zag pattern.
+This is done to ensure that the high-frequency
+components which are most likely to round to
+zero after quantization, make up the lower
+right hand part of the matrix.\cite{hass_impulse_jpeg}
+
+\subsubsection{DPCM on DC components}
+DPCM is known as Differential Pulse
+Code Modulation. It is the process of
+calculating the block-to-block average difference
+of the DC components across the entire MCU block
+and encoding the average as a change from the 
+previous block's value.\cite{hass_impulse_jpeg}
+
+\subsubsection{RLE on AC components}
+RLE is known as Run Length Encoding. It is the process of
+storing each value of the AC components of the
+64-element vector with the number of zeros
+preceding it for the purposes of the final stage.\cite{hass_impulse_jpeg}
+
+\subsubsection{Entropy Coding/ Huffman Coding}
+Finally, a dictionary representing commonly used value strings with
+shorter code is created. Common string and patterns
+are represented by short codes while less frequently
+used strings are represented with longer codes.
+%%
+%% REFERENCE TO MICHAEL'S HT PART
+%%(see section \ref{sec:jpegmanipulation})
+
+\subsection{JPEG Structure}
+A JPEG file can be separated into two main parts. 
+The first part of the JPEG file is composed of segments containing information concerning 
+various properties of the image which must be read in order to recover the image from its compressed form. 
+The number of segments within one JPEG file varies from picture to picture.
+The second part contains the entropy-encoded image data, which can be decoded using the information provided from the headers of the file.  
+
+\subsubsection{JPEG Segments}
+The JPEG headers are capable of storing most of the metadata related to an image, not all of which is necessary for the decompression of the image. 
+The following headers are those which contain all the information necessary for 
+a successful decompression of the JPEG image, as well as those which can be found in all JPEG images.
+The SOI (Start Of Image) and APP (JFIF application) segments are recorded first, in that order.
+These segments are followed by the DQT (Define Quantization Table(s)), DHT (Define Huffman Table(s)), and SOF (Start Of Frame) segments,
+in any order depending on the image. The SOS (Start Of Scan) and entropy- encoded data are 
+stored afterwards and the image ends with the EOI (End Of Image) segment.
+
+The following table details some important segments which are necessary for the image
+to be properly displayed: \cite{exif_std}
+
+\begin{table}[!hbtp]
+	\caption{JPEG File Layout}
+	\centering
+	\begin{tabular}{ | p{1.5cm} | p{3cm} | p{2cm} | p{2.8cm} | }
+	\hline
+	\textbf{Segment Name} & \textbf{Marker Name} & 
+	\textbf{Marker Code} & \textbf{Description} \\ \hline
+	SOI & Start Of Image & 0xD8 & Start of compressed image data\\ \hline
+	APP\emph{n} & Application Segment \emph{n} & 0xE\emph{n} & Exif application information segment\\ \hline
+	DQT & Define Quantization Table(s) & 0xDB & Quantization table definition.\\ \hline
+	DHT & Define Huffman Table(s) & 0xC4 & Huffman table definition.\\ \hline
+	SOF & Start Of Frame & 0xC0 & Frame parameter data\\ \hline
+	SOS & Start Of Scan & 0xDA & Scan parameter data\\ \hline
+	\end{tabular}
+\end{table}
+
+The following tables show important compression contents from the relevant JPEG file segments.
+
+%% MOVE TO APPENDIX
+%% \label{sec: jpeg_segment_content}
+%%
+\newpage
+
+\textbf{SOF0: Start Of Frame (0xc0):}
+
+\begin{table}[!hbtp]
+	\caption{SOF0 Marker Content}
+	\centering
+	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
+	\hline
+	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
+	Length & 2 bytes & Equal to 8 + the number of components used in the colour scheme * 3\\ \hline
+	Data precision & 1 byte & Value shown in bits/sample. Usually 8 signifying bytes.\\ \hline
+	Image height  & 2 bytes & ----\\ \hline
+	Image width  & 2 bytes & ----\\ \hline
+	Number of components & 1 byte & indicates the number of components used  in the colour scheme\\ \hline
+	Component information & 3 bytes / component & See component information table below.\\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[!hbtp]
+	\caption{SOF Component Information}
+	\centering
+	\begin{tabular}{ | p{2cm} | p{4cm} | }
+	\hline
+	\textbf{Byte Number} &  \textbf{Information} \\ \hline
+	1 & Component ID (1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q)\\ \hline
+	2 & Sampling factors (bits 0\ldots3 : vertical, bits 4\ldots7 horizontal)\\ \hline
+	3 & Quantization table number\\ \hline
+	\end{tabular}
+\end{table}
+
+\newpage
+
+\textbf{DHT: Define Huffman Table(s) (0xc4):}
+
+\begin{table}[!hbtp]
+	\caption{DHT Marker Content}
+	\centering
+	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
+	\hline
+	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
+	Length & 2 bytes & ----\\ \hline
+	HT Information & 1 byte & See HT Information table below\\ \hline
+	Number of Symbols  & 16 bytes & Number of symbols with codes of length 1\ldots16.
+	The sum of these values (\emph{n})must be $\le$ 256\\ \hline
+	Symbols  & \emph{n} bytes & Symbols of the HT in order of increasing code length\\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[!hbtp]
+	\caption{HT Information Byte Content}
+	\centering
+	\begin{tabular}{ | p{2cm} | p{4cm} | }
+	\hline
+	\textbf{Bit} &  \textbf{Information} \\ \hline
+	0\ldots3 & ID number of HT\\ \hline
+	4 & type of HT, 0 = DC table, 1 = AC table\\ \hline
+	5\ldots7 & Unused\\ \hline
+	\end{tabular}
+\end{table}
+
+\textbf{DQT: Define Quantization Table(s) (0xdb):}
+
+\begin{table}[!hbtp]
+	\caption{DQT Marker Content}
+	\centering
+	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
+	\hline
+	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
+	Length & 2 bytes & ----\\ \hline
+	QT Information & 1 byte & See QT Information table below\\ \hline
+	Bytes  & \emph{n} bytes & QT values. \emph{n} = 64 * (QT precision + 1) \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[!hbtp]
+	\caption{QT Information Byte Content}
+	\centering
+	\begin{tabular}{ | p{2cm} | p{4cm} | }
+	\hline
+	\textbf{Bit} &  \textbf{Information} \\ \hline
+	0\ldots3 & ID number of QT\\ \hline
+	4\ldots7 & precision of QT (0 = 8 bit, else 16 bit)\\ \hline
+	\end{tabular}
+\end{table}
+
+\newpage
+
+\textbf{SOS: Start Of Scan (0xda):}
+
+\begin{table}[!hbtp]
+	\caption{SOS Marker Content}
+	\centering
+	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
+	\hline
+	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
+	Length & 2 bytes & Equal to 6 + 2 * (number of components in scan)\\ \hline
+	Number of components in scan & 1 byte & Within range 1 to 4\\ \hline
+	Component information & 2 bytes / component & See component information table below.\\ \hline
+	Ignorable Bytes & 3 bytes & Separates header information from entropy-encoded image data\\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[!hbtp]
+	\caption{SOS Component Information Content}
+	\centering
+	\begin{tabular}{ | p{2cm} | p{4cm} | }
+	\hline
+	\textbf{Byte Number} &  \textbf{Information} \\ \hline
+	1 & Component ID (1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q)\\ \hline
+	2 & HT to use (bits 0\ldots3 : AC Table ID, bits 4\ldots7 DC Table ID)\\ \hline
+	\end{tabular}
+\end{table}
+
+\subsubsection{Entropy-encoded image data}
 
 The image data is received chrominance pixel by chrominance pixel. 
 The first bytes received are the luma values of the individual image pixels. 
@@ -138,99 +326,3 @@ In the case of JPEG images, they are received from left to right, top to bottom,
 The luma values are then followed by the Cb and Cr values of the top-left pixel, in that order. 
 After all the data for a single chrominance pixel has been sent (6 bytes) those of the next chrominance pixel are sent in the same format, 
 read in the same order as the image pixels within one chrominance pixel. This continues until the EOI marker is found.
-
-%% HERE BEGINS IMPLEMENTATION. MAKE AN OPTIONS CONSIDERED AND CHOSEN OPTIONS SECTION%%
-
-\subsection{JPEG Information Extractor}
-
-\subsubsection{Progressive Scan of JPEG (commandCheck)}
-
-After receiving the size of the JPEG file (in bytes), 
-the JPEG Information Extractor starts reading the bytes of the JPEG stored in the SD card. 
-Because the information will not all be available instantly, the extractor uses a class to read the next byte in the input stream, one at a time. 
-This class \emph{read\_byte()} is how the JPEG extractor gains access to the JPEG input stream. 
-As the extractor reads in the bytes from the input stream, it checks to see if the byte indicates the start of a header (0xff). 
-If this is the case, the next byte identifying the header is read and 
-the \emph{JPEGMethod} class is called which uses a switch command to determine the actions to take. 
-If not, the data is discarded and the extractor continues to read the next byte is read from the input stream. 
-
-\subsubsection{Image Data Extraction (JPEGMethod)}
-
-The JPEG Information Extraction class does not need all the possible information that can be extracted from a JPEG image. 
-The few image headers containing important information store the important information from 
-the input stream into variables which will be sent to the custom encoding algorithm. 
-If the header is not recognized by this class, it is assumed to not have any important information and is ignored; 
-the code continues to scan through the input stream for the next header byte. 
-The following headers have  information to be stored (all information is considered to be stored in one byte unless stated otherwise):
-
-\paragraph*{SOF0: Start Of Frame (0xc0)}
-\begin{description}
-	\item[Data precision] indicates how many bits compose one sample (generally 8 to indicate a byte).
-	\item[Image height] indicates the height of the image in pixels (2 bytes long).
-	\item[Image width] indicates the width of the image in pixels (2 bytes long).
-	\item[Number of components] indicates how many components define one pixel. 
-		This will always be three for our cases to indicate the use of the YCbCr colour model. 
-		The component information is read in in the order Y, Cb, Cr.
-	\item[Component ID] indicates the ID number used by the JPEG file for this component.\footnote{One for each component}
-	\item[Sampling factor] both horizontal and vertical are stored within a single byte. 
-		The least significant 4 bits indicate teh vertical sampling factor, while 
-		the most significant 4 bits indicate the horizontal sampling factor.\footnotemark[1] 
-	\item[Quantization Table Number] associates the component to a quantization table.\footnotemark[1] 
-\end{description}
-
-\paragraph*{APP0: JFIF application segment (0xe0)}
-\begin{description}
-	\item[File Identifier Mark] indicates that this is a JFIF standard image.
-	\item[Major Revision Number] must be checked to be 1.
-	\item[Minor Revision Number] 
-	\item[Units for x/y Density] 
-	\item[X Density]2 bytes
-	\item[Y Density]2 bytes
-	\item[Thumbnail Width] Not used.
-	\item[Thumbnail Height] Not used.
-	\item[Remaining bytes] contains information regarding the image's thumbnail. This is not used in our extractor.
-\end{description}
-
-\paragraph*{DHT: Define Huffman Table(s) (0xc4)}
-\begin{description}
-	\item[HT Information] contains the following information concerning the indicated Huffman Table in one byte:
-		\begin{description}
-			\item[Bits 0\ldots3] ID number of the HT (cannot exceed 3)
-			\item[Bit 4] Indicates whether the HT is DC (0) or AC (1)
-			\item[Bits 5\ldots7] Unused.
-		\end{description}
-	\item[Number of Symbols] is a string of 16 bytes, each byte containing the number of symbols with
-		 codes of length 1\ldots16. For example, if the third byte of the string is 7, 
-		there are 7 signals of code length 3 in this Huffman Table.
-	\item[Symbols] is a string of \emph{n} bytes, where \emph{n} is 
-		the sum of all the values in the previous 16-byte string. 
-		The extractor stores the Huffman tables in a linked list of struct objects representing the Huffman Tables.
-\end{description}
-
-\paragraph*{DQT: Define Quantization Table(s) (0xdb)}
-\begin{description}
-	\item[QT Information] contains the following information concerning the indicated Quantization Table in one byte:
-		\begin{description}
-			\item[Bits 0\ldots3] ID number of the QT (cannot exceed 3).
-			\item[Bits 4\ldots7] Precision of the QT. Either 8-bit (0) or 16-bit (all other values).
-		\end{description}
-	\item[QT values] is a string of \emph{n} bytes, where \emph{n} is $64*$precision$+1$.
-\end{description}
-
-\paragraph*{SOS: Start Of Scan (0xda)}
-\begin{description}
-	\item[Number of components in scan] indicates how many components define one pixel in the scan. 
-		This is usually identical to  the number of components obtained from the SOF segment.
-	\item[Component ID] indicates the ID number used by the JPEG file for this component.\footnotemark[1] 
-	\item[Huffman Table Indicator] stores the AC and DC Huffman Table ID number associated with this component in one byte. 
-		The AC Table number is stored in bits 0\ldots3. The DC Table number is stored in bits 4\ldots7.\footnotemark[1]
-\end{description}
-
-\subsubsection{Image Data Treatment}
-
-The SOS Header information extraction segment is followed by an algorithm which 
-sorts the image data into chrominance pixels before sending the chrominance pixel to the custom JPEG encoding class. 
-If we consider \emph{n} to be the number of image pixels in a chrominance pixel, then 
-we associate the first $n - 2$ bytes with the Y (luma) Huffman tables, the $n - 1$ byte with the Cb Huffman tables, 
-an the $n^{th}$ byte with the Cr Huffman Table. 
-This continues until the EOI header is found, or until there is no more bytes coming in from the input stream.

@@ -1,0 +1,177 @@
+MATLAB code for custom image compression
+
+Compression1.m
+\begin{lstlisting}[language=Matlab, label = lst:cust_comp1, caption = {Whole image, transform based compression code}]
+clear all
+close all
+
+% load clown
+load mandrill
+
+X = (X-min(min(X)))./max(max(X-min(min(X))));
+
+%% fft
+
+freqX = fft2(X);
+
+testFreqX = zeros(size(freqX));
+
+shiftedFreqX = fftshift(freqX);
+
+centre = size(freqX)/2;
+figure
+
+for z = 10:-0.5:1.5
+    squarewidth = round(centre(1)/z);
+    squareheight = round(centre(2)/z);
+    % squarewidth = 10;
+    % squareheight = 16;
+    testFreqX = zeros(size(freqX));
+    
+    for x = -squarewidth:squarewidth;
+        for y = -squareheight:squareheight;
+            testFreqX(centre(1)+x,centre(2)+y) = shiftedFreqX(centre(1)+x,centre(2)+y);
+        end
+    end
+    
+    testFreqX = fftshift(testFreqX);
+    
+    testX = abs(ifft2(testFreqX));
+    
+    imagesc(testX)
+    colormap gray
+    drawnow
+    pause(0.1)
+end
+
+%% dct
+
+cfreqX = dct2(X);
+bigness = size(cfreqX);
+
+% squarewidth = 10;
+% squareheight = 16;
+for z = 10:-0.5:1.5
+    
+    ctestFreqX = zeros(size(cfreqX));
+    
+    squarewidth = round(bigness(1)/z);
+    squareheight = round(bigness(2)/z);
+    
+    for x = 1:squarewidth;
+        for y = 1:squareheight;
+            ctestFreqX(x,y) = cfreqX(x,y);
+        end
+    end
+    
+    testX = abs(idct2(ctestFreqX));
+    
+    imagesc(testX)
+    colormap gray
+    drawnow
+    pause(0.1)
+end
+\end{lstlisting}
+
+%--------------------------------------------------------------
+chaunkCompression.m
+\begin{lstlisting}[language=Matlab, label = lst:chunk_comp, caption = {Secioned image, transform based compression code}]
+clear all
+close all
+
+% load clown
+load mandrill
+
+X = (X-min(min(X)))./max(max(X-min(min(X))));
+
+
+%% fft
+
+freqX = fft(fft(X)')';
+
+testFreqX = zeros(size(freqX));
+
+shiftedFreqX = fftshift(freqX);
+
+centre = size(freqX)/2;
+figure
+
+for z = 10:-0.5:1.5
+    squarewidth = round(centre(1)/z);
+    squareheight = round(centre(2)/z);
+    % squarewidth = 10;
+    % squareheight = 16;
+    testFreqX = zeros(size(freqX));
+    
+    for x = -squarewidth:squarewidth;
+        for y = -squareheight:squareheight;
+            testFreqX(centre(1)+x,centre(2)+y) = shiftedFreqX(centre(1)+x,centre(2)+y);
+        end
+    end
+    
+    testFreqX = fftshift(testFreqX);
+    
+    %     testX = abs(ifft2(testFreqX));
+    testX = abs(ifft(ifft(testFreqX)')');
+    
+    imagesc(testX)
+    colormap gray
+    drawnow
+    pause(0.1)
+end
+
+%% enchunk
+
+chunksize = 20; % must be even
+imagesize = size(X);
+
+% X2 = X;
+% X = X(1:480,1:480);
+
+for x = 1:round(imagesize(1)/chunksize)
+    for y = 1:round(imagesize(2)/chunksize)
+        chunk(x,y).data = X((((x-1)*chunksize)+1):(x*chunksize), (((y-1)*chunksize)+1):(y*chunksize));
+    end
+end
+
+%% chunks fft
+
+for z = 0.5:(chunksize/2)-0.5
+    
+    for chunkcount = 1:round(imagesize(1)/chunksize)*round(imagesize(2)/chunksize)
+        
+        chunk(chunkcount).freqX = fft(fft(chunk(chunkcount).data)')';
+        
+        chunk(chunkcount).testFreqX = zeros(size(chunk(chunkcount).freqX));
+        
+        chunk(chunkcount).shiftedFreqX = fftshift(chunk(chunkcount).freqX);
+        
+        centre = (chunksize/2)+0.5;
+        
+        for x = centre-z:centre+z;
+            for y = centre-z:centre+z;
+                chunk(chunkcount).testFreqX(x,y) = chunk(chunkcount).shiftedFreqX(x,y);
+            end
+        end
+        
+        chunk(chunkcount).testFreqX = fftshift(chunk(chunkcount).testFreqX);
+        
+        %     testX = abs(ifft2(testFreqX));
+        chunk(chunkcount).testX = abs(ifft(ifft(chunk(chunkcount).testFreqX)')');
+        
+    end
+    
+    for x = 1:round(imagesize(1)/chunksize)
+        for y = 1:round(imagesize(1)/chunksize)
+            ReconTestX((((x-1)*chunksize)+1):(x*chunksize), (((y-1)*chunksize)+1):(y*chunksize)) = chunk(x,y).testX;
+        end
+    end
+    
+    figure
+    
+    imagesc(ReconTestX)
+    colormap gray
+    drawnow
+    pause(0.5)
+end
+\end{lstlisting}

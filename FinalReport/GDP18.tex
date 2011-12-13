@@ -5,14 +5,16 @@
 \graphicspath{{../Figures/}}   % Location of your graphics files
 \usepackage[numbers]{natbib}            % Use Natbib style for the refs.
 \usepackage{float}				% used to allow exact placement of figures
+\usepackage{listings}			% use to highlight code listings
 \usepackage{subfigure}				% used to allow more than one figure on a line
+\usepackage[final]{pdfpages}	% so can include pdf files
 \usepackage{verbatim}
 \hypersetup{colorlinks=true}   % Set to false for black/white printing
 %% ----------------------------------------------------------------
 \begin{document}
 \frontmatter
 \title      {Unmanned Aircraft Camera Module \\(GDP Group 18)}
-\authors{ \href{mailto:ajb2g08@ecs.soton.ac.uk}{Andy Busse},
+\authors{ \href{mailto:ajb2g08@ecs.soton.ac.uk}{Andrew Busse},
              \\ \href{mailto:jgac1g08@ecs.soton.ac.uk}{John Charlesworth},
              \\ \href{mailto:mh23g08@ecs.soton.ac.uk}{Michael Hodgson},
              \\ \href{mailto:ps26g08@ecs.soton.ac.uk}{Piyabhum Sornpaisarn},
@@ -43,6 +45,8 @@ Given an autopilot module for an unmanned aircraft vehicle (UAV), a camera modul
 \input{specification}
 \newpage
 \input{research}
+\newpage
+\input{planning}
 \newpage
 \input{approaches_considered}
 \newpage
@@ -79,7 +83,10 @@ Given an autopilot module for an unmanned aircraft vehicle (UAV), a camera modul
 \chapter{Meeting Minutes}
 \input{appendices-minutes}
 \newpage
-\appendix
+
+\chapter{Code Listings}
+\input{appendices-code}
+\newpage
 \chapter{Image Viewer Code}
 \input{appendices_main_form_code}
 \newpage
@@ -88,6 +95,14 @@ Given an autopilot module for an unmanned aircraft vehicle (UAV), a camera modul
 \chapter{Schematics}
 \input{appendices-schematics}
 
+\newpage
+
+\chapter{Agreed Specification}
+\input{appendices-specification}
+\newpage
+
+\chapter{Gantt Charts}
+\input{appendices-gantt}
 \newpage
 
 \backmatter
