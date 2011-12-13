@@ -1,0 +1,35 @@
+24/25-10-11, Advanced Electronics Lab, Zepler Building Level 3
+
+Agenda: Presentation finalisation
+
+Agreed that this presentation needs to focus on what we plan to do, and project management should feature heavily. As well as humour. Tomorrow afternoon is going to be rather dull.
+
+Presentation Structure:
+* Introduction and problem description (Michael)
+* Specification, decreasing order of priority (John)
+* Management: Skill Audit, Risk Management, Contingencies (Mitch)
+* Breakdown of tasks (Gantt Chart), Progress made (Andy, Peak)
+* MATLAB video of what's currently working (John)
+* Summary (Michael)
+
+Now we all need to go away, revise and rehearse.
+
+Spoke with Nic Green on 23-10, Mahesan Niranjan on 24-10 for presentation feedback.
+
+Nic:
+* "Boy Band" theory - make speaker changes as seamless as possible
+* Insert slides on risk assessment and management
+* "Speaker Notes": What we see on the screen are our notes, not our presentation.
+* Inject humour where possible - even the risk management
+* Rehearse
+
+Mahesan: 
+* Record ourselves - there are some mannerisms we need to iron out.
+* We overran slightly, need to stop waffling, umming and ahing.
+* Don't rely on notes - looks like we're reading.
+* Different techniques work for different people. Go away and play.
+
+=====
+26/10/11, After Presentation:
+
+Seemed to go well. Matt couldn't come as he was learning to fly in France. Can't really blame him. Speaking to Rob afterwards, we aren't currently doing anything he wouldn't, feedback seemed to be positive but we could've mentioned our JPEG image compression research in a bit more detail (DCT, wavelets, etc.) Seminar no. 2 needs to be very much more technical.
