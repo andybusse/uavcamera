@@ -127,6 +127,9 @@ void packet_scan(uint8_t *data, uint8_t length)
 				}
 				break;
 
+			case MID_REQUEST_RESEND:
+				break;
+
 			default: // not a valid message
 				DLOG("Invalid message, length: ");
 				DLOG(length);
