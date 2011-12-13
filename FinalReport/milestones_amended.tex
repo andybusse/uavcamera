@@ -1,0 +1,160 @@
+
+\section{Amended Milestones - (mh23g08)}
+\labal{sec:amended_milestones}
+As the project progressed and design decisions were made some of the milestones in section
+\ref{sec:initial_milestones} were amended, with milestones being added, removed or made more
+specific and granular as the project progressed. This section describes the amendments to the
+initial milestones and provides a the final list of milestones with which project progress was measured
+against.
+
+To assist comprehension the milestones have been arranged into a number of categories,
+relating to the way in which the project work has been broken up. 
+
+\subsection{Camera Module Communication Milestones}
+sections. 
+%\begin{itemize}
+	\subsubsection{Basic Camera Connection}
+		\begin{itemize}
+			\item 	A basic connection to the camera should be established
+				where the camera responds correctly to connection 
+				commands (if applicable to type of camera.)
+		\end{itemize}
+
+	\subsubsection{Image from Camera}
+		\begin{itemize}
+			\item 	\emph{Basic Camera Connection} milestone above should
+				be completed.
+			\item 	An image should be shown to have been downloaded 
+				from the camera - this should be repeatable without
+				need to reset the camera.
+			\item 	This image may be of any resolution and colour type.
+		\end{itemize} 
+
+	\subsubsection{Changing Camera Resolution}
+		\begin{itemize}
+			\item \emph{Image from Camera} milestone should be completed.
+			\item 	An image should be shown to have been downloaded 
+				from the camera as in the \emph{Image from Camera}
+				task.
+			\item 	This image should be of a specified resolution which
+				should be changeable.
+		\end{itemize}
+
+	\subsubsection{Changing Camera Colour Type}
+		\begin{itemize}
+			\item 	\emph{Image from Camera} milestone should be completed.
+			\item 	An image should be shown to have been downloaded 
+				from the camera as in the \emph{Image from Camera}
+				task.
+			\item 	This image should be of a specified colour type which
+				should be changeable.
+		\end{itemize}
+
+	\subsubsection{Payload controller \verb+<->+ camera module communication}
+		\begin{itemize}
+			\item
+		\end{itemize}
+
+%\end{itemize}
+
+\subsection{Payload to Ground Station Communications Milestones}
+%\begin{itemize}
+	\subsubsection{Payload Responding to Transmit Tokens}
+		\begin{itemize}
+			\item 	The payload module should respond to transmit tokens
+				sent by the autopilot. 
+			\item 	The \verb+payload[0].timeout+ command when input into
+				the customers ground station software should return 
+				\verb+FALSE+.
+		\end{itemize}
+
+	\subsubsection{Payload Setting Shared Memory on Autopilot}
+		\begin{itemize}
+			\item 	\emph{Payload Responding to Transmit Tokens} milestone
+				should have been completed.
+			\item 	The payload module should set the \verb+MEM_BYTES+ 
+				shared memory assigned to it to a recognizable value.
+		\end{itemize}
+
+	\subsubsection{Payload Receiving Messages from Ground Station}
+		\begin{itemize}
+			\item 	The payload should receive and respond in some way to 
+				data sent by the \verb+payload[0].send_bytes+ command
+				when executed on the ground station.
+		\end{itemize}
+
+	\subsubsection{Image Sending to Ground Station via Autopilot Link}
+		\begin{itemize}
+			\item 	\emph{Payload Setting Shared Memory on Autopilot} milestone
+				should be completed.
+			\item 	An image taken with the camera module should be sent to the
+				ground station by the payload controller via the autopilot link.
+		\end{itemize}
+
+
+	\subsubsection{Triggering Image Capture from Ground Station}
+		\begin{itemize}
+			\item 	\emph{Payload Receiving Messages from Ground Station} milestone
+				should be completed.
+			\item 	A specified set of data sent using \verb+payload[0].send_bytes+
+				from the ground station should trigger the payload to take a picture.
+		\end{itemize}
+
+	\subsubsection{Changing Camera Resolution from Ground Station}
+		\begin{itemize}
+			\item 	\emph{Payload Receiving Messages from Ground Station} and 
+				\emph{Changing Camera Resolution} milestones should be completed.
+			\item 	A specified set of data sent using \verb+payload[0].send_bytes+
+				from the ground station should change the camera resolution with 
+				the same outcomes as the \emph{Changing Camera Resolution} milestone.
+		\end{itemize}
+
+
+	\subsubsection{Changing Colour Type from Ground Station}
+		\begin{itemize}
+			\item 	\emph{Payload Receiving Messages from Ground Station} and 
+				\emph{Changing Camera Colour Type} milestones should be completed.
+			\item 	A specified set of data sent using \verb+payload[0].send_bytes+
+				from the ground station should change the camera resolution with 
+				the same outcomes as the \emph{Changing Camera Colour Type} milestone.
+		\end{itemize}
+
+	\subsubsection{Progressive Image Download}
+		\begin{itemize}
+			\item 	\emph{Image from Camera} milestone should be completed.
+			\item 	An image should be downloaded progressively from the payload to the
+				ground station.
+			\item 	Additional milestones relating to this area are to be added as design decisions
+				are made.
+		\end{itemize}
+
+\subsection{Physical Implementation Milestones}
+Many of the milestones listed above rely upon a working physical implementation of the system at each stage
+so these will not be duplicated. However, there are a few milestones which are specific to the physical implementation
+of the system.
+%Customer Provided `Dummy' Payload Schematics Working
+
+%Camera connection
+
+%Payload communication
+
+	\subsubsection{Payload Breadboard Prototype}
+		\begin{itemize}
+			\item A finalized PCB design ready to be sent for manufacture. 
+		\end{itemize}
+
+	\subsubsection{Payload PCB Design}
+		\begin{itemize}
+			\item A finalized PCB design ready to be sent for manufacture. 
+		\end{itemize}
+		
+	\subsubsection{Complete System on PCB}
+		\begin{itemize}
+			\item A working system implementation on PCB.
+		\end{itemize}
+
+%Final implementation
+
+\subsection{Ground Station Image Viewer Milestones}
+
+%\end{itemize}
