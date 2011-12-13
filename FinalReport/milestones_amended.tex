@@ -1,0 +1,217 @@
+
+\section{Amended Milestones - (mh23g08)}
+\label{sec:amended_milestones}
+As the project progressed and design decisions were made some of the milestones in section
+\ref{sec:initial_milestones} were amended, with milestones being added, removed or made more
+specific and granular as the project progressed. This section describes the amendments to the
+initial milestones and provides a the final list of milestones with which project progress was measured
+against.
+
+To assist comprehension the milestones have been arranged into a number of categories,
+relating to the way in which the project work has been broken up. 
+
+\subsection{Camera Module Communication Milestones}
+This two initial milestones in this section - milestones \ref{sec:ms_init_prototype_camera_module_comms}
+and \ref{sec:ms_init_payload_controller_camera_module}  have been split into a number of smaller
+milestones - seen below.
+
+|||| How have we amended it? |||||
+
+	\subsubsection{Basic Camera Connection}
+		|||| Description ||||
+		Prioirty
+		Completion Criteria:
+		\label{sec:ms_basic_cam_comm}
+		\begin{itemize}
+			\item 	A basic connection to the camera should be established
+				where the camera responds correctly to connection 
+				commands.
+		\end{itemize}
+
+	\subsubsection{Image from Camera}
+		\label{sec:ms_img_from_cam}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_basic_cam_comm} above should
+				be completed.
+			\item 	An image should be shown to have been downloaded 
+				from the camera - this should be repeatable without
+				need to reset the camera.
+			\item 	This image may be of any resolution and colour type.
+		\end{itemize} 
+
+	\subsubsection{Changing Camera Resolution}
+		\label{sec:ms_img_cam_change_res}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_img_from_cam} should be completed.
+			\item 	An image should be shown to have been downloaded 
+				from the camera as in the \emph{Image from Camera}
+				task.
+			\item 	This image should be of a specified resolution which
+				should be changeable.
+		\end{itemize}
+
+	\subsubsection{Changing Camera Colour Type}
+		\label{sec:ms_img_cam_change_colour_type}
+		\begin{itemize}
+			\item 	\ref{sec:ms_img_from_cam} milestone should be completed.
+			\item 	An image should be shown to have been downloaded 
+				from the camera as in the \emph{Image from Camera}
+				task.
+			\item 	This image should be of a specified colour type which
+				should be changeable.
+		\end{itemize}
+
+	\subsubsection{Camera Payload Controller Implementation}
+		\label{sec:ms_img_cam_controller_implementation}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_img_from_cam} should be completed.
+			\item 	The implementaion of milestone \ref{sec:ms_img_from_cam} 
+				should be implemented on the same hardware as the final
+				payload controller will use.
+		\end{itemize}
+
+\subsection{Payload to Ground Station Communications Milestones}
+	\subsubsection{Payload Responding to Transmit Tokens}
+		\label{sec:ms_pl_tx_token_resp}
+		\begin{itemize}
+			\item 	The payload module should respond to transmit tokens
+				sent by the autopilot. 
+			\item 	The \verb+payload[0].timeout+ command when input into
+				the customers ground station software should return 
+				\verb+FALSE+.
+		\end{itemize}
+
+	\subsubsection{Payload Setting Shared Memory on Autopilot}
+		\label{sec:ms_pl_shared_mem_set}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_pl_tx_token_resp}
+				should be completed.
+			\item 	The payload module should set the \verb+MEM_BYTES+ 
+				shared memory assigned to it to a recognizable value.
+		\end{itemize}
+
+	\subsubsection{Payload Receiving Messages from Ground Station}
+		\label{sec:ms_pl_rx_msg_gs}
+		\begin{itemize}
+			\item 	The payload should receive and respond in some way to 
+				data sent by the \verb+payload[0].send_bytes+ command
+				when executed on the ground station.
+		\end{itemize}
+
+	\subsubsection{Image Sending to Ground Station via Autopilot Link}
+		\label{sec:ms_pl_img_sending_gs}
+		\begin{itemize}
+			\item 	Milestones \ref{sec:ms_img_cam_controller_implementation} and \ref{sec:ms_pl_shared_mem_set}
+				should be completed.
+			\item 	An image taken with the camera module should be sent to the
+				ground station by the payload controller via the autopilot link.
+		\end{itemize}
+
+
+	\subsubsection{Triggering Image Capture from Ground Station}
+		\label{sec:ms_pl_img_gs_trigger}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_pl_rx_msg_gs}
+				should be completed.
+			\item 	A specified set of data sent using \verb+payload[0].send_bytes+
+				from the ground station should trigger the payload to take a picture.
+		\end{itemize}
+
+	\subsubsection{Changing Camera Resolution from Ground Station}
+		\label{sec:ms_pl_img_gs_cam_res}
+		\begin{itemize}
+			\item 	Milestones \ref{sec:ms_img_cam_controller_implementation}, \ref{sec:ms_pl_rx_msg_gs} and 
+				\ref{sec:ms_img_cam_change_res} milestones should be completed.
+			\item 	A specified set of data sent using \verb+payload[0].send_bytes+
+				from the ground station should change the camera resolution with 
+				the same outcomes as the \emph{Changing Camera Resolution} milestone.
+		\end{itemize}
+
+
+	\subsubsection{Changing Colour Type from Ground Station}
+		\label{sec:ms_pl_img_gs_cam_colour_type}
+		\begin{itemize}
+			\item 	Milestones \ref{sec:ms_img_cam_controller_implementation}, \ref{sec:ms_pl_rx_msg_gs} and 
+				\ref{sec:ms_img_from_cam} milestones should be completed.
+			\item 	A specified set of data sent using \verb+payload[0].send_bytes+
+				from the ground station should change the camera resolution with 
+				the same outcomes as the \emph{Changing Camera Colour Type} milestone.
+		\end{itemize}
+
+	\subsubsection{Progressive Image Download}
+		\label{sec:ms_pl_img_gs_progressive_dl}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_pl_img_sending_gs} should be completed.
+			\item 	An image should be downloaded progressively from the payload to the
+				ground station.
+			\item 	Additional milestones relating to this area are to be added as design decisions
+				are made.
+		\end{itemize}
+
+\subsection{Physical Implementation Milestones}
+Many of the milestones listed above rely upon a working physical implementation of the system at each stage
+so these will not be duplicated. However, there are a few milestones which are specific to the physical implementation
+of the system.
+%Customer Provided `Dummy' Payload Schematics Working
+
+%Camera connection
+
+%Payload communication
+
+	\subsubsection{Payload Breadboard Prototype}
+		\label{sec:ms_phy_breadboard}
+		\begin{itemize}
+			\item A finalized PCB design ready to be sent for manufacture. 
+		\end{itemize}
+
+	\subsubsection{Payload PCB Design}
+		\label{sec:ms_phy_pcb_design}
+		\begin{itemize}
+			\item A finalized PCB design ready to be sent for manufacture. 
+		\end{itemize}
+		
+	\subsubsection{Complete System on PCB}
+		\label{sec:ms_phy_pcb_complete}
+		\begin{itemize}
+			\item A working system implementation on PCB.
+		\end{itemize}
+
+%Final implementation
+
+\subsection{Ground Station Image Viewer Milestones}
+	\subsubsection{Milestone: Basic Dummy Server Communications}
+		\label{sec:ms_basic_dummy_server_comms}
+		\begin{itemize}
+			\item 	Some prototype programs should be produced to help understand TCP/IP communications.
+				One server program serving some test data over a TCP/IP port and one
+				client program connecting to this port and sending/receiving test data.
+		\end{itemize}
+
+	\subsubsection{Milestone: Communications with Customers Ground Station Sofware}
+		\label{sec:ms_gs_basestation_comms}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_basic_dummy_server_comms} should be
+				completed.
+			\item 	Communication with the customers ground station software via TCP/IP console and
+				data port. Data should be streamed from some known source and verified correct and
+				commands should be sent via the port and verified that they execute in the program.
+		\end{itemize}
+
+	\subsubsection{Milestone: Recieve Image from Payload}
+		\label{sec:ms_gs_recieve_image}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_gs_basestation_comms} should be completed.
+			\item 	Data sent from the implementation of \ref{sec:ms_pl_img_sending_gs} should be
+				decoded and saved/displayed on the ground station in some way.
+		\end{itemize}
+
+
+	\subsubsection{Milestone: Functional User Interface}
+		\begin{itemize}
+			\item 	A functional user interface that allows users to take images and view them using the implementations
+				for the milestones described above.
+		\end{itemize}
+
+
+
+||||||||||| INC DIAGRAM |||||||||||||||
