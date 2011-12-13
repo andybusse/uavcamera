@@ -103,7 +103,7 @@ ISR(USART0_RX_vect)
 
 void uart0_setup()
 {
-	/*// set for 38400 baud assuming 16 MHz clock
+	// set for 38400 baud assuming 16 MHz clock
 	UBRR0H = 0x00;
 	UBRR0L = 0x19;
 
@@ -112,11 +112,11 @@ void uart0_setup()
 	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); // set as asynchronous, format as 9N1 (9, not 8, given UCSZ02 in UCSR0B)
 
   uart0_tx_idle = TRUE;
-	sent_etx_token = FALSE;*/
+	sent_etx_token = FALSE;
 
 
 	// set for 38400 baud assuming 12 MHz clock // UBRR must be 0x13
-	UBRR0H = 0x00;
+	/*UBRR0H = 0x00;
 	UBRR0L = 0x13;
 	
 	UCSR0A = (1 << MPCM0); // disable double TX speed and enable multi-processor comms mode (i.e. ignore all RX data until address bit received (9th bit is high))
@@ -124,7 +124,7 @@ void uart0_setup()
 	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); // set as asynchronous, format as 9N1 (9, not 8, given UCSZ02 in UCSR0B)
 
 	uart0_tx_idle = TRUE;
-	sent_etx_token = FALSE;
+	sent_etx_token = FALSE;*/
 
 }
 
