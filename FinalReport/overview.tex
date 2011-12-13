@@ -1,10 +1,60 @@
 %% ----------------------------------------------------------------
-\chapter{Overview}
+\chapter{Overview of Final Progress}
 %% ----------------------------------------------------------------
-An overview of the entire project process goes here...
 
-\section{Final Deliverables Checklist}
-The final deliverables of the project are described here...
+By prioritising and carefully tracking progress throughout the
+project a significant number of the goals of the project have been
+fulfilled:
 
-\section{Evaluation Against Specification}
-Checklist
+
+\begin{itemize}
+	%\item The image should be encoded in such a way that a low quality image will be available quickly, the quality of which would improve as more information is downloaded. [high priority]
+	\item Minimise the time needed to download the images from the UAV to the base station. The time from the user’s prompt until the image has been fully downloaded will be measured against the theoretical 3 minutes necessary to transmit a full image without using any compression. The goal will be to obtain a full image in \textbf{less than 3 minutes.} [high priority]
+	\item The module weight will be \textbf{less than 250g}. [medium priority]
+	\item Image resolution of \textbf{$640\times480$}. [medium priority]
+	\item Allow the user to perform the following actions on the UAV’s camera from the base station:
+	\begin{itemize}
+		\item Prompt the UAV to \textbf{capture and download an image}. [high priority]
+%		\item \textbf{Cancel} the downloading of any image while the image is being downloaded. [medium priority]
+%		\item \textbf{Resend} an image in case the current preview is corrupted. [low priority]
+%		\item \textbf{Interrupt} the download of an incomplete image and allow the user to save the incomplete image. [low priority]
+		\item Select the \textbf{resolution settings} of the image. [low priority]
+		\item Display a progress indicator which will show the percentage of the image datareceived, as well as a time estimate for the rest of the image to be downloaded. [low priority]
+		\item The image capture will be triggered automatically by the UAV using triggers built into the autopilot. [low priority]
+%		\item Allow the user to command the image capture to \textbf{trigger periodically} over a \textbf{userspecified time interval} will be added if time permits. [low priority]
+	\end{itemize}
+	\item Images will be transmitted in \textbf{colour} as opposed to black and white. [low priority]
+%	\item The user should be able to select between a colour image and a black and white image. [low priority]
+\end{itemize}
+
+We have also produced the requested deliverables:
+
+\begin{itemize}
+	\item \underline{Hardware}: Camera module, constructed on PCB (if time permits, otherwise on strip-board),including layout designs.
+	\item \underline{Software}: All firmware for the electronic module, and software on the base station for viewing images. The full source code and all executable files will be included.
+	\item \underline{Documentation}: Technical and User Documentation. This includes all schematics related to hardware as well as all other documents concerning both the software and hardware delivered.
+	\item \underline{Public repository}: The full source code, all schematics, and all documents concerning both the software and hardware will be included on a public repository so that the client may share this information with his clients.
+\end{itemize}
+
+However, unfortunately due to time constraints we could not complete
+some of our goals:
+
+\begin{itemize}
+	\item The image should be encoded in such a way that a low quality image will be available quickly, the quality of which would improve as more information is downloaded. [high priority]
+	%\item Minimise the time needed to download the images from the UAV to the base station. The time from the user’s prompt until the image has been fully downloaded will be measured against the theoretical 3 minutes necessary to transmit a full image without using any compression. The goal will be to obtain a full image in \textbf{less than 3 minutes.} [high priority]
+	%\item The module weight will be \textbf{less than 250g}. [medium priority]
+	%\item Image resolution of \textbf{$640\times480$}. [medium priority]
+	\item Allow the user to perform the following actions on the UAV’s camera from the base station:
+	\begin{itemize}
+	%	\item Prompt the UAV to \textbf{capture and download an image}. [high priority]
+		\item \textbf{Cancel} the downloading of any image while the image is being downloaded. [medium priority]
+		\item \textbf{Resend} an image in case the current preview is corrupted. [low priority]
+		\item \textbf{Interrupt} the download of an incomplete image and allow the user to save the incomplete image. [low priority]
+		\item Select the \textbf{resolution settings} of the image. [low priority]
+	%	\item Display a progress indicator which will show the percentage of the image datareceived, as well as a time estimate for the rest of the image to be downloaded. [low priority]
+	%	\item The image capture will be triggered automatically by the UAV using triggers built into the autopilot. [low priority]
+		\item Allow the user to command the image capture to \textbf{trigger periodically} over a \textbf{userspecified time interval} will be added if time permits. [low priority]
+	\end{itemize}
+	%\item Images will be transmitted in \textbf{colour} as opposed to black and white. [low priority]
+	\item The user should be able to select between a colour image and a black and white image. [low priority]
+\end{itemize}

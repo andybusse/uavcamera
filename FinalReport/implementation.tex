@@ -23,9 +23,9 @@ submodules:
 	\item Progressive JPEG Manipulation
 \end{itemize}
 
-||||||| INCLUDE REFERENCES TO EACH ||||||||||
+%||||||| INCLUDE REFERENCES TO EACH ||||||||||
 
-||||||| INCLUDE SUBMODULE DIAGRAM OF THE PAYLOAD MODULE |||||||
+%||||||| INCLUDE SUBMODULE DIAGRAM OF THE PAYLOAD MODULE |||||||
 
 \input{implementation_camera}
 
@@ -33,15 +33,15 @@ submodules:
 
 \input{implementation_progressive_jpeg}
 
-\input{implementation_physical}
-
 \section{Integration of Payload Sub-Modules}
 
-|||||||| REMINDER: DISCUSSION OF ARDUINO MULTIPLEXED SERIAL
+%|||||||| REMINDER: DISCUSSION OF ARDUINO MULTIPLEXED SERIAL
 
 \subsection{Integration of Camera Module with SD Card}
 Both the camera module and SD card module were initially prototyped and 
-partially tested separately, |||||| REFS ||||||||, but were integrated at
+partially tested separately,
+%|||||| REFS ||||||||
+but were integrated at
 a fairly early stage. This integration was the easiest way of testing the 
 camera module, since the images from the camera could be written to the SD
 card, allowing for easy inspection.
@@ -61,27 +61,34 @@ faced.
 
 \subsection{Integration of Progressive JPEG Manipulation}
 Unfortunately due to time constraints we were not able to integrate the
-progressive JPEG manipulation code into the payload module, please see section
-||||||| REF |||||||| for more information.
+progressive JPEG manipulation code into the payload module, please see section \ref{sec:implementation_progressive_jpeg} for more information.
 
-\subsection{Implementation on ATMega644P}
-\label{sec:atmega644p_impl}
+\subsection{Implementation on Arduino}
+\label{sec:implementation_arduino}
 Initially we planned to implement the system on the Arduino prototyping 
 platform with an expansion `shield' board providing any extra hardware needed -
-The reasons for this are discussed in section |||||| REF |||||||. 
-This plan relied on the implementation of the multiplexed serial solution 
-discussed above in section |||||||| REF ||||||||. 
+the reasons for this are discussed in section \ref{sec:appr_considered_arduino}.
+The camera module connection code had also already been developed and tested on
+the Arduino. 
+
+This plan relied on the implementation of a multiplexed serial solution, where
+the single serial port of the Arduino would be used to connect to two different
+devices (the camera and the autopilot) at different baud rates and message
+formats. It was planned that this would be achieved by the use of tristate
+buffers to form a bus with the two devices TX and RX lines. The payload software
+could then take care of altering the message format and speed when needed.
 
 Unfortunately, due to time constraints alongside setbacks such as those
 discussed in sections ||||||| REF AUTOPILOT BUG |||||||| and |||||||| REF 
 CAMERA FAILURE |||||||| it was decided that implementing the system on the 
-Arduino platform may not the best way to proceed, since it would almost 
-certainly be non-trivial to implement and debug.
+Arduino platform may not the best way to proceed. The main reason for this 
+decision was the number of unknowns in the planned multiplexed implementation
+- since it was not really how the hardware is designed to be used, it was not
+certain it would provide satisfactory results in the limited time that we had.
 
-Several options were considered alongside the multiplexing option. One 
-alternative workaround discussed was to use a separate AVR as an interface
-to the autopilot and connect it to the Arduino using bit-banged SPI or the
-inbuilt two-wire interface (TWI, sometimes known as I2C). This approach was 
+\subsection{Implementation on ATMega644P}
+\label{sec:atmega644p_impl}
+Several options were considered alongside the multiplexing option discussed above. One alternative workaround discussed was to use a separate AVR as an interface to the autopilot and connect it to the Arduino using bit-banged SPI or the inbuilt two-wire interface (TWI, sometimes known as I2C). This approach was 
 attractive as it meant we could use the existing Arduino code for the camera 
 and SD card and use the existing ATMega168 code for the autopilot communication.
 However, this solution would add another complex component to the system along
@@ -122,7 +129,7 @@ of code that were causing compilation issues were also modified.
 \label{sec:payload_debug_interface}
 While the payload module was being developed debugging was a major concern. 
 Having access to an oscilloscope very useful when debugging some particularly 
-difficult problems, as described elsewhere in this report ||||||| WHERE |||||.
+difficult problems.
 However, while building the payload module it was clear more complex details 
 about the internal state of the program as it was running would be useful.
 
@@ -150,6 +157,8 @@ This allowed bugs to be caught and fixed as quickly as possible, as well as
 increasing our knowledge of the current state and progress of the system and
 project as a whole.
 
+\input{implementation_physical}
+
 %% ----------------------------------------------------------------
 \chapter{Implementation - Ground Station}
 %% ----------------------------------------------------------------
@@ -157,8 +166,8 @@ project as a whole.
 \input{implementation_ground_station}
 
 %% ----------------------------------------------------------------
-\chapter{Implementation - Whole System}
+%\chapter{Implementation - Whole System}
 %% ----------------------------------------------------------------
 
-\section{System Integration}
+%\section{System Integration}
 

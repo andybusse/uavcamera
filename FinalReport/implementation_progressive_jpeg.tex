@@ -1,4 +1,38 @@
-\section{JPEG Information Extractor}
+\section{Progressive JPEG Manipulation}
+\label{sec:implementation_progressive_jpeg}
+The project planned to incorporate a custom JPEG manipulator which would
+take a JPEG image received from the camera and progressively
+send the image data to the ground station. 
+The planned software would consist of two parts.
+
+The first part of the software would obtain all the information
+needed for reconstructing the JPEG image on the ground station.
+This would be done using a JPEG image data extractor, and would 
+also act to optimize the amount of information sent to the ground station.
+
+The second part of the custom JPEG manipulation
+would display the image progessively. 
+This would receive the Huffman table information obtained 
+from the extractor and use it to reconstruct the image progressively. 
+It would then allow the user
+at the ground station to evaluate the image as soon as possible,
+i.e. before all the image data has been sent. This would also 
+save time when combined with the ability to interrupt the 
+downloading process of an image from the UAV to the
+ground station in case the image appears to be unwanted. 
+
+For information on the reasoning behind implementing 
+custom JPEG manipulation, please see 
+the JPEG manipulation section in the 
+Approaches considered section. \ref{sec:jpegmanipulation}
+
+During the course of the project, only the first part
+of the progressive JPEG manipulation algorithm was 
+successfully implemented. A form of image displaying 
+software has also been constructed which uses the 
+Huffman table information obtained from the extractor, 
+but a progressively higher resolution display of 
+the image was not able to be fully implemented.
 
 \subsection{Progressive Scan of JPEG (commandCheck)}
 

@@ -74,15 +74,12 @@ This complicated function should implement in the ground station because if the 
 The painting class is supported by the DCT class. The intention of this class is to display an encoded image point by point on the picture box.By this method, the pictureBox can display an image at the first pixel.
 The \texttt{CameraCommand} class design for send the data from the ground station to the camera. The idea is that make the camera sync with the payload by using the ground command. \texttt{SetAndSendCommand} use for set the byte command and then send it to the payload via the Console port. \texttt{SetGetPicture,SetInitial, SetPhoto, and SetTakePicture} methods are use for setting the correct byte in order to send the byte by using \texttt{SetAndSendCommand} class.
 
-
-
-
 \subsubsection{Use Case Diagram}
 
 Figure~\ref{GUI_useCase} shows a possible user action on the program. The user can save, open and delete any jpeg image from the computer. The program can also detect the corrupted image and ask the user to delete it. The user has an option to connect to the UAV. This is incase of the UAV is not connected properly. The most important function is get picture from the UAV camera. This will send and receive complex command which will be described. The internal program will process the byte and display the information as image onto the pictureBox. The user will then have an option to save the image and close the program.
 \begin{figure}[!hbtp]
 \begin{center}
-\includegraphics[scale=0.6]{figures/userCase.PNG} 
+\includegraphics[scale=0.6]{figures/userCase.png} 
 \end{center}
 \caption{Use case diagram of the GUI\label{GUI_useCase}}
 \end{figure}

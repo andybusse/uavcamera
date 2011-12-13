@@ -1,6 +1,3 @@
-
-IMAGE OF PAYLOAD CONTROLLER BLOCK?
-
 \section{Payload Controller Hardware}
 The hardware used to implement the payload controller is an important consideration.
 
@@ -82,6 +79,7 @@ AVRs are robust, widely used, general purpose microcontrollers. The large commun
 
 
 \subsection{Approach: Atmel 8-bit AVR with Arduino Prototyping Platform}
+\label{sec:appr_considered_arduino}
 
 The Arduino platform is a low cost, open-source development platform for the Atmel AVR microcontroller family. The latest versions of the development platform consists of an ATMega328 microcontroller along with voltage regulators, inbuilt USB programmer and serial interface and 16MHz crystal. A software library for the device provides a wrapper around many of the complexities of the AVR platform, allowing more rapid development to be possible than with a pure AVR. A simple IDE is used to program the device and a wide range of extra libraries are available which target the platform. The physical platform is designed to be easily extended using expansion boards called `shields'.
 
@@ -111,12 +109,8 @@ Disadvantages:
 
 Using an Arduino has the advantage of speeding up development at the beginning of the project. The large number of libraries built for the Arduino is another key advantage, as is the ease of re-implementation.
 
-\subsection{Approach: Arduino with Multiplexed Serial}
-
-\subsection{Approach: Arduino with Dual Controllers}
-
 \section{Communication between Payload Controller and Ground Station}
-One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station Image Viewer (see section |||||| GS IMAGE VIEWER ||||||) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
+One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station image viewer software (see section |||||| GS IMAGE VIEWER ||||||) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
 
 The autopilot provides a number of ways to communicate between a payload module and ground station software. The Ground Station software provided to us allows a `packet' of data to be sent to a payload module by executing the command shown below:
 ~\\
@@ -131,10 +125,10 @@ The design approaches taken regarding this communication from the perspective of
 \subsection{Approach: Shared Memory for Both Directions}
 One possible way of producing two-way communications would involve two sets of shared memory: one for ground station to payload messages and another for payload to ground station messages. Both the payload and the autopilot would need to poll the shared memory to check for new messages.
 
-Advantages:
-\begin{itemize}
-\item 
-\end{itemize}
+%Advantages:
+%\begin{itemize}
+%\item 
+%\end{itemize}
 
 Disadvantages:
 \begin{itemize}
@@ -150,9 +144,7 @@ Advantages:
 \item No overhead needed to get messages on the payload, they are sent directly from the autopilot to the payload, no polling needed.
 \end{itemize}
 
-Disadvantages:
-\begin{itemize}
-\item Error coding??
-\end{itemize}
-
-\section{SOMETHING ABOUT USING ANOTHER SUPPLEMENTARY RADIO LINK}
+%Disadvantages:
+%\begin{itemize}
+%\item Error coding??
+%\end{itemize}

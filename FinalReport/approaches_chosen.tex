@@ -5,12 +5,10 @@
 
 \input{approaches_chosen_camera}
 
-\section{Payload/Ground Station Interaction}
-
 \section{Ground Station Image Viewer}
 \subsection{Agreed design}
 
-The final GUI has been planned to have many functions such as auto triggering, image type, resolution type, file path chosen, progress bar, help button, stop and delete.Figure \ref{finalGUI} is the screen shot of the final GUI.
+The final GUI has been planned to have many functions such as auto triggering, image type, resolution type, file path chosen, progress bar, help button, stop and delete. Figure \ref{finalGUI} is the screen shot of the final GUI.
 
 \begin{figure}[!hbtp]
 \begin{center}
@@ -25,7 +23,7 @@ The stop button allows the user to interrupt the downloading image.
 The class diagram have been implemented very differently from the planned one. This is because the new plan is to decode it on board and then transmitted to the ground station in JPEG smaller file. Therefore, the class JPEG file reader has changed to C code and to be implemented on board. The DCT class are not needed anymore because all the calculation will be on board. The camera command has taken away as well because the payload will do this  process. The painting class use to draw each pixel onto the pictureBox, but it has not been implemented in the final program because of the stated reason. 
 \begin{figure}[!hbtp]
 \begin{center}
-\includegraphics[scale=0.7]{figures/finalClassDiagram.PNG} 
+\includegraphics[scale=0.7]{figures/finalClassDiagram.png} 
 \end{center}
 \caption{Final class diagram of the GUI\label{GUI_finalClassDiagram}}
 \end{figure}
@@ -34,7 +32,7 @@ Figure\ref{GUI_finalUseCase} shows an agreed use case diagram. It has changed sl
 
 \begin{figure}[!hbtp]
 \begin{center}
-\includegraphics[scale=0.7]{figures/FinaluserCase.PNG} 
+\includegraphics[scale=0.7]{figures/FinaluserCase.png} 
 \end{center}
 \caption{Final use case diagram of the GUI\label{GUI_finalUseCase}}
 \end{figure}

@@ -5,6 +5,8 @@
 \graphicspath{{../Figures/}}   % Location of your graphics files
 \usepackage[numbers]{natbib}            % Use Natbib style for the refs.
 \usepackage{float}				% used to allow exact placement of figures
+\usepackage{subfigure}				% used to allow more than one figure on a line
+\usepackage{verbatim}
 \hypersetup{colorlinks=true}   % Set to false for black/white printing
 %% ----------------------------------------------------------------
 \begin{document}
@@ -38,9 +40,9 @@ Given an autopilot module for an unmanned aircraft vehicle (UAV), a camera modul
 
 \input{introduction}
 \newpage
-\input{research}
-\newpage
 \input{specification}
+\newpage
+\input{research}
 \newpage
 \input{approaches_considered}
 \newpage
@@ -54,11 +56,11 @@ Given an autopilot module for an unmanned aircraft vehicle (UAV), a camera modul
 \newpage
 \input{management}
 \newpage
-\input{future}
+\input{conclusions}
 \newpage
 \input{evaluation}
 \newpage
-\input{conclusions}
+\input{future}
 \newpage
 \input{docs}
 \newpage
@@ -69,19 +71,26 @@ Given an autopilot module for an unmanned aircraft vehicle (UAV), a camera modul
 \dedicatory{To \dots}
 
 %% ----------------------------------------------------------------
-%%\include{Introduction}
-%%\include{Conclusions}
-\appendix
-\backmatter
 
 \input{glossary}
 \newpage
-\chapter{Appendix A}
 
+\appendix
+\chapter{Meeting Minutes}
+\input{appendices-minutes}
+\newpage
+
+\chapter{Schematics}
+\input{appendices-schematics}
+\newpage
+
+\backmatter
 \bibliographystyle{ecs}
 
 \input{bibliography}
-\newpage
+
+
+
 
 \end{document}
 %% ----------------------------------------------------------------

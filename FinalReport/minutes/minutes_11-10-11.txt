@@ -1,0 +1,30 @@
+Location: Library, Study Room 1A
+Date/Time: 11/10/2011, 1600-1730
+Agenda: * Review progress made, and assign tasks for the week ahead
+In Attendance: Mitch, Andy, Peak, John, Michael
+
+-----
+Work Done:
+* Obtained a Camera
+* Basic MATLAB compression code has been achieved
+* Work on getting some useful data out of the camera has started (using Arduino, in progress)
+
+-----
+Work for the coming week (12/10 - 19/10)
+* Get image off the camera (need a memory buffer, multiple resolutions) [John, Michael]
+* Parse image data from the camera [John, Michael]
+* Order remaining parts for prototyping autopilot peripheral from Farnell on 12/10 am [John, Michael]
+* Construct a prototype autopilot peripheral, based on client's schematics [Andy, Peak]
+* Play around with DSPs given to us by stores/supervisor, run an FFT on them (- Progressive JPEG?) [Andy, Peak]
+* MATLAB Compression - Image Specific, and general [Mitch, Michael, John]
+* Payload Controller - Ground Station Protocol (i.e. sending commands to a payload, receiving data back from it) (SCPI?) [Andy, Peak]
+
+-----
+Targets for 19/10
+* AVR (or any other uProcessor) code to get an image from the webcam onto a computer
+* Code to display image from the webcam (raw data, and jpeg_.
+* Obtain all parts for prototyping
+* Prototype for the payload on breadboard, with schematic
+* DSP selected > FFT function achieved on DSP
+* 50% image specific compressing MATLAB code
+* 50% lossless compression MATLAB code
