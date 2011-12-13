@@ -211,14 +211,14 @@ The Socket class has functions to send and receive byte and strings data. The ha
 	The design of the .NET \texttt{Socket} class simply connect to a Port by a single command without any hesitation of changing the baud rate, stop bits, and parity bits. 
 	This advantage makes the \texttt{Socket} class a more useful class then the \texttt{SerialPort} Class to work with the Port with existing and static set up. 
 
-\subsection{Start of the program: Appendix\ref{appen:main_form} line 78-87}
+\subsection{Start of the program: Appendix \ref{appen:main_form} line 78-87}%
 In order to make the file name different and meaningful, the name of the picture will be the time and date of the time taken the picture. The code \texttt{DateTime.Now} generate a string of date and time of the current time. This has been done using the date and time class. \texttt{FileStream} was initialize to be in \texttt{FileMode.Create()}, so it can create file. The BinaryWriter write the binary byte into a file in the directory of the fileStream. \texttt{string fileName = string.Format("uavPictureAt{ 0 : yyyy-MM-dd\_ hh-mm-ss-tt}
  .jpg", DateTime.Now);   }  
 This code time setting is valid for a file name because it is not using any symbole that will make the program confuse with a code. 
 It will display year, month,date, and time in this order. 
 The \texttt{BinaryWriter} class can create a binary file using specific data layout for its bytes. 
 
-\subsection{Change File Directory:Appendix\ref{appen:main_form} line346-370 & 454-484 }
+\subsection{Change File Directory:Appendix \ref{appen:main_form} line346-370 and 454-484 }% 
 If the user wish to change the directory of the image taken, the image viewer program must support it. the mnuOpen\_click() method introduce an OpenFileDialog class. It begin with open file dialog box. This allow the user to open an inital image to the program. If the user took a picture, it will be saved in the same directory as the open file. This file dialog is limited to only the jpg picture in order to avoid the error of displaying the image. 
 This file dialog introduce an extra thread. Without thread handler, the program will automatically organize the thread in the same timeline. This means it have to finish one event before it start another. The more detail about thread will be discussed in the thread section. 
 
