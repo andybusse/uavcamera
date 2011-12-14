@@ -1,4 +1,120 @@
 %% ----------------------------------------------------------------
 \chapter{Conclusions}
 %% ----------------------------------------------------------------
-Conclusions go here.
+
+This section will discuss to what extent we have fulfilled the requirements 
+of this project, mainly in terms of our initial specification, including a 
+justification for why certain aspects were not met, and an analysis of 
+whether the project, as it currently stands, could be reasonably presented to our customer as a working solution.
+
+\section{Commented Specification}
+
+The initial specification is available as Appendix \ref{initial_spec}. 
+
+This is then analysed and justified in Section \ref{sec:specification}
+
+\subsection{Fully Completed Parts}
+
+\begin{itemize}
+\item \ref{sec:spec_b} : The mean time to download an image, with no packet 
+loss, is X seconds ??? reference ???. This figure is obtained from testing 
+with the serial link only.
+\item \ref{sec:spec_c} : The combined weight of the electronic module and 
+board camera is 58g. Combined with the camera enclosure and ethernet cable 
+(i.e. the entire additional weight to the UAV to add our module), this is Xg.
+?? insert pictures of scales proving this ??
+\item \ref{sec:spec_d} : We are able to get an image resolution of up to 
+$640\times480$ pixels. Reference the test.
+\item \ref{sec:spec_e} : We provide software that prompts the UAV to capture 
+an image, download it and then displays it on screen. ?Reference??
+\item \ref{sec:spec_f} : Our software is able to cancel the download of an 
+image mid-transmission. ?reference test?
+\item \ref{sec:spec_i} : Our software allows you to select any resolution that 
+is featured on the camera, and download an image at that resolution. ?show test?
+\item \ref{sec:spec_m} : We are able to transmit colour images as opposed to 
+black and white due to our choice of camera - our camera is only able to 
+provide colour images. Therefore it is implemented, but only through our 
+choice of camera, not through design.
+\end{itemize}
+
+\subsection{Partially Completed Parts}
+
+\begin{itemize}
+\item \ref{sec:spec_a} : This task was lowered in priority when we discovered 
+that our camera compressed JPEG images a lot more severely than we were 
+expecting (image files are approximately 30kB in size, we were expecting 
+these files to be 900kB in size). To reflect the time invested in this, we 
+have produced some code that partially implements this part of the 
+specification, available ???here?
+\item \ref{sec:spec_j) : A progress indictor does exist ???ref???, but the 
+display only indicates the number of packets received - it does not 
+indicate the time remaining to download as this includes the time taken to 
+capture an image from the camera and to store it on the SD card.
+\end{itemize}
+
+\subsection{Incomplete Parts}
+
+\begin{itemize}
+\item \ref{sec:spec_g} : Resending of the same image is not implemented. 
+This is, however, a low priority task, which could have been implemented 
+if we had more time. In theory, this would be rather trivial to implement.
+\item \ref{sec:spec_h} : Interruption of an image mid-transmission and 
+saving the incomplete image was again, a low priority task that was not 
+implemented due to a lack of time. Again, it should be rather trivial to 
+implement.
+\item \ref{sec:spec_l} : Automatic image capture at user-specified time 
+intervals was another low priority task which we were unable to implement, 
+but which should be rather trivial to implement due to the SkyCircuits 
+software's scripting interface, but slightly more difficult than the above
+two.
+\item \ref{sec:spec_n} : Selecting between colour and black-and-white images 
+was included in the specification as we considered that this would reduce 
+the image transmission time. However, this was not a feature supported 
+by our board camera, implementing it on our AVR would be a non-trivial 
+process, and the priority to reduce transmission time was reduced as the 
+colour image files themselves were much smaller than expected.
+\end{itemize}
+
+\section{Deliverables}
+
+This will discuss to what extent we have delivered everything we specified 
+in our specification \ref{initial_spec}
+
+\subsection{Hardware}
+
+\ref{sec:deliv_a} : We have delivered a suitable board camera, and an 
+electronic module on PCB which interfaces the camera to the autopilot's 
+payload port. All schematics, layouts, gerber files etc. are provided in 
+our central Github repository \ref{github}, and as Appendices \ref
+{Appendix_schematics} and ???
+
+\subsection{Software}
+
+\ref{sec:deliv_b} : The electronic module delivered to the customer is 
+presented with firmware loaded on to it, and the user interface software 
+presented as an executable file (requiring only that the .NET framework 
+is installed on the PC, however this is the same dependancy as for the 
+SkyCircuits software). All firmware for the electronic module, as well as 
+source code for our executable Ground Station Software, is presented in 
+
+\subsection{Documentation}
+
+\ref{sec:deliv_c} : Documentation for our Ground Station Software is 
+delivered with this project ???reference???. It is assumed that our customers' clients are technically competent, therefore documentation on 
+how to order a PCB with our gerber files, how to construct the PCB, and how 
+to flash an ATmega644P with our source code was deemed unnecessary.
+
+\subsection{Public Repository}
+
+\ref{sec:deliv_d} : All files related to our project are available in our 
+central GitHub repository \ref{github}. Most things in there are open-source: source code is licensed under GPLv3 (GNU Public License version 3), 
+\ref{gpl}
+images (including PCB layouts and schematic designs) are licensed under 
+CC BY-SA 2.0 UK (Creative Commons Attribution ShareAlike) \ref{ccbysa}, 
+and all documentation under the FDL (Free Documentation License), \ref{fdl}. This is as-requested, and should encourage sharing this information 
+amongst our customers' clients.
+
+\section{General Conclusions}
+
+In conclusion, we have presented the customer with exactly what was requested: 
+an electronic module that interfaces 
