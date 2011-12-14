@@ -1,0 +1,73 @@
+\section{SkyCircuits Autopilot}
+
+|||||||||||| INTRO TO DO |||||||||||||||||||
+
+\subsection{Autopilot Payload Module Interface}
+\label{sec:autopilot_payload_interface}
+|||||| Maybe have this in background research ||||||
+
+The SkyCircuits autopilot module allows extension modules named `payload 
+modules' to be connected to the autopilot. These payload modules are connected 
+via a RS485 serial connection at 38.4 kBaud, allowing several payload modules
+to be connected at once in a daisy-chain configuration. All payload modules are 
+connected to common TX and RX lines, where the RX line is used by the
+autopilot to send commands and data to the payload modules, and the TX
+line is used by all daisy-chained modules to communicate with the autopilot.
+
+||||||| Include diagram of daisy chain configuration ||||||||||
+
+Since the TX line is shared between all modules only one payload module can be 
+transmitting at once over the link, with all other payload modules required to
+leave the line tristated. This means that each payload module must know when it is
+allowed to use the transmit line so as not to clobber any other payload module.
+In this system this is achieved by the use of `transmit tokens' handed out 
+by the autopilot over the RX line. A `transmit token' is sent to each payload 
+module in turn, informing the module that it is clear to transmit data. With 
+only one payload module connected to the autopilot, these tokens are sent out 
+every 20 ms. |||||| CHECK THIS ||||||||
+
+This two way communication link is used to implement a command interface to 
+the autopilot. A payload module can execute commands on the autopilot, 
+allowing a variety of useful and interesting possibilities for payload
+module design. Of interest to us however, is the ability of the payload
+module to set shared memory. Since this shared memory can be accessed 
+through the ground station software this allows us to send data through the
+autopilot link to the ground station. Shared memory is allocated to 
+each payload module, accessible on the ground station using the command:
+~\\
+~\\
+\begin{lstlisting}[caption={Accessing shared memory from ground station}, label=lst:gs_shared_mem_set]
+payload[payload_num].mem_bytes[mem_bytes_num]
+\end{lstlisting}
+
+Where \emph{payload\_num} is the ID number identifying the payload and 
+\emph{mem\_bytes\_num} is the index of the set of shared memory to be accessed.
+
+Each shared memory set is of variable length and can be set from the payload 
+module using the following function (code provided by customer):
+~\\
+~\\
+\begin{lstlisting}[language=C, caption={Setting shared memory from payload module}, label=lst:payload_shared_mem_set]
+send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, 
+CLASS_PAYLOAD_MEM_BYTES, mem_bytes_num, message_to_send,
+message_to_send_length)
+\end{lstlisting}
+
+Where \emph{CLASS\_PAYLOAD} and \emph{CLASS\_PAYLOAD\_MEM\_BYTES} are constants 
+informing the autopilot that the \emph{mem\_bytes} item of the \emph{payload} 
+object should be set, \emph{module\_id} is the ID of the payload module,
+\emph{mem\_bytes\_num} is the same as used in listing
+\ref{lst:gs_shared_mem_set} and \emph{message\_to\_send} is the message to be 
+sent (consisting of an array of length \emph{message\_to\_send\_length}, the 
+first element of which should be the number of bytes to set in the shared 
+memory).
+
+The ground station software can also send data directly to a payload module 
+through the autopilot, where it will be sent on to the RX line of the RS485
+bus as a `packet' of data. The \emph{send\_bytes} command is used to do this, as can be seen in 
+listing \ref{lst:ground_station_send_bytes}. 
+
+~\\
+\begin{lstlisting}[caption={Sending bytes 1 to N from ground station to payload module}, label=lst:ground_station_send_bytes]
+payload[0].send_bytes BYTE1 BYTE2 ... BYTEN 
+\end{lstlisting} 
