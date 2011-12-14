@@ -1,5 +1,5 @@
 
-\section{JPEG Image Compression (ps6g08)}
+\section{JPEG Image Compression (ms)}
 \label{jpeg_image_compression}
 \subsection{Introduction}
 The images obtained from a camera will generally be in the JPEG image format
@@ -93,7 +93,7 @@ The figure below compares 5 subsampling patterns used against a 2x2 pixel image.
 The JPEG compression algorithm uses 8 
 stages to compress an image: \cite{hass_impulse_jpeg}
 
-\subsubsection{Colour Space Conversion}
+\subsubsection{Stage 1: Colour Space Conversion}
 The image undergoes chroma subsampling from the 
 RGB colour model to a 4:2:2 or a 4:2:0 YCbCr colour model. 
 Both subsampling patterns are approved by the
@@ -101,13 +101,13 @@ EXIF (Exchangeable image file format for digital still cameras)
 and the pattern used is dependant on the camera's specifications. 
 (see section \ref{sec:colour_space_conversion})
 
-\subsubsection{Block Segmentation}
+\subsubsection{Stage 2: Block Segmentation}
 The image is then separated into 8x8 or 16x16 pixel blocks,
 called MCUs (Minimum Coded Unit) 
 depending on whether the image has been chroma
 subsampled to a 4:2:2 or 4:2:0 model respectively. \cite{exif_std}
 
-\subsubsection{Discrete Cosine Transform}
+\subsubsection{Stage 3: Discrete Cosine Transform}
 The image is transformed from a spatial domain 
 representation to a frequency domain representation
 using the Discrete Cosine Transform. \cite{hass_impulse_jpeg}
@@ -115,7 +115,7 @@ using the Discrete Cosine Transform. \cite{hass_impulse_jpeg}
 %% REFERENCE TO DCT PART
 %%(see section \ref{sec:jpegmanipulation})
 
-\subsubsection{Quantization}
+\subsubsection{Stage 4: Quantization}
 Using the wave equations from the DCT step,
 the algorithm sorts them from low-frequency
 components (gradual colour changes) to 
@@ -131,7 +131,7 @@ This quantization table differs between
 the majority of digital cameras and 
 software packages.\cite{hass_impulse_jpeg}
 
-\subsubsection{Zigzag Scan}
+\subsubsection{Stage 5: Zigzag Scan}
 The matrix obtained through quantization is
 then re-ordered from the top-left corner into a 
 64-element vector in a zig-zag pattern.
@@ -140,7 +140,7 @@ components which are most likely to round to
 zero after quantization, make up the lower
 right hand part of the matrix.\cite{hass_impulse_jpeg}
 
-\subsubsection{DPCM on DC components}
+\subsubsection{Stage 6: DPCM on DC components}
 DPCM is known as Differential Pulse
 Code Modulation. It is the process of
 calculating the block-to-block average difference
@@ -148,13 +148,13 @@ of the DC components across the entire MCU block
 and encoding the average as a change from the 
 previous block's value.\cite{hass_impulse_jpeg}
 
-\subsubsection{RLE on AC components}
+\subsubsection{Stage 7: RLE on AC components}
 RLE is known as Run Length Encoding. It is the process of
 storing each value of the AC components of the
 64-element vector with the number of zeros
 preceding it for the purposes of the final stage.\cite{hass_impulse_jpeg}
 
-\subsubsection{Entropy Coding/ Huffman Coding}
+\subsubsection{Stage 8: Entropy Coding/ Huffman Coding}
 Finally, a dictionary representing commonly used value strings with
 shorter code is created. Common string and patterns
 are represented by short codes while less frequently
@@ -318,6 +318,7 @@ The following tables show important compression contents from the relevant JPEG 
 \end{table}
 
 \subsubsection{Entropy-encoded image data}
+\label{sec:entropycrho}
 
 The image data is received chrominance pixel by chrominance pixel. 
 The first bytes received are the luma values of the individual image pixels. 
