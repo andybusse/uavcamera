@@ -1,7 +1,28 @@
 \section{Camera Module}
 \label{sec:John_options}
 
-A range of different camera modules were researched and considered for use in the project. It was decided early on in the project that camera modules would be used rather than attempting to interface with standard digital cameras. - THIS SHOULD BE A DESIGN CHOICE TOO
+A range of different camera modules were researched and considered for use in the project.
+
+\subsection{Approach: Compact Digital Camera}
+\label{sec:Compact_option}
+A huge range of compact digital cameras are available for purchase and this was considered as a possible approach.
+
+Advantages:
+      \begin{itemize}
+         \item High resolution of typically 5+ Megapixels
+		 \item Fully encapsulated
+		 \item High quality images possible thanks to automatic focus and zoom
+     \end{itemize}
+
+Disadvantages:
+     \begin{itemize}
+        \item Difficult/impossible to communicate with: most modern digital cameras has a USB socket for downloading images off the camera but it is much rarer to be able to send the camera commands (e.g. take photo) and for those cameras where it is possible the command structure is not usually simple.
+        \item Requires USB host device in order to properly communicate as only USB host devices provide power via usb and can have USB peripherals connected to them.
+	\item Relatively large and heavy compared to the other approaches considered.
+	\item Expensive
+     \end{itemize}
+
+In order to communicate with a camera via USB a USB host is required. The process is usually fairly complex a driver is normally used. This is extremely difficult to implement on a device compact enough for use in this project.
 
 \subsection{Approach: USB Camera}
 \label{sec:USB_option}

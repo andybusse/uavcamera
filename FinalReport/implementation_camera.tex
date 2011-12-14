@@ -5,10 +5,12 @@ The first step in the implementation of the camera module was to verify the comm
 
 \begin{figure}[H]
         \centering
-        \includegraphics[width=1.00\textwidth]{figures/uCam.jpg}
-        \captionof{figure}{uCam module, sourced from \cite{ucam_datasheet} }
-        \label{fig:ucam_pic}
+        \includegraphics[width=1.00\textwidth]{figures/CameraModuleBlock1.png}
+        \captionof{figure}{Block diagram of the camera module showing where communication takes place}
+        \label{fig:camera_block}
 \end{figure}
+
+Figure \ref{fig:camera_block} shows how the camera module is broken down separate to the rest of the system. The camera and the camera controller communicate to set up the camera and get images, the camera controller then stores the image to the SD card and debug messages are sent to the computer during these processes so that the camera is less of a black-box.
 
 During the development of the system 2 cameras (uCam \cite{ucam_datasheet}) died on us. The first very early on in development and the second after the system had been effectively finished apart from a few minor tweaks and implementation of some low priority functionality. These component malfunctions were most likely due to the uCam being sensitive to static so after the first one failed we were careful to only handle the second one on an anti-static mat whilst wearing a wrist-strap, however someone must have gotten careless towards the end of the project.
 
@@ -32,13 +34,13 @@ The operation of the new camera module was verified using a usb to serial cable 
 
 \subsection{Arduino implementation}
 
-With the operation of the camera verified it was reconnected to the arduino board and the code run again with the same result as before: it would correctly sync but no more than this. On inspection of the code it became clear that this was because the same serial line was being used for both communication with the camera and debug messages and that these debug messages were interfering with further communications. Debug messages were therefore moved to a software serial line and sent to the computer via the usb to serial cable and observed using PuTTy.
+With the operation of the camera verified it was reconnected to the arduino board and the code run again with the same result as before: it would correctly sync (see figure \ref{fig:syncProto} and section \ref{basic_connection_test}) but would generate errors when trying to send any further commands. On inspection of the code it became clear that this was because the same serial line was being used for both communication with the camera and debug messages and that these debug messages were interfering with further communications. Debug messages were therefore moved to a software serial line and sent to the computer via the usb to serial cable and observed using PuTTy.
 
 The code is broken down so that there are functions for each type of command that the camera can receive, functions that verify the responses from the camera and functions that combine these together in the correct sequence in order to perform a useful task with the camera.
 
 \subsubsection{Camera synchronisation}
 
-The first task in communicating with the camera is to synchronise the serial channel, the uCam datasheet gives the correct protocol to do this.
+The first task in communicating with the camera is to synchronise the serial channel, the uCam datasheet \cite{ucam_datasheet} gives the correct protocol to do this.
 
 \begin{figure}[H]
         \centering
@@ -53,7 +55,7 @@ The inclusion of a separate debugging line allows for messages at each stage of 
 
 \subsubsection{Taking a snapshot}
 
-With the camera successfully synchronised the controller needs to be able to trigger the camera to take a photograph and then retrieve said photograph, again the uCam datasheet gives an example of how to implement this.
+With the camera successfully synchronised the controller needs to be able to trigger the camera to take a photograph and then retrieve said photograph, again the uCam datasheet \cite{ucam_datasheet} gives an example of how to implement this.
 
 \begin{figure}[H]
         \centering
@@ -74,14 +76,12 @@ The last command sent by the controller is the "GET PICTURE" command which tells
 
 Once the controller has acknowledged the "DATA" message the camera starts to send data packages, each of which needs to be acknowledged, until the entire image is transferred. Whilst this process is going on the data packages are saved to an SD-card as described in [] ref to andy's section [].
 
-The use of the debug communication channel again allowed for detailed analysis of this process with the maximum amount of debug messages being one before each command is sent saying what that command is and another message once and ACK is received, there is also then a message with the size of the data in and then messages with the package number and the byte number within that package, the data can also be output to the debug channel.
-
-[] screenshots of debug channel, with camera disconnected and with it connected []
+The use of the debug communication channel again allowed for detailed analysis of this process with the maximum amount of debug messages being one before each command is sent saying what that command is and another message once and ACK is received, there is also then a message with the size of the data in and then messages with the package number and the byte number within that package, the data can also be output to the debug channel, see section \ref{sec:image_capture_test}.
 
 \subsection{Miscellaneous Problems}
 
-Before the SD-card was implemented the sending of the data directly via the debug channel was attempted and so was its reconstruction into a jpeg image on the computer, this could not be made to work however. On looking at the data as it came off the arduino via the software serial debug line it became clear (particularly when looking at the counting values, whose values were already known) that the data was not being transmitted reliably. For this reason this method of getting an image was abandoned, this also had to taken into consideration whilst thinking about the integration of this part of the system as the software serial line is not a reliable method of transmitting the data some other method would have to be used.
+Before the SD-card was implemented the sending of the data directly via the debug channel was attempted and so was its reconstruction into a jpeg image on the computer, this could not be made to work however, see section \ref{sec:image_capture_test}. On looking at the data as it came off the arduino via the software serial debug line it became clear (particularly when looking at the counting values, whose values were already known) that the data was not being transmitted reliably. This could have been because of noise on the line, the fact that the software serial line is communicating via pins on the arduino that aren't optimised for the function or simply failings in the arduino software serial library \cite{software_serial}. For this reason this method of getting an image was abandoned, this also had to be taken into consideration whilst thinking about the integration of this part of the system: the software serial line is not a reliable method of transmitting the data so some other method would have to be used.
 
 Another problem that was noticed after the camera control had been integrated, as described in [] ref to mike's section [], was that every other time the system was powered up the camera would require a reset/power cycle. This was discovered to be because the Rx wire to the camera was left floating, this was fixed by the addition of a 10k$\Omega$ pull-up resistor.
 
-It was also noticed quite early on that the camera required 3.3V logic levels but the arduino outputs 5V logic levels, the arduino could receive logic at 3.3V easily enough but the 5V output was causing occasional errors. In order to fix this problem the 5V output from the arduino was taken through a potential divider of a 10k$\Omega$ resistor and a 3V zener diode.
+It was also noticed quite early on that the camera required 3.3V logic \cite{ucam_datasheet} levels but the arduino outputs 5V logic levels, the arduino could receive logic at 3.3V easily enough but the 5V output was causing occasional errors. In order to fix this problem the 5V output from the arduino was taken through a potential divider of a 10k$\Omega$ resistor and a 3V zener diode.
