@@ -1,23 +1,32 @@
-\section{Camera Module}
+\section{Camera Module (jc)}
 \label{sec:John_Implementation}
 
-The first step in the implementation of the camera module was to verify the communication with the camera by talking to it via a pc. Once this step was complete the next step was to implement communications between the camera and a microprocessor, with the pc for debugging. With the microcontroller able to communicate with the camera this module was ready for integration with the payload.
+The first step in the implementation of the camera module was to verify the communication with the camera by talking to it via a pc (milestone \ref{sec:ms_img_from_cam}). Once this step was complete the next step was to implement communications between the camera and a microprocessor, with the pc for debugging. With the microcontroller able to communicate with the camera this module was ready for integration with the payload (milestone \ref{sec:ms_img_cam_controller_implementation}).
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.00\textwidth]{figures/uCam.jpg}
+        \captionof{figure}{uCam module, sourced from \cite{ucam_datasheet} }
+        \label{fig:ucam_pic}
+\end{figure}
+
+During the development of the system 2 cameras (uCam \cite{ucam_datasheet}) died on us. The first very early on in development and the second after the system had been effectively finished apart from a few minor tweaks and implementation of some low priority functionality. These component malfunctions were most likely due to the uCam being sensitive to static so after the first one failed we were careful to only handle the second one on an anti-static mat whilst wearing a wrist-strap, however someone must have gotten careless towards the end of the project.
 
 \subsection{First camera}
 
-The first attempt at communicating with the original camera was done using the arduino microcontroller board. The arduino was chosen as the platform for this first communication because it is simple to program and its programming environment provides various useful libraries, for example for serial communication. The hardware also provides an easily accessible serial port.
+The first attempt at communicating with the original camera was done using the arduino uno microcontroller board. The arduino was chosen as the platform for this first communication because it is simple to program and its programming environment provides various useful libraries, for example for serial communication \cite{arduino_serial_library}. The hardware also provides an easily accessible serial port.
 
-The first implementation of this code managed to occasionally sync with the camera but would generate errors after this point. After examining the code and the camera's datasheet it was discovered that the camera was only syncing occasionally because the arduino was using a slower baud rate than the camera could auto-detect, after increasing the baud rate on the arduino the camera would sync every time but the code still generated errors after this point.
+The first implementation of this code managed to occasionally sync (see figure \ref{fig:syncProto}) with the camera (milestone \ref{sec:ms_basic_cam_comm}) but would generate errors when trying to send any further commands. After examining the code and the camera's datasheet it was discovered that the camera was only syncing occasionally because the arduino was using a slower baud rate than the camera could auto-detect, after increasing the baud rate on the arduino the camera would sync every time but the code still generated errors after this point.
 
-It was at this point that the first camera broke. It was no longer syncing at all where before it had been doing so reliably and so it was checked with one of the bench-top power supplies and was seen to be no longer drawing current properly.
+It was at this point that the first camera broke. It was no longer syncing (or sending back anything at all), where before it had been doing so reliably and so it was checked with the 4D systems software and shown not to be working \ref{sec:existing_software_test}.
 
 \subsection{Second camera}
 
-Once it was established that the first camera was dead a couple of cheaper surface mount camera modules were purchased as possible replacements however making a successful connection to these components proved excessively difficult so a new camera of the same type as the previous one was ordered.
+Once it was established that the first camera was dead a couple of cheaper surface mount camera modules were purchased as possible replacements however making a successful physical (and therefore also communication) connection to these components proved excessively difficult so a new camera of the same type as the previous one \cite{ucam_datasheet} was ordered.
 
 \subsubsection{Serial cable to computer}
 
-The operation of the new camera module was verified using a usb to serial cable connected to a pc which was running the sample program which was provided by the camera's manufacturer. Using this set up it was shown that the camera was working and that it was possible to get images from it.
+The operation of the new camera module was verified using a usb to serial cable connected to a pc which was running the sample program which was provided by the camera's manufacturer \cite{ucam_test_software}. Using this set up it was shown that the camera was working and that it was possible to get images from it, see section \ref{sec:existing_software_test}.
 
 [] diagram of pin connections []
 
