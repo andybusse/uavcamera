@@ -174,12 +174,13 @@ The second part contains the entropy-encoded image data, which can be decoded us
 The JPEG headers are capable of storing most of the metadata related to an image, not all of which is necessary for the decompression of the image. 
 The following headers are those which contain all the information necessary for 
 a successful decompression of the JPEG image, as well as those which can be found in all JPEG images.
-The SOI (Start Of Image) and APP (JFIF application) segments are recorded first, in that order.
-These segments are followed by the DQT (Define Quantization Table(s)), DHT (Define Huffman Table(s)), and SOF (Start Of Frame) segments,
-in any order depending on the image. The SOS (Start Of Scan) and entropy- encoded data are 
-stored afterwards and the image ends with the EOI (End Of Image) segment.
+%% The SOI (Start Of Image) and APP (JFIF application) segments are recorded first, in that order.
+%% These segments are followed by the DQT (Define Quantization Table(s)), DHT (Define Huffman Table(s)), and SOF (Start Of Frame) segments,
+%%in any order depending on the image. 
+%%The SOS (Start Of Scan) and entropy- encoded data are 
+%%stored afterwards and the image ends with the EOI (End Of Image) segment.
 
-The following table details some important segments which are necessary for the image
+The table below details some important segments which are necessary for the image
 to be properly displayed: \cite{exif_std}
 
 \begin{table}[!hbtp]
@@ -198,124 +199,11 @@ to be properly displayed: \cite{exif_std}
 	\end{tabular}
 \end{table}
 
-The following tables show important compression contents from the relevant JPEG file segments.
+The entropy-encoded image data appears after the SOS segment,
+right before the EOI header marker.
 
-%% MOVE TO APPENDIX
-%% \label{sec: jpeg_segment_content}
-%%
-\newpage
-
-\textbf{SOF0: Start Of Frame (0xc0):}
-
-\begin{table}[!hbtp]
-	\caption{SOF0 Marker Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
-	\hline
-	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
-	Length & 2 bytes & Equal to 8 + the number of components used in the colour scheme * 3\\ \hline
-	Data precision & 1 byte & Value shown in bits/sample. Usually 8 signifying bytes.\\ \hline
-	Image height  & 2 bytes & ----\\ \hline
-	Image width  & 2 bytes & ----\\ \hline
-	Number of components & 1 byte & indicates the number of components used  in the colour scheme\\ \hline
-	Component information & 3 bytes / component & See component information table below.\\ \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[!hbtp]
-	\caption{SOF Component Information}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{4cm} | }
-	\hline
-	\textbf{Byte Number} &  \textbf{Information} \\ \hline
-	1 & Component ID (1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q)\\ \hline
-	2 & Sampling factors (bits 0\ldots3 : vertical, bits 4\ldots7 horizontal)\\ \hline
-	3 & Quantization table number\\ \hline
-	\end{tabular}
-\end{table}
-
-\newpage
-
-\textbf{DHT: Define Huffman Table(s) (0xc4):}
-
-\begin{table}[!hbtp]
-	\caption{DHT Marker Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
-	\hline
-	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
-	Length & 2 bytes & ----\\ \hline
-	HT Information & 1 byte & See HT Information table below\\ \hline
-	Number of Symbols  & 16 bytes & Number of symbols with codes of length 1\ldots16.
-	The sum of these values (\emph{n})must be $\le$ 256\\ \hline
-	Symbols  & \emph{n} bytes & Symbols of the HT in order of increasing code length\\ \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[!hbtp]
-	\caption{HT Information Byte Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{4cm} | }
-	\hline
-	\textbf{Bit} &  \textbf{Information} \\ \hline
-	0\ldots3 & ID number of HT\\ \hline
-	4 & type of HT, 0 = DC table, 1 = AC table\\ \hline
-	5\ldots7 & Unused\\ \hline
-	\end{tabular}
-\end{table}
-
-\textbf{DQT: Define Quantization Table(s) (0xdb):}
-
-\begin{table}[!hbtp]
-	\caption{DQT Marker Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
-	\hline
-	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
-	Length & 2 bytes & ----\\ \hline
-	QT Information & 1 byte & See QT Information table below\\ \hline
-	Bytes  & \emph{n} bytes & QT values. \emph{n} = 64 * (QT precision + 1) \\ \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[!hbtp]
-	\caption{QT Information Byte Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{4cm} | }
-	\hline
-	\textbf{Bit} &  \textbf{Information} \\ \hline
-	0\ldots3 & ID number of QT\\ \hline
-	4\ldots7 & precision of QT (0 = 8 bit, else 16 bit)\\ \hline
-	\end{tabular}
-\end{table}
-
-\newpage
-
-\textbf{SOS: Start Of Scan (0xda):}
-
-\begin{table}[!hbtp]
-	\caption{SOS Marker Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
-	\hline
-	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
-	Length & 2 bytes & Equal to 6 + 2 * (number of components in scan)\\ \hline
-	Number of components in scan & 1 byte & Within range 1 to 4\\ \hline
-	Component information & 2 bytes / component & See component information table below.\\ \hline
-	Ignorable Bytes & 3 bytes & Separates header information from entropy-encoded image data\\ \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[!hbtp]
-	\caption{SOS Component Information Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{4cm} | }
-	\hline
-	\textbf{Byte Number} &  \textbf{Information} \\ \hline
-	1 & Component ID (1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q)\\ \hline
-	2 & HT to use (bits 0\ldots3 : AC Table ID, bits 4\ldots7 DC Table ID)\\ \hline
-	\end{tabular}
-\end{table}
+For information concerning the actual content of each of the 
+JPEG segments, please refer to the appendix \ref{chap:jpeg-segment-contents}.
 
 \subsubsection{Entropy-encoded image data}
 \label{sec:entropycrho}
