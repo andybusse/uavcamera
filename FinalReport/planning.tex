@@ -153,3 +153,68 @@ of the system.
 		\end{itemize}
 
 %\end{itemize}
+
+\input{management_risk}
+
+\input{management_work_allocation}
+
+\input{management_resources}
+
+\section{Group Communication}
+\label{group_comms}
+\subsection{Formal Meetings}
+
+For the duration of the project, we held weekly meetings on most Tuesday 
+Afternoons from 4pm onwards in the Hartley Library. This allowed us to 
+review progress made against progress expected, and to modify our project 
+plan and allocation of work for the following week.
+\\
+Minutes of these meetings are available both in our repository \cite{github} 
+(documents/minutes), and as an appendix ?????
+\\
+The timing of these (the afternoon before our weekly meetings with our 
+supervisor) was also quite useful, as it allowed us to present a clear outline 
+of new developments and our plans week-by-week.
+
+\subsection{Methods of Communication}
+Talk about which methods were used more often, which were useful...
+
+The group has used various methods of communication during the project: 
+email, 
+
+\subsection{Source Control}
+
+We decided to use version control software throughout the project, to manage 
+everything from minutes to source code and payload schematics. As well as 
+being a very useful tool to facilitate group work, it also helps us to meet 
+our customer's request to deliver this as an open source project - at the end 
+of the project, a repository could easily be gardened and presented, with the 
+addition of appropriate open-source licenses at the end of the project.
+
+Initially, we used a central Subversion (SVN) repository hosted on ECS' 
+UGForge service. It was decided to use this as most of the group had 
+experience using SVN. This worked well for most of the project, but 
+unfortunately, something was committed to this repository that could not be 
+open sourced (the customer's Ground Control Station software). This presented 
+us with a problem, as although it would be trivial to revert this commit with 
+the "\$ svn merge" command, this creates a new commit, and the file in 
+question would remain in the repository's history and could still be accessed.
+
+In theory, it would be possible to remove this commit from SVN history by 
+using the "\$ svnadmin dump" command, filtering the offending commit out of 
+the dumpfile, and regenerate the repository with the "\$ svnadmin load" 
+command. However, in practice, this was not possible as our repository 
+contains binary information above 64kB, therefore the ASCII editor used to 
+modify the dumpfile would cut off data in the binary file after the 64kB 
+limit, rendering any following data useless.
+
+It would be possible to start a new SVN repository and check in our 
+repository up to but not including the offending commit, but we would lose 
+all metadata (i.e. committer, commit time, etc.). Therefore, it was decided to 
+switch to git, a distributed version control system (which would allow us to 
+modify project history). Converting the repository using git-svn was a trivial 
+process. Although not all of the group was confident using this tool, git 
+lets a committer commit on behalf of another user. Moving to git also 
+allowed us to use github, a hosting service, which is free to open-source 
+projects (such as ours), which also provides us with some additional 
+project statistics. ??? Reference ???? Appendix ???
