@@ -30,7 +30,7 @@ Figure \ref{fig:test_basic_connection} shows the result of a test for basic conn
 \subsection{Test: Image from Camera - (mh)}
 \label{sec:image_capture_test}
 
-The first attempt at a simple test for this was to use the debug connection to the Arduino camera controller implementing the camera connection code to relay image data to a PC, unfortunately as described in section ||||| REF ||||| initial implementations of this were not successful, since the debug connection was not completely error free, causing the image to be malformed and unreadable.
+The first attempt at a simple test for this was to use the debug connection to the Arduino camera controller implementing the camera connection code to relay image data to a PC, unfortunately as described in section \ref{sec:misc_cam_probs} initial implementations of this were not successful, since the debug connection was not completely error free, causing the image to be malformed and unreadable.
 
 However, at this point in the implementation the basic SD card communication had already been implemented and tested as described in section ||||| REF ||||||. Because of this, it was decided  that a much more sensible test would be to write the image data directly to the SD card. The test comprises of running the camera connection code on the microcontroller with the camera and SD card attached. Figure \ref{fig:test_camera_image_saving_sd_card} shows the debug information sent from the controller during this test and \ref{fig:Nyan1} shows the image saved to the SD card. The dedug information suggests that the connection and download of image data was successful and the image on the SD card verifies this.
 
@@ -104,5 +104,5 @@ This test validates milestone \ref{sec:ms_img_cam_change_res}.
 
 %The system can capture images at the 640x480 resolution specified and can also capture images at the other resolutions at which the uCam will take jpeg images. %Currently the option to capture raw images is not implemented.
 
-The time taken for the system to capture an image at maximum resolution, save it to SD-card and then download and display it on the ground station software was measured at 19.1s |||||||||REF|||||||||. This is still well within the 3 minutes specified and has large amounts of overhead meaning that it should remain well within that limit even if there are+ other payloads implemented on the UAV or if a lot of packets are dropped and have to be resent.
+%The time taken for the system to capture an image at maximum resolution, save it to SD-card and then download and display it on the ground station software was measured at 19.1s |||||||||REF|||||||||. This is still well within the 3 minutes specified and has large amounts of overhead meaning that it should remain well within that limit even if there are+ other payloads implemented on the UAV or if a lot of packets are dropped and have to be resent.
 
