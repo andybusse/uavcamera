@@ -1,6 +1,6 @@
 \section{Ground Station Image Viewer(ps26g08)}
 The GUI needs a long winded testing. This is because all the button has to be click and test one by one separately. Because of this, some function of the UAV that does not need a button to test will have it own console application to test it in order to save time. The programmer has to detect all the possible bug that might cause during the real operation in user mode. This part is very important because for any program if it caught an error, the program will end unexpectedly.
-\subsection{Using Console Application Testing: Connect to UAV, Send and Receive Data from Stream Port}
+\subsection{Using Console Application: Testing Connection to UAV, Send and Receive Data from Stream Port}
 
 The UAV connector use .NET class called System.Net.Sockets. The method that will be using from this class is Sockets.Connect(), Sockets.Send(), Sockets.Receive(). To test the function of this class the programmer develop a separate console application in order to debug only the specific part of the program. Sockets.Connect can be tested by using the Console to display the error code of the running application. The problem could be wrong host name and port number. Therefore, the user are not allow to change these values. The other problem found in the program is that the programmer forgot to connect the UAV, tell the GCS to enable the enable the network server, and tell the GCS to stream data. Appendix\ref{appen:connectorTest} shows a Conector class that use for testing the Socket connect, read and write method.
 
@@ -11,9 +11,9 @@ However, the command that send the datastream has not tested in this part.
 This will test the Milestone \ref{sec:ms_basic_dummy_server_comms}.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=1]{testing_screenshots/test_sending.png} 
+\includegraphics[scale=0.5]{testing_screenshots/test_sending.png} 
 \end{center}
-\caption{The connection was successful\label{connect to Stream Port}}
+\caption{A screen shot showing the connection with the UAV was successful\label{connect to Stream Port}}
 \end{figure}
 
 
@@ -24,12 +24,12 @@ This is testing that the data stream is working correctly and we have a correct 
 Therefore, the Milestone \ref{sec:ms_gs_basestation_comms}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=1]{testing_screenshots/test_data.png} 
+\includegraphics[scale=0.5]{testing_screenshots/test_data.png} 
 \end{center}
-\caption{The data stream successfully\label{test screenshot}}
+\caption{A screen shot shows that the data stream successfully\label{test screenshot}}
 \end{figure}
 
-\subsection{Using Console Application Testing: Send Command to Console Port}
+\subsection{Using Console Application: Testing Send Command to Console Port}
 
 Figure\ref{test text} show a communication with the console port.
 The ground station program allow the programmer to use the console port to send a string command to it. 
@@ -47,12 +47,12 @@ This test Milestone\ref{sec:ms_basic_dummy_server_comms} works properly.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=1]{testing_screenshots/test_sending_test_text_useful.png}   
+\includegraphics[scale=0.5]{testing_screenshots/test_sending_test_text_useful.png}   
 \end{center}
-\caption{\label{test text}}
+\caption{A screen shot showing the text sending change the GCS graph value\label{test text}}
 \end{figure}
 
-\subsection{Using Window Application: test the Get Image Button}
+\subsection{Using Window Application: Testing Get Image Button}
 The connection between the aircraft and the ground station is using TCP port, it allows the data to send from the aircraft in any form of data. 
 In order to test this relationship, a camera will take a picture that the developer know what the picture look like. 
 If the picture display an image the same as we expected, the image data is correct.
@@ -64,17 +64,26 @@ From the figure, it clearly see that the image is downloading and the image has 
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=1]{testing_screenshots/cam_test_11.png}   
+\includegraphics[scale=0.5]{testing_screenshots/cam_test_11.png}   
 \end{center}
-\caption{\label{camera testing1}}
+\caption{A screen shot showing the picture has been taken correctly\label {camera testing1}}
 \end{figure}
 
-\subsection{Using Window Application: test the Resolution Option}
+\subsection{Using Window Application: Testing Resolution Option}
 
 When the resolution option changes, the Image viewer program will change the command byte that send to the Console Port of the UAV. 
 This can be test by changing the combo box in the image viewer program and click on the Get Picture button.
 If it is working correctly, the ground station will see the correct resolution chosen of the picture taken.
+Figure \ref{resolution testing} shows a working resolution changing module. 
+The putty shows the resolution command that sent back from the payload.
+Therefore, it has proved that the resolution option is working.
+This test complete the Milestone \ref{sec:ms_img_cam_change_res}.
 
-
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{testing_screenshots/change_res_ncam_1.png}    
+\end{center}
+\caption{A screen shot showing that the resolution chosen send different signal to the payload\label{resolution testing}}
+\end{figure}
 
 

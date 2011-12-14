@@ -280,7 +280,7 @@ The user might want to delete some unwanted photo, so the delete button have bee
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=1]{figures/resolutionOption.png} 
+\includegraphics[scale=0.5]{figures/resolutionOption.png} 
 \end{center}
 \caption{The resolution in combo box\label{resolutionOption}}
 \end{figure}
@@ -290,7 +290,7 @@ The camera has options of resolution as shown in Figure\ref{resolutionOption}. T
 The baud rate that we can transmit data from the UAV is 38.4kbaud. Bandwidth limitations severely restrict the volume of data to transfer over the wireless link. It takes around 8 to 20 seconds to transmit an image of resolution 640x480. This progress bar tells the user how much percentage of data received. The progress bar update at each cycle of the data receives. At the end of each image downloaded, the progress bar reset to its normal state.  The status text tells the user what signal have been sent or received. This status text ensures that the picture is downloading and it is good for testing that the tasking in process. These two nice application allocate on the bottom left of the GUI as shown in Figure\ref{progressBar}. However, these have to implement every cycle of the data collection and it might cause the cycle to run slower. The actual loop is much faster than the 38.4kbaud, therefore there is no problem implementing these in.
 \begin{figure}[!hbtp]
 \begin{center}
-\includegraphics[scale=1]{figures/progressBar.png} 
+\includegraphics[scale=0.5]{figures/progressBar.png} 
 \end{center}
 \caption{The resolution in combo box\label{progressBar}}
 \end{figure}
