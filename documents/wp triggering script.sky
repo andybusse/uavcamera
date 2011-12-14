@@ -1,0 +1,4 @@
+script.wait_while_false "logic.less_than_float32 wp[0].distance_from_uav 200"
+payload[0].send_bytes 0
+script.wait_ms 10000
+script.position 0

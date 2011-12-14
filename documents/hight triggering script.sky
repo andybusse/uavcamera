@@ -1,0 +1,4 @@
+script.wait_while_false "logic.less_than_float32 ht -20"
+payload[0].send_bytes 0
+script.wait_ms 1000
+script.position 0
