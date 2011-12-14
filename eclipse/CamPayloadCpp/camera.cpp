@@ -177,12 +177,13 @@ bool establishContact() {
     while (Serial1.available() <= 0) {
     	delay(50);
     	sendSYNC();
-
+    	DLOG(".");
       if(numSyncs > 60) {
     		return false;
       }
       numSyncs++;
     }
+    DLOG("\n\r");
    // DLOG("Data available\n\r");
 
     receiveComd();
@@ -293,7 +294,7 @@ boolean takeSnapshot() {
     sendACK(0x00,0x00,(byte)package,(byte)(package>>8));
 
       // receive package
-      for(int dataPoint = 0; dataPoint<packageSize;dataPoint++){
+      for(unsigned int dataPoint = 0; dataPoint<packageSize;dataPoint++){
         while (Serial1.available() <= 0) {} // wait for data to be available n.b. will wait forever...
         dataIn[dataPoint] = Serial1.read();
           if(dataPoint > 3 && dataPoint < (packageSize - 2)){ //strips out header data
@@ -314,6 +315,9 @@ boolean takeSnapshot() {
 
   }
 
+  DLOG("Doing final flush of SD card\n\r");
+  sdFile.flush();
+
   sendACK(0x0A,0x00,0xF0,0xF0);
   DLOG("Final ACK sent\n\r");
   //sendRESET(false, true);
@@ -325,13 +329,13 @@ bool init_cam()
   // start serial port at 115200 bps
   Serial1.begin(115200);
 
-  DLOG("Attemting to establish contact with camera.\n\r");
+  DLOG("Attempting to establish contact with camera.\n\r");
   bool est = establishContact();  // send a byte to establish contact until receiver responds
   if(est) {
 	  DLOG("Contact established, captain\n\r");
 	  return true;
   } else {
-	  DLOG("ERROR: Failed to establish contact with camera!\n\r");
+	  DLOG("\n\rERROR: Failed to establish contact with camera!\n\r");
 	  return false;
   }
 }

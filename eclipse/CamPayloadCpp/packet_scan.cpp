@@ -133,6 +133,7 @@ void packet_scan(uint8_t *data, uint8_t length)
 				break;
 
 			case MID_CANCEL_DOWNLOAD:
+				DLOG("CANCEL_DOWNLOAD message received\n\r");
 				imageSendState.sendingImage = false;
 				sdFile.close();
 				break;
