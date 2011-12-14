@@ -45,7 +45,6 @@ namespace NCamGS
 
         string fileDirectory = null;
 
-
         public MainForm()
         {
             InitializeComponent();
@@ -114,13 +113,21 @@ namespace NCamGS
             byte[] imageDownloadRequest = { 2, (byte)imageID, (byte)(imageID >> 8) };
             uavConn.SendCommand(imageDownloadRequest);
 
+            
+           imageListen(fileName, fileStream, opFile);
+
+        }
+
+        private void imageListen(string fileName, FileStream fileStream, BinaryWriter opFile)
+        {
+
             uint lastPacketNum = 500;
 
             uint totalPackets = 500;
 
             bool startImage = false;
             long numBytes = 0;
-            while (stopCommand==false)
+            while (stopCommand == false)
             {
                 Application.DoEvents();
                 // add cancel code check
@@ -188,7 +195,7 @@ namespace NCamGS
                 Console.WriteLine("Done!");
 
 
-                
+
 
 
                 updateInitialDirectory(fileName);
@@ -210,7 +217,6 @@ namespace NCamGS
                 File.Delete(filePathTextBox.Text + "\\" + fileName);
                 statusLabel.Text = "Stop";
             }
-
         }
         private void receivingCase(byte[] receivedData)
         {
@@ -579,7 +585,7 @@ namespace NCamGS
         private void stopButton_Click(object sender, EventArgs e)
         {
             stopCommand = true;
-
+            uavConn.SendTextToUAV("payload[0].send_bytes 7");
             if(filePathCount!=0)
             updateDirectory(jpegList[filePathCount]);
         }
