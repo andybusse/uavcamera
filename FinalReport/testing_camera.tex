@@ -1,4 +1,4 @@
-\section{Camera Module Testing - (jgac1g08 and mh23g08)}
+\section{Camera Module Testing - (mh23g08)}
 
 The camera module and controller were tested throughout their development and thus problems were quickly discovered and swiftly rectified.
 
@@ -90,18 +90,18 @@ The presence of the debug information recieved from the payload does not validat
 
 This test validates milestone \ref{sec:ms_img_cam_change_res}.
 
-\subsection{Final Camera Testing - (jc)}
-\label{sec:camera_integration_test}
+%\subsection{Final Camera Testing - (jc)}
+%\label{sec:camera_integration_test}
 
-During the integration process the system was regularly tested for functionality and any errors were fixed as the system was developed. A large number of images were taken during this process and during the implementation of additional features.
+%During the integration process the system was regularly tested for functionality and any errors were fixed as the system was developed. A large number of images were taken during this process and during the implementation of additional features.
 
-\begin{figure}[H]
-        \centering
-        \includegraphics[width=1.00\textwidth]{figures/SampleImages1.png}
-        \captionof{figure}{Test images captured using the integrated implementation of the camera controller}
-        \label{fig:Samples1}
-\end{figure}
+%\begin{figure}[H]
+    %    \centering
+       % \includegraphics[width=1.00\textwidth]{figures/SampleImages1.png}
+       % \captionof{figure}{Test images captured using the integrated implementation of the camera controller}
+       % \label{fig:Samples1}
+%\end{figure}
 
-The system can capture images at the 640x480 resolution specified and can also capture images at the other resolutions at which the uCam will take jpeg images. Currently the option to capture raw images is not implemented.
+%The system can capture images at the 640x480 resolution specified and can also capture images at the other resolutions at which the uCam will take jpeg images. %Currently the option to capture raw images is not implemented.
 
-The time taken for the system to capture an image at maximum resolution, save it to SD-card and then download and display it on the ground station software was measured at around 10 to 15 seconds |||||| TRIPLE CHECK |||||||. This is still well within the 3 minutes specified and has large amounts of overhead meaning that it should remain well within that limit even if there are+ other payloads implemented on the UAV or if a lot of packets are dropped and have to be resent.
+%The time taken for the system to capture an image at maximum resolution, save it to SD-card and then download and display it on the ground station software was %measured at around 10 to 15 seconds |||||| TRIPLE CHECK |||||||. This is still well within the 3 minutes specified and has large amounts of overhead meaning that it %should remain well within that limit even if there are+ other payloads implemented on the UAV or if a lot of packets are dropped and have to be resent.
