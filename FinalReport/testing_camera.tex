@@ -3,6 +3,7 @@
 The camera module and controller were tested throughout their development and thus problems were quickly discovered and swiftly rectified.
 
 \subsection{Test: uCam Existing Software}
+\label{sec:existing_software_test}
 
 The uCam has a freely downloadable piece of software (downloadable from \cite{ucam_test_software}) that allows you to test the uCam and verify its functions. If you can connect the uCam to a COM port on the computer then you can sync with it and then take and view pictures in the different available formats and resolutions.
 
@@ -13,6 +14,8 @@ The uCam was connected to a host PC using a USB to Serial cable and tested using
 This task did not verify any milestones, but it did show clearly that the camera was working. In the event of the camera becoming unresponsive, this software helped us diagnose the problem, since if the camera worked with this software it was clearly a problem with our implementation, while if the camera did not work with this software then it would suggest the camera itself was at fault. Before declaring any of the cameras used in the project faulty they were checked using this software.
 
 \subsection{Test: Basic Connection Test on Arduino}
+\label{sec:basic_connection_test}
+
 The first step when communicating with the camera module is to establish a connection to it.
 
 \begin{figure}[H]
@@ -27,18 +30,11 @@ Figure \ref{fig:test_basic_connection} shows the result of a test for basic conn
 With this successful connection, milestone \ref{sec:ms_basic_cam_comm} is validated, meaning the implementation was free to move on.
 
 \subsection{Test: Image from Camera}
+\label{sec:image_capture_test}
 
-The first attempt at a simple test for this was to use the debug connection to the Arduino camera
-controller implementing the camera connection code to relay image data to a PC, unfortunately as 
-described in section ||||| REF ||||| initial implementations of this were not successful, since
-the debug connection was not completely error free, causing the image to be malformed and
-unreadable.
+The first attempt at a simple test for this was to use the debug connection to the Arduino camera controller implementing the camera connection code to relay image data to a PC, unfortunately as described in section ||||| REF ||||| initial implementations of this were not successful, since the debug connection was not completely error free, causing the image to be malformed and unreadable.
 
-However, at this point in the implementation the basic SD card communication had already been
-implemented and tested as described in section ||||| REF ||||||. Because of this, it was decided 
-that a much more sensible test would be to write the image data directly to the SD card. Figure
-\ref{fig:test_camera_image_saving_sd_card} shows the debug information sent from the controller
-during this test and \ref{fig:Nyan1} shows the image saved to the SD card.
+However, at this point in the implementation the basic SD card communication had already been implemented and tested as described in section ||||| REF ||||||. Because of this, it was decided  that a much more sensible test would be to write the image data directly to the SD card. Figure \ref{fig:test_camera_image_saving_sd_card} shows the debug information sent from the controller during this test and \ref{fig:Nyan1} shows the image saved to the SD card.
 
 \begin{figure}[H]
         \centering
@@ -59,6 +55,7 @@ The testing during development means that functionality of the controller has be
 This test verifies milestone \ref{sec:ms_img_from_cam}. The resolution of the image is 640x480.
 
 \subsection{Integrated Implementation}
+\label{sec:camera_integration_test}
 
 During the integration process the system was regularly tested for functionality and any errors were fixed as the system was developed. A large number of images were taken during this process and during the implementation of additional features.
 
