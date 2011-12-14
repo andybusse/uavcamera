@@ -1,4 +1,4 @@
-\label{chap:implementation_ground_station}
+\label{chap:implementation_ground_station }
 
 The UAV Image Viewer software will be the only application that the user can access to. 
 Therefore, the implementation of this program need to include all the specification and also some extra features to make the GUI looks nice.
@@ -148,6 +148,7 @@ The data in its queue until the host ask for the data.
 \end{figure}
 
 \section{Get Image Algorithm}
+\label{get image algorithm}
 In order to take the picture and send it back to the ground station is very important and it has a complex signal algorithm to do.
 The plan is when the user click on the Get Picture button, the program sends a \textbf{string command} to the ground station software.
 Then the ground station software generates a \textbf{byte command} to transmitted by TCP to the payload. 

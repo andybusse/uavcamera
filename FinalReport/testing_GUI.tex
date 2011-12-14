@@ -1,71 +1,80 @@
-\subsection{Ground Station Image Viewer}
+\section{Ground Station Image Viewer(ps26g08)}
 The GUI needs a long winded testing. This is because all the button has to be click and test one by one separately. Because of this, some function of the UAV that does not need a button to test will have it own console application to test it in order to save time. The programmer has to detect all the possible bug that might cause during the real operation in user mode. This part is very important because for any program if it caught an error, the program will end unexpectedly.
-\subsubsection{Connect to UAV, Send and Receive Data}
+\subsection{Using Console Application Testing: Connect to UAV, Send and Receive Data from Stream Port}
 
-The UAV connector use .NET class called System.Net.Sockets. The method that will be using from this class is Sockets.Connect(), Sockets.Send(), Sockets.Receive(). To test the function of this class the programmer develop a separate console application in order to debug only the specific part of the program. Sockets.Connect can be tested by using the Console to display the error code of the running application. The problem could be wrong host name and port number. Therefore, the user are not allow to change these values. The other problem found in the program is that the programmer forgot to connect the UAV, tell the GCS to enable the enable the network server, and tell the GCS to stream data. Listing \ref{lst:connectionT} show a Conector class that use for testing the Socket connect, read and write method.
-\begin{lstlisting}[caption=the class that use to test the connection to the UAV,label=lst:connectionT]
-    class Connector
-    {
-        static int requestCounter;
-        static ArrayList hostData = new ArrayList();
-        static StringCollection hostNames = new StringCollection();
-        Socket UAV = new Socket(AddressFamily.InterNetwork,
-         SocketType.Stream, ProtocolType.Tcp);
+The UAV connector use .NET class called System.Net.Sockets. The method that will be using from this class is Sockets.Connect(), Sockets.Send(), Sockets.Receive(). To test the function of this class the programmer develop a separate console application in order to debug only the specific part of the program. Sockets.Connect can be tested by using the Console to display the error code of the running application. The problem could be wrong host name and port number. Therefore, the user are not allow to change these values. The other problem found in the program is that the programmer forgot to connect the UAV, tell the GCS to enable the enable the network server, and tell the GCS to stream data. Appendix\ref{appen:connectorTest} shows a Conector class that use for testing the Socket connect, read and write method.
 
-        public byte[] dataFromUAV()
-        {
-            byte[] uavData = new byte[1];
-            byte[] testMessage = {0}; //send zero token to 
-            start the datastream port to receive something
-            try
-            {
-                int sendByte = UAV.Send(testMessage, testMessage.Length, 
-                SocketFlags.None); //send zero token to the UAV
-                Console.WriteLine("Sent {0} bytes.", sendByte); //print on the console
-                 so we know what we know
-                int size = 8;
+Figure \ref{connect to Stream Port} shows a console application testing of the connect function. 
+The method is to send a zero token to the data stream and in the GCS program it will display text,\texttt{''\* New datastream client connected from 127.0.0.1:49586''} which it is highlighted in green. 
+This text shows that the program works properly and we have accessed to the datastream port of the UAV.
+However, the command that send the datastream has not tested in this part. 
+This will test the Milestone \ref{sec:ms_basic_dummy_server_comms}.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{testing_screenshots/test_sending.png} 
+\end{center}
+\caption{The connection was successful\label{connect to Stream Port}}
+\end{figure}
 
-                while (true)
-                {
-                    int byteCount = UAV.Receive(uavData, size, SocketFlags.None);
-                     //receive data from the uav of fixed length size
-                    for(int countIn=0; countIn<uavData.Length;countIn++)
-                    Console.WriteLine("{0}", uavData[countIn]); //
-                }
-            }
-            catch(SocketException uavMessage)
-            {
-                Console.WriteLine("{0} Error code:{1}.",
-                 uavMessage.Message, uavMessage.ErrorCode);
-            }
-            return uavData;
-        }
 
-        public void ConnectToPort()
-        {
-            const Int32 portNumber = 8802;
-            const string portName = "localhost";
-            try
-            {
-                UAV.Connect("localhost", portNumber);
-                Console.WriteLine("Connection to Port Name:{0}; Port Number{1} is complete!"
-                ,portName,portNumber);
-            }
-            catch (SocketException uavMessage)
-            {
-                Console.WriteLine("{0} Error code:{1}.", uavMessage.Message
-                , uavMessage.ErrorCode);
-            }
-        }
-    }
-\end{lstlisting}
-\subsubsection{Save and Open Photo from FileDialog Class}
-In order to test the save and open FileDialog Class, we need a window application to test it. The  Get Picture button and the resolution option is commented out in order to test only the FileDialog. The only proper way to test the FileDialog class is to run the program and see the File directory from the file path TextBox. The problem founded by this long winded testing is that when the other file that is not JPEG file got picked in the user mode, the pictureBox will give an error. This problem can be fixed by not allowing the user to choose a file that is not a JPEG file. The FileDialog need a thread handler because it has to run an extra window application for the user to choose the file. This however can not change by the user. So this problem have already solved.
-\subsubsection{Image Data}
-The connection between the aircraft and the ground station is using TCP port, it allows the data to send from the aircraft in any form of data. In order to test this relationship, a camera will take a picture that the developer know what the picture look like. If the picture display an image the same as we expected, the image data is correct. 
-\subsubsection{Send command to console port}
-The ground station program allow the programmer to use the console port to send a string command to it. This string command can be test that it is correct by the ground station program will produce a line with ''@'' sign on the front of the command sent from the outside of the program.
-If the data is correct, the ground station program will detect it and send the data to UAV. So if we receive the correct data from the data stream, then we know that the the string command is correct.
-\subsubsection{Get Picture Button}
-The get picture button is a combination of many function of the program. When the button got clicked, it must send the correct resolution signal, receive signal from data stream port, save the byte into a file, and display the image. Therefore, this will be the last button that will be tested. However, all the previous testing work properly so the testing of this button is very fast.
+Figure\ref{test screenshot} shows a data stream back our testing console application.
+Firstly, in the GCS program, we write ''da 30 ht''. 
+This code will make the height data stream to the ground station, this data will display on the graph and in the console application, we can see the number clearly changed when the height has changed.
+This is testing that the data stream is working correctly and we have a correct way of getting the data.
+Therefore, the Milestone \ref{sec:ms_gs_basestation_comms}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{testing_screenshots/test_data.png} 
+\end{center}
+\caption{The data stream successfully\label{test screenshot}}
+\end{figure}
+
+\subsection{Using Console Application Testing: Send Command to Console Port}
+
+Figure\ref{test text} show a communication with the console port.
+The ground station program allow the programmer to use the console port to send a string command to it. 
+This string command can be test that it is correct by the ground station program will produce a line with ''@'' sign on the front of the command sent from the outside of the program.
+If the data is correct, the ground station program will detect it and send the data to UAV. 
+In the console program, when the user type anything in the console line, it will send byte data to the GCS program.
+If the text is a command, the program will process the command and send a byte value as set in the command to the UAV.
+The first test is try type 'hi' into the console line.
+The GCS will then see the word 'hi' but there is no command available for it.
+Therefore, in the GCS console line, it display 'unknown class HELLO'.
+Because we send the word via the console line, there is a \@ sign in front of the 'hello' word in GCS program.
+The next line we type in is ''da 50 b''.
+GCS program know this command therefore it changes the display in the graph to give information about banking of the UAV.
+This test Milestone\ref{sec:ms_basic_dummy_server_comms} works properly.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{testing_screenshots/test_sending_test_text_useful.png}   
+\end{center}
+\caption{\label{test text}}
+\end{figure}
+
+\subsection{Using Window Application: test the Get Image Button}
+The connection between the aircraft and the ground station is using TCP port, it allows the data to send from the aircraft in any form of data. 
+In order to test this relationship, a camera will take a picture that the developer know what the picture look like. 
+If the picture display an image the same as we expected, the image data is correct.
+Figure\ref{camera testing1} shows a completed, combined classes together and receive image data.
+This testing combined all the existing method together in the Window application.
+At this point the connector class will be in the main window application.
+When the user click on 'Get Picture' button on the window application, the program will communicate bidirectional, send and receiving which already stated in section\ref{get image algorithm}. 
+From the figure, it clearly see that the image is downloading and the image has displayed correctly.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{testing_screenshots/cam_test_11.png}   
+\end{center}
+\caption{\label{camera testing1}}
+\end{figure}
+
+\subsection{Using Window Application: test the Resolution Option}
+
+When the resolution option changes, the Image viewer program will change the command byte that send to the Console Port of the UAV. 
+This can be test by changing the combo box in the image viewer program and click on the Get Picture button.
+If it is working correctly, the ground station will see the correct resolution chosen of the picture taken.
+
+
+
 

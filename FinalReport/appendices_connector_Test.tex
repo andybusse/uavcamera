@@ -1,0 +1,62 @@
+\lstset{numbers=left,
+numberstyle=\footnotesize, 
+stepnumber=2,numbersep=5pt}
+\section{Connection class for testing}
+
+\begin{lstlisting}[caption=\texttt{Connector} for testing with console application,label=appen:connectorTest]
+    class Connector
+    {
+        static int requestCounter;
+        static ArrayList hostData = new ArrayList();
+        static StringCollection hostNames = new StringCollection();
+        Socket UAV = new Socket(AddressFamily.InterNetwork,
+         SocketType.Stream, ProtocolType.Tcp);
+
+        public byte[] dataFromUAV()
+        {
+            byte[] uavData = new byte[1];
+            byte[] testMessage = {0}; //send zero token to 
+            start the datastream port to receive something
+            try
+            {
+                int sendByte = UAV.Send(testMessage, testMessage.Length, 
+                SocketFlags.None); //send zero token to the UAV
+                Console.WriteLine("Sent {0} bytes.", sendByte); //print on the console
+                 so we know what we know
+                int size = 8;
+
+                while (true)
+                {
+                    int byteCount = UAV.Receive(uavData, size, SocketFlags.None);
+                     //receive data from the uav of fixed length size
+                    for(int countIn=0; countIn<uavData.Length;countIn++)
+                    Console.WriteLine("{0}", uavData[countIn]); //
+                }
+            }
+            catch(SocketException uavMessage)
+            {
+                Console.WriteLine("{0} Error code:{1}.",
+                 uavMessage.Message, uavMessage.ErrorCode);
+            }
+            return uavData;
+        }
+
+        public void ConnectToPort()
+        {
+            const Int32 portNumber = 8802;
+            const string portName = "localhost";
+            try
+            {
+                UAV.Connect("localhost", portNumber);
+                Console.WriteLine("Connection to Port Name:{0}; Port Number{1} is complete!"
+                ,portName,portNumber);
+            }
+            catch (SocketException uavMessage)
+            {
+                Console.WriteLine("{0} Error code:{1}.", uavMessage.Message
+                , uavMessage.ErrorCode);
+            }
+        }
+    }
+
+\end{lstlisting}
