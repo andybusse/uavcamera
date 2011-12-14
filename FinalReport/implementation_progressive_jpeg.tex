@@ -89,7 +89,7 @@ it is assumed to not have any important information and is ignored;
 the code continues to scan through the input stream for the next header byte. 
 Below is a list of headers the extractor obtains important information from 
 and an explanation of the intended purpose of the values it extracts. 
-Refer to (TABLES IN APPENDIX) for information on the full contents of each
+Refer to appendix \ref{chap:jpeg-segment-contents} for information on the full contents of each
 of the segments.
 
 \subsubsection{SOF0: Start Of Frame (0xc0)}
@@ -116,11 +116,17 @@ MCU (8x8 or 16x16).
 
 Below is a screen shot taken from the executable version of
 the JPEG information extractor from a standard JPEG image.
+All screenshots were taken from the console of the Eclipse
+development environment.
 
-%%
-%% Screenshot of SOF0 information from executeable
-%%
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=1]{figures/SOFOutput.png} 
+\end{center}
+\caption{SOF information obtained from the executable}
+\end{figure}
 
+\newpage
 \subsubsection{DHT: Define Huffman Table(s) (0xc4)}
 
 Obtaining the Huffman table information is vital for the
@@ -156,12 +162,16 @@ the Huffman table. The organization of this data allows
 a full Huffman table to be reconstructed using one
 Huffman table struct, as shown below:
 
-%%
-%% Screenshot of Huffman table information from executeable
-%%
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=0.5]{figures/DHTOutput.png} 
+\end{center}
+\caption{DHT information obtained from the executable}
+\end{figure}
 
-\subsubsection{DQT: Define Quantization Table(s) (0xdb)}
-
+%% Comment out until code is fixed
+%%\subsubsection{DQT: Define Quantization Table(s) (0xdb)}
+%%
 \subsubsection{SOS: Start Of Scan (0xda)}
 
 The SOS segment is the final header containing JPEG
