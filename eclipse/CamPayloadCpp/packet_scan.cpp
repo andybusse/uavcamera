@@ -36,16 +36,18 @@ void packet_scan(uint8_t *data, uint8_t length)
 			case MID_TAKE_PICTURE:
 				if(length == 1) {
 					DLOG("TAKE_PICTURE message received\n\r");
-					int takePictureImageID;
-					takePictureImageID = take_picture();
-					if(takePictureImageID >= 0) {
-						ILOG("Picture taken with image ID: ");
-						ILOG(takePictureImageID);
-						ILOG("\n\r");
-						send_PICTURE_TAKEN_message(takePictureImageID);
-						DLOG("Sent picture taken message.\n\r");
-					} else {
-						ILOG("Picture taking failed!\n\r");
+					if(imageSendState.sendingImage == false) {
+						int takePictureImageID;
+						takePictureImageID = take_picture();
+						if(takePictureImageID >= 0) {
+							ILOG("Picture taken with image ID: ");
+							ILOG(takePictureImageID);
+							ILOG("\n\r");
+							send_PICTURE_TAKEN_message(takePictureImageID);
+							DLOG("Sent picture taken message.\n\r");
+						} else {
+							ILOG("Picture taking failed!\n\r");
+						}
 					}
 				} else {
 					DLOG("Invalid TAKE_PICTURE message received\n\r");
@@ -128,6 +130,11 @@ void packet_scan(uint8_t *data, uint8_t length)
 				break;
 
 			case MID_REQUEST_RESEND:
+				break;
+
+			case MID_CANCEL_DOWNLOAD:
+				imageSendState.sendingImage = false;
+				sdFile.close();
 				break;
 
 			default: // not a valid message
