@@ -11,7 +11,7 @@ However, the command that send the datastream has not tested in this part.
 This will test the Milestone \ref{sec:ms_basic_dummy_server_comms}.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{testing_screenshots/test_sending.png} 
+\includegraphics[width=1.00\textwidth]{testing_screenshots/test_sending.png} 
 \end{center}
 \caption{A screen shot showing the connection with the UAV was successful\label{connect to Stream Port}}
 \end{figure}
@@ -21,10 +21,10 @@ Figure\ref{test screenshot} shows a data stream back our testing console applica
 Firstly, in the GCS program, we write ''da 30 ht''. 
 This code will make the height data stream to the ground station, this data will display on the graph and in the console application, we can see the number clearly changed when the height has changed.
 This is testing that the data stream is working correctly and we have a correct way of getting the data.
-Therefore, the Milestone \ref{sec:ms_gs_basestation_comms}
+Therefore, the Milestone \ref{sec:ms_gs_basestation_comms} is validated.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{testing_screenshots/test_data.png} 
+\includegraphics[width=1.00\textwidth]{testing_screenshots/test_data.png} 
 \end{center}
 \caption{A screen shot shows that the data stream successfully\label{test screenshot}}
 \end{figure}
@@ -43,11 +43,11 @@ Therefore, in the GCS console line, it display 'unknown class HELLO'.
 Because we send the word via the console line, there is a \@ sign in front of the 'hello' word in GCS program.
 The next line we type in is ''da 50 b''.
 GCS program know this command therefore it changes the display in the graph to give information about banking of the UAV.
-This test Milestone\ref{sec:ms_basic_dummy_server_comms} works properly.
+This test validates Milestone\ref{sec:ms_basic_dummy_server_comms}.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{testing_screenshots/test_sending_test_text_useful.png}   
+\includegraphics[width=1.00\textwidth]{testing_screenshots/test_sending_test_text_useful.png}   
 \end{center}
 \caption{A screen shot showing the text sending change the GCS graph value\label{test text}}
 \end{figure}
@@ -60,11 +60,11 @@ Figure\ref{camera testing1} shows a completed, combined classes together and rec
 This testing combined all the existing method together in the Window application.
 At this point the connector class will be in the main window application.
 When the user click on 'Get Picture' button on the window application, the program will communicate bidirectional, send and receiving which already stated in section\ref{get image algorithm}. 
-From the figure, it clearly see that the image is downloading and the image has displayed correctly.
+From the figure, it clearly see that the image is downloading and the image has displayed correctly. This test validates Milestone \ref{sec:ms_gs_recieve_image}. 
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{testing_screenshots/cam_test_11.png}   
+\includegraphics[width=1.00\textwidth]{testing_screenshots/cam_test_11.png}   
 \end{center}
 \caption{A screen shot showing the picture has been taken correctly\label {camera testing1}}
 \end{figure}
@@ -77,13 +77,17 @@ If it is working correctly, the ground station will see the correct resolution c
 Figure \ref{resolution testing} shows a working resolution changing module. 
 The putty shows the resolution command that sent back from the payload.
 Therefore, it has proved that the resolution option is working.
-This test complete the Milestone \ref{sec:ms_img_cam_change_res}.
+This test complete the Milestone \ref{sec:ms_pl_img_gs_cam_res}.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{testing_screenshots/change_res_ncam_1.png}    
+\includegraphics[width=1.00\textwidth]{testing_screenshots/change_res_ncam_1.png}    
 \end{center}
 \caption{A screen shot showing that the resolution chosen send different signal to the payload\label{resolution testing}}
 \end{figure}
+
+\subsection{Functional User Interface}
+
+The tests listed above culumate in the verification of a functional user interface to the system, verifying Milestone \ref{sec:ms_gs_func_interface}.
 
 

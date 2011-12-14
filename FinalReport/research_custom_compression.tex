@@ -1,13 +1,13 @@
 \section{Custom Image Compression (jc)}
 \label{Custom_comp_research}
 
-Before starting research into image compression standards such as jpeg, a range of general image compression techniques were researched and a selection of these were also implemented in MATLAB.
+Before starting research into image compression standards such as jpeg, a range of general image compression techniques were researched and a selection of these were also implemented in MATLAB, see appendix \ref{chap:Matlab_code}.
 
 \subsection{Overview of Available Methods (jc)}
 
 The idea of image compression is to reduce the amount of data used to describe the image, whilst retaining as much as possible of the information contained in the image. there are two main types of image compression: lossless and lossy.
 
-Lossless compression techniques retain all the information in the image but reduce the size of the data required to describe it, although they can't achieve the same level of compression as lossy techniques. This is usually done by looking for patterns in the data and using these patterns to encode the data in a more efficient way. Some examples of lossless techniques are: run-length encoding or entropy encoding (such as huffman encoding [] ref mike's huffman section []). \cite{image_compression}
+Lossless compression techniques retain all the information in the image but reduce the size of the data required to describe it, although they can't achieve the same level of compression as lossy techniques. This is usually done by looking for patterns in the data and using these patterns to encode the data in a more efficient way. Some examples of lossless techniques are: run-length encoding or entropy encoding (such as huffman encoding, see section \ref{sec:mikes_huff}). \cite{image_compression}
 
 Lossy compression techniques discard some of the information in the image in order to be able to compress it further than is possible with lossless compression. The two main types of lossy image compression are those based on reducing the information in the colour space (often utilising the way the human eyes works in order to maintain perceived image quality) and those based on transforming the image, usually into a version of the frequency space. \cite{image_compression}
 
@@ -20,13 +20,15 @@ Reducing the resolution of an image could also be considered as lossy compressio
 
 The most obvious method for sending an image progressively is to simply send pixels in such an order that at any time they form a down sampled (lower resolution) version of the image. This way rather than having the image fill in from the top left hand corner the image can become less pixelated as more data is downloaded.
 
-[] diagram showing how this could work []
+%[] diagram showing how this could work []
 
-Figure [] ref to above [] show one method that could be used to reconstruct the image progressively.
+%Figure [] ref to above [] show one method that could be used to reconstruct the image progressively.
 
 \subsection{Mike's huffman shizz (mike)} %working title :P
+\label{sec:mikes_huff}
 
 \subsection{Mitch's colour space and croma subsampling shizz (mitch)} %also a working title
+\label{sec:mitch_colour}
 
 \subsection{Transform Based Compression (jc)}
 \label{transfom_based}
