@@ -1,5 +1,5 @@
 %% ----------------------------------------------------------------
-\section{Future work}
+\section{Future work (jc and ab)}
 %% ----------------------------------------------------------------
 
 This section of the evaluation looks at potential additions to this project, 
@@ -7,7 +7,7 @@ which we would have done if time permitted. This starts with parts of the
 specification that we were not able to implement, and continues with some 
 more advanced additions that we have considered.
 
-\subsection{Ground Station Software}
+\subsection{Ground Station Software (ab)}
 
 The Ground Station Software which we have submitted remains rather buggy. 
 There is a memory leakage issue which causes both our and SkyCircuits' 
@@ -22,7 +22,7 @@ could be resolved with some fairly trivial modifications to our code.
 
 \input{future_progressive_jpeg.tex}
 
-\subsection{Video Streaming}
+\subsection{Video Streaming (ab)}
 
 A rather interesting advancement of this project would be to try and implement 
 real-time video streaming from the UAV. This would almost certainly have to use 
@@ -32,7 +32,7 @@ be able to control such an application (i.e. able to start/stop transmission,
 toggle power to the module, minimising delay between video capture and video 
 display, 
 
-\subsection{Using Multiple Cameras}
+\subsection{Using Multiple Cameras (ab)}
 
 Another interesting application would be to mount multiple cameras (of the same 
 model purchased for this project) on the UAV, and either take pictures from all 
@@ -40,7 +40,7 @@ the cameras at the same time, from some of the cameras at the same time, etc.
 The main issue here will be multiplexing the serial connection to all of the 
 cameras, something considered for this project but ultimately not chosen.
 
-\subsection{Using Multiple Types of Camera}
+\subsection{Using Multiple Types of Camera (ab)}
 
 It would be useful to provide a range of camera modules to the customer, and 
 an electronic module that would be able to communicate with all of them. This 
@@ -50,11 +50,21 @@ standards used across two types of the same camera interface can be rather
 different, so a driver would need to be written for each type of camera used. 
 Also, the budget for such a project would be quite high.
 
-\subsection{SD card filesystem}
+\subsection{SD card filesystem (jc)}
 
-\subsection{HDR Photography}
+It would be a nice additional bit of functionality if the sd card on the UAV could be accessed as if it were another file system on the computer running the ground station software. This would allow any of the photos stored on the UAV to be viewed easily and would also mean that the UAV could be used as an unusual form of data transfer, carrying files from one place to another.
 
-\subsection{3D photography}
+This would also be useful if the payload was extended to contain other sensors that outputted files of a different type to the jpeg image from the camera.
+
+\subsection{HDR Photography (jc)}
+
+Image processing could be implemented in the image viewer software to enable high dynamic range (HDR) imaging. This could be useful for finding objects within a certain colour/intensity range by expanding the dynamic range over that region.
+
+\subsection{3D photography (jc)}
+
+If multiple cameras are implemented then these could be separated and the images from both combined to form 3 dimensional images, the vertical resolution of the 3d image would be proportional to the separation of the cameras.
+
+An alternate method would be to use a similar method to synthetic aperture radar (SAR) and take one photograph, fly on a bit further and then take another. The speed and/or gps data from the UAV could then be used to work out the distance between the two photographs which could then be fed into the image processing algorithm in order to again generate a 3d image (presuming sufficient overlap within the images).
 
 \subsection{Camera SD bus}
 

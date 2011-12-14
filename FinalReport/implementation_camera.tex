@@ -30,9 +30,10 @@ Once it was established that the first camera was dead a couple of cheaper surfa
 
 The operation of the new camera module was verified using a usb to serial cable connected to a pc which was running the sample program which was provided by the camera's manufacturer \cite{ucam_test_software}. Using this set up it was shown that the camera was working and that it was possible to get images from it, see section \ref{sec:existing_software_test}.
 
-[] diagram of pin connections []
+%[] diagram of pin connections []
 
 \subsection{Arduino implementation}
+\label{sec:arduino_imp}
 
 With the operation of the camera verified it was reconnected to the arduino board and the code run again with the same result as before: it would correctly sync (see figure \ref{fig:syncProto} and section \ref{basic_connection_test}) but would generate errors when trying to send any further commands. On inspection of the code it became clear that this was because the same serial line was being used for both communication with the camera and debug messages and that these debug messages were interfering with further communications. Debug messages were therefore moved to a software serial line and sent to the computer via the usb to serial cable and observed using PuTTy.
 
@@ -79,6 +80,7 @@ Once the controller has acknowledged the "DATA" message the camera starts to sen
 The use of the debug communication channel again allowed for detailed analysis of this process with the maximum amount of debug messages being one before each command is sent saying what that command is and another message once and ACK is received, there is also then a message with the size of the data in and then messages with the package number and the byte number within that package, the data can also be output to the debug channel, see section \ref{sec:image_capture_test}.
 
 \subsection{Miscellaneous Problems}
+\label{sec:misc_cam_probs}
 
 Before the SD-card was implemented the sending of the data directly via the debug channel was attempted and so was its reconstruction into a jpeg image on the computer, this could not be made to work however, see section \ref{sec:image_capture_test}. On looking at the data as it came off the arduino via the software serial debug line it became clear (particularly when looking at the counting values, whose values were already known) that the data was not being transmitted reliably. This could have been because of noise on the line, the fact that the software serial line is communicating via pins on the arduino that aren't optimised for the function or simply failings in the arduino software serial library \cite{software_serial}. For this reason this method of getting an image was abandoned, this also had to be taken into consideration whilst thinking about the integration of this part of the system: the software serial line is not a reliable method of transmitting the data so some other method would have to be used.
 

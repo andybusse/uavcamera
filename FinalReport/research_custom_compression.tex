@@ -27,8 +27,76 @@ The most obvious method for sending an image progressively is to simply send pix
 \subsection{Mike's huffman shizz (mh)} %working title :P
 \label{sec:mikes_huff}
 
-\subsection{Mitch's colour space and croma subsampling shizz (ms)} %also a working title
-\label{sec:mitch_colour}
+\subsection{Colour Space Conversion (ms)}
+\label{sec:colour_space_conversion}
+Raw image information is defined using the RGB colour model.
+This means that each pixel's colour is defined by three values according to the RGB colour model. 
+In this additive model, the pixel's colour is determined by a sum of red, green, and blue light. 
+If each value for R, G, and B is represented with a single byte, 
+this means that each pixel in an image has 3 bytes associated to it, so 
+an image with $\mathbf{n}$ pixels would contain $\mathbf{3*n}$ bytes worth of information. 
+For a 640x480 image, this means we have 921,600 bytes of information to send through.
+
+Instead of storing all the image data using the RGB colour model, 
+chroma sub-sampling allows the file to be compressed
+without losing any information that the human eye can discern. 
+The image is put into  a luma-chrominance color space. 
+In this form, the color of a pixel is described by two values, 
+one (\emph{luma}) which describing its \emph{luminance} (brightness), and 
+one (\emph{chrominance}) which describes its colour 
+(represented using two components Cb and Cr).
+These values are nonlinear representations
+of the actual luminance and chrominance values.\cite{kerr_chroma_subsampling}
+
+Although this also seperates a single pixel into three values like the RBG colour model, 
+it allows for a more compact file due to the fact that the luma and chroma samples 
+are not equally discerned by the human eye. 
+In the RGB colour model, all three values must be taken at 
+the same resolution in order to display the colour of one pixel. 
+Lowering the resolution in this colour space quickly reduces the quality of an image. 
+
+Chroma subsampling, or the YCbCr colour model, takes advantage of the fact that the human eye 
+more easily distinguishes subtle differences in luminance than colour. \cite{kerr_chroma_subsampling} 
+Therefore, by supporting different levels of resolution for the chroma and luma values, 
+it is possible to lower the amount of information stored 
+within an image which appears identical to the uncompressed image to human eye.
+
+As an example, consider a 4x4 pixel image. 
+Using the RGB colour model, the image would be represented with 48 bytes, 3 bytes for each pixel. 
+With chroma subsampling, we can group 2 or 4 pixels together to form a \emph{chrominance pixel}. 
+All the original image pixels in this new ``pixel'' would still be associated with a luma value (Y), but 
+they would all share the same chrominance information (Cb and Cr). 
+This means an image with $\mathbf{n}$ pixels would 
+now contain $\mathbf{n+2n/c}$ bytes worth of information, where 
+c is the size (in image pixels) of the chrominance pixel. 
+In this example, using a resolution of 2 adjacent pixels 
+gives us 32 byte and using a resolution of 2x2 pixel blocks 
+gives us 24 bytes.
+
+Commonly used chrominance subsampling patterns are designated as 
+a string of 3 integers separated by colons. 
+The relationship among the integers denotes 
+the degree of vertical and horizontal subsampling.
+The first integer is usually 4 and represents the 
+now standard luma horizontal sampling rate. 
+The second digit specifies the horizontal subsampling of 
+both Cb and Cr with respect to luma.\cite{poynton_chroma_subsampling}.
+
+If the third digit is the same as the second,
+this denotes that there is no vertical subsampling.
+If the third digit is zero, 2:1 vertical subsampling
+for both Cb and Cr is indicated. This strange notation
+is due to the invention of this notation
+predating the concept of vertical subsampling.\cite{poynton_chroma_subsampling}.
+
+The figure below compares 5 subsampling patterns used against a 2x2 pixel image.
+
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=0.5]{figures/chromasub.png} 
+\end{center}
+\caption{Different chroma subsampling schemes for a 2x2 pixel colour image.\label{chroma_examples}\cite{poynton_chroma_subsampling}}
+\end{figure}
 
 \subsection{Transform Based Compression (jc)}
 \label{transfom_based}

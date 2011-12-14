@@ -14,82 +14,6 @@ analysing the JPEG file structure.
 
 \subsection{JPEG Compression Process}
 
-%%---------------------------------------
-%%TO BE MOVED AND REFERENCED?
-%%---------------------------------------
-\subsubsection{Colour Space Conversion (May be moved)(ps6g08)}
-\label{sec:colour_space_conversion}
-Initially, all image information is defined using the RGB colour model.
-This means that each pixel's colour is defined by three values according to the RGB colour model. 
-In this additive model, the pixel's colour is determined by a sum of red, green, and blue light. 
-If each value for R, G, and B is represented with a single byte, 
-this means that each pixel in an image has 3 bytes associated to it, so 
-an image with $\mathbf{n}$ pixels would contain $\mathbf{3*n}$ bytes worth of information. 
-For a 640x480 image, this means we have 921,600 bytes of information to send through.
-
-Instead of storing all the image data using the RGB colour model, 
-the JPEG file compresses the image data using chroma sub-sampling 
-without losing any information that the human eye can discern. 
-The image is put into  a luma-chrominance color space. In this form, the color of a pixel is described by two values, 
-one (\emph{luma}) which describing its \emph{luminance} (brightness), and 
-one (\emph{chrominance}) which describes its colour 
-(represented using two components Cb and Cr).
-These values are nonlinear representations
-of the actual luminance and chrominance values.\cite{kerr_chroma_subsampling}
-
-Although this also seperates a single pixel into three values like the RBG colour model, 
-it allows for a more compact file due to the fact that the luma and chroma samples 
-are not equally discerned by the human eye. 
-In the RGB colour model, all three values must be taken at the same resolution in order to display the colour of one pixel. 
-Lowering the resolution in this colour space quickly reduces the quality of an image. 
-
-Chroma subsampling, or the YCbCr colour model, takes advantage of the fact that the human eye 
-more easily distinguishes subtle differences in luminance than colour. \cite{kerr_chroma_subsampling} 
-Therefore, by supporting different levels of resolution for the chroma and luma values, 
-it is possible to lower the amount of information stored
- within an image which appears identical to the uncompressed image to human eye.
-
-As an example, consider a 4x4 pixel image. 
-Using the RGB colour model, the image would be represented with 48 bytes, 3 bytes for each pixel. 
-With chroma subsampling, we can group 2 or 4 pixels together to form a \emph{chrominance pixel}. 
-All the original image pixels in this new ``pixel'' would still be associated with a luma value (Y), but 
-they would all share the same chrominance information (Cb and Cr). 
-This means an image with $\mathbf{n}$ pixels would 
-now contain $\mathbf{n+2n/c}$ bytes worth of information, where 
-c is the size (in image pixels) of the chrominance pixel. 
-In this example, using a resolution of 2 adjacent pixels 
-gives us 32 byte and using a resolution of 2x2 pixel blocks 
-gives us 24 bytes.
-
-Commonly used chrominance subsampling patterns are designated as 
-a string of 3 integers separated by colons. 
-The relationship among the integers denotes 
-the degree of vertical and horizontal subsampling.
-The first integer is usually 4 and represents the 
-now standard luma horizontal sampling rate. 
-The second digit specifies the horizontal subsampling of 
-both Cb and Cr with respect to luma.\cite{poynton_chroma_subsampling}.
-
-If the third digit is the same as the second,
-this denotes that there is no vertical subsampling.
-If the third digit is zero, 2:1 vertical subsampling
-for both Cb and Cr is indicated. This strange notation
-is due to the invention of this notation
-predating the concept of vertical subsampling.\cite{poynton_chroma_subsampling}.
-
-The figure below compares 5 subsampling patterns used against a 2x2 pixel image.
-
-\begin{figure}[!hbtp]
-\begin{center}
-\includegraphics[scale=0.5]{figures/chromasub.png} 
-\end{center}
-\caption{Different chroma subsampling schemes for a 2x2 pixel colour image.\label{chroma_examples}\cite{poynton_chroma_subsampling}}
-\end{figure}
-
-%%---------------------------------------
-%% END MOVED PART
-%%---------------------------------------
-
 The JPEG compression algorithm uses 8 
 stages to compress an image: \cite{hass_impulse_jpeg}
 
@@ -174,12 +98,13 @@ The second part contains the entropy-encoded image data, which can be decoded us
 The JPEG headers are capable of storing most of the metadata related to an image, not all of which is necessary for the decompression of the image. 
 The following headers are those which contain all the information necessary for 
 a successful decompression of the JPEG image, as well as those which can be found in all JPEG images.
-The SOI (Start Of Image) and APP (JFIF application) segments are recorded first, in that order.
-These segments are followed by the DQT (Define Quantization Table(s)), DHT (Define Huffman Table(s)), and SOF (Start Of Frame) segments,
-in any order depending on the image. The SOS (Start Of Scan) and entropy- encoded data are 
-stored afterwards and the image ends with the EOI (End Of Image) segment.
+%% The SOI (Start Of Image) and APP (JFIF application) segments are recorded first, in that order.
+%% These segments are followed by the DQT (Define Quantization Table(s)), DHT (Define Huffman Table(s)), and SOF (Start Of Frame) segments,
+%%in any order depending on the image. 
+%%The SOS (Start Of Scan) and entropy- encoded data are 
+%%stored afterwards and the image ends with the EOI (End Of Image) segment.
 
-The following table details some important segments which are necessary for the image
+The table below details some important segments which are necessary for the image
 to be properly displayed: \cite{exif_std}
 
 \begin{table}[!hbtp]
@@ -198,124 +123,11 @@ to be properly displayed: \cite{exif_std}
 	\end{tabular}
 \end{table}
 
-The following tables show important compression contents from the relevant JPEG file segments.
+The entropy-encoded image data appears after the SOS segment,
+right before the EOI header marker.
 
-%% MOVE TO APPENDIX
-%% \label{sec: jpeg_segment_content}
-%%
-\newpage
-
-\textbf{SOF0: Start Of Frame (0xc0):}
-
-\begin{table}[!hbtp]
-	\caption{SOF0 Marker Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
-	\hline
-	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
-	Length & 2 bytes & Equal to 8 + the number of components used in the colour scheme * 3\\ \hline
-	Data precision & 1 byte & Value shown in bits/sample. Usually 8 signifying bytes.\\ \hline
-	Image height  & 2 bytes & ----\\ \hline
-	Image width  & 2 bytes & ----\\ \hline
-	Number of components & 1 byte & indicates the number of components used  in the colour scheme\\ \hline
-	Component information & 3 bytes / component & See component information table below.\\ \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[!hbtp]
-	\caption{SOF Component Information}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{4cm} | }
-	\hline
-	\textbf{Byte Number} &  \textbf{Information} \\ \hline
-	1 & Component ID (1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q)\\ \hline
-	2 & Sampling factors (bits 0\ldots3 : vertical, bits 4\ldots7 horizontal)\\ \hline
-	3 & Quantization table number\\ \hline
-	\end{tabular}
-\end{table}
-
-\newpage
-
-\textbf{DHT: Define Huffman Table(s) (0xc4):}
-
-\begin{table}[!hbtp]
-	\caption{DHT Marker Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
-	\hline
-	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
-	Length & 2 bytes & ----\\ \hline
-	HT Information & 1 byte & See HT Information table below\\ \hline
-	Number of Symbols  & 16 bytes & Number of symbols with codes of length 1\ldots16.
-	The sum of these values (\emph{n})must be $\le$ 256\\ \hline
-	Symbols  & \emph{n} bytes & Symbols of the HT in order of increasing code length\\ \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[!hbtp]
-	\caption{HT Information Byte Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{4cm} | }
-	\hline
-	\textbf{Bit} &  \textbf{Information} \\ \hline
-	0\ldots3 & ID number of HT\\ \hline
-	4 & type of HT, 0 = DC table, 1 = AC table\\ \hline
-	5\ldots7 & Unused\\ \hline
-	\end{tabular}
-\end{table}
-
-\textbf{DQT: Define Quantization Table(s) (0xdb):}
-
-\begin{table}[!hbtp]
-	\caption{DQT Marker Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
-	\hline
-	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
-	Length & 2 bytes & ----\\ \hline
-	QT Information & 1 byte & See QT Information table below\\ \hline
-	Bytes  & \emph{n} bytes & QT values. \emph{n} = 64 * (QT precision + 1) \\ \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[!hbtp]
-	\caption{QT Information Byte Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{4cm} | }
-	\hline
-	\textbf{Bit} &  \textbf{Information} \\ \hline
-	0\ldots3 & ID number of QT\\ \hline
-	4\ldots7 & precision of QT (0 = 8 bit, else 16 bit)\\ \hline
-	\end{tabular}
-\end{table}
-
-\newpage
-
-\textbf{SOS: Start Of Scan (0xda):}
-
-\begin{table}[!hbtp]
-	\caption{SOS Marker Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{1.5cm} | p{4cm} | }
-	\hline
-	\textbf{Field} & \textbf{Size} & \textbf{Comments} \\ \hline
-	Length & 2 bytes & Equal to 6 + 2 * (number of components in scan)\\ \hline
-	Number of components in scan & 1 byte & Within range 1 to 4\\ \hline
-	Component information & 2 bytes / component & See component information table below.\\ \hline
-	Ignorable Bytes & 3 bytes & Separates header information from entropy-encoded image data\\ \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[!hbtp]
-	\caption{SOS Component Information Content}
-	\centering
-	\begin{tabular}{ | p{2cm} | p{4cm} | }
-	\hline
-	\textbf{Byte Number} &  \textbf{Information} \\ \hline
-	1 & Component ID (1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q)\\ \hline
-	2 & HT to use (bits 0\ldots3 : AC Table ID, bits 4\ldots7 DC Table ID)\\ \hline
-	\end{tabular}
-\end{table}
+For information concerning the actual content of each of the 
+JPEG segments, please refer to the appendix \ref{chap:jpeg-segment-contents}.
 
 \subsubsection{Entropy-encoded image data}
 \label{sec:entropycrho}
