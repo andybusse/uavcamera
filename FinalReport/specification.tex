@@ -32,35 +32,43 @@ On the ground station side of things there is a radio frequency (RF) link (zigBe
 
 The aim of the project was to achieve the following criteria, which were also prioritized in order to ensure organized and efficient work - high priority points are essential or very important to basic system functionality, medium priority points are not essential for basic functionality but help expand the system into a more complete system and low priority points are optional extras that should be added if time permits or if they are very low effort:
 
-\begin{itemize}
-	\item The image should be encoded in such a way that a low quality image will be available quickly, the quality of which would improve as more information is downloaded. This was given a \textbf{high priority} as raw images of an acceptable resolution (see below) contain a large amount of data and we have a slow communications link therefore it would be extremely beneficial to be able to view a low quality image quickly so that you don't have to wait for the full image download to judge its appropriateness.
-	\item Minimise the time needed to download the images from the UAV to the base station. The time from the user’s prompt until the image has been fully downloaded will be measured against the theoretical 3 minutes necessary to transmit a full image without using any compression. The goal will be to obtain a full image in \textbf{less than 3 minutes.} This 3 minute figure is the time it was calculated it would take to download a raw $640\times480$ 24bit RGB image (approx. 900kB) at 38.4kBaud. This was given a \textbf{high priority} as 3 minutes is a long time to wait for an image to download and downloading images is the point of our system.
-	\item The module weight will be \textbf{less than 250g}. This was given a \textbf{medium priority} since authough a weight of under 250g would be required for flight, it would be preferable to have a system that is too heavy than one that does not work at all.%as electronics tend not to be very heavy but it is important to bear in mind that the UAV can't carry too much weight.
-	\item Image resolution of \textbf{$640\times480$}. This was given a \textbf{medium priority}, this value was chosen as a trade off between the amount of data in the image and the quality of the image. Higher resolutions would be acceptable if the download time can be suitable reduced and lower resolutions may also be useful if they are much faster to download.
-	\item Allow the user to perform the following actions on the UAV’s camera from the base station:
-	\begin{itemize}
-		\item Prompt the UAV to \textbf{capture and download an image}. This was given a \textbf{high priority} as the main aim of the system is to be able to capture images.
-		\item \textbf{Cancel} the downloading of any image while the image is being downloaded. This was given a \textbf{medium priority} because, given the potentially high download times, a lot of time could be saved by being able to cancel the download of an image you do not want before it has fully downloaded but it is not essential to the basic functionality of the system.
-		\item \textbf{Resend} an image in case the current preview is corrupted. This was given a \textbf{low priority} as it does not affect basic functionality.
-		\item \textbf{Interrupt} the download of an incomplete image and allow the user to save the incomplete image. Please note that this is distinct from the \emph{Cancel} requirement mentioned above since it requires the saving of incomplete images. This was given a \textbf{low priority} as it does not affect basic functionality, but could potentially save the user some time.
-		\item Select the \textbf{resolution settings} of the image. This was given a \textbf{low priority} as it does not affect basic functionality but could be a useful feature for some users.
-		\item Display a progress indicator which will show the percentage of the image data received, as well as a time estimate for the rest of the image to be downloaded. This was given a \textbf{low priority} as it does not affect basic functionality but allows the user to feel more confident that the system is working.
-		\item The image capture will be triggered automatically by the UAV using triggers built into the autopilot. This was given a \textbf{low priority} as it does not affect basic functionality but could be something a user might like to be able to do.
-		\item Allow the user to command the image capture to \textbf{trigger periodically} over a \textbf{user specified time interval} will be added if time permits. This was given a \textbf{low priority} as it does not affect basic functionality but may be a useful feature for some users.
-	\end{itemize}
-	\item Images will be transmitted in \textbf{colour} as opposed to black and white. This was given a \textbf{low priority} as black and white images are still useful but colour images would be preferred.
-	\item The user should be able to select between a colour image and a black and white image. This was given a \textbf{low priority} as it does not affect basic functionality.
-\end{itemize}
+	\subsection{The image should be encoded in such a way that a low quality image will be available quickly, the quality of which would improve as more information is downloaded.} \label{sec:spec_a}
+This was given a \textbf{high priority} as raw images of an acceptable resolution (see below) contain a large amount of data and we have a slow communications link therefore it would be extremely beneficial to be able to view a low quality image quickly so that you don't have to wait for the full image download to judge its appropriateness.
+	\subsection{Minimise the time needed to download the images from the UAV to the base station. The time from the user’s prompt until the image has been fully downloaded will be measured against the theoretical 3 minutes necessary to transmit a full image without using any compression. The goal will be to obtain a full image in \textbf{less than 3 minutes.}} \label{sec:spec_b} 
+This 3 minute figure is the time it was calculated it would take to download a raw $640\times480$ 24bit RGB image (approx. 900kB) at 38.4kBaud. This was given a \textbf{high priority} as 3 minutes is a long time to wait for an image to download and downloading images is the point of our system.
+	\subsection{The module weight will be \textbf{less than 250g}.} \label{sec:spec_c} 
+This was given a \textbf{medium priority} since authough a weight of under 250g would be required for flight, it would be preferable to have a system that is too heavy than one that does not work at all.%as electronics tend not to be very heavy but it is important to bear in mind that the UAV can't carry too much weight.
+	\subsection{Image resolution of \textbf{$640\times480$}.} \label{sec:spec_d} 
+This was given a \textbf{medium priority}, this value was chosen as a trade off between the amount of data in the image and the quality of the image. Higher resolutions would be acceptable if the download time can be suitable reduced and lower resolutions may also be useful if they are much faster to download.
+	\subsection{Allow the user to perform the following actions on the UAV’s camera from the base station:} 
+		\subsubsection{Prompt the UAV to \textbf{capture and download an image}.} \label{sec:spec_e} 
+This was given a \textbf{high priority} as the main aim of the system is to be able to capture images.
+		\subsubsection{\textbf{Cancel} the downloading of any image while the image is being downloaded.} \label{sec:spec_f} 
+This was given a \textbf{medium priority} because, given the potentially high download times, a lot of time could be saved by being able to cancel the download of an image you do not want before it has fully downloaded but it is not essential to the basic functionality of the system.
+		\subsubsection{\textbf{Resend} an image in case the current preview is corrupted.} \label{sec:spec_g} 
+This was given a \textbf{low priority} as it does not affect basic functionality.
+		\subsubsection{\textbf{Interrupt} the download of an incomplete image and allow the user to save the incomplete image.} \label{sec:spec_h} 
+Please note that this is distinct from the \emph{Cancel} requirement mentioned above since it requires the saving of incomplete images. This was given a \textbf{low priority} as it does not affect basic functionality, but could potentially save the user some time.
+		\subsubsection{Select the \textbf{resolution settings} of the image.} \label{sec:spec_i} 
+This was given a \textbf{low priority} as it does not affect basic functionality but could be a useful feature for some users.
+		\subsubsection{Display a progress indicator which will show the percentage of the image data received, as well as a time estimate for the rest of the image to be downloaded.} \label{sec:spec_j} 
+This was given a \textbf{low priority} as it does not affect basic functionality but allows the user to feel more confident that the system is working.
+		\subsubsection{The image capture will be triggered automatically by the UAV using triggers built into the autopilot.} \label{sec:spec_k} 
+This was given a \textbf{low priority} as it does not affect basic functionality but could be something a user might like to be able to do.
+		\subsubsection{Allow the user to command the image capture to \textbf{trigger periodically} over a \textbf{user specified time interval} will be added if time permits.} \label{sec:spec_l} 
+This was given a \textbf{low priority} as it does not affect basic functionality but may be a useful feature for some users.
+	\subsubsection{Images will be transmitted in \textbf{colour} as opposed to black and white.} \label{sec:spec_m} 
+This was given a \textbf{low priority} as black and white images are still useful but colour images would be preferred.
+	\subsubsection{The user should be able to select between a colour image and a black and white image.} \label{sec:spec_n} 
+This was given a \textbf{low priority} as it does not affect basic functionality.
 
 
 \section{Deliverables (mitch)}
 
 The deliverables which were planned to be produced by the end of the project and given to the customer include:
 
-\begin{itemize}
-	\item \underline{Hardware}: Camera module, constructed on PCB (if time permits, otherwise on strip-board),including layout designs.
-	\item \underline{Software}: All firmware for the electronic module, and software on the base station for viewing images. The full source code and all executable files will be included.
-	\item \underline{Documentation}: Technical and User Documentation. This includes all schematics related to hardware as well as all other documents concerning both the software and hardware delivered.
-	\item \underline{Public repository}: The full source code, all schematics, and all documents concerning both the software and hardware will be included on a public repository so that the customer may share this information with his clients.
-\end{itemize}
+	\subsection{\underline{Hardware}:} \label{sec:deliv_hw} Camera module, constructed on PCB (if time permits, otherwise on strip-board),including layout designs.
+	\subsection{\underline{Software}:} \label{sec:deliv_sw} All firmware for the electronic module, and software on the base station for viewing images. The full source code and all executable files will be included.
+	\subsection{\underline{Documentation}:} \label{sec:deliv_doc} Technical and User Documentation. This includes all schematics related to hardware as well as all other documents concerning both the software and hardware delivered.
+	\subsection{\underline{Public repository}:} \label{sec:deliv_git} The full source code, all schematics, and all documents concerning both the software and hardware will be included on a public repository so that the customer may share this information with his clients.
 
