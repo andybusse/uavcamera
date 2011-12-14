@@ -9,9 +9,9 @@ A huge range of compact digital cameras are available for purchase and this was 
 
 Advantages:
       \begin{itemize}
-         \item High resolution of typically 5+ Megapixels
-		 \item Fully encapsulated
-		 \item High quality images possible thanks to automatic focus and zoom
+         \item High resolution of typically 5+ Megapixels.
+		 \item Fully encapsulated.
+		 \item High quality images possible thanks to automatic focus and zoom.
      \end{itemize}
 
 Disadvantages:
@@ -19,7 +19,7 @@ Disadvantages:
         \item Difficult/impossible to communicate with: most modern digital cameras has a USB socket for downloading images off the camera but it is much rarer to be able to send the camera commands (e.g. take photo) and for those cameras where it is possible the command structure is not usually simple.
         \item Requires USB host device in order to properly communicate as only USB host devices provide power via usb and can have USB peripherals connected to them.
 	\item Relatively large and heavy compared to the other approaches considered.
-	\item Expensive
+	\item Expensive, prices starting around \pounds 60.
      \end{itemize}
 
 In order to communicate with a camera via USB a USB host is required. The process is usually fairly complex a driver is normally used. This is extremely difficult to implement on a device compact enough for use in this project.
@@ -30,73 +30,84 @@ Many USB webcams are available for purchase and this was considered as a possibl
 
 Advantages:
       \begin{itemize}
-         \item Low cost of typically around \pounds 15
-         \item High resolution of typically 1 to 3 Megapixels
-		 \item Small size
-		 \item Cabling included so can be easily positioned in the UAV
+         \item Low cost of typically around \pounds 15.
+         \item High resolution of typically 1 to 3 Megapixels.
+		 \item Small size of usually less than 50mm by 50mm.
+		 \item Cabling included so can be easily positioned in the UAV.
      \end{itemize}
 
 Disadvantages:
-     \begin{itemize}
-        \item Difficult to communicate with - NEED TO EXTEND ON THIS, THIS SHOULD BE REASONBALY DETAILED AND SAY THINGS LIKE DATASHEETS ARE NOT AVAILABLE FOR DEVICE MOST DEVICES (COULD BE A SEPERATE POINT) AND THAT COMPLEX DRIVERS ARE REQUIRED WHICH SIMPLY ARE NOT AVAILABLE ON MOST SMALL/CHEAP EMBEDDED PROCESSORS. GETTING THIS TO WORK COULD BE A PROJECT IN IT'S OWN RIGHT
-        \item Requires USB host device - SAME AS ABOVE
-	\item High resolution means longer transfer times - MARKED FOR REMOVAL - SEE ROBS COMMENTS
-     \end{itemize}
+\begin{itemize}
+     \item often poorly documented: no datasheets or datasheets aimed solely at use with a computer.
+     \item Difficult to communicate with: These devices are usually designed to be used with a computer so communication is usually done using a proprietary driver (a piece of software that defines how to interact with a peripheral). In order to maintain the proprietary nature of these documentation and/or source code is often not available for them.
+    \item Requires USB host device in order to properly communicate as only USB host devices provide power via usb and can have USB peripherals connected to them.
+	\item High resolution means longer total transfer times, including time to transfer from the camera and time spent on any compression/ manipulation.
+\end{itemize}
 
-This approach was ruled out because of the difficulty in communicating with this camera type. In order to communicate with a USB camera a USB host is required and as the process is usually fairly complex a driver is normally used. This is extremely difficult to implement on a device compact enough for use in this project. - TAKE OUT THE BIT SAYING IT WAS RULED OUT AND PUT IT IN THE APPROACH CHOSEN: SECTION BELOW
+In order to communicate with a USB camera a USB host is required, and as the process is usually fairly complex a driver is normally used. These drivers are fairly complex pieces of code and they are designed for use on computers, they are also often poorly documented so it would be extremely difficult to implement them on a device compact enough for use in this project.
 
 \subsection{Approach: Analogue Camera}
 \label{sec:Analog_option}
+
 Camera modules with analogue composite outputs are available, usually for cctv or surveilence purposes, and were also considered as an approach.
 
 Advantages:
-      \begin{itemize}
-         \item Range of resolutions available
-	\item Small size - MARKED FOR REMOVAL - THEY ARE JUST AS SMALL AS OURS
-	\item MATURE MARKET, LOTS OF CHOICE
-	
-     \end{itemize}
+\begin{itemize}
+	\item Range of resolutions available.
+	\item Small size: usually less than 50mm x 50mm.
+	\item this is a mature market so there are plenty of options available.
+\end{itemize}
 
 Disadvantages:
      \begin{itemize}
-        \item Awkward to communicate with - NEEDS MUCH MORE EXPLANATION, NEED TO METION ADC AS WITH ROBS COMMENT, PERPAHS QUICKLY MENTION THAT WOULD PROBABLY USE SOMETHING LIKE COMPONENT OR COMPOSITE VIDEO WHICH ARE COMPLEX AND DIFFICULT TO DECODE
-        \item Require case and cabling for placement in UAV
-		\item Can be expensive at up to around \pounds 80
-		\item Often video rather than still cameras
-		\item Often black and white rather than colour
+        \item Awkward to communicate with: in order to decode the output of these devices we either need to convert from analogue to digital and then decode the signal (this type of camera usually outputs in composite or component format both of which are complex encodings, particularly when converted to digital) or put the signal through a decoder IC which are better documented but still complex, and the correct chip must be used.
+        \item Require case and cabling for placement in UAV.
+		\item Can be expensive at up to around \pounds 80.
+		\item Often video rather than still cameras.
+		\item Often black and white rather than colour.
      \end{itemize}
 
-This approach was ruled out because of the additional complexity required in converting from analogue to digital whilst maintaining all the information in the image, that would be required to send an image from a camera of this type through a microprocessor.
+There are a very wide range of cameras of this type available with different features however there is a significant amount of additional complexity introduced by the requirement to decode the analogue output into something that can be understood by a microcontroller.
 
 \subsection{Approach: Serial Camera Module}
 \label{sec:Serial_option}
+
 Some camera modules are available with UART rather than USB serial communications and these to were considered as an approach.
 
 Advantages:
       \begin{itemize}
-		 \item Easy to communicate with
-         \item Range of resolutions available
-		 \item Small size
-		 \item Well documented COME WITH DATASHEETS AND DESIGNED SPECIFICALLY FOR ELECTRONICS DEVELOPMENT
+      	 \item Well documented: these cameras usually come with datasheets and are often designed for use with electronic projects.
+		 \item Easy to communicate with as they do not require a USB host or and analogue to digital conversion, additionally most microcontrollers have a built in UART port.
+         \item Range of resolutions available.
+		 \item Small size: usually less than 50mm x 50mm.
+		 
      \end{itemize}
 
 Disadvantages:
      \begin{itemize}
-        \item Require case and cabling for placement in UAV
-	\item moderately expensive at around \pounds 40
-        \item Require case and cabling for placement in UAV
+        \item Require case and cabling for placement in UAV.
+		\item moderately expensive at around \pounds 40.
+        \item The lack of case means that the camera is susceptible to shorts and static.
      \end{itemize}
 
-This was the approach that was chosen as the ability to communicate via UART combined with the good documentation should allow for control to be established fastest with this camera type.
+The ability to communicate via UART combined with the good documentation should allow for control to be established fastest with this camera type.
 
 \section{Approach Chosen: Serial Camera module}
 \label{sec:John_chosen_options}
 
-The camera type chosen was a serial camera as described in \ref{sec:Serial_option}. EXPLAIN WHY WE CHOSE THIS AS OPPOSED TO OTHER CHOICES, BUT BRIEFLY
+The camera type chosen was a serial camera as described in \ref{sec:Serial_option}. We chose this camera type because it was the easiest to communicate with as it did not require a USB host or any kind of analogue to digital conversion and decoding. The serial camera type also has most of the advantages of the analogue camera type but is easier to communicate with.
 
 The particular model chosen was uCam (microCam) or the "Camera Module - Serial JPEG TTL" from the "coolcomponents" website.
 
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.00\textwidth]{figures/uCam.jpg}
+        \captionof{figure}{Photo of the 4D systems uCam, sourced from \cite{ucam_datasheet}}
+        \label{fig:uCam_photo}
+\end{figure}
+
 The feature set of the uCam is as follows:
+
 	\begin{itemize}
 		\item It can output images in both RAW and jpeg formats
 		\item It can output RAW images at a range of resolutions:

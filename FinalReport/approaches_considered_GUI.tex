@@ -1,4 +1,4 @@
-\section{Ground Station Image Viewer}
+\section{Ground Station Image Viewer (ps26g08)}
 
 \subsection{Programming Language}
 
@@ -93,23 +93,49 @@ SerialPort.Read(Char(),Int32,Int32);
 SerialPort.Write(Char(), Int32, Int32)	;
 \end{lstlisting}
 
-The advantage of using this class is that the port can change baud rate, handshaking, parity bit, and stop bit. It has an ability to change the internal structure of signal of hardware. The class has a read and writes methods which connection with TCP/IP is possible.
-However, the implementation of the class has many unnecessary set up and the code will be very long and can cause error, and it is not possible to reprogram the UAV.
-Write() is a SerialPort's public method is use to send data of bytes to an output buffer at the specified offset, it writes a specified number of characters to the serial port using data from a buffer.
-Reads method read a number of bytes from the SerialPort input buffer and writes those bytes into a byte array at the specified offset.
 
-If the UAV baud rate is different from the program baud rate, the error will occur.
-The parity bit, and end bit and baud rate have to be set up in order to connect to the port, but these set up in UAV already.
+Advantage 
+\begin{itemize}
+\item can change baud rate, handshaking, parity bit, and stop bit
+\item can change the internal of a hardware
+\item can send and receive data from a defined connection
+\item can program hardware
+\end{itemize}
+Disadvantage
+\begin{itemize}
+\item need to set up all the component (baud rate, handshaking, parity bit, and stop bit)
+\item the set up make the code long and might cause error
+\item the setting of the signal out must be the same as the set up in the UAV
+\end{itemize}
 
 \subsubsection{Socket Class}
-The Socket is more programmer friendly, robust and a high level connection class. The socket class is use to send and receive data, in similar method as an open file allows an application to read and write data to stable storage.  It also makes a simple handshaking between the client and server machines. It can connect to multi clients, which this is necessary for a multi-port which we are using. The program can easily connect to the port by using the method in Listing\ref{socketClasscrs} .
-This method takes the baud rate and parity bit configuration from the UAV so the setup is the same. This class sends and array of bytes to the console port and to the data stream port and receive data from the port by code in Listing\ref{socketClasscrs}.
+The Socket is more programmer friendly, robust and a high level connection class. 
+The socket class is use to send and receive data, in similar method as an open file allows an application to read and write data to stable storage.  
+It also makes a simple handshaking between the client and server machines. 
+It can connect to multi clients, which this is necessary for a multi-port which we are using. 
+The program can easily connect to the port by using the method in Listing\ref{socketClasscrs} .
+This method takes the baud rate and parity bit configuration from the UAV so the setup is the same. 
+This class sends and array of bytes to the console port and to the data stream port and receive data from the port by code in Listing\ref{socketClasscrs}.
 
 \begin{lstlisting}[caption=Socket class connect receive and send method,label=socketClasscrs]
 Connect (String host name,Int32 port number)
 Send(byte[] command, Int32 length, SocketFlags)
 Receive(byte[] data, Int32 length, SocketFlags)
 \end{lstlisting}
+
+Advantage
+\begin{itemize}
+\item can set up the connection by simply stated the host name and port number
+\item can connect to TCP/IP port 
+\item it uses the set up of the port, therefore the parity, stop bit, and the baud rate are the same
+\item can send and receive data from the port
+\item can use delegates which give more flexibility on synchronous control of sockets \cite{robertH}
+\end{itemize}
+Disadvantage
+\begin{itemize}
+\item can not program hardware
+\item can not set up the baud rate, stop bit or any other properties of the hardware
+\end{itemize}
 
 The socket class was the class chosen for the UAV port connector. 
 It support TCP connection between the client and the server to do low level communication work\cite{xiaX}. 
