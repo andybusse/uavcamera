@@ -1,4 +1,4 @@
-\section{Camera Module Testing - (jgac1g08 and mh23g08)}
+\section{Camera Module Testing - (jc and mh)}
 
 The camera module and controller were tested throughout their development and thus problems were quickly discovered and swiftly rectified.
 
@@ -13,7 +13,7 @@ The uCam was connected to a host PC using a USB to Serial cable and tested using
 
 This task did not verify any milestones, but it did show clearly that the camera was working. In the event of the camera becoming unresponsive, this software helped us diagnose the problem, since if the camera worked with this software it was clearly a problem with our implementation, while if the camera did not work with this software then it would suggest the camera itself was at fault. Before declaring any of the cameras used in the project faulty they were checked using this software.
 
-\subsection{Test: Basic Connection Test on Arduino - (mh23g08)}
+\subsection{Test: Basic Connection Test on Arduino - (mh)}
 \label{sec:basic_connection_test}
 
 The first step when communicating with the camera module is to establish a connection to it.  The implementation code follows the procedure shown in figure \ref{fig:syncProto} to connect to the camera, sending SYNC commands until the appropriate response is detected from the camera, indicating a successful connection and so the success of this test.
@@ -27,7 +27,7 @@ The first step when communicating with the camera module is to establish a conne
 
 Figure \ref{fig:test_basic_connection} shows the result of a test for basic connection to the camera module. In figure \ref{fig:test_basic_connection} the line ``Contact established'' means the Arduino has detected these correct responses. With this successful connection, milestone \ref{sec:ms_basic_cam_comm} is validated, meaning the implementation was free to move on.
 
-\subsection{Test: Image from Camera - (mh23g08)}
+\subsection{Test: Image from Camera - (mh)}
 \label{sec:image_capture_test}
 
 The first attempt at a simple test for this was to use the debug connection to the Arduino camera controller implementing the camera connection code to relay image data to a PC, unfortunately as described in section ||||| REF ||||| initial implementations of this were not successful, since the debug connection was not completely error free, causing the image to be malformed and unreadable.
@@ -104,4 +104,4 @@ During the integration process the system was regularly tested for functionality
 
 The system can capture images at the 640x480 resolution specified and can also capture images at the other resolutions at which the uCam will take jpeg images. Currently the option to capture raw images is not implemented.
 
-The time taken for the system to capture an image at maximum resolution, save it to SD-card and then download and display it on the ground station software was measured at around 10 to 15 seconds |||||| TRIPLE CHECK |||||||. This is still well within the 3 minutes specified and has large amounts of overhead meaning that it should remain well within that limit even if there are+ other payloads implemented on the UAV or if a lot of packets are dropped and have to be resent.
+The time taken for the system to capture an image at maximum resolution, save it to SD-card and then download and display it on the ground station software was measured at 19.1s |||||||||REF|||||||||. This is still well within the 3 minutes specified and has large amounts of overhead meaning that it should remain well within that limit even if there are+ other payloads implemented on the UAV or if a lot of packets are dropped and have to be resent.

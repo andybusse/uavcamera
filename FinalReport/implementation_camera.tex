@@ -33,6 +33,7 @@ The operation of the new camera module was verified using a usb to serial cable 
 [] diagram of pin connections []
 
 \subsection{Arduino implementation}
+\label{sec:arduino_imp}
 
 With the operation of the camera verified it was reconnected to the arduino board and the code run again with the same result as before: it would correctly sync (see figure \ref{fig:syncProto} and section \ref{basic_connection_test}) but would generate errors when trying to send any further commands. On inspection of the code it became clear that this was because the same serial line was being used for both communication with the camera and debug messages and that these debug messages were interfering with further communications. Debug messages were therefore moved to a software serial line and sent to the computer via the usb to serial cable and observed using PuTTy.
 
