@@ -1,11 +1,8 @@
-
-
-
 \section{Communication with Ground Station via Autopilot}
 \label{sec:payload controller}
 Considering the overall aim of this project: to produce a system by which 
 images can be downloaded over-the-air from a payload module to a ground 
-station, it is fair to say that some method of communicating between the
+station, some method of communicating between the
 payload module and ground station are an essential component in the system.
 
 The specification - see chapter \ref{chap:specification} - requires the payload
@@ -19,80 +16,55 @@ below).
 %protocol and a \emph{UAV Camera Communication Protocol} section describing the 
 %protocol we have implemented as a part of this project.
 
-\subsection{Autopilot Payload Module Interface}
-\label{sec:autopilot_payload_interface}
-|||||| Maybe have this in background research ||||||
+\subsection{Existing Code}
+\label{sec:payload_existing_code}
+Our customer had provided us with some payload module communication AVR code
+- written for a ATMega168 - for communicating with the autopilot. This code
+was the basis on which the payload controllers communication link was built.
 
-The SkyCircuits autopilot module allows extension modules named `payload 
-modules' to be connected to the autopilot. These payload modules are connected 
-via a RS485 serial connection at 38.4 kBaud, allowing several payload modules
-to be connected at once in a daisy-chain configuration. All payload modules are 
-connected to common TX and RX lines, where the RX line is used by the
-autopilot to send commands and data to the payload modules, and the TX
-line is used by all daisy-chained modules to communicate with the autopilot.
+The code provided a number of useful utilities:
+\begin{itemize}
+\item Ability to set shared memory on the autopilot.
 
-||||||| Include diagram of daisy chain configuration ||||||||||
+\item Ability to receive messages sent from the Ground Station to the 
+autopilot.
 
-Since the TX line is shared between all modules only one payload module can be 
-transmitting at once over the link, with all other payload modules required to
-leave the line tristated. This means that each payload module must know when it is
-allowed to use the transmit line so as not to clobber any other payload module.
-In this system this is achieved by the use of `transmit tokens' handed out 
-by the autopilot over the RX line. A `transmit token' is sent to each payload 
-module in turn, informing the module that it is clear to transmit data. With 
-only one payload module connected to the autopilot, these tokens are sent out 
-every 20 ms. |||||| CHECK THIS ||||||||
+\item Example code for setting shared memory on the autopilot.
+\end{itemize}
 
-This two way communication link is used to implement a command interface to 
-the autopilot. A payload module can execute commands on the autopilot, 
-allowing a variety of useful and interesting possibilities for payload
-module design. Of interest to us however, is the ability of the payload
-module to set shared memory. Since this shared memory can be accessed 
-through the ground station software this allows us to send data through the
-autopilot link to the ground station. Shared memory is allocated to 
-each payload module, accessible on the ground station using the command:
-~\\
-~\\
-\begin{lstlisting}[caption={Accessing shared memory from ground station}, label=lst:gs_shared_mem_set]
-payload[payload_num].mem_bytes[mem_bytes_num]
-\end{lstlisting}
+This base code was modified slightly after a bug was found in its handling of 
+the transmit enable signal. The RS485 communication protocol used for the 
+autopilot-payload link (as described in section |||||||| SEC ||||||||) 
+requires a `transmit enable' signal to be asserted when the payload is 
+transmitting. This signal should be asserted just before data is to be sent 
+and cleared just after. However, the original payload base code cleared this 
+signal in an interrupt service routine (ISR) which fired after the transmit 
+buffer of the UART was ready to accept new data. Since this transmit buffer 
+would be ready to accept new data before the data was actually sent over the
+physical connection this lead to the transmit enable signal being cleared
+before all data had been sent, causing strange behaviour on the RS485 link.
+This bug did not seem to cause any problems, and the odd behaviour was only
+noticed when testing the system with an oscilloscope. ||||| INC TRACES ||||||
+It was considered sensible to fix the bug in case it did cause problems later.
 
-Where \emph{payload\_num} is the ID number identifying the payload and 
-\emph{mem\_bytes\_num} is the index of the set of shared memory to be accessed.
+The fix for this problem was reasonably simple: a new ISR was set up which 
+fired only when the current transmission had actually completed, and the 
+command to clear the transmit enable signal was moved into this ISR.
+||||| INC AFTER TRACE ||||||
 
-Each shared memory set is of variable length and can be set from the payload 
-module using the following function (code provided by customer):
-~\\
-~\\
-\begin{lstlisting}[language=C, caption={Setting shared memory from payload module}, label=lst:payload_shared_mem_set]
-send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, 
-CLASS_PAYLOAD_MEM_BYTES, mem_bytes_num, message_to_send,
-message_to_send_length)
-\end{lstlisting}
+\subsection{Establishing Contact with the Autopilot}
 
-Where \emph{CLASS\_PAYLOAD} and \emph{CLASS\_PAYLOAD\_MEM\_BYTES} are constants 
-informing the autopilot that the \emph{mem\_bytes} item of the \emph{payload} 
-object should be set, \emph{module\_id} is the ID of the payload module,
-\emph{mem\_bytes\_num} is the same as used in listing
-\ref{lst:gs_shared_mem_set} and \emph{message\_to\_send} is the message to be 
-sent (consisting of an array of length \emph{message\_to\_send\_length}, the 
-first element of which should be the number of bytes to set in the shared 
-memory).
 
-The method through which this shared memory is accessed via the ground station
-image viewer is discussed in chapter \ref{chap:implementation_ground_station}.
 
-The ground station software can also send data directly to a payload module 
-through the autopilot, where it will be sent on to the RX line of the RS485
-bus. The \emph{send\_bytes} command is used to do this, as can be seen in 
-listing \ref{lst:ground_station_send_bytes}. 
-
+\subsection{UAV Camera Communication Protocol}
 As discussed in section |||||||| REF |||||||| it was decided that 
 our communications protocol would use shared memory and \emph{send\_bytes} 
 commands, allowing two way communications between the payload controller and 
 ground station software to be established.
 
-\subsection{UAV Camera Communication Protocol}
+The method through which this shared memory is accessed via the ground station
+image viewer is discussed in chapter \ref{chap:implementation_ground_station}.
+
 The Payload Module Interface discussed above (section \ref{sec:autopilot_payload_interface})
 allows us to send strings of bytes in both directions. However, in order to 
 communicate with the ground station image viewing software some form of 
@@ -135,6 +107,13 @@ Resolution
 JPEG mode has been tested so far.
 \end{itemize}
 
+\item \textbf{Cancel Download}
+\begin{itemize}
+\item \emph{Data:} None
+Resolution
+\item Cancels the current download taking place.
+\end{itemize}
+
 \end{itemize}
 
 \subsubsection*{Messages Sent from Payload to Ground Station}
@@ -175,43 +154,6 @@ data for this packet and is variable size, with a maximum size of 50 bytes.
 \end{itemize}
 
 \end{itemize}
-
-
-\subsection{Existing Code}
-\label{sec:payload_existing_code}
-Our customer had provided us with some payload module communication AVR code
-- written for a ATMega168 - for communicating with the autopilot. This code
-was the basis on which the payload controllers communication link was built.
-
-The code provided a number of useful utilities:
-\begin{itemize}
-\item Ability to set shared memory on the autopilot.
-
-\item Ability to receive messages sent from the Ground Station to the 
-autopilot.
-
-\item Example code for setting shared memory on the autopilot.
-\end{itemize}
-
-This base code was modified slightly after a bug was found in its handling of 
-the transmit enable signal. The RS485 communication protocol used for the 
-autopilot-payload link (as described in section |||||||| SEC ||||||||) 
-requires a `transmit enable' signal to be asserted when the payload is 
-transmitting. This signal should be asserted just before data is to be sent 
-and cleared just after. However, the original payload base code cleared this 
-signal in an interrupt service routine (ISR) which fired after the transmit 
-buffer of the UART was ready to accept new data. Since this transmit buffer 
-would be ready to accept new data before the data was actually sent over the
-physical connection this lead to the transmit enable signal being cleared
-before all data had been sent, causing strange behaviour on the RS485 link.
-This bug did not seem to cause any problems, and the odd behaviour was only
-noticed when testing the system with an oscilloscope. ||||| INC TRACES ||||||
-It was considered sensible to fix the bug in case it did cause problems later.
-
-The fix for this problem was reasonably simple: a new ISR was set up which 
-fired only when the current transmission had actually completed, and the 
-command to clear the transmit enable signal was moved into this ISR.
-||||| INC AFTER TRACE ||||||
 
 
 ||||||||| FLOWCHART OF INTERACTIONS |||||||
