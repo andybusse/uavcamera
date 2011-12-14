@@ -1,5 +1,60 @@
 %% ----------------------------------------------------------------
-\chapter{Future work}
+\section{Future work}
 %% ----------------------------------------------------------------
 
+This section of the evaluation looks at potential additions to this project, 
+which we would have done if time permitted. This starts with parts of the 
+specification that we were not able to implement, and continues with some 
+more advanced additions that we have considered.
+
+\subsection{Ground Station Software}
+
+The Ground Station Software which we have submitted remains rather buggy. 
+There is a memory leakage issue which causes both our and SkyCircuits' 
+software to crash after viewing a certain number of images, we have not had the time to resolve. This is not altogether critical, as the software 
+is functional, and once re-started will re-connect to the autopilot. 
+As the autopilot is autonomous, can take control of an aircraft from takeoff 
+to landing, and is subservient to a manual controller, this is not a critical 
+issue, but one that 
+
+It is also not feature-complete (see \ref{sec:incomplete}), something which 
+could be resolved with some fairly trivial modifications to our code.
+
 \input{future_progressive_jpeg.tex}
+
+\subsection{Video Streaming}
+
+A rather interesting advancement of this project would be to try and implement 
+real-time video streaming from the UAV. This would almost certainly have to use 
+a dedicated wireless link. The 38.4 kBaud available in the autopilot modules 
+is too restrictive for this sort of application, but the autopilot would still 
+be able to control such an application (i.e. able to start/stop transmission, 
+toggle power to the module, minimising delay between video capture and video 
+display, 
+
+\subsection{Using Multiple Cameras}
+
+Another interesting application would be to mount multiple cameras (of the same 
+model purchased for this project) on the UAV, and either take pictures from all 
+the cameras at the same time, from some of the cameras at the same time, etc. 
+The main issue here will be multiplexing the serial connection to all of the 
+cameras, something considered for this project but ultimately not chosen.
+
+\subsection{Using Multiple Types of Camera}
+
+It would be useful to provide a range of camera modules to the customer, and 
+an electronic module that would be able to communicate with all of them. This 
+would include all the types of camera we considered (USB, serial and analogue), 
+with varying resolutions. This would be rather difficult to implement, as the 
+standards used across two types of the same camera interface can be rather 
+different, so a driver would need to be written for each type of camera used. 
+Also, the budget for such a project would be quite high.
+
+\subsection{SD card filesystem}
+
+\subsection{HDR Photography}
+
+\subsection{3D photography}
+
+\subsection{Camera SD bus}
+
