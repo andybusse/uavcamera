@@ -70,6 +70,17 @@ milestones - seen below.
 				payload controller will use.
 		\end{itemize}
 
+	%%ADDED BY MITCH
+	\subsubsection{Milestone: JPEG Header Extractor Integration}
+		\label{sec:ms_jpg_extractor}
+		\begin{itemize}
+			\item 	A functional JPEG header information extractor must be implemented
+				on the AVR microcontroller. 
+			\item 	This feature must be tested with
+				the ground station progressive image viewer. (requires
+				milestone \ref{sec:ms_prog_img_viewer} to be fully tested)
+		\end{itemize}
+
 \subsection{Payload to Ground Station Communications Milestones}
 	\subsubsection{Milestone: Payload Responding to Transmit Tokens}
 		\label{sec:ms_pl_tx_token_resp}
@@ -144,8 +155,6 @@ milestones - seen below.
 			\item 	Milestone \ref{sec:ms_pl_img_sending_gs} should be completed.
 			\item 	An image should be downloaded progressively from the payload to the
 				ground station.
-			\item 	Additional milestones relating to this area are to be added as design decisions
-				are made.
 		\end{itemize}
 
 \subsection{SD Card Milestones}
@@ -190,7 +199,7 @@ of the system.
 				client program connecting to this port and sending/receiving test data.
 		\end{itemize}
 
-	\subsubsection{Milestone: Communications with Customers Ground Station Sofware}
+	\subsubsection{Milestone: Communications with Customers Ground Station Software}
 		\label{sec:ms_gs_basestation_comms}
 		\begin{itemize}
 			\item 	Milestone \ref{sec:ms_basic_dummy_server_comms} should be
@@ -208,11 +217,21 @@ of the system.
 				decoded and saved/displayed on the ground station in some way.
 		\end{itemize}
 
-
 	\subsubsection{Milestone: Functional User Interface}
 		\begin{itemize}
 			\item 	A functional user interface that allows users to take images and view them using the implementations
 				for the milestones described above.
+		\end{itemize}
+
+	%%ADDED BY MITCH
+	\subsubsection{Milestone: Progressive Image Viewer}
+		\label{sec:ms_prog_img_viewer}
+		\begin{itemize}
+			\item  Image must be displayed progressively, incorporating higher
+				frequency elements as time goes on.
+			\item 	Image viewer must be tested with the extractor
+				implemented on the AVR (requires
+				milestone \ref{sec:ms_jpg_extractor} to be fully tested)
 		\end{itemize}
 
 
