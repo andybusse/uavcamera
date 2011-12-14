@@ -1,136 +1,327 @@
-\section{Progressive JPEG Manipulation}
+\section{Image Manipulation (ms)}
+\label{sec:progressiveimagedisplay}
 
-\subsection{Approach: JPEG Manipulation}
+The design of the progressive image
+display system to be implemented on the
+payload and the ground station required some
+important decisions to be made before 
+development could begin. This included
+the type of image file which would be
+manipulated, how the image sent from the camera on 
+the UAV would be accessed,
+and the method of storing the data
+and sending it to the ground station.
+
+\subsection{Image File to Manipulate}
+
+The first design decision was to choose the type of image 
+file which would be the most practical to work with given
+the properties of the camera and the
+capabilities of the payload software. Factors taken into
+account in this decision include compatibility with the 
+camera module as well as efficiency in the compression
+process.
+
+\subsubsection{Approach: Custom Raw Image Manipulation}
+
+This approach involves using the custom image 
+manipulation algorithm as specified 
+in section \ref{Custom_comp_research}.
+
+Advantages:
+\begin{itemize}
+	\item Would be able to handle the images
+		given by the camera regardless of the format
+		the camera saves the image.
+	\item Avoids quantization to allow 
+		for lossless compression: No information is
+		lost when the image is 
+		compressed and decompressed.
+	\item Uses a simple, reliable, and easy to 
+		understand image compression technique
+		(Discrete Cosine Transform)
+	\item Can more easily create a progressive
+		display of the image due to having less
+		information to decode.
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+	\item Restricted to decoding raw images; 
+		cannot deal with JPEG images.
+	\item Does not compress the image as 
+		efficiently as more advanced 
+		image compression techniques.
+\end{itemize}
+
+\subsubsection{Approach: JPEG File Manipulation}
+
+This approach involves manipulating JPEG standard image 
+files instead of raw image files. This requires the
+microcontroller to work around the compression offered
+by the JPEG file standard (see section \ref{jpeg_image_compression}).
+
+Advantages:
+\begin{itemize}
+	\item Compatible with most standard
+		camera outputs.
+	\item Takes advantage of the reliable and
+		efficient JPEG compression algorithm.
+	\item Uses quantization to allow for a greater
+		degree of image compression.
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+	\item Compression is lossy: image loses 
+		more and more information 
+		each time it is compressed 
+		(saved and opened).
+	\item Requires more sophisticated and complex
+		decompression algorithms.
+	\item Requires more background research to
+		understand and manipulate.
+\end{itemize}
+
+\subsubsection{Chosen Approach: JPEG Manipulation}
+
+Before the camera was agreed upon, work began on the
+custom raw image compression algorithm. This
+allowed us to get a good idea of how the progressive
+display of the image would work in the final product.
+However, when the camera was chosen, it's output
+was restricted to JPEG image files. Therefore, JPEG 
+file manipulation was chosen in order to adapt to
+the hardware given.
+
+\subsection{JPEG File Manipulation}
 \label{sec:jpegmanipulation}
 
-This section weighs the decision of implementing a form of custom JPEG image manipulation to 
-allow the image to be displayed progressively, as requested by the customer.
+This section weighs the decision of implementing a 
+form of custom JPEG image manipulation to allow the 
+image to be displayed progressively, as requested by the customer.
 
-\subsubsection*{Custom JPEG Manipulation}
+\subsubsection{Approach: Custom JPEG Manipulation}
 
 This design approach details the choice to code an algorithm which 
-modify the image received from the camera in order to display it progressively. 
-Ideally, this would send an extremely low resolution image to the ground station which 
-would progressively improve in resolution while more information is sent from the camera.
+would modify the image received from the camera in order to 
+display it progressively. Ideally, this would send an extremely low 
+detail image to the ground station which would progressively improve 
+while more information is sent from the camera by implementing 
+the higher frequency components of the image.
 
-\paragraph*{Advantages}
+Advantages:
 \begin{itemize}
-	\item Allows an image to be sent manually evaluated sooner
-	\item Allows the user to cancel images which show begin to show unwanted information, saving time.
-	\item Can possibly allow the image information to be optimized, sending only the information necessary for display.
+	\item Allows an image to be sent and 
+                     be manually evaluated sooner.
+	\item Allows the user to cancel images which begin to show 
+		unwanted information, saving processing time.
+	\item Can possibly allow the image information to be 
+		optimized, sending only the 
+		information necessary for display.
 \end{itemize}
 
-\paragraph*{Disadvantages}
+Disadvantages:
 \begin{itemize}
-	\item Requires effort and time, including research into the manipulation of the JPEG format.
-	\item Benefit is minimal if the sending a simple image is already very quick.
-	\item May lose metadata of the JPEG image data (date created, etc.), which can cause software incompatibility issues.
+	\item Requires effort and time, including research into 
+		the manipulation of the JPEG format.
+	\item Benefit is minimal if the sending a simple image 
+		is already very quick.
 \end{itemize}
 
-\subsubsection*{Standard JPEG Transfer}
+\subsubsection{Approach: Standard JPEG Transfer}
 
-This design approach simply displays the JPEG image from the camera as it is received. 
+This design approach simply displays the JPEG image from 
+the camera as it is received. 
 
-\paragraph*{Advantages}
+Advantages:
 \begin{itemize}
-	\item Requires little to no effort (already done by default).
+	\item Requires little to no effort 
+		(already done by default).
 	\item All the metadata of the image is kept unchanged.
-	\item Sends the image at an acceptable speed.
 \end{itemize}
 
-\paragraph*{Disadvantages}
+Disadvantages:
 \begin{itemize}
 	\item Takes time to send all the image data to the ground station.
-	\item During the transfer period, state of image is unknown and can be wasted if image is undesireable.
-	\item Image sends all the metadata, including that which can be ignored.
+	\item During the transfer period, state of image is unknown and 
+		can be wasted if image is undesirable.
+	\item Image sends all the metadata, including 
+		metadata which can be ignored.
 \end{itemize}
+
+\subsubsection{Chosen Approach: Custom JPEG Manipulation}
+
+Prior to knowing the exact speed it would take to send 
+an image from the camera to the ground station, 
+it was decided that custom JPEG manipulation would optimize 
+the image further and help reach the target time specified (3 minutes). 
+Therefore, tasks concerning the custom manipulation of 
+the JPEG image were planned and worked on 
+at the beginning of the project. 
+However, when a working module was constructed, the time needed to 
+send the image was already well within the time specified. 
+Because this was the primary advantage of the 
+custom JPEG manipulation process, 
+the task's priority was dropped accordingly.
 
 \subsection{JPEG Data Access}
 
-One of the biggest choices to make concerning the JPEG extractor was how it would 
-access the JPEG image data coming from the camera. The two methods applied and tested are studied below:
+One of the biggest choices to make concerning the 
+image manipulation software to be implemented on the AVR was 
+how it would  access the JPEG image data coming from the camera. 
+The two methods considered are studied below:
 
-\subsubsection*{Static Access}
+\subsubsection{Approach: Static Access}
 
-This method of accessing the image data involves storing the JPEG image data into memory and 
-having the extractor read the JPEG data as if it were a data array. 
-This method would require all of the image data to be stored before beginning to extract the necessary information.
+This method of accessing the image data involves storing 
+the JPEG image data into memory and 
+having the AVR read the JPEG data as if it were a data array. 
 
-\paragraph*{Advantages}
+Advantages:
 \begin{itemize}
-	\item Easier to provide progressive scanning of the image due to possessing the entire entropy-encoded image data. It is 
-		easier to act on the whole image rather than the data coming in at a certain rate.
-	\item Much fewer calls to the JPEG byte stream. This allows the extractor to obtain all the information faster from the moment it is called.
+	\item Easier to provide progressive scanning of the 
+		image due to possessing the entire 
+		entropy-encoded image data. It is easier to 
+		read the whole image rather than 
+		have the data coming in at a certain rate on the AVR.
+		This would allow the AVR to have more options on
+		the order of the image data to send.
+	\item Much fewer calls to the JPEG byte stream. 
+		This allows the extractor to obtain all the 
+		information faster from the moment it is called.
 	\item Only one instance of memory allocation at the very beginning. 
-		This prevents the code from crashing due to insufficient memory in the middle of the information extraction process and wasting time.
+		This prevents the code from crashing due to insufficient 
+		memory in the middle of the information 
+		extraction process and wasting time.
 \end{itemize}
 
-\paragraph*{Disadvantages}
+Disadvantages:
 \begin{itemize}
-	\item Very memory intensive: requires storing the entire image in memory before being called.
-	\item Delayed by image storage. Although there is only one call to the image data, it 
-		must wait until the entire input string is stored before any action can be taken.
-	\item A lot of wasted memory. Not all the information from the image is needed for the progressive JPEG manipulation.
+	\item Very memory intensive: requires 
+		storing the entire image in memory 
+		before being called due to the variable
+		size of the JPEG file and its components.
+	\item Delayed by image storage.
+		Although there is only one call to the 
+		image data, it must wait until the entire 
+		input string is stored before 
+		any action can be taken safely.
+	\item A lot of wasted memory. 
+		Not all the information 
+		from the image is needed for the 
+		progressive JPEG manipulation.
 \end{itemize}
 
-\subsubsection*{Dynamic Access}
+\subsubsection{Approach: Dynamic Access}
 
-This method of accessing the image data involves using a class to read in one byte from the image data stream at a time.
+This method of accessing the image data 
+involves using a class to read in one byte 
+from the image data stream at a time.
 
-\paragraph*{Advantages}
+Advantages:
 \begin{itemize}
-	\item More efficient for memory space overall. No need to store the entire image at once.
-	\item Allows more efficient use of memory. The extractor only saves the information that it will use.
+	\item More efficient for memory 
+		space overall. No need to store 
+		the entire image at once.
+	\item Allows more efficient use of memory. 
+		The AVR only saves and sends the 
+		information that the ground station will use.
 \end{itemize}
 
-\paragraph*{Disadvantages}
+Disadvantages:
 \begin{itemize}
-	\item More difficult to use progressive scanning. Entropy-encoded data must be stored fully before progessive scanning can occur.
-	\item Delayed by multiple read calls to the JPEG data. A read call must be made for each byte of the JPEG data stream.
-	\item Memory allocated dynamically. More vulnerable to insufficient memory crashes during the extraction process.
+	\item More difficult to use progressive scanning. 
+		Entropy-encoded data must be stored fully 
+		before progressive scanning can occur.
+	\item Delayed by multiple read calls to the JPEG data. A 
+		read call must be made for each 
+		byte of the JPEG data stream.
+	\item Memory allocated dynamically. 
+		More vulnerable to insufficient memory 
+		crashes during the extraction process.
 \end{itemize}
+
+\subsubsection{Chosen Approach: Dynamic Access}
+
+The dynamic form of data accessing was preferred 
+due to the memory constraints imposed on the device.
 
 \subsection{Entropy-Encoded Data Storage}
 
-Another major decision to make was the method of storing the Entropy-encoded image data of the JPEG file, 
-which is divided into chrominance pixels made up of 3 different components.
+Another major decision to make was the method of 
+storing the entropy-encoded image data of the JPEG file, 
+which is divided into chrominance pixels made up of 
+3 different components.(See section 
+\ref{sec:colour_space_conversion} for
+more information on chrominance pixels.)
 
-\subsubsection*{Store As Chrominance Pixels}
+\subsubsection{Approach: Store As Chrominance Pixels}
 
-This method stores the chrominance pixels in structures one by one. 
-The data is stored in a linked list of chrominance pixels, containing a certain number of Y values and one pair of Cb and Cr values.
+This method stores the chrominance pixels in 
+the image one by one. 
+The data is stored in a linked list of chrominance pixels, 
+containing a certain number of Y values and 
+one pair of Cb and Cr values.
 
-\paragraph*{Advantages}
+Advantages:
 \begin{itemize}
-	\item Makes the YCbCr colour modelling method more obvious. 
-		This method intuitively partitions the encoded image data using the YCbCr convention.
-	\item Requires little data manipulation. Structures are made as input stream is read in, one at a time.
-	\item Comprehensive memory allocation. Allocates the appropriate memory for one chrominance pixel as needed.
+	\item Makes the YCbCr colour modelling method 
+		more obvious. 
+		This method intuitively partitions the 
+		encoded image data using the YCbCr convention.
+	\item Requires little data manipulation. 
+		Structures are made as input stream is read in, 
+		one at a time.
+	\item Comprehensive memory allocation. 
+		Allocates the appropriate memory for 
+		one chrominance pixel as needed.
 \end{itemize}
 
-\paragraph*{Disadvantages}
+Disadvantages:
 \begin{itemize}
-	\item Encoded image data becomes more difficult to apply progressive scans to.
-	\item No spatial information is stored. Data is stored as a linear list of chrominance pixels instead of a table representing the image.
-	\item Memory must be allocated dynamically. More vulnerable to insufficient memory crashes during the extraction process.
+	\item Encoded image data becomes more 
+		difficult to apply progressive scans to.
+	\item No spatial information is stored. 
+		Data is stored as a linear list of chrominance 
+		pixels instead of a table representing the image.
+	\item Memory must be allocated dynamically. 
+		More vulnerable to insufficient memory 
+		crashes during the extraction process.
 \end{itemize}
 
-\subsection*{Store Components Seperately}
+\subsubsection{Approach: Store Components Seperately}
 
-This method of accessing the image data involves storing the three components Y, Cb, and Cr into tables.
+This method of accessing the image data involves 
+storing the three components Y, Cb, and Cr into tables.
 
-\paragraph*{Advantages}
+Advantages:
 \begin{itemize}
-	\item Makes progressive scanning easier. The three components can be selected individually.
-	\item Information can be stored in a table to represent the image spatially.
-	\item Memory can be allocated either dynamically or prior to the read process.
+	\item Makes progressive scanning easier. 
+		The three components can be selected individually.
+	\item Information can be stored in a table to 
+		represent the image spatially.
+	\item Memory can be allocated either 
+		dynamically or prior to the read process.
 \end{itemize}
 
-\paragraph*{Disadvantages}
+Disadvantages:
 \begin{itemize}
-	\item Requires more manipulation of the entropy-encoded image data as it is read in. 
-		Components must be monitored to not lose chrominance pixel grouping.
-	\item Chrominance information must be stored either unintuitively (a smaller table than the image) or 
+	\item Requires more manipulation of the 
+		entropy-encoded image data as it is read in. 
+		Components must be monitored to not 
+		lose chrominance pixel grouping.
+	\item Chrominance information must be stored either 
+		unintuitive (a smaller table than the image) or 
 		inefficiently (an image sized table with empty values).
 	\item Generally more difficult to monitor the information stored.
 \end{itemize}
+
+\subsubsection{Chosen Approach: Store As Chrominance Pixels}
+
+The entropy-encoded data will be stored as chrominance 
+pixels for the sake of clarity. 
+It is also a method which could be coded more easily 
+than separate component storage. 
+This allowed the AVR to work with the progressive 
+JPEG encoder sooner to avoid the task from overrunning.
