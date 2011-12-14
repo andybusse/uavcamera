@@ -23,3 +23,42 @@ to as milestone \ref{sec:ms_basic_cam_comm}.
 \input{testing_GUI}
 
 \input{testing_jpg_prog}
+
+\section{System Test: 648 x 480 Image Capture and Download Time - (mh23g08)}
+
+We now measure the average time taken to capture and download a single 640 x 480
+pixel image from the camera through the entire capture progress, from pressing the 
+``Get Picture'' button on the UI to the being downloaded over the serial link to and
+displaying on the UI. Please note that this section assumes no packets are lost during
+the download process.
+
+A total of 10 measurements were taken, as shown in table \ref{table:download_time_test}.
+The time taken for the image capture to the SD card and subsequent download are both
+shown. A mean time of \textbf{19 seconds} can be seen. Variations in time are down to the
+variations in size of the JPEG images. This is well within the 3 minutes required by the specification.
+
+\begin{table}[!hbtp]
+
+	\centering
+	\begin{tabular}{ | p{3cm} | p{3cm} | p{4cm} | }
+	\hline
+	\textbf{Capture to SD (s)} & \textbf{Download to UI (s)} & 
+	\textbf{Total Time from Get Picture button to Display on UI (s)} \\ \hline
+
+	8 & 13  & 21 \\ \hline
+	9 & 15  & 24 \\ \hline
+	7 & 11  & 18 \\ \hline
+	6 & 11  & 17 \\ \hline
+	7 & 12  & 19 \\ \hline
+	7 & 11  & 18 \\ \hline
+	7 & 11  & 18 \\ \hline
+	7 & 12  & 19 \\ \hline
+	8 & 11  & 19 \\ \hline
+	7 & 11  & 18 \\ \hline
+	 & \textbf{Mean:} & 19.1 \\ \hline
+
+	\end{tabular}
+	\caption{Download times for 640 x 480 image, recorded by stopwatch so subject to some human error. In all cases download was started by pressing the "Get Picture" button on the ground station UI.}
+	\label{table:download_time_test}
+\end{table}
+
