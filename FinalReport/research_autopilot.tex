@@ -1,4 +1,4 @@
-\section{SkyCircuits Autopilot - (ab)}
+\section{SkyCircuits Autopilot (ab)}
 
 Our customer kindly lent us one of their more advanced, SC2 autopilot modules 
 for use in this project, as well as use of the latest version of their Ground 
@@ -13,14 +13,11 @@ roll and yaw to an impressive level of accurary), capable of controlling up to
 
 Wireless communication with the ground station is done with 
 XBee PRO modules, with an RF data rate of 250kbps and a 
-line of sight (LOS) range of up to 1.6km. However, no data 
-integrity checking (Automatic Repeat reQuesting, ARQ) of 
-payload data is done either by the XBee or the Ground 
-Control Station software.
+line of sight (LOS) range of up to 1.6km. Error checking is 
+performed, but data cannot be guaranteed to arrive.
 
 \subsection{Autopilot Payload Module Interface}
 \label{sec:autopilot_payload_interface}
-|||||| Maybe have this in background research ||||||
 
 The SkyCircuits autopilot module allows extension modules named `payload 
 modules' to be connected to the autopilot. These payload modules are connected 
@@ -30,8 +27,6 @@ connected to common TX and RX lines, where the RX line is used by the
 autopilot to send commands and data to the payload modules, and the TX
 line is used by all daisy-chained modules to communicate with the autopilot.
 
-||||||| Include diagram of daisy chain configuration ||||||||||
-
 Since the TX line is shared between all modules only one payload module can be 
 transmitting at once over the link, with all other payload modules required to
 leave the line tristated. This means that each payload module must know when it is
@@ -40,7 +35,7 @@ In this system this is achieved by the use of `transmit tokens' handed out
 by the autopilot over the RX line. A `transmit token' is sent to each payload 
 module in turn, informing the module that it is clear to transmit data. With 
 only one payload module connected to the autopilot, these tokens are sent out 
-every 20 ms. |||||| CHECK THIS ||||||||
+every 20 ms.
 
 This two way communication link is used to implement a command interface to 
 the autopilot. A payload module can execute commands on the autopilot, 
