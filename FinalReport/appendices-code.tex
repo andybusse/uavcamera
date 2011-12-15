@@ -468,3 +468,12 @@ boolean isDATA(byte byteundertest[]){
   return true;
 }
 \end{lstlisting}
+
+\section{Waypoint Triggering Autopilot Script}
+
+\begin{lstlisting}[label = lst:wp_trigger, caption = {Waypoint triggering code written for the SkyCircuits autopilot. The send\_bytes command is sent when the payload is within 200 meters of waypoint 0. The code will then wait 10 seconds before running again.}]
+script.wait_while_false "logic.less_than_float32 wp[0].distance_from_uav 200"
+payload[0].send_bytes 0
+script.wait_ms 10000
+script.position 0
+\end{lstlisting}

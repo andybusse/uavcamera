@@ -11,26 +11,29 @@ whether the project, as it currently stands, could be reasonably presented to ou
 
 The initial specification is available as Appendix \ref{initial_spec}. 
 
-This is then analysed and justified in Section \ref{sec:specification}
+This is then analysed and justified in Section \ref{chap:specification}
 
 \subsection{Fully Completed Parts}
 
 \begin{itemize}
 \item \ref{sec:spec_b} : The mean time to download an image, with no packet 
-loss, is X seconds ??? reference ???. This figure is obtained from testing 
+loss, is 19 seconds ,reference \ref{sec:sys_testing} . This figure is obtained from testing 
 with the serial link only.
 \item \ref{sec:spec_c} : The combined weight of the electronic module and 
-board camera is 58g. Combined with the camera enclosure and ethernet cable 
-(i.e. the entire additional weight to the UAV to add our module), this is Xg.
-?? insert pictures of scales proving this ??
+board camera is 57g. Combined with the camera enclosure and ethernet cable 
+(i.e. the entire additional weight to the UAV to add our module), this is 70g. \ref{sec:sys_weight}
 \item \ref{sec:spec_d} : We are able to get an image resolution of up to 
-$640\times480$ pixels. Reference the test.
+$640\times480$ pixels. \ref{sec:sys_testing} .
 \item \ref{sec:spec_e} : We provide software that prompts the UAV to capture 
-an image, download it and then displays it on screen. ?Reference??
-\item \ref{sec:spec_f} : Our software is able to cancel the download of an 
-image mid-transmission. ?reference test?
+an image, download it and then displays it on screen. \ref{sec:ground_station_image_viewer}
+\item \ref{sec:spec_f} \ref{sec:spec_h}  : Our software is able to cancel the download of an 
+image mid-transmission. When the "Cancel" button is clicked during image transmission, the 
+image is saved in its partial form in the local directory, and in its full form 
+on the SD card. If it is cancelled before transmission begins, then the full image is still 
+written to the SD card.
 \item \ref{sec:spec_i} : Our software allows you to select any resolution that 
-is featured on the camera, and download an image at that resolution. ?show test?
+is featured on the camera, and download an image at that resolution. This feature has been recently 
+implemented and tested. 
 \item \ref{sec:spec_m} : We are able to transmit colour images as opposed to 
 black and white due to our choice of camera - our camera is only able to 
 provide colour images. Therefore it is implemented, but only through our 
@@ -45,8 +48,8 @@ that our camera compressed JPEG images a lot more severely than we were
 expecting (image files are approximately 30kB in size, we were expecting 
 these files to be 900kB in size). To reflect the time invested in this, we 
 have produced some code that partially implements this part of the 
-specification, available ???here?
-\item \ref{sec:spec_j} : A progress indictor does exist ???ref???, but the 
+specification, available in section \ref{sec:jpg_prog_test}
+\item \ref{sec:spec_j} : A progress indictor does exist (Appendix \ref{userDocs}, p7) , but the 
 display only indicates the number of packets received - it does not 
 indicate the time remaining to download as this includes the time taken to 
 capture an image from the camera and to store it on the SD card.
@@ -59,10 +62,7 @@ capture an image from the camera and to store it on the SD card.
 \item \ref{sec:spec_g} : Resending of the same image is not implemented. 
 This is, however, a low priority task, which could have been implemented 
 if we had more time. In theory, this would be rather trivial to implement.
-\item \ref{sec:spec_h} : Interruption of an image mid-transmission and 
-saving the incomplete image was again, a low priority task that was not 
-implemented due to a lack of time. Again, it should be rather trivial to 
-implement.
+\item \ref{sec:spec_h} 
 \item \ref{sec:spec_l} : Automatic image capture at user-specified time 
 intervals was another low priority task which we were unable to implement, 
 but which should be rather trivial to implement due to the SkyCircuits 

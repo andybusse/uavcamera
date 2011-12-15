@@ -37,11 +37,11 @@ Disadvantages:
 \end{itemize}
 
 
-DSP boards are a specialist tool, which could be especially useful - if not required - if implementing certain image processing algorithms such as some of those detailed in section  \ref{sec:implementation_progressive_jpeg}|. The downside of this is a more complex overall system.
+DSP boards are a specialist tool, which could be especially useful - if not required - if implementing certain image processing algorithms such as some of those detailed in section  \ref{sec:implementation_progressive_jpeg}. The downside of this is a more complex overall system.
 
 \subsection{Approach: Atmel 8-bit AVR}
 \label{sec:desappr:avr}
-The Atmel 8-bit AVR family is a well-known set of low cost, single chip microcontrollers. Specific parameters taken from \cite{megaAVR_parameters}.
+The Atmel 8-bit AVR family is a well-known set of low cost, single chip microcontrollers. Specific parameters taken from \cite{avr_param}.
 
 Advantages:
 \begin{itemize}
@@ -108,18 +108,15 @@ Disadvantages:
 Using an Arduino has the advantage of speeding up development at the beginning of the project. The large number of libraries built for the Arduino is another key advantage, as is the ease of re-implementation.
 
 \subsection{Approach Chosen}
-We chose to use an Atmel 8-bit AVR as the platform for our implementation of the payload controller. Our main reason for choosing this platform is because we already have experience in using this microcontroller, meaning less time to develop and 
+We chose to use an Atmel 8-bit AVR as the platform for our implementation of the payload controller with the use of the Arduino prototyping platform to help speed development. Our main reason for choosing this platform is because we already have experience in using this microcontroller, meaning less time to develop and 
 test the system over a DSP based solution. Another key reason was the ease of implementing AVR based systems as 
 stand-alone boards.
 
 \section{Communication between Payload Controller and Ground Station (mh)}
-One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station image viewer software (see section \ref{chap:implementation_ground_station}) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
+\label{sec:appro_cons_pl_gs_comms}
+One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station image viewer software (see section \ref{chap:implementation_ground_station }) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
 
-The autopilot provides a number of ways to communicate between a payload module and ground station software. The Ground Station software provided to us allows a `packet' of data to be sent to a payload module by executing the command shown below
-
-Another method of communication is via the use of shared memory. Each registered payload module is assigned a set of shared memory which can be read and set by the payload module and the ground station software. This could be used to implement two-way communications between the two subsystems.
-
-The design approaches taken regarding this communication from the perspective of the Ground Station Image Viewer software is discussed in section \ref{chap:implementation_ground_station}.
+The autopilot provides a number of ways to communicate between a payload module and ground station software, see section \ref{sec:autopilot_research}.
 
 \subsection{Approach: Shared Memory for Both Directions}
 One possible way of producing two-way communications would involve two sets of shared memory: one for ground station to payload messages and another for payload to ground station messages. Both the payload and the autopilot would need to poll the shared memory to check for new messages.
@@ -131,7 +128,7 @@ One possible way of producing two-way communications would involve two sets of s
 
 Disadvantages:
 \begin{itemize}
-\item The payload must access shared memory by sending a command to request a copy of its contents to be sent via the payload-autopilot serial link. This extra overhead would slow down communications.
+\item The payload must access shared memory by sending a command to request a copy of its contents to be sent via the payload-autopilot serial link. This extra overhead would slow down communications (such as downloading an image).
 \end{itemize}
 
 

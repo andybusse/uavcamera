@@ -32,12 +32,12 @@ Figure \ref{fig:test_basic_connection} shows the result of a test for basic conn
 
 The first attempt at a simple test for this was to use the debug connection to the Arduino camera controller implementing the camera connection code to relay image data to a PC, unfortunately as described in section \ref{sec:misc_cam_probs} initial implementations of this were not successful, since the debug connection was not completely error free, causing the image to be malformed and unreadable.
 
-However, at this point in the implementation the basic SD card communication had already been implemented and tested as described in section ||||| REF ||||||. Because of this, it was decided  that a much more sensible test would be to write the image data directly to the SD card. The test comprises of running the camera connection code on the microcontroller with the camera and SD card attached. Figure \ref{fig:test_camera_image_saving_sd_card} shows the debug information sent from the controller during this test and \ref{fig:Nyan1} shows the image saved to the SD card. The dedug information suggests that the connection and download of image data was successful and the image on the SD card verifies this.
+However, at this point in the implementation the basic SD card communication had already been implemented as described in section \ref{sec:SD_imp}. Because of this, it was decided  that a much more sensible test would be to write the image data directly to the SD card. The test comprises of running the camera connection code on the microcontroller with the camera and SD card attached. Figure \ref{fig:test_camera_image_saving_sd_card} shows the debug information sent from the controller during this test and \ref{fig:Nyan1} shows the image saved to the SD card. The debug information suggests that the connection and download of image data was successful and the image on the SD card verifies this.
 
 \begin{figure}[H]
         \centering
         \includegraphics[width=1.00\textwidth]{testing_screenshots/camera_image_saving_sd_card_test.png}
-        \captionof{figure}{Debug information sent from camera controller to PC while taking a picture and saving it to an SC card.}
+        \captionof{figure}{Debug information sent from camera controller to PC while taking a picture and saving it to an SD card.}
         \label{fig:test_camera_image_saving_sd_card}
 \end{figure}
 
@@ -102,6 +102,7 @@ This test validates milestones \ref{sec:ms_img_cam_change_res} and \ref{sec:ms_p
        % \includegraphics[width=1.00\textwidth]{figures/SampleImages1.png}
        % \captionof{figure}{Test images captured using the integrated implementation of the camera controller}
        % \label{fig:Samples1}
+
 %\end{figure}
 
 %The system can capture images at the 640x480 resolution specified and can also capture images at the other resolutions at which the uCam will take jpeg images. %Currently the option to capture raw images is not implemented.
