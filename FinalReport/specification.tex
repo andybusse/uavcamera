@@ -9,7 +9,7 @@ This chapter will describe the brief we were given and an overview of the system
 
 The functionality intended for the system is also broken down and the priority given to each task is explained. The things that we should have to give to our customer at the end of the project are also described.
 
-\section{Brief (jc / mitch)}
+\section{Brief (jc)}
 
 The original agreed project specification and plan, handed in on the first week of the project, was to design, build, and test an electronic module capable of capturing still images from an unmanned aerial vehicle (UAV) and transmitting the images to a ground station. The module must use the UAV autopilot’s low-bandwidth RS485 serial link (38.4 kBaud). A program must be written to interface with the ground station software over a TCP/IP link, allowing commands to be sent to the electronic module in the UAV and image data to be received and then displayed to the user on the ground. The electronic module should be constructed suitably ruggedly for use in the environment of the UAV.
 
@@ -28,7 +28,7 @@ Inside the UAV itself will go the camera, the payload controller and the autopil
 
 On the ground station side of things there is a radio frequency (RF) link (zigBee [] cite []) to the autopilot (simulated by a USB cable for development purposes) which attaches to a computer running the ground station software provided by our customer. The ground station software provides two TCP/IP ports as interfaces, one for sending commands to the ground station software and to the autopilot and one for streaming data from the autopilot. It is these TCP/IP ports that our software on the ground has to interface with so that it can send commands up to the payload controller and then receive and display an image.
 
-\section{Objectives (jc / mitch)} 
+\section{Objectives (jc)} 
 
 The aim of the project was to achieve the following criteria, which were also prioritized in order to ensure organized and efficient work - high priority points are essential or very important to basic system functionality, medium priority points are not essential for basic functionality but help expand the system into a more complete system and low priority points are optional extras that should be added if time permits or if they are very low effort:
 
