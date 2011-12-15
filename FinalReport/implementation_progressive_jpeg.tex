@@ -72,22 +72,20 @@ the extractor uses a class to read the next byte in the input stream, one at a t
 This C class \textbf{read\_byte()} (see appendix \ref{}) is how the JPEG extractor 
 gains access to the JPEG input stream. 
 
-As the extractor reads in the bytes from the input stream, it checks to see if the byte indicates the start of a header (0xff). 
-If this is the case, the next byte identifying the header is read and the \textbf{JPEGMethod()} class  (see appendix \ref{}) is 
+As the extractor reads in the bytes from the input stream, it checks to see if the byte indicates the start of a segment (0xff). 
+If this is the case, the next byte identifying the segment is read and the \textbf{JPEGMethod()} class  (see appendix \ref{}) is 
 called which uses a switch command to determine the actions to take. 
 If not, the data is discarded and the extractor continues 
 to read the next byte from the input stream. 
 
 \subsection{AVR Header Data Extraction (JPEGMethod)}
 
-The JPEG information extraction class does not need all the possible information that can be extracted from a JPEG image. 
-The few image headers containing important information store the important information from the input stream into 
-variables which will be sent to the custom encoding algorithm. 
-
+The ground station image displayer will not need all the possible information that can be extracted from a JPEG file. 
+The JPEG extractor will only recognize JPEG headers of segments containing useful information.
 If the header is not recognized by this class, 
 it is assumed to not have any important information and is ignored; 
 the code continues to scan through the input stream for the next header byte. 
-Below is a list of headers the extractor obtains important information from 
+Below is a list of segments the extractor obtains important information from 
 and an explanation of the intended purpose of the values it extracts. 
 Refer to appendix \ref{chap:jpeg-segment-contents} for information on the full contents of each
 of the segments.
@@ -110,7 +108,9 @@ tested with the extractor.
 The sampling factor information from this section will indicate
 the chroma subsampling pattern used (either 4:2:2 or 4:2:0)
 and influence the shape of the chrominance pixel structures
-created during the treatment of the SOS segment. The 
+created during the treatment of the SOS segment. 
+(see section \ref{colour_space_conversion} 
+for information on chroma subsampling) The 
 sampling factor information will also define the dimensions of the
 MCU (8x8 or 16x16).
 
@@ -137,7 +137,7 @@ it is necessary to obtain the Huffman table information
 used to encode them in order to decode the image
 data properly into a visible format.
 
-Each DHT segment may contains multiple Huffman tables.
+Each DHT segment may contain multiple Huffman tables.
 Usually, one DHT segment would contain a pair of Huffman 
 tables, one for DC and one for AC, to be used for image
 decoding. Additionally, testing has revealed that 
@@ -145,7 +145,7 @@ multiple DHT segments may exist in a single JPEG file.
 
 The extractor creates a unique Huffman table structure to
 store all the information from the DHT segment. This information
-is stored within a linked list of these Huffman table structures.
+is stored within a linked list of Huffman table structures.
 
 In order to choose the correct Huffman table among the many
 tables which are used, the JPEG file issues an identification number
@@ -180,7 +180,7 @@ compression information before the entropy-encoded
 image data is read in. It specifies the AC and DC Huffman tables
 which must be associated with each component in the scan.
 The JPEG information extractor uses this information to be
-able to assign each entropy encoded image byte with
+able to assign each entropy-encoded image byte with
 the Huffman tables used to encode it. This way, the 
 ground station image decompression algorithm can 
 easily associate each image byte with an operation to

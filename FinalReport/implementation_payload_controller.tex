@@ -53,16 +53,28 @@ fired only when the current transmission had actually completed, and the
 command to clear the transmit enable signal was moved into this ISR.
 ||||| INC AFTER TRACE ||||||
 
-\subsection{Establishing Contact with the Autopilot - (andy)}
+\subsection{Establishing Contact with the Autopilot - (mh)}
 
 The first step in implementing the communications link was to establish contact with
-the autopilot using the existing module code, the relavant milestone being
-\ref{sec:ms_pl_tx_token_resp}.
+the autopilot using the existing module code, the relevant milestone being
+\ref{sec:ms_pl_tx_token_resp}. 
 
-||||||||||||||| ANDY - stuff about autopilot bug ||||||||||||||||||||
-|||||||||||||| There are some nice scope traces we sent to matt in an email where the autopilot wasn't working which you can use here ||||||||||||||||
+A problem was encountered during this step where the payload would not 
+respond to a transmit token in any way. Debugging this problem with a 
+oscilloscope showed that the autopilot was not sending transmit tokens.
 
-Section \ref{sec:test_pl_est_contact} describes the succesful testing of this part of
+After spending some time ruling out problems with our own design that could be
+causing this, including looking at the RS485 chip in case it was conflicting with the
+autopilots serial bus or malfunctioning, we contacted our customer and queried 
+whether it could be a problem with the autopilot itself, presenting our evidence of
+debugging.
+
+Our customer responded by acknowledging that it was a problem with the autopilot
+and providing us with an updated firmware for the autopilot
+which would send the transmit tokens correctly.
+
+After this bug was fixed the payload responded as expected, 
+section \ref{sec:test_pl_est_contact} describes the successful testing of this part of
 the implementation.
 
 \subsection{Setting Shared Memory on the Autopilot - (mh23g08)}
@@ -82,7 +94,7 @@ the steps taken to test this.
 As discussed in section |||||||| REF |||||||| it was decided that 
 our communications protocol would use shared memory and \emph{send\_bytes} 
 commands, allowing two way communications between the payload controller and 
-ground station software to be established. With the ability to recieve and send data
+ground station software to be established. With the ability to receive and send data
 with these messages tested as described above, implementation could now begin on
 implementing a communications protocol used to talk between the our ground station 
 image viewer software and the payload.
@@ -180,12 +192,36 @@ data for this packet and is variable size, with a maximum size of 50 bytes.
 
 \end{itemize}
 
-
 Implementing this communications protocol was a significant challenge and was a major
-component of the payload module implementation. The existing code provided by our 
-customer provided some hooks for 
+component of the payload module implementation. 
 
-Figure\ref{sequence diagram} is the sequence diagram of the data transmission.
+Our implementation for the payload follows an event loop style, where an initial series of 
+steps are preformed initializing the camera and SD card, after which the code then enters a continuously
+running loop which checks to see if any messages have been received from the ground station.
+
+When a message is received from the ground station (as sent by \verb+send_bytes+ command) a switch-case
+conditional structure then decodes which message had been sent and
+initiates the appropriate function on the payload (for example calling the camera code to take a picture when sent
+a \emph{Take Picture} command).
+
+%One problem encountered during the implementation was that when attempting to set shared
+%memory using the payload module, the send buffer implemented in the customer's existing code
+%could fill up
+
+
+The basic sequence for sending data from the payload controller to the autopilot is to use the utilities provided 
+by the customers existing code to place messages into the autopilots shared memory to be accessed by the
+ground station, as described earlier. Only one set of shared memory is used, and is overwritten every time 
+a new message is to be sent from the payload controller to the ground station.
+Other features such as configuration of camera resolution are implemented using this basic mechanism, figure \ref{sequence diagram} describes many the sequence diagram of the data transmission.
+
+Image data is also sent in the same basic manner, however the image is broken up into `packets' of data
+which can be placed into the shared memory of the autopilot one at a time, as described by the \emph{Image Data}
+message described above. One packet is sent for every transmit token sent by the autopilot, ensuring that the
+payload module does not saturate the autopilot link with data. While packets are being sent, the main event loop
+still checks for messages being sent from the ground station, allowing functionality such as the cancel download message 
+to be implemented. In this way the payload module can transmit a whole image over the autopilot connection.
+
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.00\textwidth]{figures/sequence_diagram.png} 
@@ -194,9 +230,65 @@ Figure\ref{sequence diagram} is the sequence diagram of the data transmission.
 \end{figure}
 
 
-|||||||| REMINDER: TALK ABOUT VOLATILE VARIABLE PROBLEM
+\subsection{Problems Encountered}
+A number of problems were encountered and overcome during the implementation of the payload-ground station
+communication code, a few of the most important are reproduced here.
 
-|||||||| REMINDER: AUTOPILOT PROBLEMS
+\subsubsection*{Autopilot Bug}
+
+The Autopilot sends "Transmit" tokens to the payload module every 20ms, 
+to which a payload module sent an "ACK" token, even when it does not 
+transmit any data. We encountered a problem whereby if our we tried to 
+send any data to the payload during an "ACK", the autopilot would stop 
+sending any "Transmit" tokens at all, effectively cutting off all 
+communication to the payload module.
+
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{c c}
+  \subfigure{\label{fig:testing_sc2_working1}\includegraphics[width=0.5\textwidth]{scope/scope_1.png}}&                
+  \subfigure{\label{fig:testing_sc2_working2}\includegraphics[width=0.5\textwidth]{scope/scope_2.png}} \\
+  \subfigure{\label{fig:testing_sc2_working3}\includegraphics[width=0.5\textwidth]{scope/scope_3.png}}&                
+  \subfigure{\label{fig:testing_sc2_working4}\includegraphics[width=0.5\textwidth]{scope/scope_11.png}}
+  \end{tabular}
+  \captionof{figure}{Oscilloscope traces for the situation where the autopilot does not break: In yellow is the Autopilot TX, in green the Payload TX. In this situation, after an ACK token is received by the autopilot, a SEND\_BYTES instruction is sent. On the next transmit token, a series of bytes is sent to the autopilot, and the autopilot continues to send Transmit tokens.}
+  \label{fig:testing_sc2_working}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{c c}
+  \subfigure{\label{fig:testing_sc2_broken1}\includegraphics[width=0.5\textwidth]{scope/scope_6.png}}&                
+  \subfigure{\label{fig:testing_sc2_broken2}\includegraphics[width=0.5\textwidth]{scope/scope_14.png}} \\
+  \subfigure{\label{fig:testing_sc2_broken3}\includegraphics[width=0.5\textwidth]{scope/scope_7.png}}
+  \end{tabular}
+  \captionof{figure}{Oscilloscope traces for the situation where the autopilot breaks: In yellow is the Autopilot TX, in green the Payload TX. In this situation, whilst an ACK token is received by the autopilot, a SEND\_BYTES instruction is sent. No more transmit tokens are sent, therefore communication with the payload stops.}
+  \label{fig:testing_sc2_broken}
+\end{figure}
+
+Not sure whether this was a bug with the Autopilot, we got in contact with 
+our customer, sending all scope traces to him and a description of how 
+to reproduce the error. Not being able to reproduce it with his dummy 
+payload (strange, as our dummy payloads only differed in that his used a
+surface-mount version of an ATmega168 and a MAX3070 transceiver instead 
+of MAX489), he then came to ECS and debugged the Autopilot with us.
+
+After a significant amount of time debugging the Autopilot and our 
+payload, it was discovered this was indeed a problem with the Autopilot, 
+which our customer was able to fix and subsequently update the firmware 
+of our Autopilot.
+
+\subsubsection*{Volatile Variables and ISRs}
+
+Another problem encountered regarded a flag variable being checked in a function called in the main event loop. The flag
+was the continuation condition of a while loop, and although it was being set in another section of code this new set 
+value was not being propagated to the while loop code, meaning that the while loop would continue forever. This problem
+was discovered (helped greatly by the debug interface described in section \ref{sec:payload_debug_interface}) . After some
+consideration, research and experimentation it was discovered that the problem lay with the C compilers optimization. The 
+flag was being set in a interrupt service routine (ISR), which the compiler assumed could not be called during the while loop
+call, therefore it was optimized out, causing the loop to continue forever. The solution to this was to set this flag variable 
+as \emph{volatile}, preventing it from being optimized out in this manner. The same was applied to all global variables modified in ISRs.
+
 
 %|||||||| REMINDER: PROBLEMS CHALLENGES
 %|||||||| REMINDER: HOW DID WE SOLVE PROBLEMS, DEBUGGING, TESTING, ETC

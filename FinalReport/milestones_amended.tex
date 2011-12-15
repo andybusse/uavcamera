@@ -19,7 +19,7 @@ milestones - seen below.
 
 	\subsubsection{Milestone: Basic Camera Connection}
 		|||| Description ||||
-		Prioirty
+		Priority
 		Completion Criteria:
 		\label{sec:ms_basic_cam_comm}
 		\begin{itemize}
@@ -64,7 +64,7 @@ milestones - seen below.
 	\subsubsection{Milestone: Camera Payload Controller Implementation}
 		\label{sec:ms_img_cam_controller_implementation}
 		\begin{itemize}
-			\item 	Milestone \ref{sec:ms_img_from_cam} should be completed.
+			\item 	Milestones \ref{sec:ms_img_from_cam} and \ref{sec:ms_sd_full_img} should be completed.
 			\item 	The implementaion of milestone \ref{sec:ms_img_from_cam} 
 				should be implemented on the same hardware as the final
 				payload controller will use.
@@ -160,8 +160,28 @@ milestones - seen below.
 		\end{itemize}
 
 % ----------------------------
-\subsection{SD Card Milestones}
-|||||||||||||||||||||||||||||||||
+\subsection{SD Card Milestones (ab)}
+
+\subsubsection{Milestone: Basic SD IO}
+		\label{sec:ms_sd_io}
+		\begin{itemize}
+			\item  A file must be written to, then read from, an SD card using a microcontroller.
+		\end{itemize}
+
+\subsubsection{Milestone: File Numbering System}
+		\label{sec:ms_sd_file_num}
+		\begin{itemize}
+			\item Milestone \ref{sec:ms_sd_io} needs to be completed
+			\item A method which allows you to store a file under a new, unused filename must be implemented.
+		\end{itemize}
+
+\subsubsection{Milestone: Full Image to SD card}
+		\label{sec:ms_sd_full_img}
+		\begin{itemize}
+			\item Milestones \ref{sec:ms_sd_full_img} and \ref{sec:ms_img_from_cam} need to be completed
+			\item A full image needs to be captured from the camera, and stored on an SD card, using some prototype hardware solution.
+		\end{itemize}
+
 
 \subsection{Physical Implementation Milestones}
 Many of the milestones listed above rely upon a working physical implementation of the system at each stage
@@ -176,7 +196,7 @@ of the system.
 	\subsubsection{Milestone: Payload Breadboard Prototype}
 		\label{sec:ms_phy_breadboard}
 		\begin{itemize}
-			\item A finalized PCB design ready to be sent for manufacture. 
+			\item A finalized schematic. 
 		\end{itemize}
 
 	\subsubsection{Milestone: Payload PCB Design}
@@ -238,3 +258,9 @@ of the system.
 				milestone \ref{sec:ms_jpg_extractor} to be fully tested)
 		\end{itemize}
 
+<<<<<<< HEAD
+=======
+
+
+||||||||||| INC DIAGRAM |||||||||||||||
+>>>>>>> 299db19cd1809389c7c065ee0c5ca10787ba2be2
