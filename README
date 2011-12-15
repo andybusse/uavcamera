@@ -3,12 +3,14 @@ Unmanned Aircraft Camera Module
 (Full specification including deliverables for this project is contained in documents/Agreed_Spec_Gantt_GDP18.pdf)
 
 Repository Structure:
+* ArduinoCore: An Eclipse project that creates an Arduino library, allowing us to combine Arduino code with AVR C Source code
 * displayPixel: 
 * documents: Project Management foo, foo that requires submission (reports, presentations + whatnot), minutes of meetings, etc.
 * imageToByteConverter: 
 * JPEGreadingInCSharp: Does what it says on the tin.
 * Matlab: Matlab code to test image compression methods.
 * sample_peripheral: Schematics and Code for a simple AVR-based peripheral for the autopilot module. Supplied by the customer.
+* schematics: A full set of schematics, PCB layout and gerber files generated using gschem and PCB from the gEDA toolsuite. Run "$ gschem $NAME.sch
 * uav_connector: C# project that connects to the SkyCircuits SC2 Autopilot module. Requires running the existing "Ground Station Software" supplied by SkyCircuits, and opening a network server. Doesn't matter if you're connecting via serial or via the wireless link. 
 * uCode: Arduino "sketch" code, written for an Arduino Uno, designed to communicate with our chosen camera, implementing the commands defined in the datasheet (linked to within documents/)
 
