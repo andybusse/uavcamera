@@ -30,21 +30,36 @@ This test simply attempts to validate the ability of the payload module to set s
 the autopilot. By setting the shared memory to one value on the ground station and then changing
 it by setting it with the payload module we can verify the payload module has set the value correctly.
 
-Figure |||||||||||||||||||||| GET PIC ||||||||||||||||||||||||| shows the shared memory being set by the user
+Figure \ref{fig:mem_bytes_test} shows the shared memory being set by the user
 on the ground station software and then queried after the payload has set it - the memory
 has changed to the value requested by the payload.
 
 Milestone \ref{sec:ms_pl_shared_mem_set} is validated.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{testing_screenshots/mem_bytes_test.png}
+        \captionof{figure}{mem\_bytes changes to the expected value after first query.}
+        \label{fig:mem_bytes_test}
+\end{figure}
 
 \subsection{Test:  Payload Receiving Messages from Ground Station}
 \label{sec:test_pl_receive_message}
 This test attempts to validate the ability of the payload to receive and decode messages from the
 autopilot. A message of length 1, content: 0x00 is sent using \verb+payload[0].send_bytes 0+ to
 the payload through the ground station software. The debug connection is used to validate that the
-correct message is received, shown in figure ||||||||||| GET PIC |||||||||||||||. The test is successful
+correct message is received, shown in figure \ref{fig:send_bytes_test}. The test is successful
 since the data is received by the payload as expected.
 
 Milestone \ref{sec:ms_pl_rx_msg_gs} is validated.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{testing_screenshots/send_bytes_test.png}
+        \captionof{figure}{Payload (bottom) responding to send\_bytes command.}
+        \label{fig:send_bytes_test}
+\end{figure}
+
 
 \subsection{Test: Image Sending to Ground Station via Autopilot Link}
 \label{sec:test_pl_image_send}
@@ -56,7 +71,6 @@ the payload module triggers an image capture and the console application request
 Figure \ref{fig:image_sending_test} shows the download of an image from the payload controller to
 ground station via the autopilot link while figure \ref{fig:image_sending_test_example} shows an example
 of an image downloaded. This test validates milestones \ref{sec:ms_pl_img_sending_gs} and \ref{sec:ms_pl_img_gs_trigger}.
-||||||||||||||| REFER TO DIAGRAM ||||||||||
 
 \begin{figure}[H]
         \centering
