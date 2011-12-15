@@ -4,10 +4,10 @@
 \subsection{Introduction}
 The images obtained from a camera will generally be in the JPEG image format
 according to the 
-EXIF (Exchangeable image file format for digital still cameras)
- (Exif Version 2.2).\cite{exif_std} 
+EXIF (EXchangeable Image File Format for digital still cameras)
+ (EXIF Version 2.2)\cite{exif_std}. 
 JPEG is a form of image compression standard named after its developers, 
-the Joint Photographic Experts Group. \cite{winzip_jpeg_compression}
+the Joint Photographic Experts Group\cite{winzip_jpeg_compression}.
 This section will provide a quick overview of the JPEG image compression algorithm
 and attempt to explain the information available by
 analysing the JPEG file structure.
@@ -21,21 +21,20 @@ stages to compress an image: \cite{hass_impulse_jpeg}
 The image undergoes chroma subsampling from the 
 RGB colour model to a 4:2:2 or a 4:2:0 YCbCr colour model. 
 Both subsampling patterns are approved by the
-EXIF (Exchangeable image file format for digital still cameras)
-and the pattern used is dependant on the camera's specifications. 
+EXIF and the pattern used is dependant on the camera's specifications. 
 (see section \ref{sec:colour_space_conversion})
 
 \subsubsection{Stage 2: Block Segmentation}
 The image is then separated into 8x8 or 16x16 pixel blocks,
 called MCUs (Minimum Coded Unit) 
 depending on whether the image has been chroma
-subsampled to a 4:2:2 or 4:2:0 model respectively. \cite{exif_std}
+subsampled to a 4:2:2 or 4:2:0 model respectively\cite{exif_std}.
 
 \subsubsection{Stage 3: Discrete Cosine Transform}
 The image is transformed from a spatial domain 
 representation to a frequency domain representation
-using the Discrete Cosine Transform. \cite{hass_impulse_jpeg}
-(see section \ref{transfom_base})
+using the Discrete Cosine Transform\cite{hass_impulse_jpeg}.
+(see section \ref{transfom_based})
 
 \subsubsection{Stage 4: Quantization}
 Using the wave equations from the DCT step,
@@ -51,7 +50,7 @@ coefficients using a quantization table and
 then rounding the result to the nearest integer.
 This quantization table differs between
 the majority of digital cameras and 
-software packages.\cite{hass_impulse_jpeg}
+software packages\cite{hass_impulse_jpeg}.
 
 \subsubsection{Stage 5: Zigzag Scan}
 The matrix obtained through quantization is
@@ -64,9 +63,9 @@ right hand part of the matrix.
 
 \begin{figure}[!hbtp]
 \begin{center}
-\includegraphics[scale=1]{figures/jpegzigzag.png} 
+\includegraphics[width=1.0\textwidth]{figures/jpegzigzag.png} 
 \end{center}
-\caption{Example ofa zig zag scan \cite{hass_impulse_jpeg}}
+\caption{Example of a zigzag scan \cite{hass_impulse_jpeg}}
 \end{figure}
 
 \subsubsection{Stage 6: DPCM on DC components}
@@ -75,13 +74,13 @@ Code Modulation. It is the process of
 calculating the block-to-block average difference
 of the DC components across the entire MCU block
 and encoding the average as a change from the 
-previous block's value.\cite{hass_impulse_jpeg}
+previous block's value\cite{hass_impulse_jpeg}.
 
 \subsubsection{Stage 7: RLE on AC components}
 RLE is known as Run Length Encoding. It is the process of
 storing each value of the AC components of the
 64-element vector with the number of zeros
-preceding it for the purposes of the final stage.\cite{hass_impulse_jpeg}
+preceding it for the purposes of the final stage\cite{hass_impulse_jpeg}.
 
 \subsubsection{Stage 8: Entropy Coding/ Huffman Coding}
 Finally, a dictionary representing commonly used value strings with

@@ -23,7 +23,7 @@ capabilities of the payload software.
 
 This approach involves using the custom image 
 manipulation algorithm as specified 
-in section \ref{Custom_comp_research}.
+in section \ref{Custom_comp_research} on bitmap-type RGB images.
 
 Advantages:
 \begin{itemize}
@@ -86,10 +86,10 @@ Before the camera was agreed upon, work began on the
 custom raw image compression algorithm. This
 allowed us to get a good idea of how the progressive
 display of the image would work in the final product.
-However, when the camera was chosen, it's output
-was restricted to JPEG image files. Therefore, JPEG 
-file manipulation was chosen in order to adapt to
-the hardware given.
+When the camera was chosen, it's output
+included JPEG image files. Since JPEG provides
+superior compression to simple custom methods 
+this approach was chosen to help produce a fast initial system.
 
 \subsection{JPEG File Manipulation}
 \label{sec:jpegmanipulation}
@@ -152,7 +152,7 @@ Disadvantages:
 Prior to knowing the exact speed it would take to send 
 an image from the camera to the ground station, 
 it was decided that custom JPEG manipulation would optimize 
-the image further and help reach the target time specified (3 minutes). 
+the image further and help reach the target time specified (3 minutes, see \ref{sec:spec_b}). 
 Therefore, tasks concerning the custom manipulation of 
 the JPEG image were planned and worked on 
 at the beginning of the project. 
@@ -161,88 +161,6 @@ send the image was already well within the time specified.
 Because this was the primary advantage of the 
 custom JPEG manipulation process, 
 the task's priority was dropped accordingly.
-
-\subsection{JPEG Data Access}
-
-One of the biggest choices to make concerning the 
-image manipulation software to be implemented on the AVR was 
-how it would  access the JPEG image data coming from the camera. 
-The two methods considered are studied below:
-
-\subsubsection{Approach: Static Access}
-
-This method of accessing the image data involves storing 
-the JPEG image data into memory and 
-having the AVR read the JPEG data as if it were a data array. 
-
-Advantages:
-\begin{itemize}
-	\item Easier to provide progressive scanning of the 
-		image due to possessing the entire 
-		entropy-encoded image data. It is easier to 
-		read the whole image rather than 
-		have the data coming in at a certain rate on the AVR.
-		This would allow the AVR to have more options on
-		the order of the image data to send.
-	\item Much fewer calls to the JPEG byte stream. 
-		This allows the extractor to obtain all the 
-		information faster from the moment it is called.
-	\item Only one instance of memory allocation at the very beginning. 
-		This prevents the code from crashing due to insufficient 
-		memory in the middle of the information 
-		extraction process and wasting time.
-\end{itemize}
-
-Disadvantages:
-\begin{itemize}
-	\item Very memory intensive: requires 
-		storing the entire image in memory 
-		before being called due to the variable
-		size of the JPEG file and its components.
-	\item Delayed by image storage.
-		Although there is only one call to the 
-		image data, it must wait until the entire 
-		input string is stored before 
-		any action can be taken safely.
-	\item A lot of wasted memory. 
-		Not all the information 
-		from the image is needed for the 
-		progressive JPEG manipulation.
-\end{itemize}
-
-\subsubsection{Approach: Dynamic Access}
-
-This method of accessing the image data 
-involves using a class to read in one byte 
-from the image data stream at a time.
-
-Advantages:
-\begin{itemize}
-	\item More efficient for memory 
-		space overall. No need to store 
-		the entire image at once.
-	\item Allows more efficient use of memory. 
-		The AVR only saves and sends the 
-		information that the ground station will use.
-\end{itemize}
-
-Disadvantages:
-\begin{itemize}
-	\item More difficult to use progressive scanning. 
-		Entropy-encoded data must be stored fully 
-		before progressive scanning can occur.
-	\item Delayed by multiple read calls to the JPEG data. A 
-		read call must be made for each 
-		byte of the JPEG data stream.
-	\item Memory allocated dynamically. 
-		More vulnerable to insufficient memory 
-		crashes during the extraction process.
-\end{itemize}
-
-\subsubsection{Chosen Approach: Dynamic Access}
-
-The dynamic form of data accessing was preferred 
-due to the memory constraints imposed on the device.
 
 \subsection{Entropy-Encoded Data Storage}
 
