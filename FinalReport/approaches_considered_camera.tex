@@ -16,13 +16,13 @@ Advantages:
 
 Disadvantages:
      \begin{itemize}
-        \item Difficult/impossible to communicate with: most modern digital cameras has a USB socket for downloading images off the camera but it is much rarer to be able to send the camera commands (e.g. take photo) and for those cameras where it is possible the command structure is not usually simple.
-        \item Requires USB host device in order to properly communicate as only USB host devices provide power via usb and can have USB peripherals connected to them.
+        \item Difficult/impossible to communicate with: most modern digital cameras have a USB socket for downloading images off the camera but it is much rarer to be able to send the camera commands (e.g. take photo) and for those cameras where it is possible the command structure is not usually simple.
+        \item Requires USB host device in order to properly communicate as only USB host devices provide power via USB and can have USB peripherals connected to them.
 	\item Relatively large and heavy compared to the other approaches considered.
 	\item Expensive, prices starting around \pounds 60.
      \end{itemize}
 
-In order to communicate with a camera via USB a USB host is required. The process is usually fairly complex a driver is normally used. This is extremely difficult to implement on a device compact enough for use in this project.
+In order to communicate with a camera via USB a USB host is required. The process is usually fairly complex so driver is normally used. This is extremely difficult to implement on a device compact enough for use in this project.
 
 \subsection{Approach: USB Camera}
 \label{sec:USB_option}
@@ -38,9 +38,9 @@ Advantages:
 
 Disadvantages:
 \begin{itemize}
-     \item often poorly documented: no datasheets or datasheets aimed solely at use with a computer.
+     \item Often poorly documented: no datasheets or datasheets aimed solely at use with a computer.
      \item Difficult to communicate with: These devices are usually designed to be used with a computer so communication is usually done using a proprietary driver (a piece of software that defines how to interact with a peripheral). In order to maintain the proprietary nature of these documentation and/or source code is often not available for them.
-    \item Requires USB host device in order to properly communicate as only USB host devices provide power via usb and can have USB peripherals connected to them.
+    \item Requires USB host device in order to properly communicate as only USB host devices provide power via USB and can have USB peripherals connected to them.
 	\item High resolution means longer total transfer times, including time to transfer from the camera and time spent on any compression/ manipulation.
 \end{itemize}
 
@@ -55,7 +55,7 @@ Advantages:
 \begin{itemize}
 	\item Range of resolutions available.
 	\item Small size: usually less than 50mm x 50mm.
-	\item this is a mature market so there are plenty of options available.
+	\item This is a mature market so there are plenty of options available.
 \end{itemize}
 
 Disadvantages:
@@ -85,9 +85,9 @@ Advantages:
 
 Disadvantages:
      \begin{itemize}
-        \item Require case and cabling for placement in UAV.
-		\item moderately expensive at around \pounds 40.
-        \item The lack of case means that the camera is susceptible to shorts and static.
+       	\item Require case and cabling for placement in UAV.
+	\item Moderately expensive at around \pounds 40.
+       	\item The lack of case means that the camera is susceptible to shorts and static.
      \end{itemize}
 
 The ability to communicate via UART combined with the good documentation should allow for control to be established fastest with this camera type.
@@ -119,7 +119,7 @@ The feature set of the uCam is as follows:
 			\item 128 x 128
 			\item 128 x 96
 		\end{itemize}
-		\item It can output jpeg images at a range of resolutions:
+		\item It can output JPEG images at a range of resolutions:
 		\begin{itemize}
 			\item 80 x 64
 			\item 160 x 128
