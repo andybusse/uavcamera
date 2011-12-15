@@ -53,7 +53,7 @@ fired only when the current transmission had actually completed, and the
 command to clear the transmit enable signal was moved into this ISR.
 ||||| INC AFTER TRACE ||||||
 
-\subsection{Establishing Contact with the Autopilot}
+\subsection{Establishing Contact with the Autopilot (mh)}
 
 The first step in implementing the communications link was to establish contact with
 the autopilot using the existing module code, the relevant milestone being
@@ -77,20 +77,20 @@ After this bug was fixed the payload responded as expected,
 section \ref{sec:test_pl_est_contact} describes the successful testing of this part of
 the implementation.
 
-\subsection{Setting Shared Memory on the Autopilot}
+\subsection{Setting Shared Memory on the Autopilot (mh)}
 Once basic contact had been established the next task was to set shared memory on
 the autopilot - as per milestone \ref{sec:ms_pl_shared_mem_set}. The existing code
 provided allowed this to be completed quickly using the built in functions. Section 
 \ref{sec:test_pl_set_shared_mem} details the tests carried out to validate this
 was working.
 
-\subsection{Recieving Messages from the Ground Station}
+\subsection{Recieving Messages from the Ground Station (mh)}
 It was important to ensure that the payload recieved messages correctly from the ground
 station before continuting with the implementation of this section, the customers provided code
 allowed this to be completed quickly also. Section \ref{sec:test_pl_receive_message} describes 
 the steps taken to test this.
 
-\subsection{UAV Camera Communication Protocol}
+\subsection{UAV Camera Communication Protocol (mh)}
 As discussed in section |||||||| REF |||||||| it was decided that 
 our communications protocol would use shared memory and \emph{send\_bytes} 
 commands, allowing two way communications between the payload controller and 
@@ -235,11 +235,11 @@ as described.
 
 Verification of milestone \ref{sec:ms_pl_img_gs_cam_res} (changing image resolution) can be seen in test \ref{sec:test_change_resolution}. Unfortunately changing colour type (milestone \ref{sec:ms_pl_img_gs_cam_colour_type})  was not fully implemented due to time constraints.
 
-\subsection{Problems Encountered}
+\subsection{Problems Encountered (mh)}
 A number of problems were encountered and overcome during the implementation of the payload-ground station
 communication code, a few of the most important are reproduced here.
 
-\subsubsection*{Autopilot Bug}
+\subsubsection*{Autopilot Bug (ab)}
 
 The Autopilot sends "Transmit" tokens to the payload module every 20ms, 
 to which a payload module sent an "ACK" token, even when it does not 
@@ -283,7 +283,7 @@ payload, it was discovered this was indeed a problem with the Autopilot,
 which our customer was able to fix and subsequently update the firmware 
 of our Autopilot.
 
-\subsubsection*{Volatile Variables and ISRs}
+\subsubsection*{Volatile Variables and ISRs (mh)}
 
 Another problem encountered regarded a flag variable being checked in a function called in the main event loop. The flag
 was the continuation condition of a while loop, and although it was being set in another section of code this new set 
