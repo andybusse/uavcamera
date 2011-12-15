@@ -230,10 +230,19 @@ to be implemented. In this way the payload module can transmit a whole image ove
 \end{figure}
 
 
+\subsection{Problems Encountered}
+A number of problems were encountered and overcome during the implementation of the payload-ground station
+communication code, a few of the most important are reproduced here.
 
-|||||||| REMINDER: TALK ABOUT VOLATILE VARIABLE PROBLEM
+One problem encountered regarded a flag variable being checked in a function called in the main event loop. The flag
+was the continuation condition of a while loop, and although it was being set in another section of code this new set 
+value was not being propagated to the while loop code, meaning that the while loop would continue forever. This problem
+was discovered (helped greatly by the debug interface described in section \ref{sec:payload_debug_interface}) . After some
+consideration, research and experimentation it was discovered that the problem lay with the C compilers optimization. The 
+flag was being set in a interrupt service routine (ISR), which the compiler assumed could not be called during the while loop
+call, therefore it was optimized out, causing the loop to continue forever. The solution to this was to set this flag variable 
+as \emph{volatile}, preventing it from being optimized out in this manner. The same was applied to all global variables modified in ISRs.
 
-|||||||| REMINDER: AUTOPILOT PROBLEMS
 
 %|||||||| REMINDER: PROBLEMS CHALLENGES
 %|||||||| REMINDER: HOW DID WE SOLVE PROBLEMS, DEBUGGING, TESTING, ETC
