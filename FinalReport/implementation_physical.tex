@@ -10,6 +10,12 @@ delivered is available in Appendix \ref{Payload_Schematic}, and of the PCB layou
 from shorting tracks together, and the module itself presented in a 
 waterproof container before flight testing.
 
+A quote of \pounds 56.39 has been obtained from PCB Train \footnote{\url{http://www.pcbtrain.co.uk/quote-and-order-pcb/}} 
+for a single PCB, with electrical testing, on a 15 day lead time. 
+Please note that Spirit Circuits have only manufactured our prototype 
+free of charge on a one-off basis. Being impressed with this service, 
+we may recommend that clients contact them for a competitive quote.
+
 \begin{figure}[H]
         \centering
         \includegraphics[width=1.00\textwidth]{figures/PayloadImplementation.png}
@@ -26,7 +32,7 @@ features of the payload module:
 (Actually implements the RS485 protocol)
 \item \textbf{C:} Power LED. Shows whether 3V3 from the ethernet socket is connected.
 \item \textbf{D:} ISP programming header socket. As seen, this is not 
-soldered on, as we have been using the JTAG header, but will be soldered 
+soldered on, as we have been using the JTAG header for testing, but will be soldered 
 before delivery to the customer.
 \item \textbf{E:} Camera header. The camera can be connected to our PCB 
 simply by attaching the hook-up wire in the correct order. (L-R: 3V3, GND, 
@@ -42,11 +48,3 @@ information)
 \item \textbf{K:} Reset button
 \item \textbf{L:} Debug LEDs
 \end{itemize}
-
-Due to an issue discovered between ordering and receiving the PCB, an 
-additional 10k$\Omega$ resistor has been placed between Camera RX and 3V3 (R11 
-on the schematic). Also, the Single In Line header holes (for the Port A 
-expansion and camera headers) have been widened from 0.40mm to 0.80mm. An 
-update to the PCB layout is provided in the delivered repository.
-
-The camera will also be presented in a sealed, weatherproof container.
