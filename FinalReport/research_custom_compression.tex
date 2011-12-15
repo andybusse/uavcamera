@@ -68,7 +68,6 @@ It can be seen from table \ref{tab:huff1} that the huffman code has encoded the 
 \subsection{Colour Space Conversion (ms)}
 \label{sec:colour_space_conversion}
 Raw image information is defined using the RGB colour model.
-This means that each pixel's colour is defined by three values according to the RGB colour model. 
 In this additive model, the pixel's colour is determined by a sum of red, green, and blue light. 
 If each value for R, G, and B is represented with a single byte, 
 this means that each pixel in an image has 3 bytes associated to it, so 
@@ -78,7 +77,7 @@ For a 640x480 image, this means we have 921,600 bytes of information to send thr
 Instead of storing all the image data using the RGB colour model, 
 chroma sub-sampling allows the file to be compressed
 without losing any information that the human eye can discern. 
-The image is put into  a luma-chrominance color space. 
+The image is put into a luma-chrominance color space. 
 In this form, the color of a pixel is described by two values, 
 one (\emph{luma}) which describing its \emph{luminance} (brightness), and 
 one (\emph{chrominance}) which describes its colour 
