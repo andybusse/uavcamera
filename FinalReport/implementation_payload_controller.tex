@@ -90,11 +90,11 @@ image viewer software and the payload.
 The method through which this shared memory is accessed via the ground station
 image viewer is discussed in chapter \ref{chap:implementation_ground_station}.
 
-The Payload Module Interface discussed above (section \ref{sec:autopilot_payload_interface})
-allows us to send strings of bytes in both directions. However, in order to 
-communicate with the ground station image viewing software some form of 
-additional communications protocol is required so that both ends of the link 
-are communicating in a mutually understandable manner.
+%The Payload Module Interface discussed above (section \ref{sec:autopilot_payload_interface})
+%allows us to send strings of bytes in both directions. However, in order to 
+%communicate with the ground station image viewing software some form of 
+%additional communications protocol is required so that both ends of the link 
+%are communicating in a mutually understandable manner.
 
 This two way communications is the interface between the payload and the 
 ground station software, so some standard protocol was required. It was decided
@@ -179,6 +179,8 @@ data for this packet and is variable size, with a maximum size of 50 bytes.
 \end{itemize}
 
 \end{itemize}
+
+
 
 
 ||||||||| FLOWCHART OF INTERACTIONS |||||||
