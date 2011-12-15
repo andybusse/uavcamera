@@ -29,8 +29,12 @@ real-time video streaming from the UAV. This would almost certainly have to use
 a dedicated wireless link. The 38.4 kBaud available in the autopilot modules 
 is too restrictive for this sort of application, but the autopilot would still 
 be able to control such an application (i.e. able to start/stop transmission, 
-toggle power to the module, minimising delay between video capture and video 
-display, 
+toggle power to the module, etc.) but things like 
+minimising delay between video capture and video 
+display, finding a suitably fast and robust wireless link (which implements 
+automatic repeat requests) would make this task a very difficult one. It may 
+be preferable to try and hack an existing wireless video module to one's own purposes (if such modules exist and are 
+well documented)
 
 \subsection{Using Multiple Cameras (ab)}
 
