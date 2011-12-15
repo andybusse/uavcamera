@@ -23,7 +23,7 @@ The SkyCircuits autopilot module allows extension modules named `payload
 modules' to be connected to the autopilot. These payload modules are connected 
 via a RS485 serial connection at 38.4 kBaud, allowing several payload modules
 to be connected at once in a daisy-chain configuration. All payload modules are 
-connected to common TX and RX lines, where the RX line is used by the
+connected to common Transmit (TX) and Recieve (RX) lines, where the RX line is used by the
 autopilot to send commands and data to the payload modules, and the TX
 line is used by all daisy-chained modules to communicate with the autopilot.
 
@@ -47,7 +47,7 @@ autopilot link to the ground station. Shared memory is allocated to
 each payload module, accessible on the ground station using the command:
 ~\\
 ~\\
-\begin{lstlisting}[caption={Accessing shared memory from ground station}, label=lst:gs_shared_mem_set]
+\begin{lstlisting}[caption={Accessing shared memory from ground station, typed directly into the software.}, label=lst:gs_shared_mem_set]
 payload[payload_num].mem_bytes[mem_bytes_num]
 \end{lstlisting}
 
@@ -58,7 +58,7 @@ Each shared memory set is of variable length and can be set from the payload
 module using the following function (code provided by customer):
 ~\\
 ~\\
-\begin{lstlisting}[language=C, caption={Setting shared memory from payload module}, label=lst:payload_shared_mem_set]
+\begin{lstlisting}[language=C, caption={Setting shared memory from payload module, typed directly into the software.}, label=lst:payload_shared_mem_set]
 send_set_class_indexed_item_indexed(CLASS_PAYLOAD, module_id, 
 CLASS_PAYLOAD_MEM_BYTES, mem_bytes_num, message_to_send,
 message_to_send_length)
@@ -79,6 +79,6 @@ bus as a `packet' of data. The \emph{send\_bytes} command is used to do this, as
 listing \ref{lst:ground_station_send_bytes}. 
 
 ~\\
-\begin{lstlisting}[caption={Sending bytes 1 to N from ground station to payload module}, label=lst:ground_station_send_bytes]
+\begin{lstlisting}[caption={Sending bytes 1 to N from ground station to payload module, typed directly into the software. BYTE1...N can be in decimal (e.g. 5) or hexidecimal format (e.g. 0x5).}, label=lst:ground_station_send_bytes]
 payload[0].send_bytes BYTE1 BYTE2 ... BYTEN 
 \end{lstlisting} 
