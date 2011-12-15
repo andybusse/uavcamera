@@ -1,19 +1,21 @@
 \label{chap:implementation_ground_station }
 
-The UAV Image Viewer software will be the only application that the user can access to. 
+The UAV Image Viewer Software is the only application that the user can access to. 
 Therefore, the implementation of this program need to include all the specification and also some extra features to make the GUI looks nice.
 The plan on making this GUI is to start developing function by function using as much console application as possible such as connect to the port, send/receive information, and change image data to a readable byte.
 Upon the final stage of the GUI, the software code runs either in user mode so the user does not has access to the changing of the internal program\cite{tsuiK}. 
 This allows a different level of privilege in accessing memory and other system resources. 
 
 The plan of constructing the image viewer is to make a program that the use can simply click on a button and the image is downloaded via TCP/IP port to the ground station.
-Then the data transmitted from the devices stream data to PC for further data processing (image processing).  
-The Ground Station Software is in user mode, where the programmer does not have the right to access directly to the hard ware in protected operating systems. 
-However, there are some codes that allow the programmer to communicate with the payload via the ground station software.
+The programmer make use of both data stream port and the console port in order to send command and receive JPEG photo from the UAV.
 
 \section{The development process} 
 Because GUI include many functions on the application and also it links to TCP/IP ports, the GUI part consider as a very big program. 
 Therefore, in order to complete the GUI step by step, it needs a plan for the development.
+The connection to datastream can be done by using a console application describe in section\ref{sec:testing_connection_send_to_stream}.
+If the connection is correct the appliction can listen to the data stream port as in section\ref{sec:testing_receive_stream}.
+These console application will be combined to a bigger and more complete program in later section.
+
 \flushleft
 \begin{enumerate}
 
@@ -34,11 +36,11 @@ Therefore, in order to complete the GUI step by step, it needs a plan for the de
 \end{enumerate}
 
 \section{Use Case Diagram}
-The use case diagram shows what the user have access to the program and it will decide what function does the programmer needs to implement in order to achieve all the activities in the diagram.
-It is important to include all the specification into the use case diagram because if some part of the specification missing, it means that the program will be incomplete for the customer.
+The use case diagram show what functionality the user can use in the program.
+It has to include all the specification that the customer want for a complete system.
 Figure~\ref{GUI_useCase} shows a possible user action on the program which the user can save, open and delete any jpeg image from the computer. 
-And, the user has an option to connect to the UAV in case of the UAV is not connected properly.
-The user can command the image viewer program to send an image to the software, and the software will then display it onto the picture box.
+The user has an option to connect to the UAV in case of the UAV is not connected properly.
+He can command the image viewer program to send an image to the software, and it will display the image onto the picture box.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{figures/userCase.png} 
@@ -46,7 +48,7 @@ The user can command the image viewer program to send an image to the software, 
 \caption{Use case diagram of the GUI\label{GUI_useCase}}
 \end{figure}
 
-This initial user diagram has changed slightly because some of the action is better implement in the background. For example, connect to the UAV function, the user might be confused and click on this button every time the program got open. So the better way to implement this is to make the program connect to the UAV automatically when the program starts running. 
+This initial user diagram has changed because some of the action implement in the background. For example, connect to the UAV function, the user might be confused and click on this button every time the program is open. So the better way to implement this is to make the program connect to the UAV automatically when the program starts running. 
 Another changes is the type of image implemented is JPEG only because the raw image will be too big so we decide not to implement it.
 Therefore, the Milestone\ref{sec:ms_pl_img_gs_cam_colour_type} will not be implemented.
 Figure\ref{GUI_finalUseCase} shows an agreed use case diagram. 
@@ -62,36 +64,35 @@ Figure\ref{GUI_finalUseCase} shows an agreed use case diagram.
 
 \section{The Design}
 
-The GUI design decision based on the specification on what feature does the customer’s want. 
 The user for our application is assumed to have a limited programming experience, so the program will be implemented so it is simple understand. Figure~\ref{ini_GUI} show the first brainstorm view of the GUI. 
 
-The user interface has a picture box. When the user pushes a ‘Get Picture’ button, the picture box will display the picture taken from the UAV. During the downloading process, the application should keep running so the cancel button can be used. 
-The gallery button will link to another page which will be the collection of images taken. 
-The left and right button can navigate the picture box to view an earlier picture or later picture. 
-The Cancel button cancel the receiving image, therefore the corrupted picture will not be downloaded. 
+The user interface has a picture box. 
+When the user pushes a ‘Get Picture’ button, the picture box will display the picture taken from the UAV. 
+During the downloading process, the application should keep running so the cancel button can be used. 
+Gallery button will link to another page which will be the collection of images taken. 
+Left and right button can navigate the picture box to view an earlier picture or later picture. 
+Cancel button cancel the receiving image, therefore the corrupted picture will not be downloaded. 
 The user mode of the application can access only the main feature such as take picture, change directory, and cancel download picture.  
 It allows the user to choose the resolution and picture type (RAW or JPEG) to transmitted from the UAV to the ground station. But the user doesn't have access to changing the command, changing the receiving data, and any interaction with the UAV because of safety and avoid of any errors. 
-\begin{figure}[!hbtp]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.4]{figures/initialGUI.png} 
+\includegraphics[width=1.0\textwidth]{figures/initialGUI.png} 
 \end{center}
 \caption{The initial design of GUI\label{ini_GUI}}
 \end{figure}
 The GUI has been planned to have functions such as auto triggering, image type, resolution type, file path chosen, progress bar, help button, stop and delete. Figure \ref{finalGUI} is the screen shot of the final GUI.
 
-\begin{figure}[!hbtp]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{figures/finalGUI.png} 
+\includegraphics[width=1.0\textwidth]{figures/finalGUI.png} 
 \end{center}
 \caption{final GUI\label{finalGUI}}
 \end{figure}
-Implementation of the main GUI has omitted some of the buttons in the initial design. 
-The gallery button is not needed because the left and right button is use for scrolling the whole directory of the image. 
 The top tool strip menu has been added because this layout is familiar to any user. 
-Thi image type has been removed because RAW is a big file.
 The progress bar has moved to the button left of the page instead of displaying it below the pictureBox.
 This allows the application to have bigger picture box, more compact size and more professional looks.
 The stop button allows the user to interrupt the downloading image.
+
 \section{Class Diagram}
 \subsection*{The Initial Class Diagram}
 Figure~\ref{ini_Class} shows initial classes and methods of the image viewer program.
@@ -147,30 +148,12 @@ The data in its queue until the host asks for the data.
 \caption{The connection of the hardware\label{schemetic_clipA}}
 \end{figure}
 
-\section{Get Image Algorithm}
-\label{get image algorithm}
-In order to take the picture and send it back to the ground station is very important and it has a complex signal algorithm to do.
-The plan is when the user click on the Get Picture button, the program sends a \textbf{string command} to the ground station software.
-Then the ground station software generates a \textbf{byte command} to transmitted by TCP to the payload. 
-Then the payload sends a ''Picture Taken'' command back through the data stream port to the Image Viewer Program. 
-The Image Viewer Program will then automatically send a download request command to the payload. 
-The payload will then send image data back to the data stream port. 
-
-When the program start running, the program initialized the port and commands the customer’s application to tell the UAV to stream data to the data stream port. Figure~\ref{GCS_connect_command} shows the connection between the UAV data stream port and the ground station. The UAV has two ports, console port, and data stream port and it can send and receive any length of data. SEND\_ ZERO\_ TOKEN is designed by the customer’s so when the DataStream port receives this handshaking token, it will start streaming data. When any data transmission and receive, the software transfer the data through pipes. There are some global initializations that the software needs to perform only once when it is loaded for the first time. Note that the console port is manually connected by the ground control station software. The image viewer will give an error when there is no connection. Figure \ref{GCS_connect_command} shows a signal diagram between the Image Viewer and the data Stream port. 
-
-\begin{figure}[!hbtp]
-\begin{center}
-\includegraphics[scale=0.5]{figures/connect_command.png} 
-\end{center}
-\caption{The connection of data stream port\label{GCS_connect_command}}
-\end{figure}
-
 
 \section{GUI data flow diagram}
 
-
-
-Table~\ref{command_table} shows how the command receive and send at ground station. SEND\_ZERO\_TOKEN is use for toggle the data stream port in order to make it send data to the image viewer. TAKE\_ PICTURE command sends 0 byte to command port by sending a string command to the UAV as shown in Figure~\ref{GCS_Payload_comm}. The PICTURE\_ TAKEN signal act in a similar way to ACK (acknowledgement) command which send back to the ground with a value of number of packet of the byte data. To ensure that the number of packet is the same in ground station and the UAV, the SEND\_ DOWNLOAD\_ REQUEST command sends back the information of number of packet. The number of packet shows how many cycle does the image view to do to receive all the data.  The payload will then send the DOWNLOAD\_ INFO to the ground station which follows by the IMAGE\_ DATA. The image data consist of 3 information bytes the first byte is always 4, this number tell the image view program that it is an image data. The next 2 bytes is saying which number of packet it is. If there is any packet skipped, the image viewer program will noticed and either send error or ask the UAV for the old set of packet. The image data at each cycle have a variable length. The program is designed to take the variable length of data.
+Table~\ref{command_table} shows how the command send and receive to/from ground station.  Figure~\ref{GCS_Payload_comm} give a brief detail of how the data communicate between the payload and the image viewer program. 
+A more detailed diagram on the data communication is in figure \ref{sequence diagram}.
+This has been tested in section\ref{sec:send_console}.
 
 \begin{figure}[H]
 \begin{center}
@@ -200,6 +183,25 @@ IMAGE\_DATA & 4 $\overbrace{ [packet number]}^{2bytes} \overbrace{[image data]}^
 \caption{Command table\label{command_table}}
 \end{center}
 \end{table}
+
+\section{Get Image Algorithm}
+\label{get image algorithm}
+In order to take the picture and send it back to the ground station is very important and it has a complex signal algorithm to do.
+The plan is when the user click on the Get Picture button, the program sends a \textbf{string command} to the ground station software.
+Then the ground station software generates a \textbf{byte command} to transmitted by TCP to the payload. 
+Then the payload sends a ''Picture Taken'' command back through the data stream port to the Image Viewer Program. 
+Picture taken button has been tested in section\ref{sec:test_get_image_button}
+The Image Viewer Program will then automatically send a download request command to the payload. 
+The payload will then send image data back to the data stream port. 
+
+When the program start running, the program initialized the port and commands the customer’s application to tell the UAV to stream data to the data stream port. Figure~\ref{GCS_connect_command} shows the connection between the UAV data stream port and the ground station. The UAV has two ports, console port, and data stream port and it can send and receive any length of data. There are some global initializations that the software needs to perform only once when it is loaded for the first time. Note that the console port is manually connected by the ground control station software. The image viewer will give a warning in message box when there is no connection.
+
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=0.5]{figures/connect_command.png} 
+\end{center}
+\caption{The connection of data stream port\label{GCS_connect_command}}
+\end{figure}
 
 \section{File Dialogue}
 For a .NET C\# Programming, there is a previous tools that we can use to change directory, open and save files. The\texttt{OpenFileDialog,  SaveFileDialog, and FolderBrowser} dialogue are existing classes that is suitable to do this job. However, to open any file dialogue, the application needs to have a \texttt{STAThread} in order to handle multiple objects. \texttt{STAThread} is an attribute which applied to the main method, indicating that the application should communicate with unmanaged COM code using the Single Threading Apartment. It allows main thread or the main form to run in the background while the file dialogue is executing. 
@@ -331,12 +333,20 @@ The camera has options of resolution as shown in Figure\ref{resolutionOption}. T
 
 
 The baud rate that we can transmit data from the UAV is 38.4kBaud. Bandwidth limitations severely restrict the volume of data to transfer over the wireless link. It takes around 8 to 20 seconds to transmit an image of resolution 640x480. This progress bar tells the user how much percentage of data received. The progress bar update at each cycle of the data receives. At the end of each image downloaded, the progress bar reset to its normal state.  The status text tells the user what signal have been sent or received. This status text ensures that the picture is downloading and it is good for testing that the tasking in process. These two nice application allocate on the bottom left of the GUI as shown in Figure\ref{progressBar}. However, these have to implement every cycle of the data collection and it might cause the cycle to run slower. The actual loop is much faster than the 38.4kbaud, therefore there is no problem implementing these in.
-\begin{figure}[!hbtp]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{figures/progressBar.png} 
+\includegraphics[width=0.3\textwidth]{figures/progressBar.png} 
 \end{center}
 \caption{The resolution in combo box\label{progressBar}}
 \end{figure}
 
+\section{Complete System}
+After all the implementation has completed, all the function will be tested together. All the smaller program that we have implemented will be combined at this stage. The send and receiving will use to implement the communication between the payload and the Image Viewer Software. The display of image data will implement as a final display of the image.  Figure \ref{completeSystem} shows a final working GUI of our program. 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{testing_screenshots/ui.png} 
+\end{center}
+\caption{The complete system\label{completeSystem}}
+\end{figure}
 
 
