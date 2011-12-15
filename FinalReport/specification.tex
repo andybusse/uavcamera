@@ -36,9 +36,9 @@ The aim of the project was to achieve the following criteria, which were also pr
 	\subsection{Specification B}\label{sec:spec_b} \textbf{Minimise the time needed to download the images from the UAV to the base station. The time from the user’s prompt until the image has been fully downloaded will be measured against the theoretical 3 minutes necessary to transmit a full image without using any compression. The goal will be to obtain a full image in \textbf{less than 3 minutes.}} 
 This 3 minute figure is the time it was calculated it would take to download a raw $640\times480$ 24bit RGB image (approx. 900kB) at 38.4kBaud. This was given a \textbf{high priority} as 3 minutes is a long time to wait for an image to download and downloading images is the point of our system.
 	\subsection{Specification C}\label{sec:spec_c} \textbf{The module weight will be \textbf{less than 250g}.} 
-This was given a \textbf{medium priority} since authough a weight of under 250g would be required for flight, it would be preferable to have a system that is too heavy than one that does not work at all.%as electronics tend not to be very heavy but it is important to bear in mind that the UAV can't carry too much weight.
-	\subsection{Specification D}\label{sec:spec_d} \textbf{Image resolution of \textbf{$640\times480$}.} 
-This was given a \textbf{medium priority}, this value was chosen as a trade off between the amount of data in the image and the quality of the image. Higher resolutions would be acceptable if the download time can be suitable reduced and lower resolutions may also be useful if they are much faster to download.
+This was given a \textbf{medium priority} since although a weight of under 250g would be required for flight, it would be preferable to have a system that is too heavy than one that does not work at all.%as electronics tend not to be very heavy but it is important to bear in mind that the UAV can't carry too much weight.
+	\subsection{Specification D}\label{sec:spec_d} \textbf{Image resolution of at least \textbf{$640\times480$}.} 
+This was given a \textbf{medium priority}, this value was chosen as a trade off between the amount of data in the image and the quality of the image. Higher resolutions would be acceptable if the download time can be suitably reduced and lower resolutions may also be useful if they are much faster to download.
 	\subsection{UAV Camera Commands} \textbf{Allow the user to perform the following actions on the UAV’s camera from the ground station:} 
 		\subsubsection{Specification E}\label{sec:spec_e} \textbf{Prompt the UAV to \textbf{capture and download an image}.}  
 This was given a \textbf{high priority} as the main aim of the system is to be able to capture images.
@@ -47,7 +47,7 @@ This was given a \textbf{medium priority} because, given the potentially high do
 		\subsubsection{Specification G}\label{sec:spec_g} \textbf{\textbf{Resend} an image in case the current preview is corrupted.}  
 This was given a \textbf{low priority} as it does not affect basic functionality.
 		\subsubsection{Specification H}\label{sec:spec_h} \textbf{\textbf{Interrupt} the download of an incomplete image and allow the user to save the incomplete image.}  
-Please note that this is distinct from the \emph{Cancel} requirement mentioned above since it requires the saving of incomplete images. This was given a \textbf{low priority} as it does not affect basic functionality, but could potentially save the user some time.
+Please note that this is distinct from the \emph{Cancel} (\ref{sec:spec_f}) requirement mentioned above since it requires the saving of incomplete images. This was given a \textbf{low priority} as it does not affect basic functionality, but could potentially save the user some time.
 		\subsubsection{Specification I}\label{sec:spec_i} \textbf{Select the \textbf{resolution settings} of the image.}  
 This was given a \textbf{low priority} as it does not affect basic functionality but could be a useful feature for some users.
 		\subsubsection{Specification J}\label{sec:spec_j} \textbf{Display a progress indicator which will show the percentage of the image data received, as well as a time estimate for the rest of the image to be downloaded.} 
@@ -68,7 +68,7 @@ The deliverables which were planned to be produced by the end of the project and
 
 	\subsection{\underline{Hardware}:} 
 	\label{sec:deliv_hw} 
-	Camera module, constructed on PCB (if time permits, otherwise on strip-board),including layout designs.
+	Camera module, constructed on PCB (if time permits, otherwise on strip-board), including layout designs.
 	\subsection{\underline{Software}:} 
 	\label{sec:deliv_sw} 
 	All firmware for the electronic module, and software on the base station for viewing images. The full source code and all executable files will be included.
