@@ -20,8 +20,8 @@ RJ45 Socket & 4 & 3.072 \\ \hline
 Arduino mega protoshield & 1 & 5.46 \\ \hline
 Arduino uno protoshield & 1 & 4.38 \\ \hline
 microSD breakout board & 1 & 5.99 \\ \hline
-Camera module - serial JPEG TTL & 2 & 88 \\ \hline \hline
- & Total cost: & 145.58 \\ \hline
+Camera module - serial JPEG TTL & 3 & 132 \\ \hline \hline
+ & Total cost: & 189.58 \\ \hline
 \end{tabular}
 \caption{Table of expenditures}
 \label{expenditure}
@@ -35,13 +35,13 @@ The biggest drain on the budget was the camera modules as at \pounds 44 each the
 
 \subsubsection{Laboratory Equipment}
 
-We were given access to the "Advanced electronics lab" on level 3 of the Zepler building. This gave us some bench-space and access to a wide range of lab equipment.
+We were given access to the "Advanced Electronics Lab" on level 3 of the Zepler building. This gave us some bench-space and access to a wide range of lab equipment.
 
 Of the lab equipment available to us the only pieces we actually used were the digital oscilloscope and the bench-top power supply. The oscilloscope was used at various stages through development to verify signals were doing what they should be, where they should be. The power supply was used to power the camera when it was discovered that the combination of SD-card and camera was drawing more current than could be supplied by the arduino.
 
 \subsubsection{From the customer}
 
-We were provided with a skycircuits autopilot \cite{SkyCircuits} as described in [] ref to research section on the auto pilot [] and some software to interface with it from the ground [] ref section describing this [].
+We were provided with a skycircuits autopilot \cite{SkyCircuits} as described in \ref{sec:autopilot_research} and some software to interface with it from the ground.
 
 We were also provided with some example microcontroller code and a schematic for a dummy payload module i.e. a payload module that can recognise transmit tokens but that doesn't actually do anything.
 
@@ -51,12 +51,12 @@ We also had access to a range of equipment that we owned personally this include
 
 \begin{itemize}
 	\item Arduino uno, see section \ref{arduino_imp} \cite{arduino_serial_library}
-	\item Olimexino-STM32
-	\item mbed LPC1768 Header Board
+	\item Olimexino-STM32 \cite{olimexino}
+	\item mbed LPC1768 Header Board \cite{mbed}
 \end{itemize}
 
 This gave us a range of possibilities for investigation into different implementations and initial development.
 
 Another bit of personally owned equipment that proved useful during development and testing was a USB to serial cable which was used to initially test the second camera with the 4D systems software \cite{ucam_test_software}, see section \ref{sec:existing_software_test}. This cable was also then used to attach the debug line for the rest of the development on the arduino platform.
 
-The last bit of personally owned equipment that was used in this project was a micro SD card which was used for storing the images that come off the camera [] ref to sd section []. The mounting for this used during development was loaned from ECS stores, this was replaced during later stages of development.
+The last bit of personally owned equipment that was used in this project was a micro SD card which was used for storing the images that come off the camera (see section \ref{sec:SD_imp}). The mounting for this used during development was loaned from ECS stores, this was replaced during later stages of development.
