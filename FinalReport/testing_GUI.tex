@@ -3,7 +3,7 @@
 The GUI needs extensive testing. This is because each individual feature has to be individually tested. Because of this, some functions of the UAV that are not dependent on the GUI are tested with a console application in order to save time.
 \subsection{Using Console Application: Testing Connection to UAV, Sending a Token to the Streaming Port}
 \label{sec:testing_connection_send_to_stream}
-The UAV connector uses a .NET class called System.Net.Sockets. The methods that we use in this class are Sockets.Connect(), Sockets.Send(), Sockets.Receive(). To test the function of this class a separate console application has been developed to debug only a specific part of the program. Sockets.Connect() can be tested by using the Console to display the error code of the running application. Users are not allowed to change the port and host names, as these are set values. Another problem may be that one has forgotten to connect the UAV / enable its Network Server. Appendix\ref{appen:connectorTest} shows a Connector class that is used for testing the Sockets.Connect(), Read() and Write() methods.
+The UAV connector uses a .NET class called System.Net.Sockets. The methods that we use in this class are Sockets.Connect(), Sockets.Send(), Sockets.Receive(). To test the function of this class a separate console application has been developed to debug only a specific part of the program. Sockets.Connect() can be tested by using the Console to display the error code of the running application. Users are not allowed to change the port and host names, as these are set values. Another problem may be that one has forgotten to connect the UAV / enable its Network Server. Appendix \ref{appen:connectorTest} shows a Connector class that is used for testing the Sockets.Connect(), Read() and Write() methods.
 Figure \ref{connect to Stream Port} shows a console application testing the Connect() function. 
 The method is to send a zero token to the data stream and the GCS program will display the text,\texttt{''\* New datastream client connected from 127.0.0.1:49586''} which is highlighted in green. 
 This text shows that the program works properly and we have accessed to the datastream port of the UAV.
@@ -44,7 +44,7 @@ Therefore, in the GCS console line, it display 'unknown class HELLO'.
 Because we send the word via the console line, there is a \@ sign in front of the 'hello' word in GCS program.
 The next line we type in is ''da 50 b''.
 GCS software recognises this command, therefore it changes the display in the graph to give information about banking of the UAV.
-This test validates Milestone\ref{sec:ms_basic_dummy_server_comms}.
+This test validates Milestone \ref{sec:ms_basic_dummy_server_comms}.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.00\textwidth]{testing_screenshots/test_sending_test_text_useful.png} 
