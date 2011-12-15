@@ -7,21 +7,24 @@ The ground station is capable of assigning way-points to
 the payload which will allow the camera to take pictures 
 at a given location.
 
-This is achieved by sending a simple command script from
-the ground station to be uploaded by the payload 
-controller. The way-point is designated by the user
+This is achieved by using the autopilot's scripting system.
+A script is uploaded to the autopilot by the customers ground station
+software. The way-point is designated by the user
 through the ground station software. The script 
-tells the UAV controller to continuously check the
+tells the autopilot to continuously check the
 distance separating itself from the way-point.
-When the UAV reaches is within 200 metres of the
+When the UAV is within 200 metres of the
 way-point, a 0 byte is sent to the camera to prompt
-the camera to take a picture.
+the camera to take a picture (Take Picture command).
 
 After taking a picture at the way-point, the camera
 is delayed for 10 seconds to avoid taking another picture
 at the same way-point. When the 10 second delay is over,
-the camera repeats the operation and continuously checks
-its distance from the next waypoint.
+the autopilot repeats the whole procedure.
+
+Code in appendix listing \ref{lst:wp_trigger}.
+
+See section \ref{sec:test_wp_trig} for testing info.
 
 \subsection{Pseudo-code description}
 
@@ -39,3 +42,4 @@ image at designated way-points:
 	\item wait 10 seconds
 	\item Re-enter while loop
 \end{itemize}
+

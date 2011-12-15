@@ -69,11 +69,11 @@ After receiving the size of the JPEG file (in bytes),
 the JPEG Information Extractor would read the bytes of the JPEG stored in the SD card. 
 Because the information will not all be available instantly, 
 the extractor uses a class to read the next byte in the input stream, one at a time. 
-This C class \textbf{read\_byte()} (see appendix \ref{}) is how the JPEG extractor 
+This C class \textbf{read\_byte()} is how the JPEG extractor 
 gains access to the JPEG input stream. 
 
 As the extractor reads in the bytes from the input stream, it checks to see if the byte indicates the start of a segment (0xff). 
-If this is the case, the next byte identifying the segment is read and the \textbf{JPEGMethod()} class  (see appendix \ref{}) is 
+If this is the case, the next byte identifying the segment is read and the \textbf{JPEGMethod()} class is 
 called which uses a switch command to determine the actions to take. 
 If not, the data is discarded and the extractor continues 
 to read the next byte from the input stream. 
@@ -109,7 +109,7 @@ The sampling factor information from this section will indicate
 the chroma subsampling pattern used (either 4:2:2 or 4:2:0)
 and influence the shape of the chrominance pixel structures
 created during the treatment of the SOS segment. 
-(see section \ref{colour_space_conversion} 
+(see section \ref{sec:colour_space_conversion}
 for information on chroma subsampling) The 
 sampling factor information will also define the dimensions of the
 MCU (8x8 or 16x16).

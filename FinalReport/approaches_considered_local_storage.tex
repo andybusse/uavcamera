@@ -33,7 +33,7 @@ would be increased.
 \subsection{Approach: Flash Chip}
 
 One option considered was the implementation of an external flash memory chip 
-(for evaluation purposes, the 4Mbit AMIC A25L040-F was purchased)
+(for evaluation purposes, the 4Mbit AMIC A25L040-F \cite{flash_datasheet} was purchased)
 
 Advantages:
 \begin{itemize}
@@ -46,7 +46,7 @@ Disadvantages:
 \begin{itemize}
 \item Chips that contain a significant amount of memory storage (e.g. 1Gbit 
 and above), come in packages that are awkward to prototype (BGA, TSOP)
-\item Interfacing this type of device with a PC would require a similar amount 
+\item Interfacing this type of device with a PC (for debugging) would require a similar amount 
 of work to the ground station software.
 \item Non-standard interface. The command set for the 4Mbit device is not the 
 same as for a 1Gbit device.
@@ -72,10 +72,10 @@ microSD -$>$ SD adapter) from Amazon costs \pounds4.
 
 Disadvantages:
 \begin{itemize}
-\item Open source libraries can only make use of an SD card's SPI Bus
+\item Open source libraries can only make use of an SD card's SPI Bus \cite{arduino_sd_library}
 interface, not the quicker (but patent-covered) four-bit SD bus.
-\item Only standard SD cards may be used, not the more recent SDHC or SDXC 
-cards, which are increasingly popular.
+\item Only standard SD cards are supported, SDHC are partially supported, but not the more recent SDXC cards, which are increasingly popular.
+\item File system must be standard (FAT16 or FAT32)
 \end{itemize}
 
 \subsection{Approach: SRAM}
@@ -103,3 +103,8 @@ and control pins (or implementation of shift registers with the same desired
 effect), this would require more board space. (The other two devices can 
 communicate via an SPI bus, a four wire connection)
 \end{itemize}
+
+\subsection{Approach Chosen: SD card}
+
+This approach was chosen as these are very easy to interface with (standard libraries exist), decreasing our development time, 
+and they essentially have the same advantages as Flash Chips, plus the ability to easily plug it into a PC.
