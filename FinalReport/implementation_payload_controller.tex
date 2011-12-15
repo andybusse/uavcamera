@@ -5,10 +5,9 @@ images can be downloaded over-the-air from a payload module to a ground
 station, some method of communicating between the
 payload module and ground station are an essential component in the system.
 
-The specification - see chapter \ref{chap:specification} - requires the payload
+The specification requires the payload
 module to communicate with the ground station using the autopilots payload
-module interface (discussed in section \ref{sec:autopilot_payload_interface}
-below).
+module interface (discussed in section \ref{sec:autopilot_payload_interface}).
 
 %To better explain the protocol used we will split the explanation into two 
 %sections: a \emph{Autopilot Payload Interface} section describing the
@@ -24,6 +23,8 @@ was the basis on which the payload controllers communication link was built.
 
 The code provided a number of useful utilities:
 \begin{itemize}
+\item Basic connection to the autopilot, including responding to transmit tokens.
+
 \item Ability to set shared memory on the autopilot.
 
 \item Ability to receive messages sent from the Ground Station to the 
@@ -52,9 +53,22 @@ fired only when the current transmission had actually completed, and the
 command to clear the transmit enable signal was moved into this ISR.
 ||||| INC AFTER TRACE ||||||
 
-\subsection{Establishing Contact with the Autopilot}
+\subsection{Establishing Contact with the Autopilot - (andy)}
+
+The first step in implementing the communications link was to establish contact with
+the autopilot using the existing module code, the relavant milestone being
+\ref{sec:ms_pl_tx_token_resp}.
+
+||||||||||||||| ANDY - stuff about autopilot bug ||||||||||||||||||||
+|||||||||||||| There are some nice scope traces we sent to matt in an email where the autopilot wasn't working which you can use here ||||||||||||||||
+
+Section \ref{sec:test_pl_est_contact} describes the succesful testing of this part of
+the implementation.
+
+\subsection{Setting Shared Memory on the Autopilot - (mh23g08)}
 
 
+\subsection{Recieving Messages from the Ground Station - (mh23g08)}
 
 \subsection{UAV Camera Communication Protocol}
 As discussed in section |||||||| REF |||||||| it was decided that 
