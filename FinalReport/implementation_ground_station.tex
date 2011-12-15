@@ -210,23 +210,19 @@ This code time setting is valid for a file name because it is not using any symb
 It will display year, month, date, and time in this order. 
 The \texttt{BinaryWriter} class can create a binary file using specific data layout for its bytes. 
 
-\subsection{Change File Directory:Appendix \ref{appen:main_form} line346-370 and 454-484 }% 
-If the user wishes to change the directory of the image taken, the image viewer program must support it. the mnuOpen\_click() method introduce an OpenFileDialog class. It begins with open file dialog box. This allows the user to open an initial image to the program. If the user took a picture, it will be saved in the same directory as the open file. This file dialog is limited to only the jpg picture in order to avoid the error of displaying the image. 
-        
+
 \subsection{Text Command:Appendix\ref{appen:UAVConnector} line 68-85}
 TCP/IP protocols transfer data without modifying them. This allow the application to freely encode the data.\cite{davidB}.The Ground station software allow the program to send a stream of string in bytes and it will read the command bytes and send it to the payload on the UAV. The code has shown the way to implement the string and send a byte array to the payload.
 
 To send text, the string of characters is translated into an array of bytes. American Standard Code for Information Interchange(ASCII) is use for translating English into a binary code. In the \texttt{System.Text} classes provide converting mechanism between each character sets. The \texttt{ASCIIEncoding.GetBytes()} is used for convert character array into a byte array.  
 \texttt{The Socket.Send()} method allows the user to send byte stream to the port connected. The customer's program will read from the port and display it onto the command line. The ''@ '' sign indicate that the command correctly sent from the application to the ground station software. The advantage of linking to the ground station software is that our customers can understand what is going on in the console line. For example:uavConn.SendTextToUAV(''da 20 payload[0].mem\_ bytes[0]'');
-
+\ref{sec:ms_pl_shared_mem_set}
 
 The text \texttt{''da 20 payload[0].mem\_ bytes[0]''} will be converted to char array and then to byte array. The byte array will then send the command to the console port to the payload by \texttt{consolePort.Send(toUAVByte, toUAVChar.Length)}. The customer is familiar with the ground station software program, so he can understand the background of the transmission as well. This will complete Milestone\ref{sec:ms_pl_rx_msg_gs}.
 
 In order to test that the payload receives the same data, we use the oscilloscope to see the signal. The byte display on the payload is the same as the byte data send from the ground station. Therefore, the Milesone\ref{sec:ms_pl_img_gs_trigger} is completed. The different resolutions send different byte command to the payload. The byte command changes if the comboBox options change. Therefore, we can say that Milestone\ref{sec:ms_pl_img_gs_cam_res} has completed.
 
-\subsection{I/O Streams}
-    The .NET framework's stream class is use as a powerful tool for encoding and decoding\cite{davidB}. In the image viewer program, we use FileStream to create a directory and to save the byte data into image. However, the program might have to deal with a corrupted image data. Framing is the problem of the receiver failed to find the beginning and the end of the message. The solution is the data packet gives the information of how many loop must the program do in order to receive all the image data. The packet address locates in the second and third byte of the image data stream. This will make the completion of Milestone \ref{sec:ms_pl_shared_mem_set}
-    
+
 \begin{lstlisting}[caption={writing binary file},label=lst:writingb]          
 	for (int i = 3; i < packetSize; i++)
 	{
@@ -304,7 +300,7 @@ The user might want to delete some unwanted photo, so the delete button have bee
 The camera has options of resolution as shown in Figure\ref{resolutionOption}. This can be useful when the speed is important. The lower the resolution, the faster the data transmitted to the ground. GUI has the combo box for the user to choose any wanted resolution in the options. The resolution allow user to have more accessible to the camera. However, this mean there is more on the programmer side to program the application.
 
 
-The baud rate that we can transmit data from the UAV is 38.4kBaud. Bandwidth limitations severely restrict the volume of data to transfer over the wireless link. It takes around 8 to 20 seconds to transmit an image of resolution 640x480. This progress bar tells the user how much percentage of data received. The progress bar update at each cycle of the data receives. At the end of each image downloaded, the progress bar reset to its normal state.  The status text tells the user what signal have been sent or received. This status text ensures that the picture is downloading and it is good for testing that the tasking in process. These two nice application allocate on the bottom left of the GUI as shown in Figure\ref{progressBar}. However, these have to implement every cycle of the data collection and it might cause the cycle to run slower. The actual loop is much faster than the 38.4kbaud, therefore there is no problem implementing these in.
+It takes around 8 to 20 seconds to transmit an image of resolution 640x480. This progress bar tells the user how much percentage of data received. The progress bar update at each cycle of the data receives. The status text tells the user what signal have been sent or received. Figure\ref{progressBar} shows the status text ensures that the picture is downloading. However, these have to implement every cycle of the data collection and it might cause the cycle to run slower. The actual loop is much faster than the 38.4kbaud, therefore there is no problem implementing these in.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.3\textwidth]{figures/progressBar.png} 
