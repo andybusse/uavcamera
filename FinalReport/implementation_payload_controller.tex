@@ -66,15 +66,26 @@ Section \ref{sec:test_pl_est_contact} describes the succesful testing of this pa
 the implementation.
 
 \subsection{Setting Shared Memory on the Autopilot - (mh23g08)}
-
+Once basic contact had been established the next task was to set shared memory on
+the autopilot - as per milestone \ref{sec:ms_pl_shared_mem_set}. The existing code
+provided allowed this to be completed quickly using the built in functions. Section 
+\ref{sec:test_pl_set_shared_mem} details the tests carried out to validate this
+was working.
 
 \subsection{Recieving Messages from the Ground Station - (mh23g08)}
+It was important to ensure that the payload recieved messages correctly from the ground
+station before continuting with the implementation of this section, the customers provided code
+allowed this to be completed quickly also. Section \ref{sec:test_pl_receive_message} describes 
+the steps taken to test this.
 
 \subsection{UAV Camera Communication Protocol}
 As discussed in section |||||||| REF |||||||| it was decided that 
 our communications protocol would use shared memory and \emph{send\_bytes} 
 commands, allowing two way communications between the payload controller and 
-ground station software to be established.
+ground station software to be established. With the ability to recieve and send data
+with these messages tested as described above, implementation could now begin on
+implementing a communications protocol used to talk between the our ground station 
+image viewer software and the payload.
 
 The method through which this shared memory is accessed via the ground station
 image viewer is discussed in chapter \ref{chap:implementation_ground_station}.
