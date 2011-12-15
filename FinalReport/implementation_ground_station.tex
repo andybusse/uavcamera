@@ -1,7 +1,7 @@
 \label{chap:implementation_ground_station }
 
 The user can only see the image viewer program.
-In order to make the development faster, the console application has been use to test port send/receive information and convert the image data.
+The console application were used for testing because it load faster than the window application.
 The programmer make use of both data stream port and the console port in order to send command and receive JPEG photo from the UAV.
 
 \section{The development process} 
@@ -43,8 +43,8 @@ He can command the image viewer program to send an image to the software, and it
 \caption{Use case diagram of the GUI\label{GUI_useCase}}
 \end{figure}
 
-This initial user diagram has changed because some of the action implement in the background. For example, connect to the UAV function, the user might be confused and click on this button every time the program is open. So the better way to implement this is to make the program connect to the UAV automatically when the program starts running. 
-Another changes is the type of image implemented is JPEG only because the raw image will be too big so we decide not to implement it.
+The connect button was not implemented because it will do automatically when the program is open.
+The raw image is too big so we did not implement it.
 Therefore, the Milestone\ref{sec:ms_pl_img_gs_cam_colour_type} will not be implemented.
 Figure\ref{GUI_finalUseCase} shows an agreed use case diagram. 
 
@@ -93,8 +93,6 @@ There will be decoding/encoding algorithm because the image will take long time 
 \end{figure}
 \end{center}
 \texttt{DCT} class has many math operation and equation which have to be implemented on the image viewer program. 
-This complicated function should implement in the ground station because if the picture is encoded in the compressed way, the ground station must be able to extract it. 
-In the end, we have to determine whether it is faster to display image normally, or to do encoding/decoding JPEG file. 
 
 The \texttt{Painting} class is supported by the \texttt{DCT} class. The intention of this class is to display an encoded image point by point on the \texttt{pictureBox}.
 By this method, the \texttt{pictureBox} can display an image from the first pixel transmitted.
@@ -172,15 +170,14 @@ IMAGE\_DATA & 4 $\overbrace{ [packet number]}^{2bytes} \overbrace{[image data]}^
 
 \section{Get Image Algorithm}
 \label{get image algorithm}
-In order to take the picture and send it back to the ground station is very important and it has a complex signal algorithm to do.
-The plan is when the user click on the Get Picture button, the program sends a \textbf{string command} to the ground station software.
+The plan is of getting image button is when the user click on the Get Picture button, the program sends a \textbf{string command} to the ground station software.
 Then the ground station software generates a \textbf{byte command} to transmitted by TCP to the payload. 
 Then the payload sends a ''Picture Taken'' command back through the data stream port to the Image Viewer Program. 
 Picture taken button has been tested in section\ref{sec:test_get_image_button}
 The Image Viewer Program will then automatically send a download request command to the payload. 
 The payload will then send image data back to the data stream port. 
 
-When the program start running, the program initialized the port and commands the customer’s application to tell the UAV to stream data to the data stream port. Figure~\ref{GCS_connect_command} shows the connection between the UAV data stream port and the ground station. The UAV has two ports, console port, and data stream port and it can send and receive any length of data. There are some global initializations that the software needs to perform only once when it is loaded for the first time. Note that the console port is manually connected by the ground control station software. The image viewer will give a warning in message box when there is no connection.
+When the program start running, the program initialized the port and commands the customer’s application to tell the UAV to stream data to the data stream port. Figure~\ref{GCS_connect_command} shows the connection between the UAV data stream port and the ground station.
 
 \begin{figure}[!hbtp]
 \begin{center}
@@ -193,7 +190,7 @@ When the program start running, the program initialized the port and commands th
  
 \section{Code Highlight}
 
-This section describes the code that is important for the program. The entire code will not be described but it will be in the appendices. It needs a class that can do these to port: connect, receive and send. \texttt{FileStream} class is a class in the .NET C\# which can create a file. \texttt{BinaryWriter} class is use for writing the byte data into a specific file made by the \texttt{FileStream} class. The file directory will introduce a thread. While the open or save a file, the main application must be running, so the application needs to deal with multi threads at the same time. Also when the get picture button got clicked, the main application is frozen because of the thread time organize do one thing at a time. 
+This section describes the code that is important for the program. The entire code will not be described but it will be in the appendices. It needs a class that can do these to port: connect, receive and send. \texttt{FileStream} class is a class in the .NET C\# which can create a file. \texttt{BinaryWriter} class is use for writing the byte data into a specific file made by the \texttt{FileStream} class. 
 
 \subsubsection*{Connect to UAV:Appendix \ref{appen:UAVConnector} line 18-38.}
 The \texttt{Socket} class has functions to send and receive byte and strings data. The handshaking protocol is using \texttt{PortConnect()} method.  
@@ -204,29 +201,21 @@ This class has been tested using a console application before implementing it in
 This will complete milestone\ref{sec:ms_pl_tx_token_resp}.
 
 \subsection{Start of the program: Appendix \ref{appen:main_form} line 78-87}%
-In order to make the file name different and meaningful, the name of the picture will be the time and date of the time taken the picture. The code \texttt{DateTime.Now} generate a string of date and time of the current time. This has been done using the date and time class. \texttt{FileStream} was initialize to be in \texttt{FileMode.Create()}, so it can create file. The BinaryWriter write the binary byte into a file in the directory of the fileStream. \texttt{string fileName = string.Format("uavPictureAt{ 0 : yyyy-MM-dd\_ hh-mm-ss-tt}
- .jpg", DateTime.Now);   }  
-This code time setting is valid for a file name because it is not using any symbol that will make the program confuse with a code. 
-It will display year, month, date, and time in this order. 
+\texttt{FileStream} was initialize to be in \texttt{FileMode.Create()}, so it can create file. The BinaryWriter write the binary byte into a file in the directory of the fileStream.
 The \texttt{BinaryWriter} class can create a binary file using specific data layout for its bytes. 
 
-\subsection{Change File Directory:Appendix \ref{appen:main_form} line346-370 and 454-484 }% 
-If the user wishes to change the directory of the image taken, the image viewer program must support it. the mnuOpen\_click() method introduce an OpenFileDialog class. It begins with open file dialog box. This allows the user to open an initial image to the program. If the user took a picture, it will be saved in the same directory as the open file. This file dialog is limited to only the jpg picture in order to avoid the error of displaying the image. 
-        
+
 \subsection{Text Command:Appendix\ref{appen:UAVConnector} line 68-85}
-TCP/IP protocols transfer data without modifying them. This allow the application to freely encode the data.\cite{davidB}.The Ground station software allow the program to send a stream of string in bytes and it will read the command bytes and send it to the payload on the UAV. The code has shown the way to implement the string and send a byte array to the payload.
+TCP/IP protocols transfer data without modifying them. 
+This allow the application to freely encode the data \cite{davidB}.
+The Ground station software allows the program to send a stream of string in bytes and it will read the command bytes and send it to the payload on the UAV. The code has shown the way to implement the string and send a byte array to the payload.
 
-To send text, the string of characters is translated into an array of bytes. American Standard Code for Information Interchange(ASCII) is use for translating English into a binary code. In the \texttt{System.Text} classes provide converting mechanism between each character sets. The \texttt{ASCIIEncoding.GetBytes()} is used for convert character array into a byte array.  
-\texttt{The Socket.Send()} method allows the user to send byte stream to the port connected. The customer's program will read from the port and display it onto the command line. The ''@ '' sign indicate that the command correctly sent from the application to the ground station software. The advantage of linking to the ground station software is that our customers can understand what is going on in the console line. For example:uavConn.SendTextToUAV(''da 20 payload[0].mem\_ bytes[0]'');
-
-
-The text \texttt{''da 20 payload[0].mem\_ bytes[0]''} will be converted to char array and then to byte array. The byte array will then send the command to the console port to the payload by \texttt{consolePort.Send(toUAVByte, toUAVChar.Length)}. The customer is familiar with the ground station software program, so he can understand the background of the transmission as well. This will complete Milestone\ref{sec:ms_pl_rx_msg_gs}.
+\texttt{The Socket.Send()} method can send bytes to the ground station software. The ''@ '' sign indicate that the command is correct. For example:uavConn.SendTextToUAV(''da 20 payload[0].mem\_ bytes[0]'');
+The text \texttt{''da 20 payload[0].mem\_ bytes[0]''} will be converted to char array and then to byte array. The byte array will then send the command to the console port to the payload by \texttt{consolePort.Send(toUAVByte, toUAVChar.Length)}. This will complete Milestone\ref{sec:ms_pl_rx_msg_gs}.
 
 In order to test that the payload receives the same data, we use the oscilloscope to see the signal. The byte display on the payload is the same as the byte data send from the ground station. Therefore, the Milesone\ref{sec:ms_pl_img_gs_trigger} is completed. The different resolutions send different byte command to the payload. The byte command changes if the comboBox options change. Therefore, we can say that Milestone\ref{sec:ms_pl_img_gs_cam_res} has completed.
 
-\subsection{I/O Streams}
-    The .NET framework's stream class is use as a powerful tool for encoding and decoding\cite{davidB}. In the image viewer program, we use FileStream to create a directory and to save the byte data into image. However, the program might have to deal with a corrupted image data. Framing is the problem of the receiver failed to find the beginning and the end of the message. The solution is the data packet gives the information of how many loop must the program do in order to receive all the image data. The packet address locates in the second and third byte of the image data stream. This will make the completion of Milestone \ref{sec:ms_pl_shared_mem_set}
-    
+
 \begin{lstlisting}[caption={writing binary file},label=lst:writingb]          
 	for (int i = 3; i < packetSize; i++)
 	{
@@ -293,7 +282,7 @@ image at designated way-points:
 \end{itemize}
 
 \subsection{Other functions}
-The user might want to delete some unwanted photo, so the delete button have been implemented. The delete button work like a normal file deleting button. But it has been complicated because the photo to delete must be the photo on the pictureBox. There is an error because the photo is using by the pictureBox. To fix this problem, the picture have to shifted left or right first and then delete the photo. But where there is only one picture in the file, the program is not allow to delete because even the pictureBox is set to null, its last memory is still point at the deleting file. However, the disadvantage of the delete button is that if the wanted photo got deleted accidentally, it might take a long time to launch the UAV again and take the same photo. The program can also detect the corrupted image and ask the user to delete it.
+The delete button work like a normal file deleting button. But where there is only one picture in the file, the program is not allow to delete because even the pictureBox is set to null, its last memory is still point at the deleting file. However, the disadvantage of the delete button is that if the wanted photo got deleted accidentally, it might take a long time to launch the UAV again and take the same photo. 
 
 \begin{figure}[H]
 \begin{center}
@@ -303,8 +292,6 @@ The user might want to delete some unwanted photo, so the delete button have bee
 \end{figure}
 The camera has options of resolution as shown in Figure\ref{resolutionOption}. This can be useful when the speed is important. The lower the resolution, the faster the data transmitted to the ground. GUI has the combo box for the user to choose any wanted resolution in the options. The resolution allow user to have more accessible to the camera. However, this mean there is more on the programmer side to program the application.
 
-
-The baud rate that we can transmit data from the UAV is 38.4kBaud. Bandwidth limitations severely restrict the volume of data to transfer over the wireless link. It takes around 8 to 20 seconds to transmit an image of resolution 640x480. This progress bar tells the user how much percentage of data received. The progress bar update at each cycle of the data receives. At the end of each image downloaded, the progress bar reset to its normal state.  The status text tells the user what signal have been sent or received. This status text ensures that the picture is downloading and it is good for testing that the tasking in process. These two nice application allocate on the bottom left of the GUI as shown in Figure\ref{progressBar}. However, these have to implement every cycle of the data collection and it might cause the cycle to run slower. The actual loop is much faster than the 38.4kbaud, therefore there is no problem implementing these in.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.3\textwidth]{figures/progressBar.png} 
@@ -313,7 +300,7 @@ The baud rate that we can transmit data from the UAV is 38.4kBaud. Bandwidth lim
 \end{figure}
 
 \section{Complete System}
-After all the implementation has completed, all the function will be tested together. All the smaller program that we have implemented will be combined at this stage. The send and receiving will use to implement the communication between the payload and the Image Viewer Software. The display of image data will implement as a final display of the image.  Figure \ref{completeSystem} shows a final working GUI of our program. 
+After implementations has completed, functions will be tested together. The display of image data will implement as a final display of the image.  Figure \ref{completeSystem} shows a final working GUI of our program. 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{testing_screenshots/ui.png} 
