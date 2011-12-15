@@ -4,7 +4,6 @@
 \label{chap:implementation}
 
 \section{Overview (mh)}
-||||||| Might not want this in its own section ||||||||
 
 The payload controller module is an important part of the system, responsible
 for interfacing with the camera module and communicating with the ground 
@@ -36,7 +35,7 @@ submodules:
 \input{implementation_progressive_jpeg}
 
 \section{Integration of Payload Sub-Modules (mh)}
-
+\label{sec:int_pl}
 %|||||||| REMINDER: DISCUSSION OF ARDUINO MULTIPLEXED SERIAL
 
 \subsection{Integration of Camera Module with SD Card}
@@ -81,8 +80,8 @@ buffers to form a bus with the two devices TX and RX lines. The payload software
 could then take care of altering the message format and speed when needed.
 
 Unfortunately, due to time constraints alongside setbacks such as those
-discussed in sections ||||||| REF AUTOPILOT BUG |||||||| and |||||||| REF 
-CAMERA FAILURE |||||||| it was decided that implementing the system on the 
+discussed in sections \ref{sec:probls_pl} and \ref{sec:cam_prob}
+ it was decided that implementing the system on the 
 Arduino platform may not the best way to proceed. The main reason for this 
 decision was the number of unknowns in the planned multiplexed implementation
 - since it was not really how the hardware is designed to be used, it was not
@@ -149,7 +148,16 @@ the connected PC over serial. Again, having the use of this debug interface
 proved very useful while implementing the system, and was well worth the 
 small amount of extra time taken to develop it.
 
-||||| INC EXAMPLE OF DEBUG TEXT (MAYBE SCREENSHOT) ||||||
+Figure \ref{fig:debud_conn} shows an example of this debug interface seen on
+a serial terminal on a PC.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{testing_screenshots/camera_image_saving_sd_card_test.png}
+        \captionof{figure}{Debug text sent from the payload over the debug interface.}
+        \label{fig:debud_conn}
+\end{figure}
+
 
 %\section{Development Testing and Debugging (mh)}
 %The payload module and submodules were tested throughout development in order 

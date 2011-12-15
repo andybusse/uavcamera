@@ -1,7 +1,8 @@
 \section{Interfacing the Arduino with an SD card (ab)}
 \label{sec:SD_imp}
 
-Interfacing the arduino with an SD card is a rather trivial process. Using an Arduino Uno, a multiple-size SD card socket from Zepler stores, and the 
+Interfacing the arduino with an SD card is made possible using the arduino SD card library \cite{arduino_sd_library}. Using an Arduino Uno,
+ a multiple-size SD card socket from Zepler stores, and the 
 "ReadWrite" test program provided in the arduino-022 IDE, we connected the following Arduino pins to the following SD card pins:
 
 \begin{itemize}
@@ -19,5 +20,5 @@ SD card library does not support 1-wire or 4-wire SD mode.
 \subsection{File Naming System}
 
 This example program is useful, but only allows us to write to one file name at 
-a time. Therefore, a method was written \ref{arduino_captureTest}, lines 62-68 that detects all of files present on the SD card, increments the filename, and 
+a time. Therefore, a method was written, see appendix \ref{lst:arduino_captureTest}, lines 62-68 that detects all of files present on the SD card, increments the filename, and 
 writes the new data to that filename.

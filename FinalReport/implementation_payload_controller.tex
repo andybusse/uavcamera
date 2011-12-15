@@ -3,10 +3,10 @@
 Considering the overall aim of this project: to produce a system by which 
 images can be downloaded over-the-air from a payload module to a ground 
 station, some method of communicating between the
-payload module and ground station are an essential component in the system.
+payload module and ground station is an essential component in the system.
 
 The specification requires the payload
-module to communicate with the ground station using the autopilots payload
+module to communicate with the ground station using the autopilot's payload
 module interface (discussed in section \ref{sec:autopilot_payload_interface}).
 
 %To better explain the protocol used we will split the explanation into two 
@@ -19,7 +19,7 @@ module interface (discussed in section \ref{sec:autopilot_payload_interface}).
 \label{sec:payload_existing_code}
 Our customer had provided us with some payload module communication AVR code
 - written for a ATMega168 - for communicating with the autopilot. This code
-was the basis on which the payload controllers communication link was built.
+was the basis on which the payload controller's communication link was built.
 
 The code provided a number of useful utilities:
 \begin{itemize}
@@ -29,13 +29,11 @@ The code provided a number of useful utilities:
 
 \item Ability to receive messages sent from the Ground Station to the 
 autopilot.
-
-\item Example code for setting shared memory on the autopilot.
 \end{itemize}
 
 This base code was modified slightly after a bug was found in its handling of 
 the transmit enable signal. The RS485 communication protocol used for the 
-autopilot-payload link (as described in section |||||||| SEC ||||||||) 
+autopilot-payload link (as described in section \ref{sec:autopilot_research}) 
 requires a `transmit enable' signal to be asserted when the payload is 
 transmitting. This signal should be asserted just before data is to be sent 
 and cleared just after. However, the original payload base code cleared this 
@@ -43,15 +41,14 @@ signal in an interrupt service routine (ISR) which fired after the transmit
 buffer of the UART was ready to accept new data. Since this transmit buffer 
 would be ready to accept new data before the data was actually sent over the
 physical connection this lead to the transmit enable signal being cleared
-before all data had been sent, causing strange behaviour on the RS485 link.
-This bug did not seem to cause any problems, and the odd behaviour was only
-noticed when testing the system with an oscilloscope. ||||| INC TRACES ||||||
+before all data had been sent, causing strange behavior on the RS485 link where the signal would decay over a significant period of time on transitions from high to low.
+This bug did not seem to cause any problems, and the behavior was only
+noticed when testing the system with an oscilloscope.
 It was considered sensible to fix the bug in case it did cause problems later.
 
 The fix for this problem was reasonably simple: a new ISR was set up which 
 fired only when the current transmission had actually completed, and the 
 command to clear the transmit enable signal was moved into this ISR.
-||||| INC AFTER TRACE ||||||
 
 \subsection{Establishing Contact with the Autopilot (mh)}
 
@@ -66,8 +63,7 @@ oscilloscope showed that the autopilot was not sending transmit tokens.
 After spending some time ruling out problems with our own design that could be
 causing this, including looking at the RS485 chip in case it was conflicting with the
 autopilots serial bus or malfunctioning, we contacted our customer and queried 
-whether it could be a problem with the autopilot itself, presenting our evidence of
-debugging.
+whether it could be a problem with the autopilot itself.
 
 Our customer responded by acknowledging that it was a problem with the autopilot
 and providing us with an updated firmware for the autopilot
@@ -91,7 +87,7 @@ allowed this to be completed quickly also. Section \ref{sec:test_pl_receive_mess
 the steps taken to test this.
 
 \subsection{UAV Camera Communication Protocol (mh)}
-As discussed in section |||||||| REF |||||||| it was decided that 
+As discussed in section \ref{sec:appro_cons_pl_gs_comms} it was decided that 
 our communications protocol would use shared memory and \emph{send\_bytes} 
 commands, allowing two way communications between the payload controller and 
 ground station software to be established. With the ability to receive and send data
@@ -100,7 +96,7 @@ implementing a communications protocol used to talk between the our ground stati
 image viewer software and the payload.
 
 The method through which this shared memory is accessed via the ground station
-image viewer is discussed in chapter \ref{chap:implementation_ground_station}.
+image viewer is discussed in chapter \ref{chap:implementation_ground_station }.
 
 %The Payload Module Interface discussed above (section \ref{sec:autopilot_payload_interface})
 %allows us to send strings of bytes in both directions. However, in order to 
@@ -108,7 +104,7 @@ image viewer is discussed in chapter \ref{chap:implementation_ground_station}.
 %additional communications protocol is required so that both ends of the link 
 %are communicating in a mutually understandable manner.
 
-This two way communications is the interface between the payload and the 
+This two way communications link is the interface between the payload and the 
 ground station software, so some standard protocol was required. It was decided
 that a message based system would be used, with the messages from the ground
 station to the payload module being sent using \emph{send\_bytes} and the 
@@ -213,7 +209,7 @@ The basic sequence for sending data from the payload controller to the autopilot
 by the customers existing code to place messages into the autopilots shared memory to be accessed by the
 ground station, as described earlier. Only one set of shared memory is used, and is overwritten every time 
 a new message is to be sent from the payload controller to the ground station.
-Other features such as configuration of camera resolution are implemented using this basic mechanism, figure \ref{sequence diagram} describes many the sequence diagram of the data transmission.
+Other features such as configuration of camera resolution are implemented using this basic mechanism, figure \ref{sequence diagram} describes many of the communication sequences that can occur.
 
 
 \begin{figure}[H]
@@ -236,6 +232,7 @@ as described.
 Verification of milestone \ref{sec:ms_pl_img_gs_cam_res} (changing image resolution) can be seen in test \ref{sec:test_change_resolution}. Unfortunately changing colour type (milestone \ref{sec:ms_pl_img_gs_cam_colour_type})  was not fully implemented due to time constraints.
 
 \subsection{Problems Encountered (mh)}
+\label{sec:probls_pl}
 A number of problems were encountered and overcome during the implementation of the payload-ground station
 communication code, a few of the most important are reproduced here.
 
