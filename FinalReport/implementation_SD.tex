@@ -1,0 +1,22 @@
+\section{Interfacing the Arduino with an SD card}
+
+Interfacing the arduino with an SD card is a rather trivial process. Using an Arduino Uno, a multiple-size SD card socket from Zepler stores, and the 
+"ReadWrite" test program provided in the arduino-022 IDE, we connected the following Arduino pins to the following SD card pins:
+
+\begin{itemize}
+\item Arduino GND - SD GND (pins 3 and 6)
+\item Arduino 3V3 - SD Vdd (pin 4)
+\item Arduino Digital pin 11 - SD MOSI (pin 2)
+\item Arduino Digital pin 12 - SD MISO (pin 7)
+\item Arduino Digital pin 13 - SD SCLK (pin 5)
+\item Arduino Digital pin 4 - SD CS (pin 1)
+\end{itemize}
+
+Communication with the SD card only works in SPI mode, unfortunately the built-in 
+SD card library does not support 1-wire or 4-wire SD mode.
+
+\subsection{File Naming System}
+
+This example program is useful, but only allows us to write to one file name at 
+a time. Therefore, a method was written \ref{arduino_captureTest}, lines 62-68 that detects all of files present on the SD card, increments the filename, and 
+writes the new data to that filename.
