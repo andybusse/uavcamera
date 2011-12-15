@@ -1,4 +1,4 @@
-\section{Payload Controller Hardware}
+\section{Payload Controller Hardware (mh)}
 The hardware used to implement the payload controller is an important consideration.
 
 The exact requirements for this module depend on other design decisions made, such as the method used to interface with the camera module. However since the module must communicate with the autopilot over a RS-485 serial connection at 38.4 kBaud this requires the module have access to a UART (Universal asynchronous receiver/transmitter).
@@ -112,7 +112,7 @@ We chose to use an Atmel 8-bit AVR as the platform for our implementation of the
 test the system over a DSP based solution. Another key reason was the ease of implementing AVR based systems as 
 stand-alone boards.
 
-\section{Communication between Payload Controller and Ground Station}
+\section{Communication between Payload Controller and Ground Station (mh)}
 One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station image viewer software (see section \ref{chap:implementation_ground_station}) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
 
 The autopilot provides a number of ways to communicate between a payload module and ground station software. The Ground Station software provided to us allows a `packet' of data to be sent to a payload module by executing the command shown below
