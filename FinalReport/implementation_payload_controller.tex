@@ -5,10 +5,9 @@ images can be downloaded over-the-air from a payload module to a ground
 station, some method of communicating between the
 payload module and ground station are an essential component in the system.
 
-The specification - see chapter \ref{chap:specification} - requires the payload
+The specification requires the payload
 module to communicate with the ground station using the autopilots payload
-module interface (discussed in section \ref{sec:autopilot_payload_interface}
-below).
+module interface (discussed in section \ref{sec:autopilot_payload_interface}).
 
 %To better explain the protocol used we will split the explanation into two 
 %sections: a \emph{Autopilot Payload Interface} section describing the
@@ -24,6 +23,8 @@ was the basis on which the payload controllers communication link was built.
 
 The code provided a number of useful utilities:
 \begin{itemize}
+\item Basic connection to the autopilot, including responding to transmit tokens.
+
 \item Ability to set shared memory on the autopilot.
 
 \item Ability to receive messages sent from the Ground Station to the 
@@ -52,24 +53,48 @@ fired only when the current transmission had actually completed, and the
 command to clear the transmit enable signal was moved into this ISR.
 ||||| INC AFTER TRACE ||||||
 
-\subsection{Establishing Contact with the Autopilot}
+\subsection{Establishing Contact with the Autopilot - (andy)}
 
+The first step in implementing the communications link was to establish contact with
+the autopilot using the existing module code, the relavant milestone being
+\ref{sec:ms_pl_tx_token_resp}.
 
+||||||||||||||| ANDY - stuff about autopilot bug ||||||||||||||||||||
+|||||||||||||| There are some nice scope traces we sent to matt in an email where the autopilot wasn't working which you can use here ||||||||||||||||
+
+Section \ref{sec:test_pl_est_contact} describes the succesful testing of this part of
+the implementation.
+
+\subsection{Setting Shared Memory on the Autopilot - (mh23g08)}
+Once basic contact had been established the next task was to set shared memory on
+the autopilot - as per milestone \ref{sec:ms_pl_shared_mem_set}. The existing code
+provided allowed this to be completed quickly using the built in functions. Section 
+\ref{sec:test_pl_set_shared_mem} details the tests carried out to validate this
+was working.
+
+\subsection{Recieving Messages from the Ground Station - (mh23g08)}
+It was important to ensure that the payload recieved messages correctly from the ground
+station before continuting with the implementation of this section, the customers provided code
+allowed this to be completed quickly also. Section \ref{sec:test_pl_receive_message} describes 
+the steps taken to test this.
 
 \subsection{UAV Camera Communication Protocol}
 As discussed in section |||||||| REF |||||||| it was decided that 
 our communications protocol would use shared memory and \emph{send\_bytes} 
 commands, allowing two way communications between the payload controller and 
-ground station software to be established.
+ground station software to be established. With the ability to recieve and send data
+with these messages tested as described above, implementation could now begin on
+implementing a communications protocol used to talk between the our ground station 
+image viewer software and the payload.
 
 The method through which this shared memory is accessed via the ground station
 image viewer is discussed in chapter \ref{chap:implementation_ground_station}.
 
-The Payload Module Interface discussed above (section \ref{sec:autopilot_payload_interface})
-allows us to send strings of bytes in both directions. However, in order to 
-communicate with the ground station image viewing software some form of 
-additional communications protocol is required so that both ends of the link 
-are communicating in a mutually understandable manner.
+%The Payload Module Interface discussed above (section \ref{sec:autopilot_payload_interface})
+%allows us to send strings of bytes in both directions. However, in order to 
+%communicate with the ground station image viewing software some form of 
+%additional communications protocol is required so that both ends of the link 
+%are communicating in a mutually understandable manner.
 
 This two way communications is the interface between the payload and the 
 ground station software, so some standard protocol was required. It was decided
@@ -155,6 +180,11 @@ data for this packet and is variable size, with a maximum size of 50 bytes.
 
 \end{itemize}
 
+
+Implementing this communications protocol was a significant challenge and was a major
+component of the payload module implementation. The existing code provided by our 
+customer provided some hooks for 
+
 Figure\ref{sequence diagram} is the sequence diagram of the data transmission.
 \begin{figure}[H]
 \begin{center}
@@ -162,6 +192,7 @@ Figure\ref{sequence diagram} is the sequence diagram of the data transmission.
 \end{center}
 \caption{Sequence Diagram of the Data flow\label{sequence diagram}}
 \end{figure}
+
 
 |||||||| REMINDER: TALK ABOUT VOLATILE VARIABLE PROBLEM
 
@@ -172,3 +203,5 @@ Figure\ref{sequence diagram} is the sequence diagram of the data transmission.
 %|||||||| REMINDER: JOHN COULD TALK ABOUT HOW BROKEN CAMERAS SLOWED DOWN DEVELOPMENT BUT GOOD PLANNING AND CONTINGENCY MINIMISED RISK OR IN MANAGEMENT SECTION
 %|||||||| REMINDER: FUTURE WORK
 %|||||||| REMINDER: ADD NEWPAGES BETWEEN SECTIONS
+
+
