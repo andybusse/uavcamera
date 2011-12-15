@@ -12,7 +12,7 @@ Python Language programming has variety of useful factors for network programmin
 The code on this language has been proved to be short and effective.
 The class \texttt{ socket} has all the communication method which can be use. 
 The TCP can be use by the program to send a text command on one machine to the another \cite{normanM}. 
-There is a makefile function which the user can use to avoid the missing line of data or an extra line from next cycle of data\cite{normanM,guidoR}. Not only it is useful as a standalone program, but it can link to C/C++ program to do more useful integration.
+There is a makefile function which the user can use to avoid the missing line of data or an extra line from next cycle of data\cite{normanM,guidoR}. 
 It has support of GUI interface which the programmer can debug, and use a profiling tools \cite{sannerM}. 
 
 Advantages:
@@ -37,7 +37,6 @@ At both ends of the communication can be identified by IP address and port numbe
 
 Advantages:
 \begin{itemize}
-\item the code is similar to C/C++, therefore it might be easy for the developer to implement
 \item it object oriented program 
 \item \texttt{Socket} and \texttt{ServerSocket }class support TCP/IP
 \item support GUI application
@@ -46,7 +45,6 @@ Advantages:
 
 Disadvantages:
 \begin{itemize}
-\item can be slower than its native language (C/C++) because it is object oriented program
 \item it can not inherit other language code to use in the program
 \item the developer is not that familiar with the program
 \item limit the effectiveness of customs protocols \cite{elliotH}
@@ -66,20 +64,14 @@ Advantages:
 \item can make and debug window application 
 \end{itemize}
 
-Disadvantages:
-\begin{itemize}
-\item slower than C/C++
-\end{itemize}
 
 The program that will be using to implement the program is C\# language. 
 This is because the program is familiar with the user so it will save time of studying a new language.
 It also support TCP/IP and window application which are main classes needed to implement the program.
 Although Java and Python has been use by many papers and book on network programming, but it need to take time to learn a new language so the developer decided to use C\# \cite{normanM,guidoR,kennethC,elliotH}.
 
-
-
 \subsection{Approach: Different C\# .NET Classes}
-The C\# language on Microsoft Visual Basic Studio is a development environment for creating our Ground Station Image Viewer application. Choosing the right class to connect to the port helps the developer save time to program the application. The class should be able to connect to the UAV port and it must be able to send both byte and string command and receive bytes camera data from the UAV.  The C\# program has two .NET classes that can connect to port. They are SerialPort Class and Socket Class.
+The C\# language on Microsoft Visual Basic Studio is a development environment for creating our Ground Station Image Viewer application. Choosing the right class to connect to the port helps the developer save time to program the application. 
  
 \subsubsection{SerialPort Class}
 The \texttt{System.IO.Ports} namespace contains classes for controlling serial ports. 
@@ -134,8 +126,5 @@ Disadvantage
 
 The socket class was the class chosen for the UAV port connector. 
 It support TCP connection between the client and the server to do low level communication work\cite{xiaX}. 
-The System.IO.Ports namespace has a SerialPort class that can control settings of the port such as baud rate, stop bit, parity bit, and data length.
-However, this become a disadvantage because the baud rate of the UAV has to be fixed according to the specification. 
-Although it is good to set up a port, but for the software that uses an existing port, the Socket class is more useful and easier to implement by the programmer. 
 The changes of class improve efficiency of connection between port and the program. 
 The baud rate and extra bits are automatically adjusted to be the same as the port, so the setting is identical between the input and output.
