@@ -27,9 +27,43 @@ The most obvious method for sending an image progressively is to simply send pix
 \subsection{Huffman Encoding (jc)} 
 \label{sec:general_huff}
 
-Huffman coding is a type of entropy encoding. Huffman code is a variable length code, what is special about it is that it uses "prefix" (also known as "prefix-free") codes whereby the code for one symbol is never the prefix for the code of any other symbol meaning that an input can be imediately recognised. /cite{huffman}
+Huffman coding is a type of entropy encoding. Huffman code is a variable length code, what is special about it is that it uses "prefix" (also known as "prefix-free") codes whereby the code for one symbol is never the prefix for the code of any other symbol meaning that an input can be immediately recognised assuming you know the start point of the sequence. \cite{Huffman}
 
-Huffman codes are assigned to symbols based on the frequency of occurence of the symbol, with the most frequent symbols being assigned the shortest code and the least frequent the longest, this way the data is compressed without any information being lost.
+Huffman codes are assigned to symbols based on the frequency of occurrence of the symbol, with the most frequent symbols being assigned the shortest code and the least frequent the longest, this way the data is compressed without any information being lost. \cite(Huffman)
+
+For example the sentence "This is an example sentence" contains 1: h, x, m, p and l; 2: t, i and a; 3: s and n; and 4: e and would be encoded as follows:
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.00\textwidth]{figures/huffmanTree1.png}
+        \captionof{figure}{Example huffman tree used to encode the sentence "This is an example sentence"}
+        \label{fig:hufftree1}
+\end{figure}
+
+This will then encode the letters as:
+
+\begin{table}[H]
+\begin{tabular}{| l | l|}
+\hline
+\textbf{Letter} & \textbf{Prefix code} \\ \hline \hline
+e & 01 \\ \hline
+s & 110 \\ \hline
+n & 111 \\ \hline
+t & 001 \\ \hline
+i & 1001 \\ \hline
+a & 1011 \\ \hline
+h & 0000 \\ \hline
+x & 0001 \\ \hline
+m & 10000 \\ \hline
+p & 10001 \\ \hline
+l & 10100 \\ \hline
+l & 10101 \\ \hline
+\end{tabular}
+\caption{Example huffman code table}
+\label{tab:huff1}
+\end{table}
+
+It can be seen from table \ref{tab:huff1} that the huffman code has encoded the most common symbol with the shortest code and none of the codes are prefixes of any of the others.
 
 \subsection{Colour Space Conversion (ms)}
 \label{sec:colour_space_conversion}
