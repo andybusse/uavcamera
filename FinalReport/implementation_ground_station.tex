@@ -275,6 +275,48 @@ This will complete Milestone\ref{sec:ms_pl_img_sending_gs}.
 \caption{Final work flow diagram of the GUI\label{GUI_finalWorkFlow}}
 \end{figure}
 
+\subsection{Implementation - Way-point Triggering (ms)}
+\label{sec:waypoint_triggering}
+
+\subsubsection{Description}
+
+The ground station is capable of assigning way-points to
+the payload which will allow the camera to take pictures 
+at a given location.
+
+This is achieved by sending a simple command script from
+the ground station to be uploaded by the payload 
+controller. The way-point is designated by the user
+through the ground station software. The script 
+tells the UAV controller to continuously check the
+distance separating itself from the way-point.
+When the UAV reaches is within 200 metres of the
+way-point, a 0 byte is sent to the camera to prompt
+the camera to take a picture.
+
+After taking a picture at the way-point, the camera
+is delayed for 10 seconds to avoid taking another picture
+at the same way-point. When the 10 second delay is over,
+the camera repeats the operation and continuously checks
+its distance from the next waypoint.
+
+\subsubsection{Pseudo-code description}
+
+Below is a brief pseudo-code description of the script
+sent by the ground station to the payload to take an
+image at designated way-points:
+
+\begin{itemize}
+	\item while !(UAV distance from next way-point $le$ 200 metres)
+		\begin{itemize}
+			\item Do nothing.
+		\end{itemize}
+	\item end while
+	\item Prompt camera to take an image.
+	\item wait 10 seconds
+	\item Re-enter while loop
+\end{itemize}
+
 \subsection{Other functions}
 The user might want to delete some unwanted photo, so the delete button have been implemented. The delete button work like a normal file deleting button. But it has been complicated because the photo to delete must be the photo on the pictureBox. There is an error because the photo is using by the pictureBox. To fix this problem, the picture have to shifted left or right first and then delete the photo. This will solve almost all the problem. But where there is only one picture in the file, the program can not delete because even the pictureBox is set to null, it's last memory is still point at the deleting file. However, the disadvantage of the delete button is that if the wanted photo got deleted accidentally, it might take a long time to launch the UAV again and take the same photo.The program can also detect the corrupted image and ask the user to delete it.
 
