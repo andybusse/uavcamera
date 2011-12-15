@@ -1,4 +1,4 @@
-\section{Communication with Ground Station via Autopilot}
+\section{Communication with Ground Station via Autopilot (mh)}
 \label{sec:payload controller}
 Considering the overall aim of this project: to produce a system by which 
 images can be downloaded over-the-air from a payload module to a ground 
@@ -53,7 +53,7 @@ fired only when the current transmission had actually completed, and the
 command to clear the transmit enable signal was moved into this ISR.
 ||||| INC AFTER TRACE ||||||
 
-\subsection{Establishing Contact with the Autopilot - (mh)}
+\subsection{Establishing Contact with the Autopilot}
 
 The first step in implementing the communications link was to establish contact with
 the autopilot using the existing module code, the relevant milestone being
@@ -77,14 +77,14 @@ After this bug was fixed the payload responded as expected,
 section \ref{sec:test_pl_est_contact} describes the successful testing of this part of
 the implementation.
 
-\subsection{Setting Shared Memory on the Autopilot - (mh23g08)}
+\subsection{Setting Shared Memory on the Autopilot}
 Once basic contact had been established the next task was to set shared memory on
 the autopilot - as per milestone \ref{sec:ms_pl_shared_mem_set}. The existing code
 provided allowed this to be completed quickly using the built in functions. Section 
 \ref{sec:test_pl_set_shared_mem} details the tests carried out to validate this
 was working.
 
-\subsection{Recieving Messages from the Ground Station - (mh23g08)}
+\subsection{Recieving Messages from the Ground Station}
 It was important to ensure that the payload recieved messages correctly from the ground
 station before continuting with the implementation of this section, the customers provided code
 allowed this to be completed quickly also. Section \ref{sec:test_pl_receive_message} describes 
