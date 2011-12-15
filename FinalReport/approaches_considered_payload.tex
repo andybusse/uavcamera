@@ -5,13 +5,13 @@ The exact requirements for this module depend on other design decisions made, su
 
 %Additional requirements depend on other design decisions:
 
-\begin{itemize}
+%\begin{itemize}
 %\item \emph{Camera communication:} Using a serial camera would mean the controller requiring access to another UART, while using a USB camera leaves the camera needing access to a USB host interface. Similarly using an analogue camera would mean either the controller be capable of digitising the camera data itself or having a method of interfacing with an external digitiser.
  
 %\item \emph{Image buffering:} Most embedded systems do not have enough RAM or Flash to store a reasonable sized image on onboard memory. As described in section \ref{sec:local_storage}, there are a number of approaches worth considering for externally buffering an input image, however these do require the controller to have an interface with which to communicate with the external memory. 
 
 %\item \emph{Progressive JPEG Manipulation:} Section \ref{sec:implementation_progressive_jpeg} details several ways progressive JPEG manipulation could be tackled. Depending on the design choice taken this could influence the requirements of the controller substantially. Examples of such requirements could be: extra processing power, fast access to memory or FFT or DCT libraries being available for the device.
-\end{itemize}
+%\end{itemize}
 
 \subsection{Approach: Digital Signal Processor (DSP) Development Board}
 An appropriate Digital Signal Processor (DSP) development board would provide fast digital signal processing capabilities to the controller. This would be especially useful for the situations mentioned in section \ref{sec:implementation_progressive_jpeg}.

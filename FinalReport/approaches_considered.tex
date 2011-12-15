@@ -22,15 +22,39 @@ the course of the project. These amended milestones can be seen in section \ref{
 \input{approaches_considered_GUI}
 
 
-\section{Physical Implementation}
+\section{Physical Implementation (ab)}
 
 Our specification states that the final module delivered to the customer 
-should be on PCB, if time permits. 
+should be on PCB, if time permits. Using existing breakout board type devices 
+(such as the Arduino) and a daughter board would make the project far cheaper for 
+one-off applications (one-off PCBs can be rather expensive) while still fitting 
+this specification point, 
+but would increase construction time to reproduce it, and increase the weight 
+and volume of the module, two critical components of the project.
+
+However, producing a bespoke PCB has the advantage of being smaller 
+and lighter, and assembly could be handled by an external company.
+
+Producing a stripboard solution would be implemented only if time and budgetary constraints are against us: 
+whilst being the cheapest option, it would be larger than a PCB solution and not as robust.
 	
 \subsection{Power Source}
 
+We also need to consider how such a module will be powered, and plan for both the following considerations:
+
 \subsubsection{Approach: Battery Powered}
 
+Providing a header on our final payload to attach an external power source 
+should the Autopilot not be able to provide enough power would seem a 
+sensible option. As this battery is likely to be Lithium-Ion or 
+Lithium-Polymer, implementing a charging circuit may be considered, but would 
+be dangerous to test. (Lithium Polymer batteries are prone to damage if incorrectly charged)
+
 \subsubsection{Approach: Autopilot Powered}
+
+It should be possible to source enough power from the Autopilot, which can 
+comfortably provide up to 200mA at 3.3V. Designing our module to be as low-powered 
+as possible would be beneficial (this extends the time the autopilot will be 
+able to fly)
 
 \input{milestones_amended}
