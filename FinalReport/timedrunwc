@@ -1,0 +1,6 @@
+while [ 1 ]
+do
+git pull central master
+./wordcount.sh
+sleep 60
+done
