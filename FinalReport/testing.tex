@@ -55,7 +55,9 @@ the download process.
 A total of 10 measurements were taken, as shown in table \ref{table:download_time_test}.
 The time taken for the image capture to the SD card and subsequent download are both
 shown. A mean time of \textbf{19 seconds} can be seen. Variations in time are down to the
-variations in size of the JPEG images. This is well within the 3 minutes required by the specification.
+variations in size of the JPEG images. This is well within the 3 minutes required by the specification (see \ref{sec:spec_b}).
+
+This test was completed on the final PCB, validating milestone \ref{sec:ms_phy_pcb_complete}.
 
 \begin{table}[!hbtp]
 
@@ -81,6 +83,10 @@ variations in size of the JPEG images. This is well within the 3 minutes require
 	\caption{Download times for 640 x 480 image, recorded by stopwatch so subject to some human error. In all cases download was started by pressing the "Get Picture" button on the ground station UI.}
 	\label{table:download_time_test}
 \end{table}
+
+\section{System Test: Final Module Weight - (ab)}
+The final populated PCB and camera weighed 57g alone and 70g with the plastic container for 
+camera - well below the 250g specified in \ref{sec:spec_c}.
 
 \input{testing_flight}
 
