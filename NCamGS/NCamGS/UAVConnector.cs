@@ -54,7 +54,14 @@ namespace NCamGS
             }
             int numBytes = sizeByte[0];
             byte[] recBytes = new byte[numBytes];
-            dataPort.Receive(recBytes, numBytes, SocketFlags.None);
+            try
+            {
+                dataPort.Receive(recBytes, numBytes, SocketFlags.None);
+            }
+            catch
+            { 
+                
+            }
             return recBytes;
         }
 

@@ -1,0 +1,62 @@
+\section{Team resources (jc)}
+\label{team_resources}
+
+This section of the management chapter covers how we controlled our use of physical resources rather than time or personnel resources. This consists of managing our budget and what we had to buy as well as what resources we had already or were provided with.
+
+\subsection{Budget (jc)}
+
+Our overall budget was \pounds 200 and we stayed within that while at the same time not letting it constrain us when we needed to purchase components.
+
+\begin{table}[H]
+\begin{tabular}{| l | r || r |}
+\hline
+\textbf{Component description} & \textbf{Quantity} & \textbf{Combined cost} \\ \hline \hline
+RS485 bus transceiver (SOIC14) & 3 & 9.684 \\ \hline
+RS485 bus transceiver (DIP14) & 3 & 9.756 \\ \hline
+RS485 bus transceiver & 1 & 6.96 \\ \hline
+Logic level converter (SOT235) & 3 & 9.684 \\ \hline
+RJ45 Socket & 4 & 3.072 \\ \hline
+4M flash chip (8DIP) & 4 & 2.592 \\ \hline
+Arduino mega protoshield & 1 & 5.46 \\ \hline
+Arduino uno protoshield & 1 & 4.38 \\ \hline
+microSD breakout board & 1 & 5.99 \\ \hline
+Camera module - serial JPEG TTL & 2 & 88 \\ \hline \hline
+ & Total cost: & 145.58 \\ \hline
+\end{tabular}
+\caption{Table of expenditures}
+\label{expenditure}
+\end{table}
+
+The above table (table \ref{expenditure}) details the way that the project budget was spent. The first column is a brief description of the component, the second column is the number that have been ordered and the third column is the total cost of those components.
+
+The biggest drain on the budget was the camera modules as at \pounds 44 each these were the most expensive components. The first camera breaking was a set-back and some alternative camera options were investigated quickly but it was decided that the uCam was the best option and a new one was ordered, thankfully there was still plenty left of the budget to accommodate this.
+
+\subsection{Electronic Material (jc)}
+
+\subsubsection{Laboratory Equipment}
+
+We were given access to the "Advanced electronics lab" on level 3 of the Zepler building. This gave us some bench-space and access to a wide range of lab equipment.
+
+Of the lab equipment available to us the only pieces we actually used were the digital oscilloscope and the bench-top power supply. The oscilloscope was used at various stages through development to verify signals were doing what they should be, where they should be. The power supply was used to power the camera when it was discovered that the combination of SD-card and camera was drawing more current than could be supplied by the arduino.
+
+\subsubsection{From the customer}
+
+We were provided with a skycircuits autopilot \cite{SkyCircuits} as described in [] ref to research section on the auto pilot [] and some software to interface with it from the ground [] ref section describing this [].
+
+We were also provided with some example microcontroller code and a schematic for a dummy payload module i.e. a payload module that can recognise transmit tokens but that doesn't actually do anything.
+
+\subsubsection{From ourselves}
+
+We also had access to a range of equipment that we owned personally this included a selection of development boards:
+
+\begin{itemize}
+	\item Arduino uno, see section \ref{arduino_imp} \cite{arduino_serial_library}
+	\item Olimexino-STM32
+	\item mbed LPC1768 Header Board
+\end{itemize}
+
+This gave us a range of possibilities for investigation into different implementations and initial development.
+
+Another bit of personally owned equipment that proved useful during development and testing was a USB to serial cable which was used to initially test the second camera with the 4D systems software \cite{ucam_test_software}, see section \ref{sec:existing_software_test}. This cable was also then used to attach the debug line for the rest of the development on the arduino platform.
+
+The last bit of personally owned equipment that was used in this project was a micro SD card which was used for storing the images that come off the camera [] ref to sd section []. The mounting for this used during development was loaned from ECS stores, this was replaced during later stages of development.

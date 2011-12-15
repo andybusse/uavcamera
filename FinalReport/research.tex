@@ -2,49 +2,14 @@
 \chapter{Background Research}
 %% ----------------------------------------------------------------
 
-\section{JPEG Image Compression}
-The images obtained from the camera will be in the JPEG image format. If the image data is sent to the ground station progressively, it must be necessary to understand how a JPEG image is structured to reconstruct the encoded image. Unlike raw image data, which can easily be read continuously, JPEG files have already been compressed and contain information which must first be read to properly decompress the image.
+\input{research_custom_compression}
 
-\subsection{JPEG structure}
-A JPEG file can be separated into two main parts. The first part of the JPEG file is composed of segments containing information concerning various properties of the image which must be read in order to recover the image from its compressed form. The second part contains the entropy-encoded image data, which can be decoded using the information provided from the headers of the file.  
+\input{research_jpeg_manipulation}
+\input{research_port_connection}
+%\section{Existing Hardware and Software}
+%Research concerning the payload and the associated software goes here...
 
-The segments which make up the image file properties are indicated by header markers. ``Each marker is immediately preceded by an all 1 byte (0xff).'' (Header guide) This marker is then followed by a marker identifier byte specific to that segment type. The 0xff value will always indicates the start of the header in this part, but is treated differently in the image data stream. ``If a 0xff byte occurs in the compressed image data either a zero byte (0x00) or a marker identifier follows it.'' (Header guide) 0xff bytes followed by a zero byte are read in as the hexadecimal value 0xff and the 0x00 byte is ignored entirely. 0xff bytes not following this a 0x00 byte are considered to be the header byte of the next segment. If the segment contains useful information before the next marker identifier, it is then followed by two bytes specifying the total length of the segment (in bytes). For the SOS segment, this does not include the entropy-encoded image data.
-
-\subsubsection{JPEG Segments}
-The number of headers found within a JPEG image file is not constant between images. The JPEG headers are capable of storing most of the metadata related to an image, not all of which is necessary for the decompression of the image. The following headers are those which contain all the information necessary for a successful decompression of the JPEG image, as well as those which can be found in all JPEG images. The number in brackets next to the segment name is the unique marker identifier value which appears directly after the 0xff marker indicator byte. All numerical values obtained from the byte stream are unsigned. ``DQT, DHT, DRI and SOF may line up in any order, but must be recorded after APP1 (or APP2 if any) and before SOS.'' (Exif)
-
-\paragraph*{SOI: Start Of Image (0xd8)}
-This header identifies the start of the image and can be found in all JPEG images. This is the first header to be read in a JPEG file. This header does not contain any information to be stored by the decompression algorithm, but can be useful for differenciating multiple JPEG images from a single data stream.
-
-\paragraph*{APP0: JFIF application segment (0xe0)}
-There can be many APP segments in a single image. Subsequent APP segments are named ``APP\emph{n}'' with a marker identifier of 0xe\emph{n} with \emph{n} being the number of the APP segment. This segment does not contain any information necessary to the decompression algorithm used, so all APP segments ignored.
-
-\paragraph*{SOF0: Start Of Frame (0xc0)}
-``SOF is a marker code indicating the start of a frame segment and giving various parameters for that frame'' (Header guide) /this indicates that the image is a ``DCT-based JPEG, and specifies the width, height, number of components, and component subsampling (e.g., 4:2:0)'' as well as the data precision (in bits/sample) of an image. (narcap) From the component subsampling information, the size of the Minimum Coded Unit (MCU) which make up the JPEG image. Just like the APP segments, there can be multiple start of frame segments in more complex images, but the images sent by the camera will only need the information contained in the first SOF segment.
-
-\paragraph*{DHT: Define Huffman Table(s) (0xc4)}
-This segment defines the properties of one or many Huffman table(s) (HT) which will be used to decode the entropy-encoded image data. ``A single DHT segment may contain multiple HTs, each with its own information byte.'' This segment includes the number of the HT as identified by the image data and the type of the HT (either DC or AC) It also stores the ''number of symbols with codes of length 1..16, the sum (n) of these bytes is the total number of codes, which must be $\leq$ 256'' as well as ``the symbols in order of increasing code length ( n = total number of codes )'' (Header guide). In practice, a single image can also contain multiple DHT segments which all share the same marker identifier. 
-
-\paragraph*{DQT: Define Quantization Table(s) (0xdb)}
-This segment defines the properties of one or many quantization table(s).
-
-\paragraph*{SOS: Start Of Scan (0xda)}
-This segment gives various scan-related parameters and is the last segment preceding the entropy-encoded image data. This segment associates each component in the scan with the appropriate AC and DC Huffman table by their ID number. 3 ignorable bytes seperate this segment from the image data. 
-
-\paragraph*{EOI: End Of Image (0xd9)}
-This header identifies the end of the image. ''It is possible that the end of the image is reached without finding the EOI marker. In this case, the image is technically malformed but the situation is tolerated and handled as if the EOI marker was found.`` (winzip) 
-
-\subsubsection{Entropy-encoded image data}
-(Exif)
-
-\subsection{JPEG Header Information Extractor}
-
-\subsection{Progressive Display of Image}
-
-\section{Existing Hardware and Software}
-Research concerning the payload and the associated software goes here...
-
-\section{Cameras Available}
+\input{research_autopilot}
 
 %\section{Hardware Selection}
 %Research justifying hardware choice goes here...

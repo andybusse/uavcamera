@@ -31,9 +31,13 @@
 	//	- PL > GS: Image Data [ Image Data Message ID ] [ Image Packet Number ] [ Image Data ]
 	#define MID_IMAGE_DATA 				4
 
-	// - GS > PL: Configure Camera [ Configure Camera Message ID ] [ Colour Type ] [ Raw image resolution ] [ Jpeg Image Resolution ]
+	// - GS > PL: Configure Camera [ Configure Camera Message ID ] [ Colour Type ] [ Raw image resolution ] [ JPEG Image Resolution ]
 	#define MID_CONFIGURE_CAMERA		5
 
+	// - GS > PL: Request Resend [ Request Resend Message ID ] [ Packets to resend ]
+	#define MID_REQUEST_RESEND			6
+
+	#define MID_CANCEL_DOWNLOAD			7
 
 	/*//	- GS > PL: Set Colour Type [ Set Colour Type Message ID ] [ Colour Type ]
 	//	- GS > PL: Set Image Resolution [ Set Image Resolution Message ID ] [ Image Resolution ]

@@ -1,0 +1,19 @@
+\section{Progressive JPEG Manipulation}
+
+\subsection{JPEG Manipulation}
+
+Prior to knowing the exact speed it would take to send an image from the camera to the ground station, 
+it was decided that custom JPEG manipulation would optimize the image further and help reach the target time specified. 
+Therefore, tasks concerning the custom manipulation of the JPEG image were planned and worked on at the beginning of the project. 
+However, when a working module was constructed, the time needed to send the image was already well within the specified time. 
+Because this was the primary advantage of the custom JPEG manipulation process, the task's priority was dropped accordingly.
+
+\subsection{JPEG Data Access}
+
+The dynamic form of data accessing was preferred due to the memory contraints imposed on the device.
+
+\subsection{Entropy-Encoded Data Storage}
+
+The entropy-encoded data will be stored as chrominance pixels for the sake of clarity. 
+It is also a method which could be coded more easiliy than seperate component storage. 
+This allowed the extractor to work with the progressive JPEG encoder sooner to avoid the task from overrunning.

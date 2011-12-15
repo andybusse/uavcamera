@@ -11,6 +11,7 @@ namespace NCamGS
     class Program
     {
         static MainForm mainForm = new MainForm();
+        [STAThread]
         static void Main(string[] args)
         {
             mainForm.Show();

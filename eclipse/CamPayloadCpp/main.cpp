@@ -62,7 +62,7 @@ int main()
 
 	DLOG("Entering main loop...");
 	while(1) {
-		STATUS_LED_PORT ^= 0x20;
+		//STATUS_LED_PORT ^= 0x20;
 		// main event loop
 
 		/* comms update will process any commands and packet_scan in packet_scan.cpp

@@ -1,0 +1,204 @@
+\section{Custom Image Compression (jc)}
+\label{Custom_comp_research}
+
+Before starting research into image compression standards such as jpeg, a range of general image compression techniques were researched and a selection of these were also implemented in MATLAB, see appendix \ref{chap:Matlab_code}.
+
+\subsection{Overview of Available Methods (jc)}
+
+The idea of image compression is to reduce the amount of data used to describe the image, whilst retaining as much as possible of the information contained in the image. there are two main types of image compression: lossless and lossy.
+
+Lossless compression techniques retain all the information in the image but reduce the size of the data required to describe it, although they can't achieve the same level of compression as lossy techniques. This is usually done by looking for patterns in the data and using these patterns to encode the data in a more efficient way. Some examples of lossless techniques are: run-length encoding or entropy encoding (such as huffman encoding, see section \ref{sec:general_huff}).
+
+Lossy compression techniques discard some of the information in the image in order to be able to compress it further than is possible with lossless compression. The two main types of lossy image compression are those based on reducing the information in the colour space (often utilising the way the human eyes works in order to maintain perceived image quality) and those based on transforming the image, usually into a version of the frequency space.
+
+If the image is being compressed so that it can be sent over a medium then this can be done either as a single action: the image is compressed and sent once and any information that is lost is lost forever, or progressively: the image is compressed first with a high loss of information and then the additional information is sent so that the loss of the image being sent reduces as more data is received.
+
+Reducing the resolution of an image could also be considered as lossy compression as it is a very simple method of reducing the amount of data required to describe an image by reducing the information in the image.
+
+\subsection{Downsampling (jc)}
+\label{downsampling}
+
+The most obvious method for sending an image progressively is to simply send pixels in such an order that at any time they form a down sampled (lower resolution) version of the image. This way rather than having the image fill in from the top left hand corner the image can become less pixelated as more data is downloaded.
+
+%[] diagram showing how this could work []
+
+%Figure [] ref to above [] show one method that could be used to reconstruct the image progressively.
+
+\subsection{Huffman Encoding (jc)} 
+\label{sec:general_huff}
+
+Huffman coding is a type of entropy encoding. Huffman code is a variable length code, what is special about it is that it uses "prefix" (also known as "prefix-free") codes whereby the code for one symbol is never the prefix for the code of any other symbol meaning that an input can be imediately recognised. /cite{huffman}
+
+Huffman codes are assigned to symbols based on the frequency of occurence of the symbol, with the most frequent symbols being assigned the shortest code and the least frequent the longest, this way the data is compressed without any information being lost.
+
+\subsection{Colour Space Conversion (ms)}
+\label{sec:colour_space_conversion}
+Raw image information is defined using the RGB colour model.
+This means that each pixel's colour is defined by three values according to the RGB colour model. 
+In this additive model, the pixel's colour is determined by a sum of red, green, and blue light. 
+If each value for R, G, and B is represented with a single byte, 
+this means that each pixel in an image has 3 bytes associated to it, so 
+an image with $\mathbf{n}$ pixels would contain $\mathbf{3*n}$ bytes worth of information. 
+For a 640x480 image, this means we have 921,600 bytes of information to send through.
+
+Instead of storing all the image data using the RGB colour model, 
+chroma sub-sampling allows the file to be compressed
+without losing any information that the human eye can discern. 
+The image is put into  a luma-chrominance color space. 
+In this form, the color of a pixel is described by two values, 
+one (\emph{luma}) which describing its \emph{luminance} (brightness), and 
+one (\emph{chrominance}) which describes its colour 
+(represented using two components Cb and Cr).
+These values are nonlinear representations
+of the actual luminance and chrominance values.\cite{kerr_chroma_subsampling}
+
+Although this also seperates a single pixel into three values like the RBG colour model, 
+it allows for a more compact file due to the fact that the luma and chroma samples 
+are not equally discerned by the human eye. 
+In the RGB colour model, all three values must be taken at 
+the same resolution in order to display the colour of one pixel. 
+Lowering the resolution in this colour space quickly reduces the quality of an image. 
+
+Chroma subsampling, or the YCbCr colour model, takes advantage of the fact that the human eye 
+more easily distinguishes subtle differences in luminance than colour. \cite{kerr_chroma_subsampling} 
+Therefore, by supporting different levels of resolution for the chroma and luma values, 
+it is possible to lower the amount of information stored 
+within an image which appears identical to the uncompressed image to human eye.
+
+As an example, consider a 4x4 pixel image. 
+Using the RGB colour model, the image would be represented with 48 bytes, 3 bytes for each pixel. 
+With chroma subsampling, we can group 2 or 4 pixels together to form a \emph{chrominance pixel}. 
+All the original image pixels in this new ``pixel'' would still be associated with a luma value (Y), but 
+they would all share the same chrominance information (Cb and Cr). 
+This means an image with $\mathbf{n}$ pixels would 
+now contain $\mathbf{n+2n/c}$ bytes worth of information, where 
+c is the size (in image pixels) of the chrominance pixel. 
+In this example, using a resolution of 2 adjacent pixels 
+gives us 32 byte and using a resolution of 2x2 pixel blocks 
+gives us 24 bytes.
+
+Commonly used chrominance subsampling patterns are designated as 
+a string of 3 integers separated by colons. 
+The relationship among the integers denotes 
+the degree of vertical and horizontal subsampling.
+The first integer is usually 4 and represents the 
+now standard luma horizontal sampling rate. 
+The second digit specifies the horizontal subsampling of 
+both Cb and Cr with respect to luma.\cite{poynton_chroma_subsampling}.
+
+If the third digit is the same as the second,
+this denotes that there is no vertical subsampling.
+If the third digit is zero, 2:1 vertical subsampling
+for both Cb and Cr is indicated. This strange notation
+is due to the invention of this notation
+predating the concept of vertical subsampling.\cite{poynton_chroma_subsampling}.
+
+The figure below compares 5 subsampling patterns used against a 2x2 pixel image.
+
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=0.5]{figures/chromasub.png} 
+\end{center}
+\caption{Different chroma subsampling schemes for a 2x2 pixel colour image.\label{chroma_examples}\cite{poynton_chroma_subsampling}}
+\end{figure}
+
+\subsection{Transform Based Compression (jc)}
+\label{transfom_based}
+
+Some simple progressive encoding was done as an investigation into using the fast fourier transform (FFT) and the discrete cosine transform (DCT) for image compression and how these could be sent progressively.
+
+The fourier transform works by approximating a signal with the sum of sinusoids of different frequencies. The transform function (given an array as an input) outputs an array of complex numbers whose magnitude is the magnitude of the sinusoid at that frequency and whose argument is the phase.
+
+The fast fourier transform (FFT) is an optimised version of the discrete fourier transform (DFT) which implements the fourier transform in discrete rather than continuous space, this enables its implementation by computers.
+
+\begin{equation}
+X(k) = \sum_{j=1}^N x(j)\omega _N ^{(j-1)(k-1)}
+\label{FFT1_eq}
+\end{equation}
+
+where
+$ \omega _N = e^{(-2 \pi i)/N} $ is an $N$th root of unity.
+
+Equation \ref{FFT1_eq} is the equation for the 1 dimensional FFT, to implement the FFT in 2 dimensions (as you would need to for an image) you simply take the 1 dimensional FFT of each column and then of each row of the result.
+
+The DCT approximates a signal with the sum of cosine functions of different frequencies. The DCT is similar to the FFT in that it transforms into a frequency space, but the DCT produces strictly real values.
+
+\begin{equation}
+F_{u,v} = \alpha(x) \alpha(y) \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f_{x,y} \cos\Big[\dfrac{\pi}{M}(u+\dfrac{1}{2})x\Big]\cos\Big[\dfrac{\pi}{N}(v+\dfrac{1}{2})y\Big]
+\label{DCT2_eq}
+\end{equation}
+
+for $0 \leq u \leq M - 1 $ and $0 \leq v \leq N - 1 $
+
+$x$ is the pixel row
+
+$y$ is the pixel column
+
+$u$ is the horizontal DCT frequency
+
+$v$ is the vertical DCT frequency
+
+$
+  \alpha(x) = \left\{
+  \begin{array}{l l}
+    1/ \sqrt{M} & \quad \text{, $u = 0$}\\
+    2/ \sqrt{M} & \quad \text{, $1 \leq u \leq M - 1$}\\
+  \end{array} \right.
+$
+
+$
+  \alpha(y) = \left\{
+  \begin{array}{l l}
+    1/ \sqrt{N} & \quad \text{,$ v = 0$}\\
+    2/ \sqrt{N} & \quad \text{, $1 \leq v \leq N - 1$}\\
+  \end{array} \right.
+$
+
+The 2 dimensional DCT equation is given in equation \ref{DCT2_eq}, this is the equation exactly as implemented in the MATLAB function "dct2" used in [] ref to matlab code in appendix [].
+
+\subsubsection{Whole Image (jc)}
+
+The first algorithm in appendix \ref{chap:Matlab_code} was a progressive scheme based on taking an FFT of the whole image and then reconstructing the image using more and more of the frequency content of the image starting with the lowest frequencies.
+
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{c c c}
+  \subfigure[Image with only low frequency content]{\label{fig:whole_fft_lfc}\includegraphics[width=0.3\textwidth]{figures/whole_fft_lfc.png}}&                
+  \subfigure[Image with medium and low frequency content]{\label{fig:whole_fft_mfc}\includegraphics[width=0.3\textwidth]{figures/whole_fft_mfc.png}}&
+  \subfigure[Image with all its frequency content]{\label{fig:whole_fft_all}\includegraphics[width=0.3\textwidth]{figures/whole_fft_all.png}}
+  \end{tabular}
+  \captionof{figure}{Images reconstructed from increasing amounts of an fft of the whole image, see appendix \ref{chap:Matlab_code}}
+  \label{fig:whole_fft}
+\end{figure}
+
+Figure \ref{fig:whole_fft} how the level of detail in the picture increases as more of the frequency content is used to display it. Potentially the image data could be transmitted so that the low frequency data is received first and additional frequency content is then sent progressively so that the image gains detail smoothly.
+
+The second algorithm in  appendix \ref{chap:Matlab_code} used the DCT rather than the FFT. The advantage of the DCT over the FFT for this purpose is that the FFT generates complex values thereby effectively doubling the amount of data whereas the the DCT only produces real values.
+
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{c c c}
+  \subfigure[Image with only low frequency content]{\label{fig:whole_dct_lfc}\includegraphics[width=0.3\textwidth]{figures/whole_dct_lfc.png}}&                
+  \subfigure[Image with medium and low frequency content]{\label{fig:whole_dct_mfc}\includegraphics[width=0.3\textwidth]{figures/whole_dct_mfc.png}}&
+  \subfigure[Image with all its frequency content]{\label{fig:whole_dct_all}\includegraphics[width=0.3\textwidth]{figures/whole_dct_all.png}}
+  \end{tabular}
+  \captionof{figure}{Images reconstructed from increasing amounts of a dct of the whole image, see appendix \ref{chap:Matlab_code}]}
+  \label{fig:whole_dct}
+\end{figure}
+
+\subsubsection{Sectioned Image (jc)}
+
+As FFTs or DCTs can be quite computationally intensive when done with large arrays of values it is sometimes sensible to first break the image down into smaller blocks and then do the transformation on these. This would reduce the complexity of the computations while retaining the same functionality.
+
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{c c c}
+  \subfigure[Sectioned image with only low frequency content]{\label{fig:sectioned_fft_lfc}\includegraphics[width=0.3\textwidth]{figures/sectioned_fft_lfc.png}}&                
+  \subfigure[Sectioned image with medium and low frequency content]{\label{fig:sectioned_fft_mfc}\includegraphics[width=0.3\textwidth]{figures/sectioned_fft_mfc.png}}&
+  \subfigure[Sectioned image with all its frequency content]{\label{fig:sectioned_fft_all}\includegraphics[width=0.3\textwidth]{figures/sectioned_fft_all.png}}
+  \end{tabular}
+  \captionof{figure}{Images reconstructed from increasing amounts of a fft of sections of the image, see appendix \ref{chap:Matlab_code}}
+  \label{fig:sectioned_fft}
+\end{figure}
+
+Figure \ref{fig:sectioned_fft} shows much the same as figure \ref{fig:whole_fft} but with the image first broken down into small (definable in the code (see  appendix \ref{chap:Matlab_code}]), 20x20 blocks were used for these images) sections and then the frequency components of these transmitted progressively so that the detail within each section increases as more data is sent and thus the detail of the whole image also increases.

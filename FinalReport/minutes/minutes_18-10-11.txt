@@ -1,0 +1,25 @@
+- mitch has looked up lots on image compression, has pseudocode, will try to look at doing it in C, will also write up different compression algorithms
+
+- peak has some working code for communicating with the autopilot
+
+- we now have components
+
+What we have done:
+-----------------
+- UAV responding: data extracted
+- can recieve data from UAV
+
+- compression + decompression:
+    - algorithm pseudo code
+- components recieved
+-Matlab starter code
+
+Next tasks:
+----------------
+- Write up theory.
+- Implement compression algos in C (encoding) and decoding in any language - mitch, peak
+    - ensure encoding works on micro-controller
+    
+- Basic construction of payload
+- Interactionn with payload
+- Get any camera working

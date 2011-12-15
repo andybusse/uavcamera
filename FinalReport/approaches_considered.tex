@@ -1,57 +1,31 @@
 %% ----------------------------------------------------------------
-\chapter{Design Approaches Considered}
+\chapter{Design Decisions}
 %% ----------------------------------------------------------------
+Throughout the design and implementation of the project there were many points
+at which decisions were made about the design of the system. This chapter attempts
+to give an insight into some of the design decisions taken throughout the project with
+a discussion of the alternative choices that were open to us at the time and the reasons
+why a particular choice was made.
 
-\section{Payload Image Capture}
+This chapter also details some of the ways in which the initial milestones mentioned in section
+\ref{sec:initial_milestones} have been amended and changed by design decisions throughout
+the course of the project. These amended milestones can be seen in section \ref{sec:amended_milestones}.
 
-\subsection{Camera Module}
-John
+\input{approaches_considered_camera}
 
-\subsubsection{Approach: Analogue Camera}	
-Short description of the approach
-Advantages:
-\begin{itemize}
-\item Blah
-\item Blah
-\end{itemize}
-
-Disadvantages:
-\begin{itemize}
-\item Blah
-\item Blah
-\end{itemize}
-
-Conclusion of approach
-
-
-\subsubsection{Approach: Serial Camera}
-
-\subsubsection{Approach: USB Camera}
-
-
-\subsection{Image Buffering}
-Andy.
-
-
-\subsubsection{Approach: Flash Chip}
-
-\subsubsection{Approach: SD Card}
-
-\subsubsection{Approach: SRAM}
-Or whatever it is called
-
+\input{approaches_considered_local_storage}
 
 \input{approaches_considered_payload}
 
+\input{approaches_considered_jpeg_manipulation}
 
-\section{Ground Station Image Viewer}
-Peak
+\input{approaches_considered_GUI}
 
-\section{Progressive JPEG Manipulation}
-Mitch
 
 \section{Physical Implementation}
-Andy
+
+Our specification states that the final module delivered to the customer 
+should be on PCB, if time permits. 
 	
 \subsection{Power Source}
 
@@ -59,3 +33,4 @@ Andy
 
 \subsubsection{Approach: Autopilot Powered}
 
+\input{milestones_amended}

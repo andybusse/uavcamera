@@ -1,0 +1,146 @@
+\section{Ground Station Image Viewer (ps26g08)}
+
+\subsection{Programming Language}
+
+It is important to decide from the start of the project which programming language will be used.
+Because if it changes in the middle of the project, it will waste time and causes unnecessary problems.
+The decision depend on the team member who has been assigned as a task leader.
+Because the program will be using to implement a GUI application, therefore it need an object oriented program for implementing this.
+The programming languages that will be look into are Python, Javam and C\# programming language.
+There are many factors to consider before the final decision is decide.
+
+\subsubsection*{Python Language}
+Python Language programming has variety of useful factors for network programming. 
+The code on this language has been proved to be short and effective.
+The class \texttt{ socket} has all the communication method which can be use. 
+The TCP can be use by the program to send a text command on one machine to the another \cite{normanM}. 
+There is a makefile function which the user can use to avoid the missing line of data or an extra line from next cycle of data\cite{normanM,guidoR}. Not only it is useful as a standalone program, but it can link to C/C++ program to do more useful integration.
+It has support of GUI interface which the programmer can debug, and use a profiling tools \cite{sannerM}. 
+
+Advantages:
+\begin{itemize}
+\item has a \texttt{socket()} class which can be use to connect to TCP/IP port
+\item support GUI: it can use to create and debugging window application
+\item can run with c code
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+\item new to the developer
+\item might be time consuming to learn if the developer has a same advantages in a familiar software
+\end{itemize}
+
+\subsubsection*{Java Language}
+Java language is an object oriented program which can be use in any kind of operating system.
+It derives some syntax from c/c++ which the developer is familiar to. 
+This language has been using widely for applications and gaming and it also support the TCP class.
+Java has two classes for TCP/IP, which are \texttt{Socket}, and \texttt{ServerSocket}.
+At both ends of the communication can be identified by IP address and port number \cite{kennethC}.
+
+Advantages:
+\begin{itemize}
+\item the code is similar to C/C++, therefore it might be easy for the developer to implement
+\item it object oriented program 
+\item \texttt{Socket} and \texttt{ServerSocket }class support TCP/IP
+\item support GUI application
+\item has \texttt{graphic} class which can use to display images
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+\item can be slower than its native language (C/C++) because it is object oriented program
+\item it can not inherit other language code to use in the program
+\item the developer is not that familiar with the program
+\item limit the effectiveness of customs protocols \cite{elliotH}
+\end{itemize}
+
+\subsubsection*{C\# Language}
+C\# language is an object oriented program which can be use in any operating system.
+It has ideally similar Socket class as the Java programming has. 
+It also support the window application program.
+The program has been use by the developer, therefore it can save time during the implementation of the program.
+
+Advantages:
+\begin{itemize}
+\item familiar to the developer
+\item \texttt{Socket} and \texttt{SerialPort} class support the TCP/IP connection
+\item has graphic class which can use to display image
+\item can make and debug window application 
+\end{itemize}
+
+Disadvantages:
+\begin{itemize}
+\item slower than C/C++
+\end{itemize}
+
+The program that will be using to implement the program is C\# language. 
+This is because the program is familiar with the user so it will save time of studying a new language.
+It also support TCP/IP and window application which are main classes needed to implement the program.
+Although Java and Python has been use by many papers and book on network programming, but it need to take time to learn a new language so the developer decided to use C\# \cite{normanM,guidoR,kennethC,elliotH}.
+
+
+
+\subsection{Approach: Different C\# .NET Classes}
+The C\# language on Microsoft Visual Basic Studio is a development environment for creating our Ground Station Image Viewer application. Choosing the right class to connect to the port helps the developer save time to program the application. The class should be able to connect to the UAV port and it must be able to send both byte and string command and receive bytes camera data from the UAV.  The C\# program has two .NET classes that can connect to port. They are SerialPort Class and Socket Class.
+ 
+\subsubsection{SerialPort Class}
+The System.IO.Ports namespace contains classes for controlling serial ports. The SerialPort class is the most important one.It has ability to synchronous and event-driven I/O, access to pin and break states, and access to serial driver properties\cite{peak_netFrame}. It can change the port properties such as the stop bit, parity bit, baud rate, etc. It has handshake function that communicate to the port and report if the data or token was received successfully.
+By using this class, the COM port setting has to be memorized which will be simple to load and saves from/to disk.In the process both public and private fields of the object and the name are converted to a stream of bytes.
+
+\begin{lstlisting}[caption=Serial Port class connection\, read and write method, label=serialPortconn]
+SerialPort( portName, baudRate, parity bit, dataBits, StopBits ) 
+SerialPort.Read(Char(),Int32,Int32);
+SerialPort.Write(Char(), Int32, Int32)	;
+\end{lstlisting}
+
+
+Advantage 
+\begin{itemize}
+\item can change baud rate, handshaking, parity bit, and stop bit
+\item can change the internal of a hardware
+\item can send and receive data from a defined connection
+\item can program hardware
+\end{itemize}
+Disadvantage
+\begin{itemize}
+\item need to set up all the component (baud rate, handshaking, parity bit, and stop bit)
+\item the set up make the code long and might cause error
+\item the setting of the signal out must be the same as the set up in the UAV
+\end{itemize}
+
+\subsubsection{Socket Class}
+The Socket is more programmer friendly, robust and a high level connection class. 
+The socket class is use to send and receive data, in similar method as an open file allows an application to read and write data to stable storage.  
+It also makes a simple handshaking between the client and server machines. 
+It can connect to multi clients, which this is necessary for a multi-port which we are using. 
+The program can easily connect to the port by using the method in Listing\ref{socketClasscrs} .
+This method takes the baud rate and parity bit configuration from the UAV so the setup is the same. 
+This class sends and array of bytes to the console port and to the data stream port and receive data from the port by code in Listing\ref{socketClasscrs}.
+
+\begin{lstlisting}[caption=Socket class connect receive and send method,label=socketClasscrs]
+Connect (String host name,Int32 port number)
+Send(byte[] command, Int32 length, SocketFlags)
+Receive(byte[] data, Int32 length, SocketFlags)
+\end{lstlisting}
+
+Advantage
+\begin{itemize}
+\item can set up the connection by simply stated the host name and port number
+\item can connect to TCP/IP port 
+\item it uses the set up of the port, therefore the parity, stop bit, and the baud rate are the same
+\item can send and receive data from the port
+\item can use delegates which give more flexibility on synchronous control of sockets \cite{robertH}
+\end{itemize}
+Disadvantage
+\begin{itemize}
+\item can not program hardware
+\item can not set up the baud rate, stop bit or any other properties of the hardware
+\end{itemize}
+
+The socket class was the class chosen for the UAV port connector. 
+It support TCP connection between the client and the server to do low level communication work\cite{xiaX}. 
+The System.IO.Ports namespace has a SerialPort class that can control settings of the port such as baud rate, stop bit, parity bit, and data length.
+However, this become a disadvantage because the baud rate of the UAV has to be fixed according to the specification. 
+Although it is good to set up a port, but for the software that uses an existing port, the Socket class is more useful and easier to implement by the programmer. 
+The changes of class improve efficiency of connection between port and the program. 
+The baud rate and extra bits are automatically adjusted to be the same as the port, so the setting is identical between the input and output.

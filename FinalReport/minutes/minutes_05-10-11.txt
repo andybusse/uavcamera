@@ -1,0 +1,48 @@
+Minutes- 05 Oct 2011
+
+
+Topic of discussion
+-Spec. of the GDP
+-Gant Chart
+-Assigning Task
+-Project meeting
+-Client's meeting
+
+Spec of the GDP
+
+	-Power- 5V & 3.3V ~100mA
+	-Weight ~100g
+	-design, test, capture and transmit an image from UAV to base station
+	-camera module
+	-transmit with low bandwidth
+	-use autopilot datalink
+	-camera<--> microcontroller<-->auto pilot <--> base station <--> software
+	-(<-->=communicate 2 direction)
+	-design a camera module to obtain image
+	-construct final module on PCB
+	-write a software to interface with the ground station over TCP/IP link
+	-allow the software to receive and display image
+	-camera module on PCB
+	-make all schemetic and code accessible by the customers
+	-test hardware on UAV
+	-Readme file for the software
+
+Task to do 
+	-acquire equipment
+		-order (camera, parts)
+		-wait
+	-get picture from camera
+	-encode(compression of image)/decode (decompression of image)
+	-transmit image
+	-get picture to the software
+	-UI
+	-background reading
+	-testing
+	-component selection
+	-camera command (triggering, etc.)
+	-TCP/IP
+	-build & test (Bread board and PCB)
+	-Integration
+	-prepare presentation
+	-make these communications work:camera<--> microcontroller<-->auto pilot <--> base station <--> software
+	-report writing

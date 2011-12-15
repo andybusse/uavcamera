@@ -1,0 +1,22 @@
+01-11-11, 4pm-5pm, Hartley Library Room 1A
+
+Agenda: Start setting some deadlines, thrash out some ideas for the final product.
+
+Deadline 1: Feature Freeze ("bells + whistles" features) - Next Wednesday (09-11)
+Deadline 2: PCB Production Deadline - Next Friday (11-11)
+^ This allows two weeks for delivery/testing of the boards before the presentations
+
+Possibilities for deliverables: 
+- Arduino + daughter board. Daughter board contains SD card, ethernet socket, transceiver module, level converter, etc. (Swish, easy to get a hold of, ATmega168 and 328P compatible, but not much memory)
+- If arduino not powerful enough, port to Olimexino (built in microSD! Cortex M3, not AVR). Language is basically the same, with the Maple IDE libraries. Potential supply issues with the Olimex - coolcomponents is continually running out.
+- AVR on Stripboard?
+
+=======
+02-11-11, Rob Maunder's Office.
+
+- We now have "Il Matto", a playing-card sized, arduino-inspired dev board made for last year's D4 lab. Contact Steve Gunn for more info.
+- Based on an ATMega644
+- No charging circuit has actually been implemented on it (there is some breadboard space and a schematic/PCB layout saying what needs to go where
+- Project plan, reaction to circumstances seems to be a good 'un
+- We ought to start putting effort into the report.
+- LaTeX, Google Docs. (Former is nicer for version control)

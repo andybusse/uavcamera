@@ -1,0 +1,241 @@
+% --------------------
+\chapter{Planning}
+% --------------------
+
+\section{Introduction}
+
+\section{Initial Milestones - (mh)}
+\label{sec:initial_milestones}
+A set of milestones have been devised to help track progress and inform test plans.
+Each of the milestones represents a real and measurable progress step towards the 
+end goals of this project, the milestones were derived from the tasks listed in the initial
+Gantt chart (see appendix |||||||||||). It should be noted that these were the initial
+milestones derived for the project and were substantially amended throughout the course of
+the project in order to keep them relevant - the final state of the amended milestones
+can be seen later in section \ref{sec:amended_milestones}.
+
+To assist comprehension the milestones have been arranged into a number of categories,
+relating to the way in which the project work has been broken up.
+
+\subsection{Payload Module - Camera Module Communication Milestones}
+sections. 
+%\begin{itemize}
+	\subsubsection{Milestone: Prototype Camera Module Communication}
+	\label{sec:ms_init_prototype_camera_module_comms}
+		\begin{itemize}
+			\item 	Initial basic communication with a camera module, an image should be
+				downloaded from the camera and viewed in some way.
+		\end{itemize}
+
+	\subsubsection{Milestone: Payload controller to/from camera module communication}
+	\label{sec:ms_init_payload_controller_camera_module}
+		\begin{itemize}
+			\item 	An image should be downloaded from the camera on to the 
+				payload controller hardware.
+			\item 	Sub milestones are as follows:
+			\begin{itemize}
+				\item The payload controller should be capable of changing the
+					image resolution of the camera.
+				\item The payload controller should be capable of changing the
+					colour type of the camera.
+			\end{itemize}
+		\end{itemize}
+
+%\end{itemize}
+
+\subsection{Payload Module - Image Encoding and Transmission Milestones}
+%\begin{itemize}
+	\subsubsection{Milestone: Basic Raw Encoding}
+		\label{sec:ms_init_basic_raw_encoding}
+		\begin{itemize}
+			\item 	The payload module should send raw image data in the same form as 
+				obtained from the camera via the autopilot link
+				to the ground station where it should be saved or viewed in some manner
+				to verify the milestone.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom (Progressive/Compressed) Encoding - Matlab Algorithm Prototype}
+		\label{sec:ms_init_custom_enc_matlab}
+		\begin{itemize}
+			\item 	A prototype of progressive encoding prototyped in matlab
+				should be implemented. This algorithm should demonstrate how the image
+				could be sent progressively and ideally in a compressed form.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom Encoding Algorithm Implementation on Payload Controller}
+		\label{sec:ms_init_custom_enc_payload}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_custom_enc_matlab} should be implemented on
+				the payload controller module.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom Encoding Data Breakdown and Transmission to Ground Station via Autopilot Link}
+		\label{sec:ms_init_custom_breakdown_transmission}
+		\begin{itemize}
+			\item 	The progressive data produced by milestone
+				\ref{sec:ms_init_custom_enc_payload} should be broken down and sent
+				via the autopilot link to the ground station.
+		\end{itemize}
+
+\subsection{Payload Module Construction Milestones}
+Many of the milestones listed above rely upon a working physical implementation of the system at each stage
+so these will not be duplicated. However, there are a few milestones which are specific to the physical implementation
+of the system.
+%Customer Provided `Dummy' Payload Schematics Working
+
+%Camera connection
+
+%Payload communication
+
+	\subsubsection{Milestone: Payload Breadboard Prototype}
+		\begin{itemize}
+			\item A finalized PCB design ready to be sent for manufacture.
+		\end{itemize}
+
+	\subsubsection{Milestone: Payload PCB Design}
+		\begin{itemize}
+			\item A finalized PCB design ready to be sent for manufacture. 
+		\end{itemize}
+		
+	\subsubsection{Milestone: Complete System on PCB}
+		\begin{itemize}
+			\item A working system implementation on PCB.
+		\end{itemize}
+
+%Final implementation
+
+\subsection{Ground Station Image Viewer Milestones}
+	\subsubsection{Milestone: Basic Dummy Server Communications}
+		\label{sec:ms_init_basic_dummy_server_comms}
+		\begin{itemize}
+			\item 	Some prototype programs should be produced to help understand TCP/IP communications.
+				One server program serving some test data over a TCP/IP port and one
+				client program connecting to this port and sending/receiving test data.
+		\end{itemize}
+
+	\subsubsection{Milestone: Communications with Customers Ground Station Sofware}
+		\label{sec:ms_init_basestation_comms}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_basic_dummy_server_comms} should be
+				completed.
+			\item 	Communication with the customers ground station software via TCP/IP console and
+				data port. Data should be streamed from some known source and verified correct and
+				commands should be sent via the port and verified that they execute in the program.
+		\end{itemize}
+
+	\subsubsection{Milestone: Decode Basic Raw Image}
+		\label{sec:ms_init_decode_basic_raw_image}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_basestation_comms} should be completed.
+			\item 	Data sent from the implementation of \ref{sec:ms_init_basic_raw_encoding} should be
+				decoded and saved/displayed on the ground station in some way.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom Decoding - Matlab Implementation}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_custom_enc_matlab} should be completed.
+			\item 	Data sent from the implementation of \ref{sec:ms_init_custom_enc_matlab} should be
+				decoded and saved/displayed on the ground station in some way. NB: This does not require
+				a working payload implementation.
+		\end{itemize}
+
+	\subsubsection{Milestone: Custom Decoding - Deployable Implementation}
+		\begin{itemize}
+			\item 	Milestone \ref{sec:ms_init_decode_basic_raw_image} should be completed.
+			\item 	Data sent from the implementation of \ref{sec:ms_init_custom_breakdown_transmission} should be
+				decoded and saved/displayed on the ground station in some way.
+		\end{itemize}
+
+	\subsubsection{Milestone: Functional User Interface}
+		\begin{itemize}
+			\item 	A functional user interface that allows users to take images and view them using the implementations
+				for the milestones described above.
+		\end{itemize}
+
+%\end{itemize}
+
+\input{management_risk}
+
+\input{management_work_allocation}
+
+\input{management_resources}
+
+\section{Group Communication (ab) (ms)}
+\label{group_comms}
+
+\subsection{Formal Meetings}
+
+For the duration of the project, we held weekly meetings on most Tuesday 
+Afternoons from 4pm onwards in the Hartley Library. This would allow us to 
+review progress made against progress expected, and to modify our project 
+plan and allocation of work for the following week.
+
+Minutes of these meetings would be stored in our repository.
+The timing of these meetings (the afternoon before our weekly meetings with our 
+supervisor) will allow us to present a clear outline 
+of new developments and our week-by-week plans to our supervisor.
+The meetings with our supervisor will allow the group members to assess their situation
+and re-organize themselves if necessary.
+
+\subsection{Methods of Communication (ms)}
+
+The group was prepared to use two primary methods of communication during the project
+in-between group meetings. This would allow the group to share any urgent information
+with each other easily.
+These methods of communication are discussed below:
+
+\subsubsection{E-mail}
+
+Email would be the primary form of communication between group members
+in between the weekly group meetings. It will be the responsibility of each group
+member to regularly check their e-mail and keep up to date with the latest 
+developments of the project. Information which is useful for all members of the 
+project or not directed at a specific individual would be sent by e-mail. E-mail also 
+has the advantage of communicating software directly between members and leaving
+an audit trail to keep track of the project's progress.
+
+\subsubsection{Telephone}
+
+Each group member's contact phone numbers were shared at the beginning of the
+project to complement e-mail communications. A contact by phone number would
+be useful if very urgent information needs to be communicated immediately between
+project members. Although e-mail communication should suffice, telephone 
+communication would be used to instantly contact a group member who may not
+be keeping up with e-mail exchanges.
+
+\subsection{Source Control}
+
+We decided to use version control software throughout the project, to manage 
+everything from minutes to source code and payload schematics. As well as 
+being a very useful tool to facilitate group work, it also helps us to meet 
+our customer's request to deliver this as an open source project - at the end 
+of the project, a repository could easily be gardened and presented, with the 
+addition of appropriate open-source licenses at the end of the project.
+
+Initially, we used a central Subversion (SVN) repository hosted on ECS' 
+UGForge service. It was decided to use this as most of the group had 
+experience using SVN. This worked well for most of the project, but 
+unfortunately, something was committed to this repository that could not be 
+open sourced (the customer's Ground Control Station software). This presented 
+us with a problem, as although it would be trivial to revert this commit with 
+the "\$ svn merge" command, this creates a new commit, and the file in 
+question would remain in the repository's history and could still be accessed.
+
+In theory, it would be possible to remove this commit from SVN history by 
+using the "\$ svnadmin dump" command, filtering the offending commit out of 
+the dumpfile, and regenerate the repository with the "\$ svnadmin load" 
+command. However, in practice, this was not possible as our repository 
+contains binary information above 64kB, therefore the ASCII editor used to 
+modify the dumpfile would cut off data in the binary file after the 64kB 
+limit, rendering any following data useless.
+
+It would be possible to start a new SVN repository and check in our 
+repository up to but not including the offending commit, but we would lose 
+all metadata (i.e. committer, commit time, etc.). Therefore, it was decided to 
+switch to git, a distributed version control system (which would allow us to 
+modify project history). Converting the repository using git-svn was a trivial 
+process. Although not all of the group was confident using this tool, git 
+lets a committer commit on behalf of another user. Moving to git also 
+allowed us to use github, a hosting service, which is free to open-source 
+projects (such as ours), which also provides us with some additional 
+project statistics. ??? Reference ???? Appendix ???
