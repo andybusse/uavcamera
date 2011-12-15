@@ -9,7 +9,7 @@ This allows a different level of privilege in accessing memory and other system 
 The plan of constructing the image viewer is to make a program that the use can simply click on a button and the image is downloaded via TCP/IP port to the ground station.
 Then the data transmitted from the devices stream data to PC for further data processing (image processing).  
 The Ground Station Software is in user mode, where the programmer does not have the right to access directly to the hard ware in protected operating systems. 
-However, there is some code that allow the programmer to communicate with the payload via the ground station software.
+However, there are some codes that allow the programmer to communicate with the payload via the ground station software.
 
 \section{The development process} 
 Because GUI include many functions on the application and also it links to TCP/IP ports, the GUI part consider as a very big program. 
@@ -34,11 +34,11 @@ Therefore, in order to complete the GUI step by step, it needs a plan for the de
 \end{enumerate}
 
 \section{Use Case Diagram}
-The use case diagram shows what the user have access to the program and it will decide what function does the programmer need to implemented in order to achieve all the activities in the diagram.
+The use case diagram shows what the user have access to the program and it will decide what function does the programmer needs to implement in order to achieve all the activities in the diagram.
 It is important to include all the specification into the use case diagram because if some part of the specification missing, it means that the program will be incomplete for the customer.
 Figure~\ref{GUI_useCase} shows a possible user action on the program which the user can save, open and delete any jpeg image from the computer. 
 And, the user has an option to connect to the UAV in case of the UAV is not connected properly.
-The user can command the image viewer program to send a image to the software, and the software will then display it onto the picture box.
+The user can command the image viewer program to send an image to the software, and the software will then display it onto the picture box.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{figures/userCase.png} 
@@ -46,10 +46,9 @@ The user can command the image viewer program to send a image to the software, a
 \caption{Use case diagram of the GUI\label{GUI_useCase}}
 \end{figure}
 
-This initial user diagram has changed slightly because some of the action is better implement in the background. For example, connect to the UAV function, the user might be confuse and click on this button every time the program got open. So the better way to implement this is to make the program connect to the UAV automatically when the program start running. 
-The another changes is the type of image can not be chosen because the raw image will be too big and the program can not handle that type of image.
+This initial user diagram has changed slightly because some of the action is better implement in the background. For example, connect to the UAV function, the user might be confused and click on this button every time the program got open. So the better way to implement this is to make the program connect to the UAV automatically when the program starts running. 
+Another changes is the type of image implemented is JPEG only because the raw image will be too big so we decide not to implement it.
 Therefore, the Milestone\ref{sec:ms_pl_img_gs_cam_colour_type} will not be implemented.
-The user might want the image to download as fast as possible. So all the camera mode has not been used.
 Figure\ref{GUI_finalUseCase} shows an agreed use case diagram. 
 
 \begin{figure}[!hbtp]
@@ -66,9 +65,12 @@ Figure\ref{GUI_finalUseCase} shows an agreed use case diagram.
 The GUI design decision based on the specification on what feature does the customer’s want. 
 The user for our application is assumed to have a limited programming experience, so the program will be implemented so it is simple understand. Figure~\ref{ini_GUI} show the first brainstorm view of the GUI. 
 
-The user interface has a picture box. When the user push a ‘Get Picture’ button, the picture box will display the picture taken from the UAV. During the downloading process, the application should keep running so the cancel button can be used. 
-The gallery button will link to another page which will be the collection of all the image taken. The left and right button can navigate the picture box to view an earlier picture or later picture. 
-The Cancel button cancel the receiving image, therefore the corrupted picture will not be downloaded. The user mode of the application can access only the main feature such as take picture, change directory, and cancel download picture.  It allows the user to choose the resolution and picture type (RAW or JPEG) to transmitted from the UAV to the ground station. But the user doesn't have access to changing the command, changing the receiving data, and any interaction with the UAV because of safety and avoid of any errors. 
+The user interface has a picture box. When the user pushes a ‘Get Picture’ button, the picture box will display the picture taken from the UAV. During the downloading process, the application should keep running so the cancel button can be used. 
+The gallery button will link to another page which will be the collection of images taken. 
+The left and right button can navigate the picture box to view an earlier picture or later picture. 
+The Cancel button cancel the receiving image, therefore the corrupted picture will not be downloaded. 
+The user mode of the application can access only the main feature such as take picture, change directory, and cancel download picture.  
+It allows the user to choose the resolution and picture type (RAW or JPEG) to transmitted from the UAV to the ground station. But the user doesn't have access to changing the command, changing the receiving data, and any interaction with the UAV because of safety and avoid of any errors. 
 \begin{figure}[!hbtp]
 \begin{center}
 \includegraphics[scale=0.4]{figures/initialGUI.png} 
@@ -83,21 +85,18 @@ The GUI has been planned to have functions such as auto triggering, image type, 
 \end{center}
 \caption{final GUI\label{finalGUI}}
 \end{figure}
-Implementation of the main GUI have omitted some of the buttons in the initial design. 
+Implementation of the main GUI has omitted some of the buttons in the initial design. 
 The gallery button is not needed because the left and right button is use for scrolling the whole directory of the image. 
 The top tool strip menu has been added because this layout is familiar to any user. 
-The image type have been removed because the raw image data makes the stream data slow and the image viewer program is not supported the file type.
-The priority is speed of transmitting the data from the UAV. 
-Therefore, raw image is not the option for the user. 
+Thi image type has been removed because RAW is a big file.
 The progress bar has moved to the button left of the page instead of displaying it below the pictureBox.
-This allow the application to have bigger picture box, more compact size and more professional looks.
+This allows the application to have bigger picture box, more compact size and more professional looks.
 The stop button allows the user to interrupt the downloading image.
 \section{Class Diagram}
 \subsection*{The Initial Class Diagram}
 Figure~\ref{ini_Class} shows initial classes and methods of the image viewer program.
 The \texttt{JPEGFileReader} Class has functions for decoding/encoding the JPEG file.
 There will be decoding/encoding algorithm because the image will take long time to download to the ground station. 
-The background research show that the progressive image will take shorter time, but it needs a class to support it. This can be done by extract all the header in the JPEG image which has been describe in the research section ~\ref{jpeg_image_compression}. 
 \begin{center}
 \begin{figure}[!hbtp]
 \includegraphics[width=150mm,height=100mm]{figures/initialClassDiagram.png} 
@@ -105,8 +104,9 @@ The background research show that the progressive image will take shorter time, 
 \end{figure}
 \end{center}
 \texttt{DCT} class has many math operation and equation which have to be implemented on the image viewer program. 
-This complicated function should implement in the ground station because if the picture is encoded in the compressed way, the ground station must be able to extract it. In the end, we have to determine whether is it faster to display image normally, or to do encoding/decoding JPEG file. 
-The disadvantage of this method is that there are existing encoding resource which work perfectly, and because of this is long length and complex codes, it might cause some error and time consuming.
+This complicated function should implement in the ground station because if the picture is encoded in the compressed way, the ground station must be able to extract it. 
+In the end, we have to determine whether it is faster to display image normally, or to do encoding/decoding JPEG file. 
+The disadvantage of this method is that there are existing encoding resource which work perfectly, and because of this is long length and complex codes.
 
 The \texttt{Painting} class is supported by the \texttt{DCT} class. The intention of this class is to display an encoded image point by point on the \texttt{pictureBox}.
 By this method, the \texttt{pictureBox} can display an image from the first pixel transmitted.
@@ -114,11 +114,11 @@ By this method, the \texttt{pictureBox} can display an image from the first pixe
 The \texttt{CameraCommand} class design for send the data from the ground station to the camera. The idea is that make the camera sync with the payload by using the ground station command. \texttt{SetAndSendCommand()} use for set the byte command and then send it to the payload via the Console port. \texttt{SetGetPicture(),SetInitial(), SetPhoto(), and SetTakePicture()} methods use for setting the correct byte in order to send the byte by using \texttt{SetAndSendCommand} class.
 
 \subsection*{The Class Diagram}
-The class diagram have been implemented very differently from the planned one.
+The class diagram has been implemented very differently from the planned one.
 This is because the new plan is to decode the image on board and then transmitted to the ground station in JPEG further compressed file. 
 Therefore, the class \texttt{JpegFileReader} has changed to C code and to be implemented on board. 
-The \texttt{DCT} class are not needed anymore because all the calculation will be on board. 
-The \texttt{CameraCommand} has taken away because the payload will receive a image viewer command to the payload and then the payload will send another different signal to the camera.
+The \texttt{DCT} class is not needed anymore because all the calculation will be on board. 
+The \texttt{CameraCommand} has taken away because the payload will receive an image viewer command to the payload and then the payload will send another different signal to the camera.
 Therefore, the command send to the camera from the payload does not have to be the same as the command sent from ground station to the payload. 
 The \texttt{Painting} class use to draw each pixel onto the \texttt{pictureBox}, but it has not been implemented in the final program because of the stated reason.
 The progressive download photo does not have to be implemented. 
@@ -139,7 +139,7 @@ The UAV ground receiver is a USB-compatible device which uses Zigbee to communic
 USB device driver has been developed by the customer’s so the hardware can be accessed by ground station software, and other applications. 
 USB is active when the host ask for a data. 
 A host is the computer network which the UAV connect to. 
-The data in its queue until the host ask for the data. 
+The data in its queue until the host asks for the data. 
 \begin{figure}[!hbtp]
 \begin{center}
 \includegraphics[scale=0.4]{figures/clipArt.png} 
@@ -156,7 +156,7 @@ Then the payload sends a ''Picture Taken'' command back through the data stream 
 The Image Viewer Program will then automatically send a download request command to the payload. 
 The payload will then send image data back to the data stream port. 
 
-When the program start running, the program initialized the port and commands the customer’s application to tell the UAV to stream data to the data stream port. Figure~\ref{GCS_connect_command} shows the connection between the UAV data stream port and the ground station. The UAV has two ports, console port, and data stream port and it can send and receive any length of data. SEND\_ ZERO\_ TOKEN is designed by the customer’s so when the DataStream port receives this handshaking token, it will start streaming data. When any data transmission and receive, the software transfer the data through pipes. There are some global initializations that the software needs to perform only once when it is loaded for the first time. Note that the console port is manually connect by the ground control station software. The image viewer will give an error when there is no connection. Figure \ref{GCS_connect_command} shows a signal diagram between the Image Viewer and the data Stream port. 
+When the program start running, the program initialized the port and commands the customer’s application to tell the UAV to stream data to the data stream port. Figure~\ref{GCS_connect_command} shows the connection between the UAV data stream port and the ground station. The UAV has two ports, console port, and data stream port and it can send and receive any length of data. SEND\_ ZERO\_ TOKEN is designed by the customer’s so when the DataStream port receives this handshaking token, it will start streaming data. When any data transmission and receive, the software transfer the data through pipes. There are some global initializations that the software needs to perform only once when it is loaded for the first time. Note that the console port is manually connected by the ground control station software. The image viewer will give an error when there is no connection. Figure \ref{GCS_connect_command} shows a signal diagram between the Image Viewer and the data Stream port. 
 
 \begin{figure}[!hbtp]
 \begin{center}
@@ -170,7 +170,7 @@ When the program start running, the program initialized the port and commands th
 
 
 
-Table~\ref{command_table} shows how the command receive and send at ground station.SEND\_ZERO\_TOKEN is use for toggle the data stream port in order to make it send data to the image viewer. TAKE\_ PICTURE command sends 0 byte to command port by sending a string command to the UAV as shown in Figure~\ref{GCS_Payload_comm}. The PICTURE\_ TAKEN signal act in a similar way to ACK (acknowledgement) command which send back to the ground with a value of number of packet of the byte data. To ensure that the number of packet is the same in ground station and the UAV, the SEND\_ DOWNLOAD\_ REQUEST command sends back the information of number of packet. The number of packet shows how many cycle does the image view to do to receive all the data.  The payload will then send the DOWNLOAD\_ INFO to the ground station which follows by the IMAGE\_ DATA. The image data consist of 3 information bytes the first byte is always 4, this number tell the image view program that it is an image data. The next 2 bytes is saying which number of packet it is. If there is any packet skipped, the image viewer program will noticed and either send error or ask the UAV for the old set of packet. The image data at each cycle have a variable length. The program is designed to take the variable length of data.
+Table~\ref{command_table} shows how the command receive and send at ground station. SEND\_ZERO\_TOKEN is use for toggle the data stream port in order to make it send data to the image viewer. TAKE\_ PICTURE command sends 0 byte to command port by sending a string command to the UAV as shown in Figure~\ref{GCS_Payload_comm}. The PICTURE\_ TAKEN signal act in a similar way to ACK (acknowledgement) command which send back to the ground with a value of number of packet of the byte data. To ensure that the number of packet is the same in ground station and the UAV, the SEND\_ DOWNLOAD\_ REQUEST command sends back the information of number of packet. The number of packet shows how many cycle does the image view to do to receive all the data.  The payload will then send the DOWNLOAD\_ INFO to the ground station which follows by the IMAGE\_ DATA. The image data consist of 3 information bytes the first byte is always 4, this number tell the image view program that it is an image data. The next 2 bytes is saying which number of packet it is. If there is any packet skipped, the image viewer program will noticed and either send error or ask the UAV for the old set of packet. The image data at each cycle have a variable length. The program is designed to take the variable length of data.
 
 \begin{figure}[H]
 \begin{center}
@@ -202,19 +202,19 @@ IMAGE\_DATA & 4 $\overbrace{ [packet number]}^{2bytes} \overbrace{[image data]}^
 \end{table}
 
 \section{File Dialogue}
-For a .NET C\# Programming, there is a previous tools that we can use to change directory, open and save files. The OpenFileDialog,  SaveFileDialog, and FolderBrowser dialogue are existing classes that is suitable to do this job. However, to open any file dialogue, the application needs to have a STAThread in order to handle multiple objects. STAThread is an attribute which applied to the main method, indicating that the application should communicate with unmanaged COM code using the Single Threading Apartment. It allows main thread or the main form to run in the background while the file dialogue is executing. 
+For a .NET C\# Programming, there is a previous tools that we can use to change directory, open and save files. The\texttt{OpenFileDialog,  SaveFileDialog, and FolderBrowser} dialogue are existing classes that is suitable to do this job. However, to open any file dialogue, the application needs to have a \texttt{STAThread} in order to handle multiple objects. \texttt{STAThread} is an attribute which applied to the main method, indicating that the application should communicate with unmanaged COM code using the Single Threading Apartment. It allows main thread or the main form to run in the background while the file dialogue is executing. 
 
-These file dialogues are not stated in the image viewer specification. But it has been implemented because the user may install the program in many computers and the initial folder might not exist and this might cause the system to give an error. It is also make the users feel that they can use the program more freely.  It also give the advantage of limiting the access to only an existing file, so there is no error when trying to save the image.
+These file dialogues are not stated in the image viewer specification. But it has been implemented because the user may install the program in many computers and the initial folder might not exist and this might cause the system to give an error. It is also make the users feel that they can use the program more freely.  It gives the advantage of limiting the access to only an existing file, so there is no error when trying to save the image.
 
  
 \section{Code Highlight}
 
-This section describe the code that is important for the program. The entire code will not be described but it will be in the appendix. In the image viewer program. It needs a class that can do these to port: connect, receive and send. FileStream class is a class in the .NET C\# which can create a file. BinaryWriter class used for writing the byte data into the generated file made by the FileStream class. The file directory will introduce a thread. While the open or save a file, the main application must be running, so the application need to deal with multi threads at the same time. Also when the get picture button got clicked, the main application is frozen because of the thread time organize do one thing at a time. The special code of thread need for handle this thread. 
+This section describes the code that is important for the program. The entire code will not be described but it will be in the appendices. It needs a class that can do these to port: connect, receive and send. \texttt{FileStream} class is a class in the .NET C\# which can create a file. \texttt{BinaryWriter} class is use for writing the byte data into a specific file made by the \texttt{FileStream} class. The file directory will introduce a thread. While the open or save a file, the main application must be running, so the application needs to deal with multi threads at the same time. Also when the get picture button got clicked, the main application is frozen because of the thread time organize do one thing at a time. 
 
 \subsubsection*{Connect to UAV:Appendix \ref{appen:UAVConnector} line 18-38.}
-The Socket class has functions to send and receive byte and strings data. The handshaking protocol is using \texttt{PortConnect()} method.  
+The \texttt{Socket} class has functions to send and receive byte and strings data. The handshaking protocol is using \texttt{PortConnect()} method.  
         
-The design of the .NET \texttt{Socket} class simply connect to a Port by a single command without any hesitation of changing the baud rate, stop bits, and parity bits. 
+The design of the .NET \texttt{Socket} class simply connects to a Port by a single command without any hesitation of changing the baud rate, stop bits, and parity bits. 
 This advantage makes the \texttt{Socket} class a more useful class then the \texttt{SerialPort} Class to work with the Port with existing and static set up. 
 This class has been tested using a console application before implementing it in a final GUI. 
 This will complete milestone\ref{sec:ms_pl_tx_token_resp}.
@@ -222,33 +222,34 @@ This will complete milestone\ref{sec:ms_pl_tx_token_resp}.
 \subsection{Start of the program: Appendix \ref{appen:main_form} line 78-87}%
 In order to make the file name different and meaningful, the name of the picture will be the time and date of the time taken the picture. The code \texttt{DateTime.Now} generate a string of date and time of the current time. This has been done using the date and time class. \texttt{FileStream} was initialize to be in \texttt{FileMode.Create()}, so it can create file. The BinaryWriter write the binary byte into a file in the directory of the fileStream. \texttt{string fileName = string.Format("uavPictureAt{ 0 : yyyy-MM-dd\_ hh-mm-ss-tt}
  .jpg", DateTime.Now);   }  
-This code time setting is valid for a file name because it is not using any symbole that will make the program confuse with a code. 
-It will display year, month,date, and time in this order. 
+This code time setting is valid for a file name because it is not using any symbol that will make the program confuse with a code. 
+It will display year, month, date, and time in this order. 
 The \texttt{BinaryWriter} class can create a binary file using specific data layout for its bytes. 
 
 \subsection{Change File Directory:Appendix \ref{appen:main_form} line346-370 and 454-484 }% 
-If the user wish to change the directory of the image taken, the image viewer program must support it. the mnuOpen\_click() method introduce an OpenFileDialog class. It begin with open file dialog box. This allow the user to open an inital image to the program. If the user took a picture, it will be saved in the same directory as the open file. This file dialog is limited to only the jpg picture in order to avoid the error of displaying the image. 
-This file dialog introduce an extra thread. Without thread handler, the program will automatically organize the thread in the same timeline. This means it have to finish one event before it start another. The more detail about thread will be discussed in the thread section. 
+If the user wishes to change the directory of the image taken, the image viewer program must support it. the mnuOpen\_click() method introduce an OpenFileDialog class. It begins with open file dialog box. This allows the user to open an initial image to the program. If the user took a picture, it will be saved in the same directory as the open file. This file dialog is limited to only the jpg picture in order to avoid the error of displaying the image. 
+This file dialog introduces an extra thread. Without thread handler, the program will automatically organize the thread in the same timeline. This means it has to finish one event before it starts another. The more detail about thread will be discussed in the thread section. 
 
 \subsection{Threading}
 
-A Scheduler that is reponsible for time-slicing threads controls the thread execution, managing blocking of I/O message and signal handling. There is always a main or initial thread running in a recursive loop that respond to the client application\cite{keithC}. In image viewer program, the main thread is the window application. When the get picture button got clicked, it will generate another less fundamental thread which will be execute after the loop have done. Therefore, in order to deal with this application while the picture is loading we need \texttt{Application.DoEvents();.}
-During a process of taking picture and loading from the sky, the program wait for the loop to be finished before the user can do any action on the program. This is because while the code is processing, all other events wait in the queue, and it makes the program stop working. This can be fixed by using \texttt{Application.DoEvents()}. This code processes all of the Windows event messages that have queued up \cite{davidW}. When this code has been applied, the application can deal with other event at the same time as the code is running. This is important to mention because the program might be stop working if this thread has not introduced.
-        \texttt{Application.DoEvents()} in the Main function delegate that wraps the method that indicate where to start execution. The thread begin to run when the \texttt{Application.DoEvents()} get called\cite{xieX}.When the file dialog try to run, the main application must be close. The \texttt{[STAthread]} has to be introduced in order to run multi thread at the same time. But, this doesn't mean the processor will be faster, but thread can make use of the resources that would go unused. A background thread can continue to run, while a foreground thread waits for the user input. This is called an apartment thread. 
+A Scheduler that is responsible for time-slicing threads controls the thread execution, managing blocking of I/O message and signal handling. There is always a main or initial thread running in a recursive loop that responds to the client application\cite{keithC}. In image viewer program, the main thread is the window application. When the get picture button got clicked, it will generate another less fundamental thread which will be executed after the loop has done. Therefore, in order to deal with this application while the picture is loading we need \texttt{Application.DoEvents();.}
+ This code processes all of the Windows event messages that have queued up \cite{davidW}. When this code has been applied, the application can deal with other event at the same time as the code is running. This is important to mention because the program might be stop working if this thread has not introduced.
+\texttt{Application.DoEvents()} in the Main function delegate that wraps the method that indicate where to start execution. The thread begin to run when the \texttt{Application.DoEvents()} get called\cite{xieX}.
+The \texttt{[STAthread]} has to be introduced in order to run multi thread at the same time. But, this doesn't mean the processor will be faster, but thread can make use of the resources that would go unused. A background thread can continue to run, while a foreground thread waits for the user input. This is called an apartment thread. 
         
 \subsection{Text Command:Appendix\ref{appen:UAVConnector} line 68-85}
 TCP/IP protocols transfer data without modifying them. This allow the application to freely encode the data.\cite{davidB}.The Ground station software allow the program to send a stream of string in bytes and it will read the command bytes and send it to the payload on the UAV. The code has shown the way to implement the string and send a byte array to the payload.
 
 To send text, the string of characters is translated into an array of bytes. American Standard Code for Information Interchange(ASCII) is use for translating English into a binary code. In the \texttt{System.Text} classes provide converting mechanism between each character sets. The \texttt{ASCIIEncoding.GetBytes()} is used for convert character array into a byte array.  
-\texttt{The Socket.Send()} Method allow the user to send byte stream to the port connected.The customer's program will read from the port and display it onto the command line. The ''@ '' sign indicate that the command correctly sent from the application to the ground station software. The advantage of linking to the ground station software is that our customers can understand what is going on in the console line. For example:uavConn.SendTextToUAV(''da 20 payload[0].mem\_ bytes[0]'');
+\texttt{The Socket.Send()} method allows the user to send byte stream to the port connected. The customer's program will read from the port and display it onto the command line. The ''@ '' sign indicate that the command correctly sent from the application to the ground station software. The advantage of linking to the ground station software is that our customers can understand what is going on in the console line. For example:uavConn.SendTextToUAV(''da 20 payload[0].mem\_ bytes[0]'');
 
 
 The text \texttt{''da 20 payload[0].mem\_ bytes[0]''} will be converted to char array and then to byte array. The byte array will then send the command to the console port to the payload by \texttt{consolePort.Send(toUAVByte, toUAVChar.Length)}. The customer is familiar with the ground station software program, so he can understand the background of the transmission as well. This will complete Milestone\ref{sec:ms_pl_rx_msg_gs}.
 
-In order to test that the payload receive the same data, we use the oscilloscope to see the signal. The byte display on the payload is the same as the byte data send from the ground station. Therefore, the Milesone\ref{sec:ms_pl_img_gs_trigger} is completed. The different resolution send different byte command to the payload. The byte command changes if the comboBox option change. Therefore, we can say that Milestone\ref{sec:ms_pl_img_gs_cam_res} has completed.
+In order to test that the payload receives the same data, we use the oscilloscope to see the signal. The byte display on the payload is the same as the byte data send from the ground station. Therefore, the Milesone\ref{sec:ms_pl_img_gs_trigger} is completed. The different resolutions send different byte command to the payload. The byte command changes if the comboBox options change. Therefore, we can say that Milestone\ref{sec:ms_pl_img_gs_cam_res} has completed.
 
 \subsection{I/O Streams}
-    The .NET framework's stream class is use as a powerful tools for encoding and decoding\cite{davidB}. In the image viewer program, we use FileStream to create a directory and to save the byte data into image. However, the program might have to deal with a corrupted image data. Framing is the problem of the receiver failed to find the beginning and the end of the message. The solution is the data packet give the information of how many loop must the program do in order to receive all the image data. The packet address locate in the second and third byte of the image data stream. This will make the completion of Milestone \ref{sec:ms_pl_shared_mem_set}
+    The .NET framework's stream class is use as a powerful tool for encoding and decoding\cite{davidB}. In the image viewer program, we use FileStream to create a directory and to save the byte data into image. However, the program might have to deal with a corrupted image data. Framing is the problem of the receiver failed to find the beginning and the end of the message. The solution is the data packet gives the information of how many loop must the program do in order to receive all the image data. The packet address locates in the second and third byte of the image data stream. This will make the completion of Milestone \ref{sec:ms_pl_shared_mem_set}
     
 \begin{lstlisting}[caption={writing binary file},label=lst:writingb]          
 	for (int i = 3; i < packetSize; i++)
@@ -261,11 +262,11 @@ In order to test that the payload receive the same data, we use the oscilloscope
 At every cycle of the data being received, \texttt{opFile.Write()} method will write the packet data into the file in the directory. After the cycle finished, the file will be saved and the image will be displayed in the picture box. 
 
 \subsubsection*{Update the Directory:Appendix\ref{appen:UAVConnector} line 280-345}
-The update directory method update itself every time the file directory is changing. This method will update the string of all the possible JPEG file in order to make it display in the picture box correctly. So when the left or right button got clicked, the string of JPEG file name will get plus or minus. This array of string have to update because it changes when the picture got deleted, or the new picture got taken. The array called \texttt{jpegList} is use as a string file storage for all the JPEG possible file. It has a nice function when the user come to the end of the scrolling up, the right button will disappear, or if it reach the first file in the directory, the left button will disappear. 
+The update directory method updates itself every time the file directory is changing. This method will update the string of the possible JPEG files so when the left or right button got clicked, the string of JPEG file name will get plus or minus and display the next file. This array of string has to update because it changes when the picture got deleted, or the new picture got taken. The array called \texttt{jpegList} is use as string file storage for JPEG file. It has a nice function when the user come to the end of the scrolling up, the right button will disappear, or if it reach the first file in the directory, the left button will disappear. 
 \subsection{Get Picture Button}
 This get picture button will use both send and receive function of the program. 
 The work flow of the get picture signal show in figure \ref{GUI_finalWorkFlow}.
-If all the signal send/receive correctly, the photo that receive from the sky will be display on the photo box in the program.
+If the sequence of signal send/receive correctly, the photo that receive from the sky will be display on the photo box in the program.
 This will complete Milestone\ref{sec:ms_pl_img_sending_gs}.
 
 \begin{figure}[H]
@@ -318,7 +319,7 @@ image at designated way-points:
 \end{itemize}
 
 \subsection{Other functions}
-The user might want to delete some unwanted photo, so the delete button have been implemented. The delete button work like a normal file deleting button. But it has been complicated because the photo to delete must be the photo on the pictureBox. There is an error because the photo is using by the pictureBox. To fix this problem, the picture have to shifted left or right first and then delete the photo. This will solve almost all the problem. But where there is only one picture in the file, the program can not delete because even the pictureBox is set to null, it's last memory is still point at the deleting file. However, the disadvantage of the delete button is that if the wanted photo got deleted accidentally, it might take a long time to launch the UAV again and take the same photo.The program can also detect the corrupted image and ask the user to delete it.
+The user might want to delete some unwanted photo, so the delete button have been implemented. The delete button work like a normal file deleting button. But it has been complicated because the photo to delete must be the photo on the pictureBox. There is an error because the photo is using by the pictureBox. To fix this problem, the picture have to shifted left or right first and then delete the photo. This will solve almost all the problem. But where there is only one picture in the file, the program is not allow to delete because even the pictureBox is set to null, its last memory is still point at the deleting file. However, the disadvantage of the delete button is that if the wanted photo got deleted accidentally, it might take a long time to launch the UAV again and take the same photo. The program can also detect the corrupted image and ask the user to delete it.
 
 \begin{figure}[H]
 \begin{center}
@@ -329,7 +330,7 @@ The user might want to delete some unwanted photo, so the delete button have bee
 The camera has options of resolution as shown in Figure\ref{resolutionOption}. This can be useful when the speed is important. The lower the resolution, the faster the data transmitted to the ground. GUI has the combo box for the user to choose any wanted resolution in the options. The resolution allow user to have more accessible to the camera. However, this mean there is more on the programmer side to program the application.
 
 
-The baud rate that we can transmit data from the UAV is 38.4kbaud. Bandwidth limitations severely restrict the volume of data to transfer over the wireless link. It takes around 8 to 20 seconds to transmit an image of resolution 640x480. This progress bar tells the user how much percentage of data received. The progress bar update at each cycle of the data receives. At the end of each image downloaded, the progress bar reset to its normal state.  The status text tells the user what signal have been sent or received. This status text ensures that the picture is downloading and it is good for testing that the tasking in process. These two nice application allocate on the bottom left of the GUI as shown in Figure\ref{progressBar}. However, these have to implement every cycle of the data collection and it might cause the cycle to run slower. The actual loop is much faster than the 38.4kbaud, therefore there is no problem implementing these in.
+The baud rate that we can transmit data from the UAV is 38.4kBaud. Bandwidth limitations severely restrict the volume of data to transfer over the wireless link. It takes around 8 to 20 seconds to transmit an image of resolution 640x480. This progress bar tells the user how much percentage of data received. The progress bar update at each cycle of the data receives. At the end of each image downloaded, the progress bar reset to its normal state.  The status text tells the user what signal have been sent or received. This status text ensures that the picture is downloading and it is good for testing that the tasking in process. These two nice application allocate on the bottom left of the GUI as shown in Figure\ref{progressBar}. However, these have to implement every cycle of the data collection and it might cause the cycle to run slower. The actual loop is much faster than the 38.4kbaud, therefore there is no problem implementing these in.
 \begin{figure}[!hbtp]
 \begin{center}
 \includegraphics[scale=0.5]{figures/progressBar.png} 

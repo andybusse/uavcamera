@@ -234,7 +234,53 @@ to be implemented. In this way the payload module can transmit a whole image ove
 A number of problems were encountered and overcome during the implementation of the payload-ground station
 communication code, a few of the most important are reproduced here.
 
-One problem encountered regarded a flag variable being checked in a function called in the main event loop. The flag
+\subsubsection*{Autopilot Bug}
+
+The Autopilot sends "Transmit" tokens to the payload module every 20ms, 
+to which a payload module sent an "ACK" token, even when it does not 
+transmit any data. We encountered a problem whereby if our we tried to 
+send any data to the payload during an "ACK", the autopilot would stop 
+sending any "Transmit" tokens at all, effectively cutting off all 
+communication to the payload module.
+
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{c c}
+  \subfigure{\label{fig:testing_sc2_working1}\includegraphics[width=0.5\textwidth]{scope/scope_1.png}}&                
+  \subfigure{\label{fig:testing_sc2_working2}\includegraphics[width=0.5\textwidth]{scope/scope_2.png}} \\
+  \subfigure{\label{fig:testing_sc2_working3}\includegraphics[width=0.5\textwidth]{scope/scope_3.png}}&                
+  \subfigure{\label{fig:testing_sc2_working4}\includegraphics[width=0.5\textwidth]{scope/scope_11.png}}
+  \end{tabular}
+  \captionof{figure}{Oscilloscope traces for the situation where the autopilot does not break: In yellow is the Autopilot TX, in green the Payload TX. In this situation, after an ACK token is received by the autopilot, a SEND\_BYTES instruction is sent. On the next transmit token, a series of bytes is sent to the autopilot, and the autopilot continues to send Transmit tokens.}
+  \label{fig:testing_sc2_working}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{c c}
+  \subfigure{\label{fig:testing_sc2_broken1}\includegraphics[width=0.5\textwidth]{scope/scope_6.png}}&                
+  \subfigure{\label{fig:testing_sc2_broken2}\includegraphics[width=0.5\textwidth]{scope/scope_14.png}} \\
+  \subfigure{\label{fig:testing_sc2_broken3}\includegraphics[width=0.5\textwidth]{scope/scope_7.png}}
+  \end{tabular}
+  \captionof{figure}{Oscilloscope traces for the situation where the autopilot breaks: In yellow is the Autopilot TX, in green the Payload TX. In this situation, whilst an ACK token is received by the autopilot, a SEND\_BYTES instruction is sent. No more transmit tokens are sent, therefore communication with the payload stops.}
+  \label{fig:testing_sc2_broken}
+\end{figure}
+
+Not sure whether this was a bug with the Autopilot, we got in contact with 
+our customer, sending all scope traces to him and a description of how 
+to reproduce the error. Not being able to reproduce it with his dummy 
+payload (strange, as our dummy payloads only differed in that his used a
+surface-mount version of an ATmega168 and a MAX3070 transceiver instead 
+of MAX489), he then came to ECS and debugged the Autopilot with us.
+
+After a significant amount of time debugging the Autopilot and our 
+payload, it was discovered this was indeed a problem with the Autopilot, 
+which our customer was able to fix and subsequently update the firmware 
+of our Autopilot.
+
+\subsubsection*{Volatile Variables and ISRs}
+
+Another problem encountered regarded a flag variable being checked in a function called in the main event loop. The flag
 was the continuation condition of a while loop, and although it was being set in another section of code this new set 
 value was not being propagated to the while loop code, meaning that the while loop would continue forever. This problem
 was discovered (helped greatly by the debug interface described in section \ref{sec:payload_debug_interface}) . After some
