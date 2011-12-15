@@ -47,7 +47,7 @@ since the data is received by the payload as expected.
 Milestone \ref{sec:ms_pl_rx_msg_gs} is validated.
 
 \subsection{Test: Image Sending to Ground Station via Autopilot Link - (mh23g08)}
-
+\label{sec:test_pl_image_send}
 Initially in order to test payload controller to ground station communications implementation
 a PC console program was written to receive the incoming image data payload controller. By
 inputting a \verb+payload[0].send_bytes 0+ command into the ground station software
@@ -55,7 +55,7 @@ the payload module triggers an image capture and the console application request
 
 Figure \ref{fig:image_sending_test} shows the download of an image from the payload controller to
 ground station via the autopilot link while figure \ref{fig:image_sending_test_example} shows an example
-of an image downloaded. This test validates milestone \ref{sec:ms_pl_img_sending_gs}.
+of an image downloaded. This test validates milestones \ref{sec:ms_pl_img_sending_gs} and \ref{sec:ms_pl_img_gs_trigger}.
 ||||||||||||||| REFER TO DIAGRAM ||||||||||
 
 \begin{figure}[H]
