@@ -215,12 +215,6 @@ ground station, as described earlier. Only one set of shared memory is used, and
 a new message is to be sent from the payload controller to the ground station.
 Other features such as configuration of camera resolution are implemented using this basic mechanism, figure \ref{sequence diagram} describes many the sequence diagram of the data transmission.
 
-Image data is also sent in the same basic manner, however the image is broken up into `packets' of data
-which can be placed into the shared memory of the autopilot one at a time, as described by the \emph{Image Data}
-message described above. One packet is sent for every transmit token sent by the autopilot, ensuring that the
-payload module does not saturate the autopilot link with data. While packets are being sent, the main event loop
-still checks for messages being sent from the ground station, allowing functionality such as the cancel download message 
-to be implemented. In this way the payload module can transmit a whole image over the autopilot connection.
 
 \begin{figure}[H]
 \begin{center}
@@ -229,6 +223,17 @@ to be implemented. In this way the payload module can transmit a whole image ove
 \caption{Sequence Diagram of the Data flow\label{sequence diagram}}
 \end{figure}
 
+Image data is also sent in the same basic manner, however the image is broken up into `packets' of data
+which can be placed into the shared memory of the autopilot one at a time, as described by the \emph{Image Data}
+message described above. One packet is sent for every transmit token sent by the autopilot, ensuring that the
+payload module does not saturate the autopilot link with data. While packets are being sent, the main event loop
+still checks for messages being sent from the ground station, allowing functionality such as the cancel download message 
+to be implemented. In this way the payload module can transmit a whole image over the autopilot connection.
+
+The testing of the image sending system is described in section \ref{sec:test_pl_image_send}, verifying the milestones 
+as described.
+
+Verification of milestone \ref{sec:ms_pl_img_gs_cam_res} (changing image resolution) can be seen in test \ref{sec:test_change_resolution}. Unfortunately changing colour type (milestone \ref{sec:ms_pl_img_gs_cam_colour_type})  was not fully implemented due to time constraints.
 
 \subsection{Problems Encountered}
 A number of problems were encountered and overcome during the implementation of the payload-ground station

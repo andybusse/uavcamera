@@ -109,6 +109,11 @@ Disadvantages:
 
 Using an Arduino has the advantage of speeding up development at the beginning of the project. The large number of libraries built for the Arduino is another key advantage, as is the ease of re-implementation.
 
+\subsection{Approach Chosen}
+We chose to use an Atmel 8-bit AVR as the platform for our implementation of the payload controller. Our main reason for choosing this platform is because we already have experience in using this microcontroller, meaning less time to develop and 
+test the system over a DSP based solution. Another key reason was the ease of implementing AVR based systems as 
+stand-alone boards.
+
 \section{Communication between Payload Controller and Ground Station}
 One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station image viewer software (see section |||||| GS IMAGE VIEWER ||||||) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
 
@@ -144,3 +149,6 @@ Advantages:
 %\begin{itemize}
 %\item Error coding??
 %\end{itemize}
+
+\subsection{Approach Chosen: Send Bytes Command and Shared Memory}
+Using shared memory for one direction and send bytes for the other seemed like a sensible choice due to the lower overhead needed.
