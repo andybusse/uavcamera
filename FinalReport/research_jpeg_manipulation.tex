@@ -35,9 +35,7 @@ subsampled to a 4:2:2 or 4:2:0 model respectively. \cite{exif_std}
 The image is transformed from a spatial domain 
 representation to a frequency domain representation
 using the Discrete Cosine Transform. \cite{hass_impulse_jpeg}
-%%
-%% REFERENCE TO DCT PART
-%%(see section \ref{sec:jpegmanipulation})
+(see section \ref{transfom_base})
 
 \subsubsection{Stage 4: Quantization}
 Using the wave equations from the DCT step,
@@ -47,7 +45,7 @@ high-frequency components (sudden colour changes),
 from the top left to the bottom right corner of the image.
 The algorithm discards the high-frequency details
 due to the human eye not recognizing them as
-well as low-frequency details. This is down through 
+well as low-frequency details. This is done through 
 division of all DCT wave equation 
 coefficients using a quantization table and
 then rounding the result to the nearest integer.
@@ -62,7 +60,14 @@ then re-ordered from the top-left corner into a
 This is done to ensure that the high-frequency
 components which are most likely to round to
 zero after quantization, make up the lower
-right hand part of the matrix.\cite{hass_impulse_jpeg}
+right hand part of the matrix.
+
+\begin{figure}[!hbtp]
+\begin{center}
+\includegraphics[scale=1]{figures/jpegzigzag.png} 
+\end{center}
+\caption{Example ofa zig zag scan \cite{hass_impulse_jpeg}}
+\end{figure}
 
 \subsubsection{Stage 6: DPCM on DC components}
 DPCM is known as Differential Pulse
@@ -83,14 +88,12 @@ Finally, a dictionary representing commonly used value strings with
 shorter code is created. Common string and patterns
 are represented by short codes while less frequently
 used strings are represented with longer codes.
-%%
-%% REFERENCE TO MICHAEL'S HT PART
-%%(see section \ref{sec:jpegmanipulation})
+(see section \ref{sec:general_huff})
 
 \subsection{JPEG Structure}
 A JPEG file can be separated into two main parts. 
 The first part of the JPEG file is composed of segments containing information concerning 
-various properties of the image which must be read in order to recover the image from its compressed form. 
+various properties of the image which must be read in order to display the image from its compressed form. 
 The number of segments within one JPEG file varies from picture to picture.
 The second part contains the entropy-encoded image data, which can be decoded using the information provided from the headers of the file.  
 

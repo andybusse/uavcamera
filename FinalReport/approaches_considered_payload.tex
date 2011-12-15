@@ -12,21 +12,21 @@ Additional requirements depend on other design decisions:
 \begin{itemize}
 \item \emph{Camera communication:} Using a serial camera would mean the controller requiring access to another UART, while using a USB camera leaves the camera needing access to a USB host interface. Similarly using an analogue camera would mean either the controller be capable of digitising the camera data itself or having a method of interfacing with an external digitiser.
  
-\item \emph{Image buffering:} Most embedded systems do not have enough RAM or Flash to store a reasonable sized image on onboard memory. As described in section |||||| BUFFERING ||||||, there are a number of approaches worth considering for externally buffering an input image, however these do require the controller to have an interface with which to communicate with the external memory. 
+\item \emph{Image buffering:} Most embedded systems do not have enough RAM or Flash to store a reasonable sized image on onboard memory. As described in section /ref{sec:local_storage}, there are a number of approaches worth considering for externally buffering an input image, however these do require the controller to have an interface with which to communicate with the external memory. 
 
-\item \emph{Progressive JPEG Manipulation:} Section |||||| PROGRESSIVE JPEG MANIPULATION ||||| details several ways progressive JPEG manipulation could be tackled. Depending on the design choice taken this could influence the requirements of the controller substantially. Examples of such requirements could be: extra processing power, fast access to memory or FFT or DFT libraries being available for the device.
+\item \emph{Progressive JPEG Manipulation:} Section \ref{sec:implementation_progressive_jpeg} details several ways progressive JPEG manipulation could be tackled. Depending on the design choice taken this could influence the requirements of the controller substantially. Examples of such requirements could be: extra processing power, fast access to memory or FFT or DCT libraries being available for the device.
 \end{itemize}
 
 \subsection{Approach: Digital Signal Processor (DSP) Development Board}
-An appropriate Digital Signal Processor (DSP) development board would provide fast digital signal processing capabilities to the controller. This would be especially useful for the situations mentioned in section |||||| PROGRESSIVE JPEG MANIPULATION |||||.
+An appropriate Digital Signal Processor (DSP) development board would provide fast digital signal processing capabilities to the controller. This would be especially useful for the situations mentioned in section \ref{sec:implementation_progressive_jpeg}.
 
 Since DSP chips tend to be specialist devices they are usually difficult to set up or program without first experimenting with the design using a development board - a special board designed with experimentation and product development in mind. Ideally a development board would be used for initial development of the system with a integrated PCB being developed later on to allow the DSP to be used on its own.
 
 Advantages:
 \begin{itemize}
-\item DSPs often have very good analogue to digital conversion built in as standard. If an analogue camera is used (as discussed in section ||||| ANALOUGE CAMERA |||||) a DSP may provide the necessary fast ADC without any extra components.
+\item DSPs often have very good analogue to digital conversion built in as standard. If an analogue camera is used (as discussed in section \ref{sec:Analog_option}) a DSP may provide the necessary fast ADC without any extra components.
 
-\item Libraries for tasks such Fast Fourier Transforms or other signal and image processing related applications are often readily available for DSP chips. For some methods of performing progressive JPEG manipulation (see section |||||| PROGRESSIVE JPEG MANIPULATION |||||) this could be useful.
+\item Libraries for tasks such Fast Fourier Transforms or other signal and image processing related applications are often readily available for DSP chips. For some methods of performing progressive JPEG manipulation (see section \ref{sec:implementation_progressive_jpeg}) this could be useful.
 
 \item Large number of miscellaneous signal processing related hardware features built in which could be useful in as-yet unforeseen circumstances.
 \end{itemize}
@@ -36,10 +36,12 @@ Disadvantages:
 \item DSP chips are often complex and may require significant work to produce a system running without a development board.
 
 \item DSP development boards often cannot be used effectively in a final version of a project due to size and power constraints.
+
+\item There is a steep learning curve to using these devices and the group has very little experience with them.
 \end{itemize}
 
 
-DSP boards are a specialist tool, which could be especially useful - if not required - if implementing certain image processing algorithms such as some of those detailed in section |||||| PROGRESSIVE JPEG MANIPULATION |||||. The downside of this is a more complex overall system.
+DSP boards are a specialist tool, which could be especially useful - if not required - if implementing certain image processing algorithms such as some of those detailed in section  \ref{sec:implementation_progressive_jpeg}|. The downside of this is a more complex overall system.
 
 \subsection{Approach: Atmel 8-bit AVR}
 \label{sec:desappr:avr}
@@ -55,7 +57,7 @@ Advantages:
 
 \item Commonly used devices mean large community built around the device family meaning support and additional libraries are more likely to be available.
 
-\item Some initial payload code available to us already implemented on a AVR.
+\item Some initial payload code available to us already implemented on a AVR, see section \ref{sec:team_resources}.
 
 \item Large range of different devices which work with the same programming tools and minimal code changes available.
 
@@ -115,13 +117,13 @@ test the system over a DSP based solution. Another key reason was the ease of im
 stand-alone boards.
 
 \section{Communication between Payload Controller and Ground Station}
-One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station image viewer software (see section |||||| GS IMAGE VIEWER ||||||) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
+One of the key tasks of the payload controller is to communicate with the Ground Station via the Autopilots 38.4 kBaud serial link. In order to fulfil the specification the payload controller must be capable of receiving messages/commands sent from the Ground Station image viewer software (see section \ref{chap:implementation_ground_station}) through the autopilot link, as well as be capable of sending data to the Ground Station Image Viewer.
 
 The autopilot provides a number of ways to communicate between a payload module and ground station software. The Ground Station software provided to us allows a `packet' of data to be sent to a payload module by executing the command shown below
 
 Another method of communication is via the use of shared memory. Each registered payload module is assigned a set of shared memory which can be read and set by the payload module and the ground station software. This could be used to implement two-way communications between the two subsystems.
 
-The design approaches taken regarding this communication from the perspective of the Ground Station Image Viewer software is discussed in section ||||||| GS Image Viewer ||||||||.
+The design approaches taken regarding this communication from the perspective of the Ground Station Image Viewer software is discussed in section \ref{chap:implementation_ground_station}.
 
 \subsection{Approach: Shared Memory for Both Directions}
 One possible way of producing two-way communications would involve two sets of shared memory: one for ground station to payload messages and another for payload to ground station messages. Both the payload and the autopilot would need to poll the shared memory to check for new messages.

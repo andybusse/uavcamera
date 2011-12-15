@@ -31,6 +31,8 @@ Leaves2.jpg test image.
 \caption{JPEG segment information obtained from JPEGSnoop.exe}
 \end{figure}
 
+\newpage
+
 The images used for the basis of the following tests
 were 8 JPEG images of size 640x480 or
 less. The pictures are deliberately chosen to be 
@@ -50,29 +52,17 @@ executable was compiled and run using
 the Eclipse development platform and the output
 was printed out on the Eclipse console display.
 
-The execution time of the C executable is generally
-slower than that of the JPEGSnoop.exe 
-application. Although this is hardly noticeable
-for simple JPEG images, there is a delay
-when dealing with complex images. During testing,
-the longest time the C executable took to extract 
-the information from an image is around 12 seconds
-for the ``Leaves.jpg'' image used to display the
-DHT test figure in section \ref{LeavesImage}.
-
 The following segments were tested:
 
 \subsubsection{Test: SOF0}
 
 The SOF0 information is displayed almost
-identically between both outputs. 
-The only major difference lies at the display of
-the component information. The extractor
-derives dimensions of the chrominance pixel
-from the sampling factors as well as the MCU size.
-The extractor does not derive the image size nor the
+identically between both outputs.
+The C executable extractor does not derive the image size nor the
 image orientation, because that information will
 not be needed for a progressive display of the image.
+
+\newpage
 
 \begin{figure}[!hbtp]
 \begin{center}
@@ -88,15 +78,14 @@ subsampling factor.
 
 \subsubsection{Test: DHT}
 
-The DHT information is organized so that it is easy to display in
-a coherent format. As shown in the figure below, the number of
-symbols and actual code are identical for the first Huffman table (0).
 The extractor keeps track of the DHT segment where the Huffman
 table was extracted to better understand the layout of the JPEG
 file's DHT segments. The JPEGSnoop extractor simply places the
 information in a more compact format compared to the display 
 method used by the executable, which has no bearing on the actual
 information stored.
+
+\newpage
 
 \begin{figure}[!hbtp]
 \label{LeavesImage}
@@ -110,6 +99,8 @@ information stored.
 
 The SOS segment information is read in correctly. The red squares indicate
 the DHT tables which are the same in both outputs.
+
+\newpage
 
 \begin{figure}[!hbtp]
 \begin{center}

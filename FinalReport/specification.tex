@@ -9,7 +9,7 @@ This chapter will describe the brief we were given and an overview of the system
 
 The functionality intended for the system is also broken down and the priority given to each task is explained. The things that we should have to give to our customer at the end of the project are also described.
 
-\section{Brief (jc / mitch)}
+\section{Brief (jc)}
 
 The original agreed project specification and plan, handed in on the first week of the project, was to design, build, and test an electronic module capable of capturing still images from an unmanned aerial vehicle (UAV) and transmitting the images to a ground station. The module must use the UAV autopilot’s low-bandwidth RS485 serial link (38.4 kBaud). A program must be written to interface with the ground station software over a TCP/IP link, allowing commands to be sent to the electronic module in the UAV and image data to be received and then displayed to the user on the ground. The electronic module should be constructed suitably ruggedly for use in the environment of the UAV.
 
@@ -28,7 +28,7 @@ Inside the UAV itself will go the camera, the payload controller and the autopil
 
 On the ground station side of things there is a radio frequency (RF) link (zigBee [] cite []) to the autopilot (simulated by a USB cable for development purposes) which attaches to a computer running the ground station software provided by our customer. The ground station software provides two TCP/IP ports as interfaces, one for sending commands to the ground station software and to the autopilot and one for streaming data from the autopilot. It is these TCP/IP ports that our software on the ground has to interface with so that it can send commands up to the payload controller and then receive and display an image.
 
-\section{Objectives (jc / mitch)} 
+\section{Objectives (jc)} 
 
 The aim of the project was to achieve the following criteria, which were also prioritized in order to ensure organized and efficient work - high priority points are essential or very important to basic system functionality, medium priority points are not essential for basic functionality but help expand the system into a more complete system and low priority points are optional extras that should be added if time permits or if they are very low effort:
 
@@ -39,7 +39,7 @@ This 3 minute figure is the time it was calculated it would take to download a r
 This was given a \textbf{medium priority} since authough a weight of under 250g would be required for flight, it would be preferable to have a system that is too heavy than one that does not work at all.%as electronics tend not to be very heavy but it is important to bear in mind that the UAV can't carry too much weight.
 	\subsection{Specification D}\label{sec:spec_d} \textbf{Image resolution of \textbf{$640\times480$}.} 
 This was given a \textbf{medium priority}, this value was chosen as a trade off between the amount of data in the image and the quality of the image. Higher resolutions would be acceptable if the download time can be suitable reduced and lower resolutions may also be useful if they are much faster to download.
-	\subsection{} \textbf{Allow the user to perform the following actions on the UAV’s camera from the base station:} 
+	\subsection{UAV Camera Commands} \textbf{Allow the user to perform the following actions on the UAV’s camera from the ground station:} 
 		\subsubsection{Specification E}\label{sec:spec_e} \textbf{Prompt the UAV to \textbf{capture and download an image}.}  
 This was given a \textbf{high priority} as the main aim of the system is to be able to capture images.
 		\subsubsection{Specification F}\label{sec:spec_f} \textbf{\textbf{Cancel} the downloading of any image while the image is being downloaded.} 
@@ -66,8 +66,16 @@ This was given a \textbf{low priority} as it does not affect basic functionality
 
 The deliverables which were planned to be produced by the end of the project and given to the customer include:
 
-	\subsection{\underline{Hardware}:} \label{sec:deliv_hw} Camera module, constructed on PCB (if time permits, otherwise on strip-board),including layout designs.
-	\subsection{\underline{Software}:} \label{sec:deliv_sw} All firmware for the electronic module, and software on the base station for viewing images. The full source code and all executable files will be included.
-	\subsection{\underline{Documentation}:} \label{sec:deliv_doc} Technical and User Documentation. This includes all schematics related to hardware as well as all other documents concerning both the software and hardware delivered.
-	\subsection{\underline{Public repository}:} \label{sec:deliv_git} The full source code, all schematics, and all documents concerning both the software and hardware will be included on a public repository so that the customer may share this information with his clients.
+	\subsection{\underline{Hardware}:} 
+	\label{sec:deliv_hw} 
+	Camera module, constructed on PCB (if time permits, otherwise on strip-board),including layout designs.
+	\subsection{\underline{Software}:} 
+	\label{sec:deliv_sw} 
+	All firmware for the electronic module, and software on the base station for viewing images. The full source code and all executable files will be included.
+	\subsection{\underline{Documentation}:} 
+	\label{sec:deliv_doc} 
+	Technical and User Documentation. This includes all schematics related to hardware as well as all other documents concerning both the software and hardware delivered.
+	\subsection{\underline{Public repository}:} 
+	\label{sec:deliv_git} 
+	The full source code, all schematics, and all documents concerning both the software and hardware will be included on a public repository so that the customer may share this information with his clients.
 
