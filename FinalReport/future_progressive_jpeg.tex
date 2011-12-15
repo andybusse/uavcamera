@@ -1,41 +1,21 @@
 %% ----------------------------------------------------------------
-\subsection{Progressive Image Manipulation}
+\subsection{Progressive Image Manipulation (ms)}
 %% ----------------------------------------------------------------
 
-The progressive image display was not fully implemented
-by the end of the project. Below is a list of possible work
-which can be undertaken to complete the progressive
-image display system.
+The progressive image display was not fully implemented by the end of the project. Below is a list of possible work which can be undertaken to complete the progressive image display system.
 
-\subsubsection{JPEG Header Extractor}
+\subsubsection{Progressive JPEG Overview (jc)}
 
-The information obtained by the JPEG header extractor
-has not been completely tested. The DQT information 
-has yet to take into account multiple quantization tables
-existing within a single DQT segment: only one 
-quantization table is read. If a loop and struc similar to 
-one implemented for the DHT is replicated for the DQT
-segment, the extractor will be able to be tested and
-implemented on the AVR.
+A progressive JPEG codec could be implemented on our system. The way we intended to implement a progressive JPEG codec is to first partially decode the JPEG image from the camera in order to gain access to the DCT frequency data of the image, from this point we could then send this in a non standard order, ideally so that the lowest frequency component of each MCU is send first followed by the higher frequency components so that the image on the ground station image viewer software would improve in quality in a similar manner to that seen in the code of appendix \ref{chap:Matlab_code}.
 
-The AVR implementation will require testing with
-the ground station image displayer before it
-can make it into a final product.
+\subsubsection{JPEG Header Extractor (ms)}
 
-\subsubsection{Ground Station Software}
+The information obtained by the JPEG header extractor has not been completely tested. The DQT information has yet to take into account multiple quantization tables existing within a single DQT segment: only one quantization table is read. This problem can be fixed by preparing a linked list of quantization tables in a similar fashion to the DHT segment. \ref{sec:DHT_segment}
 
-Little work was done for a ground station
-progressive image displayer. An application would have
-to be coded which will read in the information provided by
-the extractor and display the image progressively.
-This means that the application would need to reverse the
-steps used to compress a raw image into JPEG given the 
-coefficients of the Huffman tables and the quantization
-tables. 
+The AVR implementation will require testing with the ground station image displayer before it can make it into a final product.
 
-Attempting to reverse the custom compression of 
-raw images MATLAB code using DCT can be a good 
-starting point. If successful, reversing the quantization 
-and Huffman encoding of the JPEG image would be 
-required to obtain the information 
-necessary to display the image.
+\subsubsection{Ground Station Software (ms)}
+
+Little work was done for a ground station progressive image displayer. An application would have to be coded which will read in the information provided by the extractor and display the image progressively. This means that the application would need to reverse the steps used to compress a raw image into JPEG given the coefficients of the Huffman tables and the quantization tables. 
+
+Attempting to reverse the custom compression of raw images MATLAB code using DCT can be a good starting point. If successful, reversing the quantization and Huffman encoding of the JPEG image would be required to obtain the information necessary to display the image.

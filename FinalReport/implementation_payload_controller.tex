@@ -181,9 +181,17 @@ data for this packet and is variable size, with a maximum size of 50 bytes.
 \end{itemize}
 
 
+Implementing this communications protocol was a significant challenge and was a major
+component of the payload module implementation. The existing code provided by our 
+customer provided some hooks for 
 
-
-||||||||| FLOWCHART OF INTERACTIONS |||||||
+Figure\ref{sequence diagram} is the sequence diagram of the data transmission.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.00\textwidth]{figures/sequence_diagram.png} 
+\end{center}
+\caption{Sequence Diagram of the Data flow\label{sequence diagram}}
+\end{figure}
 
 
 |||||||| REMINDER: TALK ABOUT VOLATILE VARIABLE PROBLEM
@@ -195,3 +203,5 @@ data for this packet and is variable size, with a maximum size of 50 bytes.
 %|||||||| REMINDER: JOHN COULD TALK ABOUT HOW BROKEN CAMERAS SLOWED DOWN DEVELOPMENT BUT GOOD PLANNING AND CONTINGENCY MINIMISED RISK OR IN MANAGEMENT SECTION
 %|||||||| REMINDER: FUTURE WORK
 %|||||||| REMINDER: ADD NEWPAGES BETWEEN SECTIONS
+
+
