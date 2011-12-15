@@ -1,30 +1,26 @@
 \section{Payload Controller Hardware}
 The hardware used to implement the payload controller is an important consideration.
 
-The exact requirements for this module depend on other design decisions made, such as the method used to interface with the camera module. However there are a certain fixed set of requirements derived from the specification:
+The exact requirements for this module depend on other design decisions made, such as the method used to interface with the camera module. However since the module must communicate with the autopilot over a RS-485 serial connection at 38.4 kBaud this requires the module have access to a UART (Universal asynchronous receiver/transmitter).
+
+%Additional requirements depend on other design decisions:
 
 \begin{itemize}
-\item The module must communicate with the autopilot over an asynchronous RS-485 serial connection at 38.4 kBaud. This suggests that the module should have access to some form of UART.
-\end{itemize}
-
-Additional requirements depend on other design decisions:
-
-\begin{itemize}
-\item \emph{Camera communication:} Using a serial camera would mean the controller requiring access to another UART, while using a USB camera leaves the camera needing access to a USB host interface. Similarly using an analogue camera would mean either the controller be capable of digitising the camera data itself or having a method of interfacing with an external digitiser.
+%\item \emph{Camera communication:} Using a serial camera would mean the controller requiring access to another UART, while using a USB camera leaves the camera needing access to a USB host interface. Similarly using an analogue camera would mean either the controller be capable of digitising the camera data itself or having a method of interfacing with an external digitiser.
  
-\item \emph{Image buffering:} Most embedded systems do not have enough RAM or Flash to store a reasonable sized image on onboard memory. As described in section \ref{sec:local_storage}, there are a number of approaches worth considering for externally buffering an input image, however these do require the controller to have an interface with which to communicate with the external memory. 
+%\item \emph{Image buffering:} Most embedded systems do not have enough RAM or Flash to store a reasonable sized image on onboard memory. As described in section \ref{sec:local_storage}, there are a number of approaches worth considering for externally buffering an input image, however these do require the controller to have an interface with which to communicate with the external memory. 
 
-\item \emph{Progressive JPEG Manipulation:} Section \ref{sec:implementation_progressive_jpeg} details several ways progressive JPEG manipulation could be tackled. Depending on the design choice taken this could influence the requirements of the controller substantially. Examples of such requirements could be: extra processing power, fast access to memory or FFT or DCT libraries being available for the device.
+%\item \emph{Progressive JPEG Manipulation:} Section \ref{sec:implementation_progressive_jpeg} details several ways progressive JPEG manipulation could be tackled. Depending on the design choice taken this could influence the requirements of the controller substantially. Examples of such requirements could be: extra processing power, fast access to memory or FFT or DCT libraries being available for the device.
 \end{itemize}
 
 \subsection{Approach: Digital Signal Processor (DSP) Development Board}
 An appropriate Digital Signal Processor (DSP) development board would provide fast digital signal processing capabilities to the controller. This would be especially useful for the situations mentioned in section \ref{sec:implementation_progressive_jpeg}.
 
-Since DSP chips tend to be specialist devices they are usually difficult to set up or program without first experimenting with the design using a development board - a special board designed with experimentation and product development in mind. Ideally a development board would be used for initial development of the system with a integrated PCB being developed later on to allow the DSP to be used on its own.
+%Since DSP chips tend to be specialist devices they are usually difficult to set up or program without first experimenting with the design using a development board - a special board designed with experimentation and product development in mind. Ideally a development board would be used for initial development of the system with a integrated PCB being developed later on to allow the DSP to be used on its own.
 
 Advantages:
 \begin{itemize}
-\item DSPs often have very good analogue to digital conversion built in as standard. If an analogue camera is used (as discussed in section \ref{sec:Analog_option}) a DSP may provide the necessary fast ADC without any extra components.
+\item DSPs often have very good analogue to digital conversion built in as standard. If an analogue camera is used a DSP may provide the necessary fast ADC without any extra components.
 
 \item Libraries for tasks such Fast Fourier Transforms or other signal and image processing related applications are often readily available for DSP chips. For some methods of performing progressive JPEG manipulation (see section \ref{sec:implementation_progressive_jpeg}) this could be useful.
 
@@ -70,11 +66,11 @@ Disadvantages:
 
 \item 8-bit AVRs do not have floating point processing units, making some image processing tasks much slower to complete on an AVR.
 
-\item Less communication options than some other, more complex, devices. This limits the number of peripheral devices that can be connected to the controller at once, and so may reduce flexibility.
+\item Less communication options than some other, more complex, devices. This limits the number of peripheral devices that can be connected to the controller at once.
 
 \item Limited RAM available on the commonly used devices which are available in through-hole format. A common amount of RAM for a larger through-hole AVR is 4 kbytes.
 
-\item The smaller, cheaper, devices have reasonably limited program memory, with 64 kbytes being a typical amount for a larger through-hole device. This could be a problem if implementing large amounts of code or using significant numbers of lookup tables for example.
+\item The smaller, cheaper, devices have reasonably limited program memory, with 64 kbytes being a typical amount for a larger through-hole device. This could be a problem if implementing large amounts of code.
 \end{itemize}
 	
 AVRs are robust, widely used, general purpose microcontrollers. The large community surrounding them is a particular advantage, as it means many libraries and development boards are available for the devices. Our previous experience with the devices is also a key advantage, although it is important to be aware of the devices limits.
