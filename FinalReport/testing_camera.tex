@@ -2,7 +2,7 @@
 
 The camera module and controller were tested throughout their development and thus problems were quickly discovered and swiftly rectified.
 
-\subsection{Test: uCam Existing Software - (jc)}
+\subsection{Test: uCam Existing Software (jc)}
 \label{sec:existing_software_test}
 
 The uCam has a freely downloadable piece of software (downloadable from \cite{ucam_test_software}) that allows you to test the uCam and verify its functions. If you can connect the uCam to a COM port on the computer then you can sync with it and then take and view pictures in the different available formats and resolutions.
@@ -13,7 +13,7 @@ The uCam was connected to a host PC using a USB to Serial cable and tested using
 
 This task did not verify any milestones, but it did show clearly that the camera was working. In the event of the camera becoming unresponsive, this software helped us diagnose the problem, since if the camera worked with this software it was clearly a problem with our implementation, while if the camera did not work with this software then it would suggest the camera itself was at fault. Before declaring any of the cameras used in the project faulty they were checked using this software.
 
-\subsection{Test: Basic Connection Test on Arduino - (mh)}
+\subsection{Test: Basic Connection Test on Arduino (mh)}
 \label{sec:basic_connection_test}
 
 The first step when communicating with the camera module is to establish a connection to it.  The implementation code follows the procedure shown in figure \ref{fig:syncProto} to connect to the camera, sending SYNC commands until the appropriate response is detected from the camera, indicating a successful connection and so the success of this test.
@@ -52,7 +52,7 @@ The testing during development means that functionality of the controller has be
 
 This test verifies milestone \ref{sec:ms_img_from_cam}. The resolution of the image is 640x480.
 
-\subsection{Test: Change Resolution - (mh23g08)}
+\subsection{Test: Change Resolution (mh)}
 \label{sec:test_change_resolution}
 
 Since the option to change resolution was a low priority task it was implemented and tested after the basic main system - including image transmission over the autopilot link - was operational.
