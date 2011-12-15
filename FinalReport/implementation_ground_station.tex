@@ -1,12 +1,7 @@
 \label{chap:implementation_ground_station }
 
-The UAV Image Viewer Software is the only application that the user can access to. 
-Therefore, the implementation of this program need to include all the specification and also some extra features to make the GUI looks nice.
-The plan on making this GUI is to start developing function by function using as much console application as possible such as connect to the port, send/receive information, and change image data to a readable byte.
-Upon the final stage of the GUI, the software code runs either in user mode so the user does not has access to the changing of the internal program\cite{tsuiK}. 
-This allows a different level of privilege in accessing memory and other system resources. 
-
-The plan of constructing the image viewer is to make a program that the use can simply click on a button and the image is downloaded via TCP/IP port to the ground station.
+The user can only see the image viewer program.
+In order to make the development faster, the console application has been use to test port send/receive information and convert the image data.
 The programmer make use of both data stream port and the console port in order to send command and receive JPEG photo from the UAV.
 
 \section{The development process} 
@@ -65,9 +60,6 @@ Figure\ref{GUI_finalUseCase} shows an agreed use case diagram.
 \section{The Design}
 
 The user for our application is assumed to have a limited programming experience, so the program will be implemented so it is simple understand. Figure~\ref{ini_GUI} show the first brainstorm view of the GUI. 
-
-The user interface has a picture box. 
-When the user pushes a ‘Get Picture’ button, the picture box will display the picture taken from the UAV. 
 During the downloading process, the application should keep running so the cancel button can be used. 
 Gallery button will link to another page which will be the collection of images taken. 
 Left and right button can navigate the picture box to view an earlier picture or later picture. 
@@ -88,10 +80,6 @@ The GUI has been planned to have functions such as auto triggering, image type, 
 \end{center}
 \caption{final GUI\label{finalGUI}}
 \end{figure}
-The top tool strip menu has been added because this layout is familiar to any user. 
-The progress bar has moved to the button left of the page instead of displaying it below the pictureBox.
-This allows the application to have bigger picture box, more compact size and more professional looks.
-The stop button allows the user to interrupt the downloading image.
 
 \section{Class Diagram}
 \subsection*{The Initial Class Diagram}
@@ -107,7 +95,6 @@ There will be decoding/encoding algorithm because the image will take long time 
 \texttt{DCT} class has many math operation and equation which have to be implemented on the image viewer program. 
 This complicated function should implement in the ground station because if the picture is encoded in the compressed way, the ground station must be able to extract it. 
 In the end, we have to determine whether it is faster to display image normally, or to do encoding/decoding JPEG file. 
-The disadvantage of this method is that there are existing encoding resource which work perfectly, and because of this is long length and complex codes.
 
 The \texttt{Painting} class is supported by the \texttt{DCT} class. The intention of this class is to display an encoded image point by point on the \texttt{pictureBox}.
 By this method, the \texttt{pictureBox} can display an image from the first pixel transmitted.
@@ -122,7 +109,6 @@ The \texttt{DCT} class is not needed anymore because all the calculation will be
 The \texttt{CameraCommand} has taken away because the payload will receive an image viewer command to the payload and then the payload will send another different signal to the camera.
 Therefore, the command send to the camera from the payload does not have to be the same as the command sent from ground station to the payload. 
 The \texttt{Painting} class use to draw each pixel onto the \texttt{pictureBox}, but it has not been implemented in the final program because of the stated reason.
-The progressive download photo does not have to be implemented. 
 Therefore, the milestone\ref{sec:ms_pl_img_gs_progressive_dl} will not be implemented.
 This is also because of the time limitation.
 More detail about the progressive image is in the section\ref{sec:implementation_progressive_jpeg}.
@@ -203,10 +189,6 @@ When the program start running, the program initialized the port and commands th
 \caption{The connection of data stream port\label{GCS_connect_command}}
 \end{figure}
 
-\section{File Dialogue}
-For a .NET C\# Programming, there is a previous tools that we can use to change directory, open and save files. The\texttt{OpenFileDialog,  SaveFileDialog, and FolderBrowser} dialogue are existing classes that is suitable to do this job. However, to open any file dialogue, the application needs to have a \texttt{STAThread} in order to handle multiple objects. \texttt{STAThread} is an attribute which applied to the main method, indicating that the application should communicate with unmanaged COM code using the Single Threading Apartment. It allows main thread or the main form to run in the background while the file dialogue is executing. 
-
-These file dialogues are not stated in the image viewer specification. But it has been implemented because the user may install the program in many computers and the initial folder might not exist and this might cause the system to give an error. It is also make the users feel that they can use the program more freely.  It gives the advantage of limiting the access to only an existing file, so there is no error when trying to save the image.
 
  
 \section{Code Highlight}
@@ -230,14 +212,6 @@ The \texttt{BinaryWriter} class can create a binary file using specific data lay
 
 \subsection{Change File Directory:Appendix \ref{appen:main_form} line346-370 and 454-484 }% 
 If the user wishes to change the directory of the image taken, the image viewer program must support it. the mnuOpen\_click() method introduce an OpenFileDialog class. It begins with open file dialog box. This allows the user to open an initial image to the program. If the user took a picture, it will be saved in the same directory as the open file. This file dialog is limited to only the jpg picture in order to avoid the error of displaying the image. 
-This file dialog introduces an extra thread. Without thread handler, the program will automatically organize the thread in the same timeline. This means it has to finish one event before it starts another. The more detail about thread will be discussed in the thread section. 
-
-\subsection{Threading}
-
-A Scheduler that is responsible for time-slicing threads controls the thread execution, managing blocking of I/O message and signal handling. There is always a main or initial thread running in a recursive loop that responds to the client application\cite{keithC}. In image viewer program, the main thread is the window application. When the get picture button got clicked, it will generate another less fundamental thread which will be executed after the loop has done. Therefore, in order to deal with this application while the picture is loading we need \texttt{Application.DoEvents();.}
- This code processes all of the Windows event messages that have queued up \cite{davidW}. When this code has been applied, the application can deal with other event at the same time as the code is running. This is important to mention because the program might be stop working if this thread has not introduced.
-\texttt{Application.DoEvents()} in the Main function delegate that wraps the method that indicate where to start execution. The thread begin to run when the \texttt{Application.DoEvents()} get called\cite{xieX}.
-The \texttt{[STAthread]} has to be introduced in order to run multi thread at the same time. But, this doesn't mean the processor will be faster, but thread can make use of the resources that would go unused. A background thread can continue to run, while a foreground thread waits for the user input. This is called an apartment thread. 
         
 \subsection{Text Command:Appendix\ref{appen:UAVConnector} line 68-85}
 TCP/IP protocols transfer data without modifying them. This allow the application to freely encode the data.\cite{davidB}.The Ground station software allow the program to send a stream of string in bytes and it will read the command bytes and send it to the payload on the UAV. The code has shown the way to implement the string and send a byte array to the payload.
@@ -263,8 +237,6 @@ In order to test that the payload receives the same data, we use the oscilloscop
 
 At every cycle of the data being received, \texttt{opFile.Write()} method will write the packet data into the file in the directory. After the cycle finished, the file will be saved and the image will be displayed in the picture box. 
 
-\subsubsection*{Update the Directory:Appendix\ref{appen:UAVConnector} line 280-345}
-The update directory method updates itself every time the file directory is changing. This method will update the string of the possible JPEG files so when the left or right button got clicked, the string of JPEG file name will get plus or minus and display the next file. This array of string has to update because it changes when the picture got deleted, or the new picture got taken. The array called \texttt{jpegList} is use as string file storage for JPEG file. It has a nice function when the user come to the end of the scrolling up, the right button will disappear, or if it reach the first file in the directory, the left button will disappear. 
 \subsection{Get Picture Button}
 This get picture button will use both send and receive function of the program. 
 The work flow of the get picture signal show in figure \ref{GUI_finalWorkFlow}.
@@ -321,7 +293,7 @@ image at designated way-points:
 \end{itemize}
 
 \subsection{Other functions}
-The user might want to delete some unwanted photo, so the delete button have been implemented. The delete button work like a normal file deleting button. But it has been complicated because the photo to delete must be the photo on the pictureBox. There is an error because the photo is using by the pictureBox. To fix this problem, the picture have to shifted left or right first and then delete the photo. This will solve almost all the problem. But where there is only one picture in the file, the program is not allow to delete because even the pictureBox is set to null, its last memory is still point at the deleting file. However, the disadvantage of the delete button is that if the wanted photo got deleted accidentally, it might take a long time to launch the UAV again and take the same photo. The program can also detect the corrupted image and ask the user to delete it.
+The user might want to delete some unwanted photo, so the delete button have been implemented. The delete button work like a normal file deleting button. But it has been complicated because the photo to delete must be the photo on the pictureBox. There is an error because the photo is using by the pictureBox. To fix this problem, the picture have to shifted left or right first and then delete the photo. But where there is only one picture in the file, the program is not allow to delete because even the pictureBox is set to null, its last memory is still point at the deleting file. However, the disadvantage of the delete button is that if the wanted photo got deleted accidentally, it might take a long time to launch the UAV again and take the same photo. The program can also detect the corrupted image and ask the user to delete it.
 
 \begin{figure}[H]
 \begin{center}

@@ -2,8 +2,6 @@
 
 \subsection{Programming Language}
 
-It is important to decide from the start of the project which programming language will be used.
-Because if it changes in the middle of the project, it will waste time and causes unnecessary problems.
 The decision depend on the team member who has been assigned as a task leader.
 Because the program will be using to implement a GUI application, therefore it need an object oriented program for implementing this.
 The programming languages that will be look into are Python, Javam and C\# programming language.
@@ -84,8 +82,9 @@ Although Java and Python has been use by many papers and book on network program
 The C\# language on Microsoft Visual Basic Studio is a development environment for creating our Ground Station Image Viewer application. Choosing the right class to connect to the port helps the developer save time to program the application. The class should be able to connect to the UAV port and it must be able to send both byte and string command and receive bytes camera data from the UAV.  The C\# program has two .NET classes that can connect to port. They are SerialPort Class and Socket Class.
  
 \subsubsection{SerialPort Class}
-The System.IO.Ports namespace contains classes for controlling serial ports. The SerialPort class is the most important one.It has ability to synchronous and event-driven I/O, access to pin and break states, and access to serial driver properties\cite{peak_netFrame}. It can change the port properties such as the stop bit, parity bit, baud rate, etc. It has handshake function that communicate to the port and report if the data or token was received successfully.
-By using this class, the COM port setting has to be memorized which will be simple to load and saves from/to disk.In the process both public and private fields of the object and the name are converted to a stream of bytes.
+The \texttt{System.IO.Ports} namespace contains classes for controlling serial ports. 
+The \texttt{SerialPort} class is the most important one. It has ability to synchronous and event-driven I/O, access to pin and break states, and access to serial driver properties\cite{peak_netFrame}. 
+By using this class, the COM port setting has to be memorized which will be simple to load and saves from/to disk.
 
 \begin{lstlisting}[caption=Serial Port class connection\, read and write method, label=serialPortconn]
 SerialPort( portName, baudRate, parity bit, dataBits, StopBits ) 
@@ -110,11 +109,7 @@ Disadvantage
 
 \subsubsection{Socket Class}
 The Socket is more programmer friendly, robust and a high level connection class. 
-The socket class is use to send and receive data, in similar method as an open file allows an application to read and write data to stable storage.  
-It also makes a simple handshaking between the client and server machines. 
-It can connect to multi clients, which this is necessary for a multi-port which we are using. 
 The program can easily connect to the port by using the method in Listing\ref{socketClasscrs} .
-This method takes the baud rate and parity bit configuration from the UAV so the setup is the same. 
 This class sends and array of bytes to the console port and to the data stream port and receive data from the port by code in Listing\ref{socketClasscrs}.
 
 \begin{lstlisting}[caption=Socket class connect receive and send method,label=socketClasscrs]
