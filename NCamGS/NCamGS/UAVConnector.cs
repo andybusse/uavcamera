@@ -83,7 +83,7 @@ namespace NCamGS
                 Console.WriteLine("ERROR: " + ex.Message);
             }
         }
-        public void SendCommand(byte[] command)
+        public void SendCommand(byte[] command, bool ack)
         {
             // use to send commmand to the uav
             string toUAV;
@@ -105,14 +105,49 @@ namespace NCamGS
             toUAV += "\n";
             toUAVChar = toUAV.ToCharArray();
             toUAVByte = System.Text.Encoding.ASCII.GetBytes(toUAVChar);
-            try
+            if (ack) // if the command is an ack it doesn't want acks
             {
-                int sendByte = consolePort.Send(toUAVByte, toUAVChar.Length, SocketFlags.None);
+                try
+                {
+                    int sendByte = consolePort.Send(toUAVByte, toUAVChar.Length, SocketFlags.None);
+                }
+                catch (SocketException ex)
+                {
+                    Console.WriteLine("ERROR: " + ex.Message);
+                }
             }
-            catch (SocketException ex)
+            else
             {
-                Console.WriteLine("ERROR: " + ex.Message);
+                for (int i = 0; i < 3; i++)
+                {
+                    try
+                    {
+                        int sendByte = consolePort.Send(toUAVByte, toUAVChar.Length, SocketFlags.None);
+                    }
+                    catch (SocketException ex)
+                    {
+                        Console.WriteLine("ERROR: " + ex.Message);
+                    }
+                    for (int ii = 0; ii < 250; ii++)
+                    {
+                       byte[] packet = this.GetDataBytes();
+                        int packetSize = packet.Length;
+                        if (packetSize > 0)
+                        {
+                            if (packet[0] == 8 && packet[1] == command[0])
+                            {
+                                Console.WriteLine("Command aknowledged sir!");
+                                return;
+                            }
+                        } 
+                    }
+                    
+                }
+                Console.WriteLine("No acknowledgement, sadface");
             }
+
+
+
             //Port.Receive(fromUAVByte);
             //fromUAV = System.Text.Encoding.ASCII.GetString(fromUAVByte);
         }
