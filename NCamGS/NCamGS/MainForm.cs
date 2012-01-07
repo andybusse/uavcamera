@@ -87,7 +87,7 @@ namespace NCamGS
 
             stopCommand = false;
             byte[] zeroToken = { 0 }; // send 0 to receive data
-            uavConn.SendCommand(zeroToken);
+            uavConn.SendCommand(zeroToken,false);
 
             uint imageID = 0;
 
@@ -102,6 +102,9 @@ namespace NCamGS
                     if (packet[0] == 1 && packetSize == 3)
                     {
                         // got PICTURE_TAKEN
+                        byte[] picture_taken_ack = { 8, 1 }; // ack the picture_taken command
+                        uavConn.SendCommand(picture_taken_ack,true);
+
                         statusLabel.Text = "Found PICTURE_TAKEN";
                         Console.WriteLine("Found PICTURE_TAKEN");
                         imageID = (uint)packet[1] + (uint)(packet[2] << 8);
@@ -111,7 +114,7 @@ namespace NCamGS
             }
 
             byte[] imageDownloadRequest = { 2, (byte)imageID, (byte)(imageID >> 8) };
-            uavConn.SendCommand(imageDownloadRequest);
+            uavConn.SendCommand(imageDownloadRequest,false);
 
             
            imageListen(fileName, fileStream, opFile);
@@ -120,6 +123,8 @@ namespace NCamGS
 
         private void imageListen(string fileName, FileStream fileStream, BinaryWriter opFile)
         {
+
+            bool info_ack_flag = false;
 
             uint lastPacketNum = 500;
 
@@ -139,6 +144,12 @@ namespace NCamGS
 
                 if (packet[0] == 3) // is a IMAGE_DOWNLOAD_INFO packet 
                 {
+                    if (!info_ack_flag)
+                    {
+                        byte[] image_download_info_ack = { 8, 3 }; // ack the image_download_info command
+                        uavConn.SendCommand(image_download_info_ack,true);
+                        info_ack_flag = true;
+                    }
                     statusLabel.Text = "Found IMAGE_DOWNLOAD_INFO";
                     Console.WriteLine("Found IMAGE_DOWNLOAD_INFO");
                     totalPackets = (uint)packet[1] + (uint)(packet[2] << 8);
