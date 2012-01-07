@@ -5,6 +5,7 @@
 #include "mod/comms.h"
 #include "mod/module.h"
 #include "io_pins.h"
+#include <avr/delay.h>
 
 #include <stdbool.h>
 
@@ -23,6 +24,9 @@
 uint8_t messageToSend[MAX_MESSAGE_LENGTH];
 uint8_t messageToSendLength;
 volatile bool messageStartSendPending = false;
+volatile bool ackReceived = false;
+volatile uint8_t ackCommandID = 0x00;
+volatile uint16_t numTokens;
 
 void packet_scan(uint8_t *data, uint8_t length)
 {
@@ -35,6 +39,7 @@ void packet_scan(uint8_t *data, uint8_t length)
 		{
 			case MID_TAKE_PICTURE:
 				if(length == 1) {
+					send_ACK_message(MID_TAKE_PICTURE);
 					DLOG("TAKE_PICTURE message received\n\r");
 					if(imageSendState.sendingImage == false) {
 						int takePictureImageID;
@@ -56,6 +61,7 @@ void packet_scan(uint8_t *data, uint8_t length)
 
 			case MID_IMAGE_DOWNLOAD_REQUEST:
 				if(length == 3) {
+					send_ACK_message(MID_IMAGE_DOWNLOAD_REQUEST);
 					uint16_t downloadRequestImageID;
 					downloadRequestImageID = (uint16_t)data[1] + (uint16_t)(data[2] << 8);
 					DLOG("IMAGE_DOWNLOAD_REQUEST message received with image ID ");
@@ -114,6 +120,7 @@ void packet_scan(uint8_t *data, uint8_t length)
 
 			case MID_CONFIGURE_CAMERA:
 				if(length == 4) {
+					send_ACK_message(MID_CONFIGURE_CAMERA);
 					colourType = data[1];
 					rawRes = data[2];
 					jpegRes = data[3];
@@ -130,12 +137,22 @@ void packet_scan(uint8_t *data, uint8_t length)
 				break;
 
 			case MID_REQUEST_RESEND:
+				send_ACK_message(MID_REQUEST_RESEND);
 				break;
 
 			case MID_CANCEL_DOWNLOAD:
+				send_ACK_message(MID_CANCEL_DOWNLOAD);
 				DLOG("CANCEL_DOWNLOAD message received\n\r");
 				imageSendState.sendingImage = false;
 				sdFile.close();
+				break;
+
+			case MID_ACK:
+				DLOG("Got Ack, ID: ");
+				DLOG((int)data[1]);
+				DLOG("\n\r");
+				ackReceived = true;
+				ackCommandID = data[1];
 				break;
 
 			default: // not a valid message
@@ -176,6 +193,8 @@ void packet_tx_request()
 
 	//testInt++;
 
+	numTokens++;
+
 	STATUS_LED_PORT ^= STATUS_LED;
 	/*if(messageStartSendPending)
 		PORTC |= STATUS_LED;
@@ -189,29 +208,68 @@ void packet_tx_request()
 
 }
 
-void send_PICTURE_TAKEN_message(uint16_t imageID) {
-	wait_for_send_message();
-	messageToSend[0] = 3; /* length */
-	messageToSend[1] = MID_PICTURE_TAKEN; /* message ID */
-	messageToSend[2] = (uint8_t)imageID; /* image ID LSB */
-	messageToSend[3] = (uint8_t)(imageID >> 8); /* image ID MSB */
-	messageToSendLength = 4;
-	flag_want_to_send_message();
+bool send_PICTURE_TAKEN_message(uint16_t imageID) {
+	for (int i = 0; i < NUM_ACKFAIL_RETRIES; i++) {
+		wait_for_send_message();
+		ackReceived = false;
+		messageToSend[0] = 3; /* length */
+		messageToSend[1] = MID_PICTURE_TAKEN; /* message ID */
+		messageToSend[2] = (uint8_t)imageID; /* image ID LSB */
+		messageToSend[3] = (uint8_t)(imageID >> 8); /* image ID MSB */
+		messageToSendLength = 4;
+		flag_want_to_send_message();
+		wait_for_send_message();
+
+		numTokens = 0; // reset the number of tokens passed to 0
+		while(numTokens < ACK_WAIT_TOKENS) {
+			if (ackReceived == true && ackCommandID == MID_PICTURE_TAKEN) {
+				DLOG("ACK found and correct.\n\r");
+				return true;
+			}
+			comms_update();
+		}
+	}
+	DLOG("ACK failed\n\r");
+	return false;
 	//send_message();
 }
 
-void send_IMAGE_DOWNLOAD_INFO_message(uint16_t numPackets) {
-	wait_for_send_message();
-	messageToSend[0] = 3;
-	messageToSend[1] = MID_IMAGE_DOWNLOAD_INFO;
-	messageToSend[2] = (uint8_t)numPackets;
-	messageToSend[3] = (uint8_t)(numPackets >> 8);
-	messageToSendLength = 4;
-	flag_want_to_send_message();
+bool send_IMAGE_DOWNLOAD_INFO_message(uint16_t numPackets) {
+	for (int i = 0; i < NUM_ACKFAIL_RETRIES; i++) {
+		wait_for_send_message();
+		ackReceived = false;
+		messageToSend[0] = 3;
+		messageToSend[1] = MID_IMAGE_DOWNLOAD_INFO;
+		messageToSend[2] = (uint8_t)numPackets;
+		messageToSend[3] = (uint8_t)(numPackets >> 8);
+		messageToSendLength = 4;
+		flag_want_to_send_message();
+		wait_for_send_message();
 
+		numTokens = 0; // reset the number of tokens passed to 0
+		while(numTokens < ACK_WAIT_TOKENS) {
+			if (ackReceived == true && ackCommandID == MID_IMAGE_DOWNLOAD_INFO) {
+				DLOG("ACK found and correct.\n\r");
+				return true;
+			}
+			comms_update();
+		}
+	}
+
+	DLOG("ACK failed\n\r");
+	return false;
 //	send_message();
 }
 
+void send_ACK_message(uint8_t commandIDToAck) {
+	wait_for_send_message();
+	messageToSend[0] = 3;
+	messageToSend[1] = MID_ACK;
+	messageToSend[2] = commandIDToAck;
+	messageToSendLength = 3;
+	flag_want_to_send_message();
+	//	send_message();
+}
 
 void wait_for_send_message() {
 	while(messageStartSendPending) { // wait until the current pending messageToSend has been put into the fifo

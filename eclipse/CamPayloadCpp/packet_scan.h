@@ -39,6 +39,8 @@
 
 	#define MID_CANCEL_DOWNLOAD			7
 
+	#define MID_ACK						8
+
 	/*//	- GS > PL: Set Colour Type [ Set Colour Type Message ID ] [ Colour Type ]
 	//	- GS > PL: Set Image Resolution [ Set Image Resolution Message ID ] [ Image Resolution ]
 	//	- GS > PL: Set Colour Type and Image Resolution [ Set Colour Type and Image Resolution Message ID ] [ Colour Type and Resolution (all one byte) ]*/
@@ -46,6 +48,9 @@
 
 #define MAX_MESSAGE_LENGTH 69
 
+// number of tokens to wait for each ACK
+#define ACK_WAIT_TOKENS	100
+#define NUM_ACKFAIL_RETRIES 3
 // Public globals
 
 extern uint8_t messageToSend[];
@@ -56,12 +61,17 @@ extern uint8_t messageToSendLength;
  */
 volatile extern bool messageStartSendPending;
 
+volatile extern bool ackReceived;
+volatile extern uint8_t ackCommandID;
+
+volatile extern uint16_t numTokens;
 
 
 // Function prototypes
 
-void send_PICTURE_TAKEN_message(uint16_t imageID);
-void send_IMAGE_DOWNLOAD_INFO_message(uint16_t numPackets);
+bool send_PICTURE_TAKEN_message(uint16_t imageID);
+bool send_IMAGE_DOWNLOAD_INFO_message(uint16_t numPackets);
+void send_ACK_message(uint8_t commandIDToAck);
 void flag_want_to_send_message();
 void wait_for_send_message();
 

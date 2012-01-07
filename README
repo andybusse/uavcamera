@@ -1,18 +1,40 @@
 Unmanned Aircraft Camera Module
 
-(Full specification including deliverables for this project is contained in documents/Agreed_Spec_Gantt_GDP18.pdf)
+(Full specification including deliverables for this project is contained in documents/specification/Agreed_Spec_Gantt_GDP18.pdf)
 
 Repository Structure:
-* ArduinoCore: An Eclipse project that creates an Arduino library, allowing us to combine Arduino code with AVR C Source code
-* displayPixel: 
-* documents: Project Management foo, foo that requires submission (reports, presentations + whatnot), minutes of meetings, etc.
-* imageToByteConverter: 
-* JPEGreadingInCSharp: Does what it says on the tin.
-* Matlab: Matlab code to test image compression methods.
-* sample_peripheral: Schematics and Code for a simple AVR-based peripheral for the autopilot module. Supplied by the customer.
-* schematics: A full set of schematics, PCB layout and gerber files generated using gschem and PCB from the gEDA toolsuite. Run "$ gschem $NAME.sch
-* uav_connector: C# project that connects to the SkyCircuits SC2 Autopilot module. Requires running the existing "Ground Station Software" supplied by SkyCircuits, and opening a network server. Doesn't matter if you're connecting via serial or via the wireless link. 
-* uCode: Arduino "sketch" code, written for an Arduino Uno, designed to communicate with our chosen camera, implementing the commands defined in the datasheet (linked to within documents/)
+- ArduinoCore: An Eclipse project that creates an Arduino library, allowing us to combine Arduino code with AVR C Source code.
+- documents: Project Management foo, foo that requires submission (reports, presentations + whatnot), minutes of meetings, etc.
+- eclipse:
+    - CamPayloadCpp: source code for the payload controller firmware (not all ours)
+        - mod: existing code from our customer
+	- sanguino: code from the sanguino project (http://sanguino.cc)
+	- SoftwareSerial - the SoftwareSerial library for Arduino/Sanguino (http://www.arduino.cc/en/Reference/SoftwareSerial)
+	- SD: the SD library for Arduino/Sanguino (http://www.arduino.cc/en/Reference)
+    - progressiveJPEG2: our current work on progressive jpeg encoding/decoding
+- ExtractorExecutable: final version of custom JPEG extractor code (from progressiveJPEG2)
+- FinalReport: our final report. RC2 is the version as handed in. Includes a CD with this repository at revision b0a90776af
+- gettingJPEGdataInC: reads data from the camera and inserts this into a table.
+- jpegCheaderExtractor(_nonavr): our current work on progressive jpeg encoding/decoding
+- jpeghuffman: generates a huffman tree from a given JPEG image.
+- Matlab: Matlab code to test custom image compression methods.
+- NCamGS: Code for our ground station image viewer (C#, Visual Studio 2010 project)
+- programAVR: Slightly modified from sample_peripheral, code intended to be run on a DIP version of the ATmega168.
+- progressiveJPEG2: our current work on progressive encoding/decoding
+- sample_peripheral: Schematics and Code for a simple AVR-based peripheral for the autopilot module. Supplied by the customer.
+- schematics: A full set of schematics, PCB layout and gerber files generated using gschem and PCB from the gEDA toolsuite. Run "$ gschem $NAME.sch 
+- uCode: Arduino "sketch" code, written for an Arduino Uno, designed to communicate with our chosen camera, implementing the commands defined in the datasheet (linked to within documents/)
+    - SPI_debugger: code for the SPI debugger, based on an example project in the Arduino IDE (http://www.arduino.cc)
+
+This project also contains some code which we have not authored:
+    - ArduinoCore (from http://www.arduino.cc)
+    - eclipse/ArduinoCore (from http://www.arduino.cc)
+    - eclipse/ArduinoBlinkTest_Template (from http://www.arduino.cc)
+    - eclipse/CamPayloadArduino/SD (from http://www.arduino.cc/en/Reference)
+    - eclipse/CamPayloadArduino/SoftwareSerial (from http://www.arduino.cc/en/Reference/SoftwareSerial)
+    - sample_peripheral - existing code, provided by our customer (see below)
+    - programAVR - essentially contains the same as sample_peripheral, just in a AVR Studio 5 project.
+
 
 A Group Design Project (ELEC6050) - School of Electronics and Computer Science, University of Southampton.
 
