@@ -126,6 +126,9 @@ namespace NCamGS
 
             bool info_ack_flag = false;
 
+            bool[] received_check;
+            byte[][] image = new byte[1][];
+
             uint lastPacketNum = 500;
 
             uint totalPackets = 500;
@@ -154,6 +157,8 @@ namespace NCamGS
                     Console.WriteLine("Found IMAGE_DOWNLOAD_INFO");
                     totalPackets = (uint)packet[1] + (uint)(packet[2] << 8);
                     progressBar.Maximum = (int)totalPackets;
+                    received_check = new bool[progressBar.Maximum];
+                    image = new byte[progressBar.Maximum][];
                 }
                 else if (packet[0] == 4) // is a IMAGE_DATA packet
                 {
@@ -184,11 +189,15 @@ namespace NCamGS
                     }
                     statusLabel.Text = "Writing";
                     Console.WriteLine("Writing.");
+
+                    image[packetNum] = new byte[packetSize - 3];
                     for (int i = 3; i < packetSize; i++)
                     {
-                        opFile.Write(packet[i]);
+                        //opFile.Write(packet[i]);
+                        image[packetNum][i-3] = packet[i];
                         numBytes++;
                     }
+                    
                     progressBar.PerformStep();
                     if (packetNum == totalPackets - 1)
                         break;
@@ -198,6 +207,13 @@ namespace NCamGS
             }
             if (stopCommand == false)
             {
+                for (int i = 0; i < image.Length; i++)
+                {
+                    for (int j = 0; j < image[i].Length; j++)
+                    {
+                        //opFile.Write(image[i][j]);
+                    }
+                }
                 fileStream.Close();
                 opFile.Close();
                 progressBar.Value = 1;
