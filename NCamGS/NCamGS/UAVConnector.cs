@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define SIMULATE
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ namespace NCamGS
     {
         Socket dataPort = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         Socket consolePort = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        Random random = new Random();
 
         public void Connect(byte dataStream)
         {
@@ -85,6 +88,7 @@ namespace NCamGS
         }
         public void SendCommand(byte[] command, bool ack)
         {
+
             // use to send commmand to the uav
             string toUAV;
             //string fromUAV;
@@ -122,13 +126,24 @@ namespace NCamGS
                 {
                     try
                     {
-                        int sendByte = consolePort.Send(toUAVByte, toUAVChar.Length, SocketFlags.None);
+#if SIMULATE
+                        if (random.Next(100) != 1)
+                        {
+#endif
+                            int sendByte = consolePort.Send(toUAVByte, toUAVChar.Length, SocketFlags.None);
+#if SIMULATE
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT SENDING!");
+                        }
+#endif
                     }
                     catch (SocketException ex)
                     {
                         Console.WriteLine("ERROR: " + ex.Message);
                     }
-                    for (int ii = 0; ii < 250; ii++)
+                    for (int ii = 0; ii < 600; ii++)
                     {
                        byte[] packet = this.GetDataBytes();
                         int packetSize = packet.Length;
@@ -141,9 +156,9 @@ namespace NCamGS
                             }
                         } 
                     }
-                    
+
+                    Console.WriteLine("No acknowledgement, sadface " + i);   
                 }
-                Console.WriteLine("No acknowledgement, sadface");
             }
 
 
@@ -155,6 +170,11 @@ namespace NCamGS
         public void Close()
         {
             dataPort.Close();
+        }
+
+        ~UAVConnector()
+        {
+            this.Close();
         }
 
     }
