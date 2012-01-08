@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define SIMULATE
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,12 +20,13 @@ namespace NCamGS
     {
         
         private static int uavDataLength = 512;
+
         //Connector streamPort = new Connector();
 
 
         UAVConnector uavConn = new UAVConnector();
 
-       
+        Random random = new Random();
 
         byte[] uavDataPrevious = new byte[uavDataLength];
         private const byte
@@ -123,8 +126,12 @@ namespace NCamGS
 
         private void imageListen(string fileName, FileStream fileStream, BinaryWriter opFile)
         {
-
+            int num_to_ack_check = 50;
             bool info_ack_flag = false;
+
+            bool[] received_check = new bool[1];
+            
+            byte[][] image = new byte[1][];
 
             uint lastPacketNum = 500;
 
@@ -144,6 +151,11 @@ namespace NCamGS
 
                 if (packet[0] == 3) // is a IMAGE_DOWNLOAD_INFO packet 
                 {
+#if SIMULATE
+                    if (random.Next(20) != 1) 
+                    {
+#endif
+
                     if (!info_ack_flag)
                     {
                         byte[] image_download_info_ack = { 8, 3 }; // ack the image_download_info command
@@ -154,12 +166,28 @@ namespace NCamGS
                     Console.WriteLine("Found IMAGE_DOWNLOAD_INFO");
                     totalPackets = (uint)packet[1] + (uint)(packet[2] << 8);
                     progressBar.Maximum = (int)totalPackets;
+                    received_check = new bool[progressBar.Maximum];
+                    for (int rc = 0; rc < received_check.Length; rc++)
+			        {
+                        received_check[rc] = false;
+			        }
+                    image = new byte[progressBar.Maximum][];
+#if SIMULATE
+                    }
+#endif
                 }
                 else if (packet[0] == 4) // is a IMAGE_DATA packet
                 {
+#if SIMULATE
+                    if (random.Next(100) != 1)
+                    {
+#endif
                     statusLabel.Text = "Found IMAGE_DATA";
                     Console.WriteLine("Found IMAGE_DATA");
                     uint packetNum = (uint)packet[1] + (uint)(packet[2] << 8);
+
+
+                    received_check[packetNum] = true;
 
                     Console.Write("#" + packetNum + " ");
 
@@ -179,25 +207,69 @@ namespace NCamGS
 
                     if (packetNum == lastPacketNum)
                     {
-                        //Console.WriteLine("End of image.");
                         continue;
                     }
+
+
+                    if ((((packetNum + 1) % num_to_ack_check) == 0) || packetNum == (totalPackets - 1))
+                    {
+                        int check_num = num_to_ack_check;
+                        if (received_check.Length < num_to_ack_check)
+                            check_num = received_check.Length;
+
+                        bool isOK = true;
+                        for (int pCheck = (int)packetNum; pCheck > (packetNum - check_num); pCheck--)
+                        {
+                            if (received_check[pCheck] == false)
+                            {
+                                isOK = false;
+                            }
+                        }
+
+                        if (isOK)
+                        {
+                            byte[] image_data_ack = { 8, 4 }; // ack the image data command
+                            uavConn.SendCommand(image_data_ack, true);
+                            Console.WriteLine("Sending ACK");
+                        }
+                        else
+                        {
+                            byte[] image_data_nak = { 9, 4 }; // nak the image data command
+                            uavConn.SendCommand(image_data_nak, true);
+                            lastPacketNum = packetNum;
+                            continue;
+                        }
+                    }
+
                     statusLabel.Text = "Writing";
                     Console.WriteLine("Writing.");
+
+                    image[packetNum] = new byte[packetSize - 3];
                     for (int i = 3; i < packetSize; i++)
                     {
-                        opFile.Write(packet[i]);
+                        //opFile.Write(packet[i]);
+                        image[packetNum][i-3] = packet[i];
                         numBytes++;
                     }
+                    
                     progressBar.PerformStep();
-                    if (packetNum == totalPackets - 1)
+                    if (packetNum == (totalPackets - 1))
                         break;
                     lastPacketNum = packetNum;
-
+#if SIMULATE
+                }
+#endif 
                 }
             }
             if (stopCommand == false)
             {
+                for (int i = 0; i < image.Length; i++)
+                {
+                    for (int j = 0; j < image[i].Length; j++)
+                    {
+                        opFile.Write(image[i][j]);
+                    }
+                }
                 fileStream.Close();
                 opFile.Close();
                 progressBar.Value = 1;
