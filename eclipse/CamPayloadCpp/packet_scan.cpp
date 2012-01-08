@@ -25,8 +25,14 @@ uint8_t messageToSend[MAX_MESSAGE_LENGTH];
 uint8_t messageToSendLength;
 volatile bool messageStartSendPending = false;
 volatile bool ackReceived = false;
-volatile uint8_t ackCommandID = 0x00;
+volatile uint8_t ackCommandID = 120;
+
+volatile bool nakReceived = false;
+volatile uint8_t nakCommandID = 120;
+
 volatile uint16_t numTokens;
+
+volatile bool onlyGetAcks = false;
 
 void packet_scan(uint8_t *data, uint8_t length)
 {
@@ -38,106 +44,109 @@ void packet_scan(uint8_t *data, uint8_t length)
 		switch (data[0])
 		{
 			case MID_TAKE_PICTURE:
-				if(length == 1) {
-					send_ACK_message(MID_TAKE_PICTURE);
-					DLOG("TAKE_PICTURE message received\n\r");
-					if(imageSendState.sendingImage == false) {
-						int takePictureImageID;
-						takePictureImageID = take_picture();
-						if(takePictureImageID >= 0) {
-							ILOG("Picture taken with image ID: ");
-							ILOG(takePictureImageID);
-							ILOG("\n\r");
-							send_PICTURE_TAKEN_message(takePictureImageID);
-							DLOG("Sent picture taken message.\n\r");
-						} else {
-							ILOG("Picture taking failed!\n\r");
+				if(onlyGetAcks == false) {
+					if(length == 1) {
+						send_ACK_message(MID_TAKE_PICTURE);
+						DLOG("TAKE_PICTURE message received\n\r");
+						if(imageSendState.sendingImage == false) {
+							int takePictureImageID;
+							takePictureImageID = take_picture();
+							if(takePictureImageID >= 0) {
+								ILOG("Picture taken with image ID: ");
+								ILOG(takePictureImageID);
+								ILOG("\n\r");
+								send_PICTURE_TAKEN_message(takePictureImageID);
+								DLOG("Sent picture taken message.\n\r");
+							} else {
+								ILOG("Picture taking failed!\n\r");
+							}
 						}
+					} else {
+						DLOG("Invalid TAKE_PICTURE message received\n\r");
 					}
-				} else {
-					DLOG("Invalid TAKE_PICTURE message received\n\r");
 				}
 				break;
 
 			case MID_IMAGE_DOWNLOAD_REQUEST:
-				if(length == 3) {
-					send_ACK_message(MID_IMAGE_DOWNLOAD_REQUEST);
-					uint16_t downloadRequestImageID;
-					downloadRequestImageID = (uint16_t)data[1] + (uint16_t)(data[2] << 8);
-					DLOG("IMAGE_DOWNLOAD_REQUEST message received with image ID ");
-					DLOG(downloadRequestImageID);
-					DLOG("\n\r");
-					// we need to see if an image with the id specified actually exists
-					char imgFileName[MAX_FILE_NAME_LENGTH];
-					snprintf(imgFileName, sizeof(imgFileName), "%s%i%s", filePrefix, downloadRequestImageID, fileExt);
-					DLOG(imgFileName);
-					DLOG("\n\r");
+				if(onlyGetAcks == false) {
+					if(length == 3) {
+						send_ACK_message(MID_IMAGE_DOWNLOAD_REQUEST);
+						uint16_t downloadRequestImageID;
+						downloadRequestImageID = (uint16_t)data[1] + (uint16_t)(data[2] << 8);
+						DLOG("IMAGE_DOWNLOAD_REQUEST message received with image ID ");
+						DLOG(downloadRequestImageID);
+						DLOG("\n\r");
+						// we need to see if an image with the id specified actually exists
+						char imgFileName[MAX_FILE_NAME_LENGTH];
+						snprintf(imgFileName, sizeof(imgFileName), "%s%i%s", filePrefix, downloadRequestImageID, fileExt);
+						DLOG(imgFileName);
+						DLOG("\n\r");
 
 
-					if(SD.exists(imgFileName)) {
-						sdFile.close(); // ensure old file is closed
-						sdFile = SD.open(imgFileName);
-						if(sdFile == false) {
-							ILOG("ERROR: JPEG file failed to open!\n\r");
-							imageSendState.sendingImage = false;
-							send_IMAGE_DOWNLOAD_INFO_message(0);
-						} else {
-							imageSendState.currentPacket = 0;
-							uint32_t size = sdFile.size();
-							imageSendState.imageFileSize = size;
-							DLOG("imageSendState.imageFileSize: ");
-							DLOG(imageSendState.imageFileSize);
-							DLOG("\n\r");
-							if(imageSendState.imageFileSize > 0) {
-								imageSendState.numPackets = imageSendState.imageFileSize / IMAGE_PACKET_SIZE;
-								if((imageSendState.imageFileSize % IMAGE_PACKET_SIZE) != 0)
-									imageSendState.numPackets += 1;
-
-								DLOG("Number of packets: ");
-								DLOG(imageSendState.numPackets);
-								DLOG("\n\r");
-								imageSendState.imageFile = sdFile;
-								imageSendState.sendingImage = true;
-								send_IMAGE_DOWNLOAD_INFO_message(imageSendState.numPackets);
-							} else {
-								ILOG("ERROR: Image file size was zero.");
+						if(SD.exists(imgFileName)) {
+							sdFile.close(); // ensure old file is closed
+							sdFile = SD.open(imgFileName);
+							if(sdFile == false) {
+								ILOG("ERROR: JPEG file failed to open!\n\r");
 								imageSendState.sendingImage = false;
 								send_IMAGE_DOWNLOAD_INFO_message(0);
-								sdFile.close();
+							} else {
+								init_image_sender();
+								imageSendState.currentPacket = 0;
+								uint32_t size = sdFile.size();
+								imageSendState.imageFileSize = size;
+								DLOG("imageSendState.imageFileSize: ");
+								DLOG(imageSendState.imageFileSize);
+								DLOG("\n\r");
+								if(imageSendState.imageFileSize > 0) {
+									imageSendState.numPackets = imageSendState.imageFileSize / IMAGE_PACKET_SIZE;
+									if((imageSendState.imageFileSize % IMAGE_PACKET_SIZE) != 0)
+										imageSendState.numPackets += 1;
+
+									DLOG("Number of packets: ");
+									DLOG(imageSendState.numPackets);
+									DLOG("\n\r");
+									imageSendState.imageFile = sdFile;
+									imageSendState.sendingImage = true;
+									send_IMAGE_DOWNLOAD_INFO_message(imageSendState.numPackets);
+								} else {
+									ILOG("ERROR: Image file size was zero.");
+									imageSendState.sendingImage = false;
+									send_IMAGE_DOWNLOAD_INFO_message(0);
+									sdFile.close();
+								}
 							}
+
+						} else {
+							ILOG("ERROR: JPEG file does not exist!\n\r");
+							// send image download message with number of packets = 0 to represent the fact that the file does not exist
+							send_IMAGE_DOWNLOAD_INFO_message(0);
 						}
 
 					} else {
-						ILOG("ERROR: JPEG file does not exist!\n\r");
-						// send image download message with number of packets = 0 to represent the fact that the file does not exist
-						send_IMAGE_DOWNLOAD_INFO_message(0);
+						DLOG("Invalid IMAGE_DOWNLOAD_REQUEST message received\n\r");
 					}
-
-				} else {
-					DLOG("Invalid IMAGE_DOWNLOAD_REQUEST message received\n\r");
 				}
 				break;
 
 			case MID_CONFIGURE_CAMERA:
-				if(length == 4) {
-					send_ACK_message(MID_CONFIGURE_CAMERA);
-					colourType = data[1];
-					rawRes = data[2];
-					jpegRes = data[3];
-					DLOG("Configuring camera. Colour Type: ");
-					DLOG((int)colourType);
-					DLOG(" Raw Resolution: ");
-					DLOG((int)rawRes);
-					DLOG(" JPEG Resolution ");
-					DLOG((int)jpegRes);
-					DLOG("\n\r");
-				} else {
-					DLOG("Invalid CONFIGURE_CAMERA message received\n\r");
+				if(onlyGetAcks == false) {
+					if(length == 4) {
+						send_ACK_message(MID_CONFIGURE_CAMERA);
+						colourType = data[1];
+						rawRes = data[2];
+						jpegRes = data[3];
+						DLOG("Configuring camera. Colour Type: ");
+						DLOG((int)colourType);
+						DLOG(" Raw Resolution: ");
+						DLOG((int)rawRes);
+						DLOG(" JPEG Resolution ");
+						DLOG((int)jpegRes);
+						DLOG("\n\r");
+					} else {
+						DLOG("Invalid CONFIGURE_CAMERA message received\n\r");
+					}
 				}
-				break;
-
-			case MID_REQUEST_RESEND:
-				send_ACK_message(MID_REQUEST_RESEND);
 				break;
 
 			case MID_CANCEL_DOWNLOAD:
@@ -148,11 +157,16 @@ void packet_scan(uint8_t *data, uint8_t length)
 				break;
 
 			case MID_ACK:
-				DLOG("Got Ack, ID: ");
-				DLOG((int)data[1]);
-				DLOG("\n\r");
+				//DLOG("Got Ack, ID: ");
+				//DLOG((int)data[1]);
+				//DLOG("\n\r");
 				ackReceived = true;
 				ackCommandID = data[1];
+				break;
+
+			case MID_NAK:
+				nakReceived = true;
+				nakCommandID = data[1];
 				break;
 
 			default: // not a valid message
@@ -209,56 +223,44 @@ void packet_tx_request()
 }
 
 bool send_PICTURE_TAKEN_message(uint16_t imageID) {
-	for (int i = 0; i < NUM_ACKFAIL_RETRIES; i++) {
+	//for (int i = 0; i < NUM_ACKFAIL_RETRIES; i++) {
 		wait_for_send_message();
-		ackReceived = false;
+	//	ackReceived = false;
 		messageToSend[0] = 3; /* length */
 		messageToSend[1] = MID_PICTURE_TAKEN; /* message ID */
 		messageToSend[2] = (uint8_t)imageID; /* image ID LSB */
 		messageToSend[3] = (uint8_t)(imageID >> 8); /* image ID MSB */
 		messageToSendLength = 4;
-		flag_want_to_send_message();
-		wait_for_send_message();
+		//flag_want_to_send_message();
+		//wait_for_send_message();
 
-		numTokens = 0; // reset the number of tokens passed to 0
-		while(numTokens < ACK_WAIT_TOKENS) {
-			if (ackReceived == true && ackCommandID == MID_PICTURE_TAKEN) {
-				DLOG("ACK found and correct.\n\r");
-				return true;
-			}
-			comms_update();
-		}
-	}
-	DLOG("ACK failed\n\r");
-	return false;
-	//send_message();
+	//	if(wait_for_ACK(MID_PICTURE_TAKEN))
+		//	return true;
+	//}
+	//DLOG("ACK failed\n\r");
+	//return false;
+	return send_message(true, NUM_ACKFAIL_RETRIES);
 }
 
 bool send_IMAGE_DOWNLOAD_INFO_message(uint16_t numPackets) {
-	for (int i = 0; i < NUM_ACKFAIL_RETRIES; i++) {
+	//for (int i = 0; i < NUM_ACKFAIL_RETRIES; i++) {
 		wait_for_send_message();
-		ackReceived = false;
+		//ackReceived = false;
 		messageToSend[0] = 3;
 		messageToSend[1] = MID_IMAGE_DOWNLOAD_INFO;
 		messageToSend[2] = (uint8_t)numPackets;
 		messageToSend[3] = (uint8_t)(numPackets >> 8);
 		messageToSendLength = 4;
-		flag_want_to_send_message();
-		wait_for_send_message();
+		//flag_want_to_send_message();
+		//wait_for_send_message();
 
-		numTokens = 0; // reset the number of tokens passed to 0
-		while(numTokens < ACK_WAIT_TOKENS) {
-			if (ackReceived == true && ackCommandID == MID_IMAGE_DOWNLOAD_INFO) {
-				DLOG("ACK found and correct.\n\r");
-				return true;
-			}
-			comms_update();
-		}
-	}
+		//if(wait_for_ACK(MID_IMAGE_DOWNLOAD_INFO))
+			//return true;
+	//}
 
-	DLOG("ACK failed\n\r");
-	return false;
-//	send_message();
+	//DLOG("ACK failed\n\r");
+	//return false;
+    return send_message(true, NUM_ACKFAIL_RETRIES);
 }
 
 void send_ACK_message(uint8_t commandIDToAck) {
@@ -267,8 +269,48 @@ void send_ACK_message(uint8_t commandIDToAck) {
 	messageToSend[1] = MID_ACK;
 	messageToSend[2] = commandIDToAck;
 	messageToSendLength = 3;
-	flag_want_to_send_message();
+	send_message(false, 1);
 	//	send_message();
+}
+
+bool send_message(bool needsAck, uint8_t numRetries) {
+	if(needsAck) {
+		for (int i = 0; i < numRetries; i++) {
+			ackReceived = false;
+			nakReceived = false;
+			flag_want_to_send_message();
+
+			wait_for_send_message();
+
+			if(wait_for_ACK(messageToSend[1]))
+				return true;
+
+			DLOG("Retrying send of command ");
+			DLOG((int)messageToSend[1]);
+			DLOG("\n\r");
+		}
+		DLOG("Sending message failed, no ACKs found \n\r");
+		return false;
+	} else {
+		flag_want_to_send_message();
+		return true;
+	}
+}
+
+bool wait_for_ACK(uint8_t commandID) {
+	numTokens = 0; // reset the number of tokens passed to 0
+	while(numTokens < ACK_WAIT_TOKENS) {
+		if (ackReceived == true && ackCommandID == commandID) {
+			DLOG("ACK found and correct.\n\r");
+			return true;
+		} else if(nakReceived && nakCommandID == commandID) {
+			return false;
+		}
+		onlyGetAcks = true;
+		comms_update();
+		onlyGetAcks = false;
+	}
+	return false;
 }
 
 void wait_for_send_message() {

@@ -41,6 +41,8 @@
 
 	#define MID_ACK						8
 
+	#define MID_NAK						9
+
 	/*//	- GS > PL: Set Colour Type [ Set Colour Type Message ID ] [ Colour Type ]
 	//	- GS > PL: Set Image Resolution [ Set Image Resolution Message ID ] [ Image Resolution ]
 	//	- GS > PL: Set Colour Type and Image Resolution [ Set Colour Type and Image Resolution Message ID ] [ Colour Type and Resolution (all one byte) ]*/
@@ -64,14 +66,19 @@ volatile extern bool messageStartSendPending;
 volatile extern bool ackReceived;
 volatile extern uint8_t ackCommandID;
 
+volatile extern bool nakReceived;
+volatile extern uint8_t nakCommandID;
+
 volatile extern uint16_t numTokens;
 
+volatile extern bool onlyGetAcks;
 
 // Function prototypes
 
 bool send_PICTURE_TAKEN_message(uint16_t imageID);
 bool send_IMAGE_DOWNLOAD_INFO_message(uint16_t numPackets);
 void send_ACK_message(uint8_t commandIDToAck);
+bool wait_for_ACK(uint8_t commandID);
 void flag_want_to_send_message();
 void wait_for_send_message();
 

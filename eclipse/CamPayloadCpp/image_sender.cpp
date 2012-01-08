@@ -11,6 +11,8 @@ void init_image_sender() {
 	imageSendState.numPackets = 0;
 	imageSendState.sendingImage = false;
 	imageSendState.imageFileSize = 0;
+	imageSendState.waitingForAck = false;
+	imageSendState.numRetries = 0;
 }
 
 
@@ -29,6 +31,8 @@ void send_IMAGE_DATA_packet() {
 	} else {
 		currPacketLength = IMAGE_PACKET_SIZE;
 	}
+
+
 
 	currPacketLength += 4; // add the length required for the packet size, message id and the current packet number data
 

@@ -23,6 +23,7 @@
 
 #include "mod/uart.h"
 #include "image_sender.h"
+#include "packet_scan.h"
 
 bool init_sd();
 
@@ -72,7 +73,40 @@ int main()
 		/* now the messages have been taken care of we need to process any flags the messages may have set
 		 */
 
-		if(imageSendState.sendingImage == true) {
+
+		if(imageSendState.sendingImage == true && imageSendState.waitingForAck == true) {
+			if(ackReceived && ackCommandID == MID_IMAGE_DATA) {
+				imageSendState.waitingForAck = false;
+				ackReceived = false;
+				DLOG("Got IMAGE_DATA ACK.\n\r");
+			}
+		}
+
+		if(imageSendState.sendingImage == true && imageSendState.waitingForAck == true) {
+			if(numTokens > ACK_WAIT_TOKENS || nakReceived == true) {
+
+				if(imageSendState.numRetries > NUM_ACKFAIL_RETRIES && nakReceived == false) {
+					imageSendState.sendingImage = false;
+					DLOG("Aborting image send.\n\r");
+				} else {
+					// we have not got an ack so we need to resend
+					if(imageSendState.numPackets < 10)
+						imageSendState.currentPacket = 0;
+					else
+						imageSendState.currentPacket = imageSendState.currentPacket - 10;
+
+					unsigned long byteNumber = imageSendState.currentPacket * IMAGE_PACKET_SIZE;
+					sdFile.seek(byteNumber);
+					imageSendState.waitingForAck = false;
+					imageSendState.numRetries++;
+					DLOG("Resending.");
+				}
+
+				nakReceived = false;
+			}
+		}
+
+		if(imageSendState.sendingImage == true && imageSendState.waitingForAck == false) {
 			//if(imageSendState.currentPacket == 0)
 				//DLOG("Starting to send image.\n\r");
 			// we are in the middle of sending an image
@@ -83,6 +117,14 @@ int main()
 				//DLOG(imageSendState.currentPacket);
 				//DLOG("\n\r");
 				send_IMAGE_DATA_packet();
+
+				if(((imageSendState.currentPacket % 10) == 0 && imageSendState.currentPacket != 0) || imageSendState.currentPacket == (imageSendState.numPackets - 1)) {
+					// wait for ack or nak
+					imageSendState.waitingForAck = true;
+					ackReceived = false;
+					nakReceived = false;
+					numTokens = 0;
+				}
 			} else {
 				imageSendState.sendingImage = false;
 				sdFile.close();
