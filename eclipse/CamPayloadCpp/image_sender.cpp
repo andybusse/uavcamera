@@ -27,11 +27,13 @@ void send_IMAGE_DATA_packet() {
 
 	if((imageSendState.currentPacket == imageSendState.numPackets - 1) && (imageSendState.imageFileSize % IMAGE_PACKET_SIZE != 0)) {
 		currPacketLength = imageSendState.imageFileSize % IMAGE_PACKET_SIZE;
-		//DLOG("Last packet\n\r");
 	} else {
 		currPacketLength = IMAGE_PACKET_SIZE;
 	}
 
+	if(imageSendState.currentPacket == imageSendState.numPackets - 1) {
+		DLOG("Last packet\n\r");
+	}
 
 
 	currPacketLength += 4; // add the length required for the packet size, message id and the current packet number data
@@ -85,7 +87,8 @@ void send_IMAGE_DATA_packet() {
 	//DLOG("Transmitted\n\r");
 
 
-	flag_want_to_send_message();
+	//flag_want_to_send_message();
+	send_message(false, NUM_ACKFAIL_RETRIES);
 	imageSendState.currentPacket++;
 
 }

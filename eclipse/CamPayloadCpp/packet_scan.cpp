@@ -38,9 +38,9 @@ void packet_scan(uint8_t *data, uint8_t length)
 {
 	if (length > 0)
 	{
-		DLOG("Got message, length: ");
-		DLOG((int)length);
-		DLOG("\n\r");
+		//DLOG("Got message, length: ");
+		//DLOG((int)length);
+		//DLOG("\n\r");
 		switch (data[0])
 		{
 			case MID_TAKE_PICTURE:
@@ -285,9 +285,9 @@ bool send_message(bool needsAck, uint8_t numRetries) {
 			if(wait_for_ACK(messageToSend[1]))
 				return true;
 
-			DLOG("Retrying send of command ");
-			DLOG((int)messageToSend[1]);
-			DLOG("\n\r");
+			//DLOG("Retrying send of command ");
+			//DLOG((int)messageToSend[1]);
+			//DLOG("\n\r");
 		}
 		DLOG("Sending message failed, no ACKs found \n\r");
 		return false;
@@ -301,7 +301,7 @@ bool wait_for_ACK(uint8_t commandID) {
 	numTokens = 0; // reset the number of tokens passed to 0
 	while(numTokens < ACK_WAIT_TOKENS) {
 		if (ackReceived == true && ackCommandID == commandID) {
-			DLOG("ACK found and correct.\n\r");
+			//DLOG("ACK found and correct.\n\r");
 			return true;
 		} else if(nakReceived && nakCommandID == commandID) {
 			return false;

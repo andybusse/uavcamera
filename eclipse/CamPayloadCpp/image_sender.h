@@ -14,6 +14,8 @@
 
 #define IMAGE_PACKET_SIZE 50
 
+#define IMAGE_ACK_RESEND_SIZE	50
+
 struct image_send_state_t {
 	bool sendingImage;
 	uint16_t currentPacket;

@@ -51,7 +51,7 @@
 #define MAX_MESSAGE_LENGTH 69
 
 // number of tokens to wait for each ACK
-#define ACK_WAIT_TOKENS	100
+#define ACK_WAIT_TOKENS	4
 #define NUM_ACKFAIL_RETRIES 3
 // Public globals
 
@@ -81,7 +81,7 @@ void send_ACK_message(uint8_t commandIDToAck);
 bool wait_for_ACK(uint8_t commandID);
 void flag_want_to_send_message();
 void wait_for_send_message();
-
+bool send_message(bool needsAck, uint8_t numRetries);
 // extern prototypes for packet_scan() and packet_rx_request() prototypes already supplied in common modules file mod/module.h but must be implemented locally
 
 #endif // __PACKET_SCAN_H

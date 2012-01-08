@@ -78,35 +78,36 @@ int main()
 			if(ackReceived && ackCommandID == MID_IMAGE_DATA) {
 				imageSendState.waitingForAck = false;
 				ackReceived = false;
-				DLOG("Got IMAGE_DATA ACK.\n\r");
+				//DLOG("Got IMAGE_DATA ACK.\n\r");
 			}
 		}
 
 		if(imageSendState.sendingImage == true && imageSendState.waitingForAck == true) {
-			if(numTokens > ACK_WAIT_TOKENS || nakReceived == true) {
 
-				if(imageSendState.numRetries > NUM_ACKFAIL_RETRIES && nakReceived == false) {
-					imageSendState.sendingImage = false;
-					DLOG("Aborting image send.\n\r");
-				} else {
-					// we have not got an ack so we need to resend
-					if(imageSendState.numPackets < 10)
-						imageSendState.currentPacket = 0;
-					else
-						imageSendState.currentPacket = imageSendState.currentPacket - 10;
+			//if(numTokens > ACK_WAIT_TOKENS || nakReceived == true) {
+				if(wait_for_ACK(MID_IMAGE_DATA) == false) {
+					if(imageSendState.numRetries > 40) {
+						imageSendState.sendingImage = false;
+						sdFile.close();
+						DLOG("Aborting image send.\n\r");
+					} else {
+						// we have not got an ack so we need to resend
+						if(imageSendState.numPackets < IMAGE_ACK_RESEND_SIZE)
+							imageSendState.currentPacket = 0;
+						else
+							imageSendState.currentPacket = imageSendState.currentPacket - IMAGE_ACK_RESEND_SIZE;
 
-					unsigned long byteNumber = imageSendState.currentPacket * IMAGE_PACKET_SIZE;
-					sdFile.seek(byteNumber);
-					imageSendState.waitingForAck = false;
-					imageSendState.numRetries++;
-					DLOG("Resending.");
+						unsigned long byteNumber = imageSendState.currentPacket * IMAGE_PACKET_SIZE;
+						sdFile.seek(byteNumber);
+						imageSendState.waitingForAck = false;
+						imageSendState.numRetries++;
+						DLOG("Resending.\n\r");
+					}
 				}
-
-				nakReceived = false;
-			}
+			//}
 		}
 
-		if(imageSendState.sendingImage == true && imageSendState.waitingForAck == false) {
+		if(imageSendState.sendingImage == true) {// && imageSendState.waitingForAck == false) {
 			//if(imageSendState.currentPacket == 0)
 				//DLOG("Starting to send image.\n\r");
 			// we are in the middle of sending an image
@@ -118,7 +119,7 @@ int main()
 				//DLOG("\n\r");
 				send_IMAGE_DATA_packet();
 
-				if(((imageSendState.currentPacket % 10) == 0 && imageSendState.currentPacket != 0) || imageSendState.currentPacket == (imageSendState.numPackets - 1)) {
+				if(((imageSendState.currentPacket % IMAGE_ACK_RESEND_SIZE) == 0 && imageSendState.currentPacket != 0) || imageSendState.currentPacket == imageSendState.numPackets) {
 					// wait for ack or nak
 					imageSendState.waitingForAck = true;
 					ackReceived = false;
